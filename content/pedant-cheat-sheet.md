@@ -52,7 +52,7 @@ means the same thing as the word "ergo."
 
 ### whether or not
 Sometimes "whether" means "if," but more often it means "if or if not," which
-would mean "whether or not" can mean "whether or not or not," which is not what
+would mean "whether or not" can mean "if or if not or not," which is not what
 you meant.  Instead, you can say "regardless of whether."  This is not a
 definite rule, though, since "whether you like it or not" is an acceptable
 phrase, even though "regardless of whether you like it" means the same thing,
@@ -70,8 +70,8 @@ This is a rule that I learned in school, and I still disagree with it, but
 rules are rules.  When punctation would logically follow a closing quotation,
 "like this," the punctuation must instead go just before the closing quote.
 The justification I heard is that "it looks better."  It's infuriating because
-it creates ambiguity when you end a sentence with a quote.  Peter read the text
-"Paul asked a question?"
+it can create ambiguity when you end a sentence with a quote.  Peter read the
+text "Paul asked a question?"
 
 ### OCD
 OCD is an initialism for obsessive-compulsive disorder, and is a noun, not an
@@ -85,7 +85,7 @@ are not pronounced as a word, but instead are only initialisms, such as CPU,
 LRU, and the NAACP.
 
 ### essentially, basically, and in essence
-These adverbs, like many adverbs, can be omitted without changing the meaning.
+These adverbs can be omitted without changing the meaning.
 
 Clichés
 -------
@@ -120,8 +120,8 @@ euphemism for "worry about it later," or "whatever."  Stronger would be
 ### professional
 Anyone who does something for money is a professional.  Anything used in such
 a profession is professional.  Usually this word is (unbeknownst to the
-speaker) a euphemism for "pretentious," "obedient," or "orthodox."  A generous
-alternative is "civil."
+speaker) a euphemism for "pretentious," "obedient," or "orthodox."  I prefer
+"civil."
 
 ### stability
 This is used instead of "not breaking."  What stable actually means is
@@ -135,12 +135,11 @@ being held accountable for success.
 
 ### bike-shedding
 This is a nice bit of jargon to describe something that happens a lot in
-computer programming, but it's a cliché.  I think "bickering" might be an
-alternative.
+computer programming, but it's a cliché.   Maybe "bickering" is an alternative.
 
 ### yak-shaving
-Honestly I haven't heard this one too much, but I've read it a lot, and used it
-before.  Alternatives are "working" or "preparing" ("work," "preparation").
+I haven't heard this one much, but I've read it, and used it before.
+Alternatives are "working" or "preparing" ("work," "preparation").
 
 ### driving
 You mean "managing."
