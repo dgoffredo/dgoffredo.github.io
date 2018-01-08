@@ -57,7 +57,7 @@ html_template = '''
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="../site/style.css" />
 
   <title>{title}</title>
 </head>
@@ -118,9 +118,9 @@ def create_page(from_path, to_path, navigate, date=None):
                                                content=content))
     return title
 
-def site_html_from_full_path(site, path):
-    "Given /full/path/to/thing.md, return ./site/thing.html"
-    return site/path.with_suffix('.html').name
+def site_html_from_full_path(path):
+    "Given /full/path/to/thing.md, return ../site/thing.html"
+    return Path('../site')/path.with_suffix('.html').name
 
 def create_posts(posts_list, page_titles, site, navigate):
     "Create site/posts.html using the specified arguments. `site` is a `Path`."
@@ -138,7 +138,7 @@ def create_posts(posts_list, page_titles, site, navigate):
     '''
 
     rows = [row_template.format(date=date,
-                                href=str(site_html_from_full_path(site, path)),
+                                href=str(site_html_from_full_path(path)),
                                 title=page_titles[path]) \
             for path, date in posts_list]
 
@@ -160,21 +160,27 @@ def generate(root):
     config = root/'config'
     navigate = (config/'navigate.html').read_text()
     site = root/'site'
-    (site/'style.css').symlink_to(config/'style.css')
+    (site/'style.css').symlink_to('../config/style.css')
 
     page_titles = {}
  
     for file_path in (root/'content').iterdir():
         file_path = file_path.resolve()
+        extension = file_path.suffix.lower()
+        if extension == '.swp':
+            # vim is such a pain
+            continue
         # If it's not a markdown file, then just create a link to it in ./site
-        if file_path.suffix.lower() not in ('.md', '.markdown'):
-            (site/file_path.name).symlink_to(file_path)
+        if extension not in ('.md', '.markdown'):
+            (site/file_path.name).symlink_to('../content' / file_path.name)
             continue
 
         # It's a markdown file, so generate HTML (with a date, if applicable)
+        # TODO: The difference between `site_html_from_full_path` and what I
+        #       do with `file_path` below is subtle.  Work that out better.
         date = post_dates.get(file_path.resolve())
         title = create_page(file_path,
-                            site_html_from_full_path(site, file_path),
+                            Path('site/')/file_path.with_suffix('.html').name,
                             navigate, 
                             date)
         
@@ -185,7 +191,7 @@ def generate(root):
                              key=lambda item: item[1],
                              reverse=True))
 
-    recent_post_html_path = site_html_from_full_path(site, posts_list[0][0])
+    recent_post_html_path = site_html_from_full_path(posts_list[0][0])
     (site/'index.html').symlink_to(recent_post_html_path)
 
     create_posts(posts_list, page_titles, site, navigate)
