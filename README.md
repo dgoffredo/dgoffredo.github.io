@@ -18,6 +18,9 @@ Put markdown files in `content/`, create symlinks to them in `posts/`, where
 each symlink has a name like `YYYY-MM-DD`, e.g. `2018-01-07`, and then run
 `make` in the repository directory.
 
+The generator requires python 3.6 and markdown, and expects both to be in the
+path.
+
 More
 ----
 See the python script [bin/generate](bin/generate).
