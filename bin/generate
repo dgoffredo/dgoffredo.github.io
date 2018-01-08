@@ -1,0 +1,195 @@
+#!/usr/bin/env python3.6
+
+"""create a simple blog from markdown files
+
+From within this kind of directory structure:
+
+    ./content/
+              grinds-my-gears.md
+              gear.png
+              happy_new_year.md
+              not_a_post.md
+   
+    ./config/
+             navigate.html
+             style.css
+
+    ./posts/
+            2018-01-01  -> ../content/happy_new_year.md
+            2018-01-05  -> ../content/grinds-my-gears.md
+
+    ./site/
+
+Run this script in `./` to generate HTML files and symlinks in the `./site/`
+directory derived from or pointing to files in `./content`.
+
+The result will be
+
+    ./content/
+              grinds-my-gears.md
+              gear.png
+              happy_new_year.md
+              not_a_post.md
+   
+    ./config/
+             navigate.html
+             style.css
+
+    ./posts/
+            2018-01-01  ->  ../content/happy_new_year.md
+            2018-01-05  ->  ../content/grinds-my-gears.md
+
+    ./site/
+           grinds-my-gears.html
+           gear.png  ->  ../content/gear.png
+           happy_new_year.html
+           not_a_post.html
+           posts.html
+           index.html  ->  ./grinds-my-gears.html
+"""
+
+from datetime import datetime
+from pathlib import Path
+import subprocess
+
+html_template = '''
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <title>{title}</title>
+</head>
+
+<body>
+
+{navigate}
+
+{date}
+
+{content}
+
+{navigate}
+
+</body>
+</html>
+'''
+
+def get_first_h1(html_markup):
+    """Don't judge me.  I tried a few things, and this is best.  When I started
+    considering shelling out to Guile Scheme to make use of SXML, I knew it was
+    time to go back to basics."""
+
+    begin = html_markup.find('<h1>') + len('<h1>')
+    if begin == -1:
+        return None
+    end = html_markup.find('</h1>', begin)
+    if end == -1:
+        return None
+
+    return html_markup[begin:end]
+
+def markdown2html(markdown_path):
+    "Return a string containing the HTML output of compiling markdown."
+    
+    return subprocess.run(['markdown', str(markdown_path)],
+                          stdout=subprocess.PIPE,
+                          encoding='utf-8',
+                          check=True).stdout
+    
+def pretty_date(date):
+    day_of_week_and_month_name = date.strftime('%A, %B ')
+    return f'{day_of_week_and_month_name} {date.day}, {date.year}'
+
+def create_page(from_path, to_path, navigate, date=None):
+    """Write HTML to the specified `to_path` from the markdown at the specified
+    `from_path`, the specified `navigate` HTML, and the optionally specified
+    `date` object.  Return the title of the generated HTML document."""
+
+    with to_path.open('w') as destination:
+        content = markdown2html(from_path)
+        title = get_first_h1(content)
+        date = '<p>' + pretty_date(date) + '</p>' if date is not None else ''
+        title = title if title is not None else ''
+        destination.write(html_template.format(title=title,
+                                               navigate=navigate,
+                                               date=date,
+                                               content=content))
+    return title
+
+def site_html_from_full_path(site, path):
+    "Given /full/path/to/thing.md, return ./site/thing.html"
+    return site/path.with_suffix('.html').name
+
+def create_posts(posts_list, page_titles, site, navigate):
+    "Create site/posts.html using the specified arguments. `site` is a `Path`."
+    
+    content_template = '''
+    <table class="posts">
+      <tr><th>Date</th><th>Post</th></tr>
+      {rows}
+    </table>
+    '''
+
+    row_template = '''
+      <tr><td>{date}</td>
+          <td><a href="{href}">{title}</a></td></tr>
+    '''
+
+    rows = [row_template.format(date=date,
+                                href=str(site_html_from_full_path(site, path)),
+                                title=page_titles[path]) \
+            for path, date in posts_list]
+
+    content = content_template.format(rows='\n'.join(rows))
+
+    with (site/'posts.html').open('w') as f:
+        f.write(html_template.format(title='Posts',
+                                     navigate=navigate,
+                                     date='',
+                                     content=content))
+
+def generate(root):
+    posts = root/'posts'
+    post_dates = { 
+        p.resolve(): datetime.strptime(p.name, "%Y-%m-%d").date() \
+        for p in posts.iterdir()
+    }
+
+    config = root/'config'
+    navigate = (config/'navigate.html').read_text()
+    site = root/'site'
+    (site/'style.css').symlink_to(config/'style.css')
+
+    page_titles = {}
+ 
+    for file_path in (root/'content').iterdir():
+        file_path = file_path.resolve()
+        # If it's not a markdown file, then just create a link to it in ./site
+        if file_path.suffix.lower() not in ('.md', '.markdown'):
+            (site/file_path.name).symlink_to(file_path)
+            continue
+
+        # It's a markdown file, so generate HTML (with a date, if applicable)
+        date = post_dates.get(file_path.resolve())
+        title = create_page(file_path,
+                            site_html_from_full_path(site, file_path),
+                            navigate, 
+                            date)
+        
+        page_titles[file_path] = title
+
+    # Most recent first [(full path, date) ...]
+    posts_list = list(sorted(post_dates.items(),
+                             key=lambda item: item[1],
+                             reverse=True))
+
+    recent_post_html_path = site_html_from_full_path(site, posts_list[0][0])
+    (site/'index.html').symlink_to(recent_post_html_path)
+
+    create_posts(posts_list, page_titles, site, navigate)
+
+if __name__ == '__main__':
+    generate(Path.cwd())
+
