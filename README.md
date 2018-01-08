@@ -1,6 +1,7 @@
 dgoffredo.github.io
 ===================
-Here's a bare-bones hand-written blog generator.
+Here's a bare-bones hand-written blog generator.  I use it to create
+[my blog](https://dgoffredo.github.io/).
 
 Why
 ---
