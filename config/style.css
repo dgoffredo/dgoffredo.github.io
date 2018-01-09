@@ -5,18 +5,18 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
                  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
                  "Segoe UI Symbol";
-    font-size: 18pt;
+    font-size: 16pt;
     line-height: 1.5;
     color: #24292e;
 }
 
 table.navigate {
     width: 100%;
-    font-size: 16pt;
+    font-size: 14pt;
 }
 
 table.posts {
     width: 100%;
     text-align: left;
-	font-size: 18pt;
+	font-size: 16pt;
 }
