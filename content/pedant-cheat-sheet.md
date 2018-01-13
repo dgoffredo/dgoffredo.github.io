@@ -91,7 +91,7 @@ Clichés
 -------
 Sometimes I say something because it's close enough to what I mean, and I know
 it will create the desired association in the mind of the listener, but it's
-not exectly what I mean.  I'd do better to avoid that.
+not exactly what I mean.  I'd do better to avoid that.
 
 ### at this point in time
 You mean "now."  If using the simple word "now" makes what you're saying sound
