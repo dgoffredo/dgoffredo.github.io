@@ -52,10 +52,13 @@ from datetime import datetime
 from pathlib import Path
 import subprocess
 
+# Note that this is actually XML.  I omit the XHTML-required "!DOC" stuff,
+# though, because I found that it caused browsers to ignore CSS's max-width
+# style.
 html_template = '''
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
 
   <link rel="stylesheet" type="text/css" href="../site/style.css" />
 
@@ -76,6 +79,7 @@ html_template = '''
 </html>
 '''
 
+# TODO Use an XML parser.  It will come in handy for a table of contents, too.
 def get_first_h1(html_markup):
     """Don't judge me.  I tried a few things, and this is best.  When I started
     considering shelling out to Guile Scheme to make use of SXML, I knew it was
@@ -166,13 +170,15 @@ def generate(root):
  
     for file_path in (root/'content').iterdir():
         file_path = file_path.resolve()
-        extension = file_path.suffix.lower()
-        if extension == '.swp':
-            # vim is such a pain
+        name      = file_path.name
+        if name.startswith('.'):
+            # ignore "hidden" files (e.g. vim swap files)
             continue
+
+        extension = file_path.suffix.lower()
         # If it's not a markdown file, then just create a link to it in ./site
         if extension not in ('.md', '.markdown'):
-            (site/file_path.name).symlink_to('../content' / file_path.name)
+            (site/name).symlink_to('../content/' + name)
             continue
 
         # It's a markdown file, so generate HTML (with a date, if applicable)

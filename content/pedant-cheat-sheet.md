@@ -26,7 +26,7 @@ You mean "condense."
 A less common mistake, but similar to above, you mean "converse."
 
 ### irregardless
-You mean "regardless."
+You mean "regardless."  I don't care what Merriam-Webster says.
 
 ### evacipate
 You mean to "time travel," or perhaps to _bill murray_ or to _carruthanize_ (an

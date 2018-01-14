@@ -19,4 +19,9 @@ table.posts {
     width: 100%;
     text-align: left;
 	font-size: 16pt;
+    line-height: 2;
+}
+
+div.table-of-contents {
+    font-size: 14pt;
 }
