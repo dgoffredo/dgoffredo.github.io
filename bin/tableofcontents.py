@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.6
 
 import itertools
 import re
@@ -160,10 +161,55 @@ def insert_table_of_contents(html, max_depth=None):
 
     container.append(table_of_contents)
 
-# TODO Just playing with it.
+def add_table_of_contents(html_text, max_depth=None):
+    """Return a string that is `html_text` with a table of contents."""
+    html = ET.fromstring(html_text)
+    insert_table_of_contents(html, max_depth)
+    return ET.tostring(html, encoding='unicode')
+
+def with_table_of_contents(in_file, out_file, max_depth=None):
+    """Add a table of contents to HTML text.
+
+    Read the HTML from the `in_file` file-like object, add a table of contents
+    to the HTML, and write the resulting HTML to the `out_file` file-like
+    object. Use at most `max_depth` layers of nesting the table of contents, or
+    enforce no limit if `max_depth` is `None`.
+    """
+    html = ET.parse(in_file).getroot()
+    insert_table_of_contents(html, max_depth)
+    out_file.write(ET.tostring(html, encoding='unicode'))
+
 if __name__ == '__main__':
-    from sys import argv
-    path = '../site/pedant-cheat-sheet.html' if len(argv) < 2 else argv[1]
-    html = ET.parse(path).getroot()
-    insert_table_of_contents(html, max_depth=2)
-    print(ET.tostring(html, encoding='unicode'))
+    import argparse
+    import shutil
+    import sys
+
+    from pathlib import Path
+    from tempfile import NamedTemporaryFile
+
+    parser = argparse.ArgumentParser(
+        description='Add a table of contents to HTML.')
+    parser.add_argument('--in-place', '-i', action='store_true',
+                        help='modify the input file in place')
+    parser.add_argument('--depth', '-d', type=int, nargs='?',
+                        help='maximum nesting depth in table of contents')
+    parser.add_argument('input', nargs='?',
+                        help='input HTML file; absent or - for standard input')
+    options = parser.parse_args()
+   
+    use_stdin = options.input is None or options.input == '-'
+    if options.in_place and use_stdin:
+        print('Must specify an input file if modifying in place.',
+              file=sys.stderr)
+        sys.exit(1)
+ 
+    in_file = sys.stdin if use_stdin else open(options.input)
+
+    if options.in_place:
+        output = NamedTemporaryFile(mode='w', encoding='utf-8', delete=False)
+        with_table_of_contents(in_file, output, options.depth)
+        in_file.close()
+        shutil.move(output.name, in_file.name)
+    else:
+        with_table_of_contents(in_file, sys.stdout, options.depth)
+

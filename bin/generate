@@ -48,6 +48,8 @@ The result will be
            index.html  ->  ./grinds-my-gears.html
 """
 
+import tableofcontents
+
 from datetime import datetime
 from pathlib import Path
 import subprocess
@@ -70,6 +72,8 @@ html_template = '''
 {navigate}
 
 {date}
+
+{table_of_contents}
 
 {content}
 
@@ -116,10 +120,18 @@ def create_page(from_path, to_path, navigate, date=None):
         title = get_first_h1(content)
         date = '<p>' + pretty_date(date) + '</p>' if date is not None else ''
         title = title if title is not None else ''
-        destination.write(html_template.format(title=title,
-                                               navigate=navigate,
-                                               date=date,
-                                               content=content))
+        toc = '<div class="table-of-contents"></div>'
+        html = html_template.format(title=title,
+                                    navigate=navigate,
+                                    date=date,
+                                    table_of_contents=toc,
+                                    content=content)
+        if date is not None:
+            # This is a post, so expand the table of contents.
+            html = tableofcontents.add_table_of_contents(html, max_depth=2)
+
+        destination.write(html)
+
     return title
 
 def site_html_from_full_path(path):
@@ -152,6 +164,7 @@ def create_posts(posts_list, page_titles, site, navigate):
         f.write(html_template.format(title='Posts',
                                      navigate=navigate,
                                      date='',
+                                     table_of_contents='',
                                      content=content))
 
 def generate(root):
@@ -185,10 +198,13 @@ def generate(root):
         # TODO: The difference between `site_html_from_full_path` and what I
         #       do with `file_path` below is subtle.  Work that out better.
         date = post_dates.get(file_path.resolve())
+        html_path = Path('site/')/file_path.with_suffix('.html')
         title = create_page(file_path,
-                            Path('site/')/file_path.with_suffix('.html').name,
+                            html_path,
                             navigate, 
                             date)
+
+        # TODO Table of contents
         
         page_titles[file_path] = title
 
