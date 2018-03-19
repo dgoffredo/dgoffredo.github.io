@@ -1,0 +1,232 @@
+<html>
+<head>
+  <meta charset="UTF-8" />
+
+  <link href="../site/style.css" rel="stylesheet" type="text/css" />
+
+  <title>Callbacks (Part 2)</title>
+</head>
+
+<body>
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td><a href="../site/posts.html">Posts</a></td>
+      <td><a href="https://www.github.com/dgoffredo">About</a></td>
+      <td>
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<p>Sunday, March  18, 2018</p>
+
+<div class="table-of-contents"><ul><li><a href="#callbacks_part_2">Callbacks (Part 2)</a><ul><li><a href="#injecting_a_default">Injecting a Default</a></li><li><a href="#writing_the_forwarding_implementation">Writing the Forwarding Implementation</a></li></ul></li></ul></div>
+
+<h1 id="callbacks_part_2">Callbacks (Part 2)</h1>
+
+<p><a href="callbacks.html">Previously</a> I described an API for submitting a query asynchronously
+in such a way that the caller provides the object into which the query results
+are written, but without having to specify an object factory.  It looked like
+this:</p>
+
+<pre><code>class DatabaseAccessor {
+
+    template &lt;typename Results&gt;
+    using Callback = 
+        std::function&lt;void(const std::function&lt;void(Results&amp;)&gt;&amp;)&gt;;
+
+    template &lt;typename Results&gt;
+    void asyncQuery(const std::string_view&amp;  query,
+                    const Callback&lt;Results&gt;&amp; callback);
+};
+</code></pre>
+
+<p>For brevity, let's define a couple of macros<a id="macros" />:</p>
+
+<pre><code>#define FN(...) std::function&lt;void(__VA_ARGS__)&gt;
+#define CB(...) const FN(__VA_ARGS__)&amp;
+</code></pre>
+
+<p>So we have:</p>
+
+<pre><code>class DatabaseAccessor {
+
+    template &lt;typename Results&gt;
+    void asyncQuery(const std::string_view&amp;  query,
+                    CB(CB(Results&amp;)          callback);
+};
+</code></pre>
+
+<p>What if, in addition to producing result sets, this database API also has a
+concept of output parameters?  These are like query parameters, except that
+their values are overwritten by the query rather than used in it.</p>
+
+<p>We could define an overload of <code>DatabaseAccessor::asyncQuery</code> that takes a
+callback with an amended signature:</p>
+
+<pre><code>class DatabaseAccessor {
+
+    template &lt;typename Results&gt;
+    void asyncQuery(const std::string_view&amp;  query,
+                    CB(CB(Results&amp;)          callback);
+
+    template &lt;typename Results, typename OutputParameters&gt;
+    void asyncQuery(const std::string_view&amp;            query,
+                    CB(CB(Results&amp;, OutputParameters&amp;) callback);
+};
+</code></pre>
+
+<p>If the user wants output parameters, then he provides a callback that fits
+the second signature, while if he doesn't want output parameters, he specifies
+a callback that fits the first signature.</p>
+
+<h2 id="injecting_a_default">Injecting a Default</h2>
+
+<p>Most users don't want output parameters.  They're a strange concept in
+databases, they can always be replaced by multiple result sets instead, and
+Microsoft SQL Server is the only database I've worked with that has them.  It
+would be ideal to appropriate as little code in our library to support them as
+possible.</p>
+
+<p>To this end, observe that since this library deduces the structure of its
+output from the types of the output parameters (using <a href="https://bloomberg.github.io/bde/group__bdlat.html">this</a>), to omit
+the <code>OutputParameters</code> argument is the same as if you specified one, but one
+whose structure describes the absence of data: an "empty sequence."</p>
+
+<p>In other words, if you don't specify the <code>OutputParameters</code>, the library knows
+to expect no output parameters from the query.  Also, though, if you specify
+an <code>OutputParameters</code> that has no members, the library knows to expect no
+output parameters.</p>
+
+<p>So, let's define a helper type, <code>EmptySequence</code>, that has no members and
+introspection into which indicates "nothing to put here."  Then the first
+overload of <code>DatabaseAccessor::asyncQuery</code> can be written in terms of the
+second, "as if" the user had specified an <code>EmptySequence</code> for
+<code>OutputParameters</code> rather than not specifying that argument at all.</p>
+
+<p>How do you write this?  I find it very tricky to think about.</p>
+
+<h2 id="writing_the_forwarding_implementation">Writing the Forwarding Implementation</h2>
+
+<p>Let's look at the code again:</p>
+
+<pre><code>class DatabaseAccessor {
+
+    template &lt;typename Results&gt;
+    void asyncQuery(const std::string_view&amp;  query,
+                    CB(CB(Results&amp;)          callback);
+
+    template &lt;typename Results, typename OutputParameters&gt;
+    void asyncQuery(const std::string_view&amp;            query,
+                    CB(CB(Results&amp;, OutputParameters&amp;) callback);
+};
+</code></pre>
+
+<p>We want to implement the first in terms of the second using the <code>EmptySequence</code>
+type for the dummy <code>OutputParameters</code>.</p>
+
+<pre><code>template &lt;typename Results&gt;
+void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
+                                  CB(CB(Results&amp;)         callback)
+{
+    asyncQuery(query, /* ? */);
+}
+</code></pre>
+
+<p>The difference, of course, is in the second argument of each <code>asyncQuery</code>
+overload.  We're given a function that takes a function that takes a
+<code>Results&amp;</code>, and we need to call the overload that takes a function that takes
+a function that takes a <code>Results&amp;</code> and an <code>EmptySequence&amp;</code>, and we must
+additionally see to it that the <code>EmptySequence&amp;</code> refers to some (dummy)
+instance.</p>
+
+<p>One way to think about this is that we need a function, <code>injectDummy</code>, that
+maps one type of function into another type of function:</p>
+
+<pre><code>template &lt;typename Results&gt;
+void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
+                                  CB(CB(Results&amp;)         callback)
+{
+    asyncQuery(query, injectDummy(callback));
+}
+</code></pre>
+
+<p>where <code>injectDummy</code> has the following signature:</p>
+
+<pre><code>template &lt;typename Results&gt;
+FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)));
+</code></pre>
+
+<p>You might want to look again at what the <code>FN</code> and <code>CB</code> <a href="#macros">macros</a> mean.</p>
+
+<p>You know that thing where when you have a cube drawn in two dimensions, you can
+think of some of its corners as popping out of the page at you <em>or</em> as going
+into the page, and if you do something weird in your mind you can switch back
+and forth?</p>
+
+<p>I feel like figuring out an answer to this C++ puzzle gave me a new sort of
+facility along those lines.  Here's the implementation of <code>injectDummy</code> that I
+came up with, written using lambda expressions:</p>
+
+<pre><code>template &lt;typename Results&gt;
+FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callback)
+{
+    return [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
+        EmptySequence dummy;
+        callback([&amp;](Results&amp; results) {
+            innerCallback(results, dummy);
+        });
+    };
+}
+</code></pre>
+
+<p>It's not complicated at all once it's written down.</p>
+
+<p>I don't know enough Haskell to say whether there's a fancy name for this
+operation, but it does feel a bit mathy, doesn't it?</p>
+
+<p>So there we have it -- the no-output-parameters overload written in terms of 
+the output-parameters overload:</p>
+
+<pre><code>template &lt;typename Results&gt;
+FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callback)
+{
+    return [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
+        EmptySequence dummy;
+        callback([&amp;](Results&amp; results) {
+            innerCallback(results, dummy);
+        });
+    };
+}
+
+template &lt;typename Results&gt;
+void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
+                                  CB(CB(Results&amp;)         callback)
+{
+    asyncQuery(query, injectDummy(callback));
+}
+</code></pre>
+
+<p>A colleague of mine called this "like the opposite of bind," or maybe it's an
+inside-out bind.  Six lines of C++11 is what it is.</p>
+
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td><a href="../site/posts.html">Posts</a></td>
+      <td><a href="https://www.github.com/dgoffredo">About</a></td>
+      <td>
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+</body>
+</html>

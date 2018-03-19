@@ -3,3 +3,6 @@
 .*.swo
 .*.swn
 .*.swm
+
+# python
+__pycache__
