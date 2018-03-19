@@ -239,4 +239,4 @@ additional factory argument.
 If this sort of thing interests you, then take a look at [part 2][part2].
 
 [bdlat]: https://bloomberg.github.io/bde/group__bdlat.html
-[part2]: callbacks2.html
+[part2]: /site/callbacks2.html
