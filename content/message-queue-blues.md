@@ -138,7 +138,7 @@ Associate a UNIX domain socket with the message queue.  When a client wants to
 enqueue or dequeue, he tries to connect to the socket.  If that fails, he
 deletes the socket, fork/exec a known program, e.g.
 `/usr/bin/local-queue-broker`, passing it the path to the (deleted) domain
-socket.  `local-queue-broker` will try to listen on the socket.  If it
+socket.  `local-queue-broker` will try to bind and listen on the socket.  If it
 succeeds, then it continues to execute as the broker of the message queue.  If
 it fails, then it exits.  The parent process, meanwhile, keeps trying to
 connect, sleeping briefly between each failure.
