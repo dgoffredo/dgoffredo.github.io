@@ -1,0 +1,21 @@
+digraph {
+	D [label="D"];
+	F [label="F"];
+	H [label="H"];
+	A [label="A"];
+	E [label="E"];
+	G [label="G"];
+	C [label="C"];
+	B [label="B"];
+
+	A -> C;
+	A -> B;
+	D -> E;
+	D -> F [color="purple"];
+	F -> A [color="purple"];
+	F -> G;
+	F -> B;
+	A -> D [color="purple"];
+	G -> H;
+	G -> D;
+}
