@@ -49,7 +49,7 @@ The reason that it works is that in this synchronous API, the user creates the
 
     database.syncQuery("execute GetContract(@id, @client);", results, params);
 
-_But what about an asynchronous API?_  In that case, it's the library that will
+*But what about an asynchronous API?*  In that case, it's the library that will
 be creating the `Results` object.  For example:
 
     class DatabaseAccessor {

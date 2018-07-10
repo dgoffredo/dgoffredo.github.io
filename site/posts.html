@@ -1,9 +1,19 @@
 
 <html>
+<!-- Note that this is actually XML. I omit the XHTML-required "!DOC" stuff,
+     though, because I found that it caused browsers to ignore CSS's max-width
+     style. -->
 <head>
   <meta charset="UTF-8" />
 
   <link rel="stylesheet" type="text/css" href="../site/style.css" />
+
+  <link rel="stylesheet" href="../highlightjs/styles/default.css" />
+
+  <!-- The space character prevents etree from omitting the closing tag. -->
+  <script src="../highlightjs/highlight.pack.js"> </script>
+
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <title>Posts</title>
 </head>

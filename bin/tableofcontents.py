@@ -163,6 +163,11 @@ def insert_table_of_contents(html, max_depth=None):
 
 def add_table_of_contents(html_text, max_depth=None):
     """Return a string that is `html_text` with a table of contents."""
+    debugging = False
+    if debugging:
+        for i, line in enumerate(html_text.split('\n')):
+            print(f'{i:3}: {line}')
+
     html = ET.fromstring(html_text)
     insert_table_of_contents(html, max_depth)
     return ET.tostring(html, encoding='unicode')

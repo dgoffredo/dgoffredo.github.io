@@ -1,13 +1,22 @@
 body {
-    /* Limiting the width, the chosen font, the line height, and the color,
-       are all based off of what github.com does when displaying markdown. */
-    max-width: 700;
+    /* Limiting the width (see p below), the chosen font, the line height, and
+       the color, are all based off of what github.com does when displaying
+       markdown. */
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
                  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
                  "Segoe UI Symbol";
     font-size: 16pt;
     line-height: 1.5;
     color: #24292e;
+}
+
+/* Code snippets are only as wide as their content. */
+pre {
+    display: table;
+}
+
+p, table.navigate {
+    max-width: 700;
 }
 
 table.navigate {
