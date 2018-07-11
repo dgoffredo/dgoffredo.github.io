@@ -208,7 +208,7 @@ def generate(root):
         # TODO: The difference between `site_html_from_full_path` and what I
         #       do with `file_path` below is subtle.  Work that out better.
         date = post_dates.get(file_path.resolve())
-        html_path = Path('site/')/file_path.with_suffix('.html')
+        html_path = Path('site/')/file_path.with_suffix('.html').name
         title = create_page(file_path,
                             html_path,
                             navigate, 
