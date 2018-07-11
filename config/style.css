@@ -13,6 +13,7 @@ body {
 /* Code snippets are only as wide as their content. */
 pre {
     display: table;
+    min-width: 700;
 }
 
 p, table.navigate {

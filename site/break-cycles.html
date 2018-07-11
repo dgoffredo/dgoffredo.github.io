@@ -1,13 +1,16 @@
-<html>
 
+<html>
+<!-- Note that this is actually XML. I omit the XHTML-required "!DOC" stuff,
+     though, because I found that it caused browsers to ignore CSS's max-width
+     style. -->
 <head>
   <meta charset="UTF-8" />
 
-  <link href="../site/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="../site/style.css" />
 
-  <link href="../highlightjs/styles/default.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../highlightjs/styles/default.css" />
 
-  
+  <!-- The space character prevents etree from omitting the closing tag. -->
   <script src="../highlightjs/highlight.pack.js"> </script>
 
   <script>hljs.initHighlightingOnLoad();</script>
@@ -32,13 +35,13 @@
 
 
 
-<div class="table-of-contents"><ul><li><a href="#code_generation_and_the_minimum_feedback_arc_set">Code Generation and the Minimum Feedback Arc Set</a><ul><li><a href="#generating_c_classes">Generating C++ Classes</a></li><li><a href="#larger_cycles">Larger Cycles</a></li></ul></li></ul></div>
+<div class="table-of-contents"></div>
 
-<h1 id="code_generation_and_the_minimum_feedback_arc_set">Code Generation and the Minimum Feedback Arc Set</h1>
+<h1>Code Generation and the Minimum Feedback Arc Set</h1>
 
 <p>I ran into a graph problem recently.</p>
 
-<h2 id="generating_c_classes">Generating C++ Classes</h2>
+<h2>Generating C++ Classes</h2>
 
 <p>One day I'll write a <a href="https://github.com/bloomberg/bde/blob/master/groups/bdl/bdlat/doc/bdlat.txt">bdlat</a>-compatible C++ class
 <a href="https://github.com/dgoffredo/bat-codegen">generator</a>. It will allow you to write things like <code>basic.bdlat</code>:</p>
@@ -103,7 +106,7 @@ defined as:</p>
 
 <p>That would work.</p>
 
-<h2 id="larger_cycles">Larger Cycles</h2>
+<h2>Larger Cycles</h2>
 
 <p>When a type depends upon itself, it doesn't necessarily do so by having itself
 as a member (as was nearly the case with <code>Value</code> above). It could be that the
@@ -128,11 +131,11 @@ directed path from <code>A</code> to <code>B</code> in the dependency graph.</p>
 
 <p>The graph for the types in <code>(package basic ...)</code>, above, looks like this:</p>
 
-<p><img alt="dependency graph of &quot;Value&quot;" src="just-value.svg" title="" /></p>
+<p><img src="just-value.svg" alt="dependency graph of &quot;Value&quot;" title="" /></p>
 
 <p>Not very interesting. But suppose it looked like this instead:</p>
 
-<p><img alt="a more complicated dependency graph" src="cyclic.svg" title="" /></p>
+<p><img src="cyclic.svg" alt="a more complicated dependency graph" title="" /></p>
 
 
 <div>
