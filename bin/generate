@@ -136,7 +136,7 @@ def create_page(from_path, to_path, navigate, date=None):
                                     date=date,
                                     table_of_contents=toc,
                                     content=content)
-        if date is not None:
+        if date:
             # This is a post, so expand the table of contents.
             html = tableofcontents.add_table_of_contents(html, max_depth=2)
 
