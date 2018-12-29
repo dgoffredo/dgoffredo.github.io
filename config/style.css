@@ -16,7 +16,12 @@ pre {
     min-width: 700;
 }
 
-p, table.navigate {
+/* Make the background of code look different from surrounding text. */
+code {
+    background: #F0F0F0
+}
+
+p, table.navigate, ul, ol {
     max-width: 700;
 }
 
