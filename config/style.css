@@ -21,7 +21,7 @@ code {
     background: #F0F0F0
 }
 
-p, table.navigate, ul, ol {
+p, table.navigate, table.posts, ul, ol {
     max-width: 700;
 }
 
@@ -32,7 +32,6 @@ table.navigate {
 
 table.posts {
     width: 100%;
-    text-align: left;
 	font-size: 16pt;
     line-height: 2;
 }
