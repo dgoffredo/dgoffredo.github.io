@@ -1,5 +1,12 @@
 Llama JSON
 ==========
+
+<table>
+  <tr><td><img src="../site/llama.jpg" /></td>
+      <td><img src="../site/json.gif" /></td>
+  </tr>
+</table>
+
 Playing with a [pet project][pet project], I noticed a relationship between
 [s-expressions][s-expressions] and [JSON][JSON].
 
