@@ -153,13 +153,13 @@ def create_posts(posts_list, page_titles, site, navigate):
     
     content_template = '''
     <table class="posts">
-      <tr><th>Date</th><th align="right">Post</th></tr>
+      <tr><th align="left">Date</th><th align="right">Post</th></tr>
       {rows}
     </table>
     '''
 
     row_template = '''
-      <tr><td>{date}</td>
+      <tr><td align="left">{date}</td>
           <td align="right"><a href="{href}">{title}</a></td></tr>
     '''
 
