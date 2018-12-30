@@ -49,7 +49,7 @@ Ideally that would be the same as:
 
 Values could even be substituted in:
 
-    (let ([names ("John" "Paul" "George" "Ringo")])
+    (let ([names ["John" "Paul" "George" "Ringo"]])
       (json {
           "Beatles": names,
           "musicians": names,
