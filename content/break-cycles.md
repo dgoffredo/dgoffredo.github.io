@@ -43,12 +43,16 @@ like:
           // ...
     };
 
-We've already run into trouble. `Value`'s size depends on its own size. To work
-around this, a level of indirection is needed. Suppose the class template
-`Allocated<T>` were a wrapper around a heap-allocated `T` referred to by a
-`T*`, but with value semantics rather than pointer semantics (i.e. copying the
-`Allocated<T>` copies the referred to `T` instance). Then `Value` can be
-defined as:
+A real implementation would need to account for choice elements having the same
+type, and so the types in the `Variant` would each have to be tagged with a
+distinct integer, but let's ignore that for now.
+
+We've already run into worse trouble, because this code won't even compile.
+`Value`'s size depends on its own size. To work around this, a level of
+indirection is needed. Suppose the class template `Allocated<T>` were a
+wrapper around a heap-allocated `T` referred to by a `T*`, but with value
+semantics rather than pointer semantics (i.e. copying the `Allocated<T>`
+copies the referred to `T` instance). Then `Value` can be defined as:
 
     class Value {
         bdlb::Variant<int64_t,
@@ -62,7 +66,7 @@ defined as:
         // ...
     };
 
-That would work.
+That would work, because `Allocated<T>`'s size is independent of `T`.
 
 Larger Cycles
 -------------

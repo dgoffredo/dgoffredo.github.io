@@ -6,6 +6,8 @@
 <head>
   <meta charset="UTF-8" />
 
+  <link rel="shortcut icon" type="image/x-icon" href="../site/favicon.ico" />
+
   <link rel="stylesheet" type="text/css" href="../site/style.css" />
 
   <link rel="stylesheet" href="../highlightjs/styles/default.css" />
@@ -88,12 +90,16 @@ like:</p>
 };
 </code></pre>
 
-<p>We've already run into trouble. <code>Value</code>'s size depends on its own size. To work
-around this, a level of indirection is needed. Suppose the class template
-<code>Allocated&lt;T&gt;</code> were a wrapper around a heap-allocated <code>T</code> referred to by a
-<code>T*</code>, but with value semantics rather than pointer semantics (i.e. copying the
-<code>Allocated&lt;T&gt;</code> copies the referred to <code>T</code> instance). Then <code>Value</code> can be
-defined as:</p>
+<p>A real implementation would need to account for choice elements having the same
+type, and so the types in the <code>Variant</code> would each have to be tagged with a
+distinct integer, but let's ignore that for now.</p>
+
+<p>We've already run into worse trouble, because this code won't even compile.
+<code>Value</code>'s size depends on its own size. To work around this, a level of
+indirection is needed. Suppose the class template <code>Allocated&lt;T&gt;</code> were a
+wrapper around a heap-allocated <code>T</code> referred to by a <code>T*</code>, but with value
+semantics rather than pointer semantics (i.e. copying the <code>Allocated&lt;T&gt;</code>
+copies the referred to <code>T</code> instance). Then <code>Value</code> can be defined as:</p>
 
 <pre><code>class Value {
     bdlb::Variant&lt;int64_t,
@@ -108,7 +114,7 @@ defined as:</p>
 };
 </code></pre>
 
-<p>That would work.</p>
+<p>That would work, because <code>Allocated&lt;T&gt;</code>'s size is independent of <code>T</code>.</p>
 
 <h2>Larger Cycles</h2>
 

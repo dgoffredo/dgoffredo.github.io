@@ -65,6 +65,8 @@ html_template = '''
 <head>
   <meta charset="UTF-8" />
 
+  <link rel="shortcut icon" type="image/x-icon" href="../site/favicon.ico" />
+
   <link rel="stylesheet" type="text/css" href="../site/style.css" />
 
   <link rel="stylesheet" href="../highlightjs/styles/default.css" />
@@ -93,11 +95,8 @@ html_template = '''
 </html>
 '''
 
-# TODO Use an XML parser.  It will come in handy for a table of contents, too.
 def get_first_h1(html_markup):
-    """Don't judge me.  I tried a few things, and this is best.  When I started
-    considering shelling out to Guile Scheme to make use of SXML, I knew it was
-    time to go back to basics."""
+    """Don't judge me.  I tried a few things, and this is best."""
 
     begin = html_markup.find('<h1>') + len('<h1>')
     if begin == -1:
@@ -214,8 +213,6 @@ def generate(root):
                             navigate, 
                             date)
 
-        # TODO Table of contents
-        
         page_titles[file_path] = title
 
     # Most recent first [(full path, date) ...]
