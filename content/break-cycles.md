@@ -314,7 +314,8 @@ As I said before, this algorithm can't be right. What might help is a
 [test suite][test] that randomly generates directed graphs, and then compares
 the result of this algorithm with the result of brute-force checking the power
 set of the graph's edges. I could hope to find a counter-example that way,
-though none very large, since the brute force solution is superexponential.
+though none very large, since the brute force solution is exponential in the
+number of edges.
 
 [bdlat]: https://github.com/bloomberg/bde/blob/master/groups/bdl/bdlat/doc/bdlat.txt
 [generator]: https://github.com/dgoffredo/bat-codegen
