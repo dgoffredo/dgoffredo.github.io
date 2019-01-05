@@ -221,7 +221,7 @@ remove from a cyclic directed graph to render it acyclic is called [the
 minimum feedback arc set problem][minimum], and it's
 [NP-complete][NP-complete], which [sucks][sucks].
 
-Apparently the solution can be approximated to an arbirary level of accuracy,
+Apparently the solution can be approximated to an arbitrary level of accuracy,
 but unless I find a tested implementation of one of the approximate or complete
 solutions in an off-the-shelf graph library, I'm not about to implement it
 myself for a code generator.
