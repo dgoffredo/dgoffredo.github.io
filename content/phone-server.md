@@ -177,7 +177,7 @@ port X, instead forward that connection to local address Y on port Z."
 So, I navigated to my router's admin web interface at `http://192.168.1.1`, and
 configured the following settings:
 
-![port forwarding](port-forwarding.png)
+![port forwarding](../site/port-forwarding.png)
 
 `192.168.1.4` is the local address of my old phone, which is connected to the
 router over Wi-Fi, port `80` is the port on which I can expect HTTP requests to
@@ -199,7 +199,7 @@ phone.  Otherwise, the next time I restart the phone or the router, the phone
 might be assigned a different local address (e.g. `192.168.1.5`).  The router
 has another option for this, called "address reservation."
 
-![address reservation](address-reservation.png)
+![address reservation](../site/address-reservation.png)
 
 This says that any device having my laptop's [MAC address](https://en.wikipedia.org/wiki/MAC_address)
 (which is just my laptop) will be assigned local address `192.168.1.2`, and any
@@ -236,7 +236,7 @@ an HTTP request to the old Android phone sitting in my apartment.
 
 FreeDNS's web interface looks like this:
 
-![FreeDNS](freedns.png)
+![FreeDNS](../site/freedns.png)
 
 That service even has a programmatic API, so in principle I could carry around
 my web server it my pocket, and every time it entered a new network and was
