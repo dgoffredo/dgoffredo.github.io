@@ -138,7 +138,7 @@ directed path from <code>A</code> to <code>B</code> in the dependency graph.</p>
 
 <p>The graph for the types in <code>(package basic ...)</code>, above, looks like this:</p>
 
-<p><img alt="dependency graph of &quot;Value&quot;" src="../site/just-value.svg" title="" /></p>
+<p><img alt="dependency graph of &quot;Value&quot;" src="../site/just-value.dot.png" title="" /></p>
 
 <p>It has one vertex and one edge, from <code>Value</code> to itself: because (before our
 modification) <code>Value</code> <em>contains</em> <code>Value</code>. Our modification, though, creates
@@ -146,16 +146,16 @@ a level of indirection: replacing <code>Value</code> with <code>Allocated&lt;Val
 class definition removes the one edge in the graph, since <code>Value</code> no longer
 contains <code>Value</code>:</p>
 
-<p><img alt="no more cycle" src="../site/bare-value.svg" title="" /></p>
+<p><img alt="no more cycle" src="../site/bare-value.dot.png" title="" /></p>
 
 <p>A cycle involving only one vertex is not very interesting. But suppose the
 dependency graph looked like this instead:</p>
 
-<p><img alt="a more complicated dependency graph" src="../site/cyclic.svg" title="" /></p>
+<p><img alt="a more complicated dependency graph" src="../site/cyclic.dot.png" title="" /></p>
 
 <p>How many cycles does that directed graph contain? I see two:</p>
 
-<div><img src="../site/cyclic.1.svg" /><img src="../site/cyclic.2.svg" /></div>
+<div><img src="../site/cyclic.1.dot.png" /><img src="../site/cyclic.2.dot.png" /></div>
 
 <p>As before, we wish to make this directed graph acyclic by removing edges, where
 we remove an edge by replacing the appearance of a type <code>T</code> within a class
@@ -167,7 +167,7 @@ definition with <code>Allocated&lt;T&gt;</code>.</p>
 vertex <code>D</code> as the "main" type in the schema, and that makes me want to remove
 the two edges inbound into it:</p>
 
-<div><img src="../site/cyclic.remove.1.svg" /><img src="../site/cyclic.remove.2.svg" /></div>
+<div><img src="../site/cyclic.remove.1.dot.png" /><img src="../site/cyclic.remove.2.dot.png" /></div>
 
 <p>The graph now has no cycles. In fact, it would be a tree were it not for <code>B</code>
 having two parents (<code>A</code> and <code>F</code>). Also, note that since this is a <em>directed</em>
@@ -181,12 +181,12 @@ and <code>G</code> classes and replace all appearances of <code>D</code> with <c
 <p>You might have noticed that there is another way we could have broken the
 cycles. Here's the original cyclic graph again:</p>
 
-<p><img alt="a more complicated dependency graph" src="../site/cyclic.svg" title="" /></p>
+<p><img alt="a more complicated dependency graph" src="../site/cyclic.dot.png" title="" /></p>
 
 <p>Both cycles share an edge, <code>DF</code>, and removing just that one breaks both
 cycles:</p>
 
-<div><img src="../site/cyclic.remove.3.svg" /><img src="../site/cyclic.remove.4.svg" /></div>
+<div><img src="../site/cyclic.remove.3.dot.png" /><img src="../site/cyclic.remove.4.dot.png" /></div>
 
 <p>Now graphviz wants to put <code>F</code> on top, interesting.</p>
 
@@ -229,7 +229,7 @@ removed, but potentially introduces many more <code>Allocated&lt;T&gt;</code> th
 
 <p>In the previous example, it would mean removing five edges instead of one:</p>
 
-<div><img src="../site/cyclic.remove.5.svg" /><img src="../site/cyclic.remove.6.svg" /></div>
+<div><img src="../site/cyclic.remove.5.dot.png" /><img src="../site/cyclic.remove.6.dot.png" /></div>
 
 <p>Also, if there were edges coming in from other vertices into any of the vertices
 <code>A</code>, <code>D</code>, <code>F</code>, or <code>G</code>, those edges too would be removed, even though they aren't
@@ -245,7 +245,7 @@ A <a href="https://en.wikipedia.org/wiki/Complete_graph">complete directed graph
 <var>~n<sup>2</sup></var> edges can have up to <a href="https://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF">this many</a> (simple)
 cycles:</p>
 
-<p><img alt="maximum number of cycles in complete digraph with n vertices" src="../site/max-cycles.png" title="" /></p>
+<p><img alt="maximum number of cycles in complete digraph with n vertices" src="../site/max-cycles.dot.png" title="" /></p>
 
 <p>That's way more than <var>2<sup>n</sup></var>, so at worst we're totally
 screwed.</p>
@@ -336,7 +336,7 @@ there's little left to do, from <code>A</code>'s point of view:</p>
 <p>Thus the following two edges were removed to make the graph acyclic, starting
 from <code>A</code>:</p>
 
-<p><img alt="" src="../site/edges-removed-a.png" title="" /></p>
+<p><img alt="" src="../site/edges-removed-a.dot.png" title="" /></p>
 
 <p>Next we do the whole thing over, but this time starting from <code>B</code>. Starting from
 <code>B</code> or <code>C</code> is not very interesting, since they're both leaves. The algorithm,
@@ -347,13 +347,13 @@ edges, would proceed starting from another vertex, say, <code>A</code>. But we a
 <p>The next interesting vertex to start from, alphabetically, is <code>D</code>. Here is the
 complete animation starting from <code>D</code>, and then the resulting edges removed:</p>
 
-<div><img src="../site/graph-animation-4.gif" /><img src="../site/edges-removed-d.png" /></div>
+<div><img src="../site/graph-animation-4.gif" /><img src="../site/edges-removed-d.dot.png" /></div>
 
 <p>As you can see, one of the edges is different than before.</p>
 
 <p>The punchline is the result starting from <code>F</code>. Here it is:</p>
 
-<div><img src="../site/graph-animation-5.gif" /><img src="../site/edges-removed-f.png" /></div>
+<div><img src="../site/graph-animation-5.gif" /><img src="../site/edges-removed-f.dot.png" /></div>
 
 <p>So we discover that the minimum feedback arc set of this directed graph is
 <code>{DF}</code>.</p>

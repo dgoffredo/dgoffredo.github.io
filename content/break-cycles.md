@@ -91,7 +91,7 @@ directed path from `A` to `B` in the dependency graph.
 
 The graph for the types in `(package basic ...)`, above, looks like this:
 
-![dependency graph of "Value"](../site/just-value.svg)
+![dependency graph of "Value"](../site/just-value.dot.png)
 
 It has one vertex and one edge, from `Value` to itself: because (before our
 modification) `Value` _contains_ `Value`. Our modification, though, creates
@@ -99,16 +99,16 @@ a level of indirection: replacing `Value` with `Allocated<Value>` within the
 class definition removes the one edge in the graph, since `Value` no longer
 contains `Value`:
 
-![no more cycle](../site/bare-value.svg)
+![no more cycle](../site/bare-value.dot.png)
 
 A cycle involving only one vertex is not very interesting. But suppose the
 dependency graph looked like this instead:
 
-![a more complicated dependency graph](../site/cyclic.svg)
+![a more complicated dependency graph](../site/cyclic.dot.png)
 
 How many cycles does that directed graph contain? I see two:
 
-<div><img src="../site/cyclic.1.svg"/><img src="../site/cyclic.2.svg"/></div>
+<div><img src="../site/cyclic.1.dot.png"/><img src="../site/cyclic.2.dot.png"/></div>
 
 As before, we wish to make this directed graph acyclic by removing edges, where
 we remove an edge by replacing the appearance of a type `T` within a class
@@ -120,7 +120,7 @@ Perhaps only because of the way the graph is drawn, I'm tempted to think of the
 vertex `D` as the "main" type in the schema, and that makes me want to remove
 the two edges inbound into it:
 
-<div><img src="../site/cyclic.remove.1.svg"/><img src="../site/cyclic.remove.2.svg"/></div>
+<div><img src="../site/cyclic.remove.1.dot.png"/><img src="../site/cyclic.remove.2.dot.png"/></div>
 
 The graph now has no cycles. In fact, it would be a tree were it not for `B`
 having two parents (`A` and `F`). Also, note that since this is a _directed_
@@ -134,12 +134,12 @@ and `G` classes and replace all appearances of `D` with `Allocated<D>`.
 You might have noticed that there is another way we could have broken the
 cycles. Here's the original cyclic graph again:
 
-![a more complicated dependency graph](../site/cyclic.svg)
+![a more complicated dependency graph](../site/cyclic.dot.png)
 
 Both cycles share an edge, `DF`, and removing just that one breaks both
 cycles:
 
-<div><img src="../site/cyclic.remove.3.svg"/><img src="../site/cyclic.remove.4.svg"/></div>
+<div><img src="../site/cyclic.remove.3.dot.png"/><img src="../site/cyclic.remove.4.dot.png"/></div>
 
 Now graphviz wants to put `F` on top, interesting.
 
@@ -182,7 +182,7 @@ removed, but potentially introduces many more `Allocated<T>` than necessary.
 
 In the previous example, it would mean removing five edges instead of one:
 
-<div><img src="../site/cyclic.remove.5.svg"/><img src="../site/cyclic.remove.6.svg"/></div>
+<div><img src="../site/cyclic.remove.5.dot.png"/><img src="../site/cyclic.remove.6.dot.png"/></div>
 
 Also, if there were edges coming in from other vertices into any of the vertices
 `A`, `D`, `F`, or `G`, those edges too would be removed, even though they aren't
@@ -198,7 +198,7 @@ A [complete directed graph][complete] having <var>n</var> vertices and
 <var>~n<sup>2</sup></var> edges can have up to [this many][johnson] (simple)
 cycles:
 
-![maximum number of cycles in complete digraph with n vertices](../site/max-cycles.png)
+![maximum number of cycles in complete digraph with n vertices](../site/max-cycles.dot.png)
 
 That's way more than <var>2<sup>n</sup></var>, so at worst we're totally
 screwed.
@@ -287,7 +287,7 @@ there's little left to do, from `A`'s point of view:
 Thus the following two edges were removed to make the graph acyclic, starting
 from `A`:
 
-![](../site/edges-removed-a.png)
+![](../site/edges-removed-a.dot.png)
 
 Next we do the whole thing over, but this time starting from `B`. Starting from
 `B` or `C` is not very interesting, since they're both leaves. The algorithm,
@@ -298,13 +298,13 @@ edges, would proceed starting from another vertex, say, `A`. But we already did
 The next interesting vertex to start from, alphabetically, is `D`. Here is the
 complete animation starting from `D`, and then the resulting edges removed:
 
-<div><img src="../site/graph-animation-4.gif"/><img src="../site/edges-removed-d.png"/></div>
+<div><img src="../site/graph-animation-4.gif"/><img src="../site/edges-removed-d.dot.png"/></div>
 
 As you can see, one of the edges is different than before.
 
 The punchline is the result starting from `F`. Here it is:
 
-<div><img src="../site/graph-animation-5.gif"/><img src="../site/edges-removed-f.png"/></div>
+<div><img src="../site/graph-animation-5.gif"/><img src="../site/edges-removed-f.dot.png"/></div>
 
 So we discover that the minimum feedback arc set of this directed graph is
 `{DF}`.
