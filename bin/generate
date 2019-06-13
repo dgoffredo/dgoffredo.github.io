@@ -124,7 +124,7 @@ def create_page(from_path, to_path, navigate, date=None):
     `from_path`, the specified `navigate` HTML, and the optionally specified
     `date` object.  Return the title of the generated HTML document."""
 
-    with to_path.open('w') as destination:
+    with to_path.open('w', encoding='utf8') as destination:
         content = markdown2html(from_path)
         title = get_first_h1(content)
         date = '<p>' + pretty_date(date) + '</p>' if date is not None else ''
