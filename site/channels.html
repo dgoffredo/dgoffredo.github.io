@@ -81,7 +81,7 @@ is in the same address space as the "stopper."  Instead, it would be better to
 coordinate the copying/moving of a "command" object from one location to
 another, using the pipe only to wake a possibly sleeping thread.</p>
 <p>Now what if I had more than one thread that wanted to send a command to the
-consumer?  Well, they would contend for the mutex and thus each would have to
+consumer?  Well, they would contend for some mutex and thus each would have to
 wait its turn.</p>
 <p>I could even add a more contrived requirement that a thread be able to send
 such a command to one of multiple consumers, whichever is available first.
@@ -242,8 +242,8 @@ some minority of the time.</p>
 }
 </code></pre>
 <p>That is, <em>thread1</em> is sending to <em>chan1</em> and receiving from <em>chan2</em>, while
-<em>thread2</em> is doing the opposite — sending to "chan2" and receiving from
-"chan1."</p>
+<em>thread2</em> is doing the opposite — sending to <em>chan2</em> and receiving from
+<em>chan1</em>.</p>
 <p>What causes the deadlock is that blocking read in <code>IoEvent fulfill(IoEvent)</code>.
 Here's one possible interleaving that causes a deadlock.</p>
 <table>
