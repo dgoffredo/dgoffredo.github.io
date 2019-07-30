@@ -166,7 +166,7 @@ def add_table_of_contents(html_text, max_depth=None):
     debugging = False
     if debugging:
         for i, line in enumerate(html_text.split('\n')):
-            print(f'{i:3}: {line}')
+            print(f'{i+1:3}: {line}')
 
     html = ET.fromstring(html_text)
     insert_table_of_contents(html, max_depth)

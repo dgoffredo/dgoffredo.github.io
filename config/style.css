@@ -36,6 +36,10 @@ table.posts {
     line-height: 2;
 }
 
+tr:nth-child(even) {
+  background-color: #eee6ff
+}
+
 div.table-of-contents {
     font-size: 14pt;
 }

@@ -48,11 +48,11 @@ The result will be
            index.html  ->  ./grinds-my-gears.html
 """
 
+import mistune
 import tableofcontents
 
 from datetime import datetime
 from pathlib import Path
-import subprocess
 
 # Note that this is actually XML.  I omit the XHTML-required "!DOC" stuff,
 # though, because I found that it caused browsers to ignore CSS's max-width
@@ -107,14 +107,13 @@ def get_first_h1(html_markup):
 
     return html_markup[begin:end]
 
+_markdown_converter = mistune.Markdown(use_xhtml=True)
+
 def markdown2html(markdown_path):
     "Return a string containing the HTML output of compiling markdown."
     
-    return subprocess.run(['markdown', str(markdown_path)],
-                          stdout=subprocess.PIPE,
-                          encoding='utf-8',
-                          check=True).stdout
-    
+    return _markdown_converter(markdown_path.read_text())
+      
 def pretty_date(date):
     day_of_week_and_month_name = date.strftime('%A, %B ')
     return f'{day_of_week_and_month_name} {date.day}, {date.year}'

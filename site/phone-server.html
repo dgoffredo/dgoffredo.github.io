@@ -41,32 +41,24 @@
 <div class="table-of-contents"><ul><li><a href="#phone_server">Phone Server</a><ul><li><a href="#verizon_is_evil">Verizon is Evil</a></li><li><a href="#life_in_userland">Life in Userland</a></li><li><a href="#ssh">ssh</a></li><li><a href="#port_forwarding">Port Forwarding</a></li><li><a href="#address_reservation">Address Reservation</a></li><li><a href="#dns">DNS</a></li><li><a href="#now_what">Now What?</a></li></ul></li></ul></div>
 
 <h1 id="phone_server">Phone Server</h1>
-
 <p>I turned my old Android phone into a web server.  Here's how.</p>
-
 <h2 id="verizon_is_evil">Verizon is Evil</h2>
-
 <p>I got tired of paying nearly $80 per month for my one phone line and the
 less than one gigabyte of data I was using. Logging into my Verizon Wireless
 account to look for a better deal, I found that the "recommended plan" for
 me was one that costs even more money and allows five times more data.</p>
-
 <p>After a little bit of research, I decided to try Google Fi.  The only problem
 was that my aged Verizon-provided Droid Turbo does not support Google's
 networks.  However, seeing that I would stand to be paying just under $30 a
 month with Google, it didn't bother me to buy Google's cheapest offering, a new
 Moto G6 for $100.</p>
-
 <p>It was super easy.  I didn't even have to call Verizon (later on I did anyway,
 just to make sure).  Google has this sorcery where you give them your Verizon
 Wireless credentials and they transfer and cancel things on your behalf.</p>
-
 <p>Anyway, new phone works, all is well.  But what about this old phone?  It's
 practically unsellable, though it works just fine.</p>
-
 <p>To be more specific, the Droid Turbo has the following specifications
 (according to <a href="https://en.wikipedia.org/wiki/Droid_Turbo#Specifications">wikipedia</a>):</p>
-
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/List_of_Qualcomm_Snapdragon_systems-on-chip#Snapdragon_800_series">Snapdragon 805 quad-core processor</a>
 clocked at 2.7 GHz,</li>
@@ -76,7 +68,6 @@ clocked at 2.7 GHz,</li>
 <li>3,900 mAh battery,</li>
 <li>and Android 6 (Marshmallow).</li>
 </ul>
-
 <p>That's a pretty powerful computer.  Also, if this <a href="https://www.usenix.org/legacy/event/atc10/tech/full_papers/Carroll.pdf">study</a>
 on the power consumption of a comparably more powerful phone is applicable,
 then with the phone's mobile network radio and screen turned off, it will draw
@@ -85,29 +76,23 @@ less than one watt of power.  For comparison, a desktop computer might draw
 This is peanuts compared to the Flux Capacitor's minimum requirement of
 <a href="https://www.youtube.com/watch?v=mjCRUvX2D0E">1.21 gigawatts</a>, but that's
 another matter.</p>
-
 <p>I have an idea!  Let's gain root access to the operating system underlying the
 phone, wipe over that system with some Linux distribution having drivers
 appropriate for the phone, install a web server on it, and expose it to the
 internet!  Wouldn't that be fun?</p>
-
 <p>No, it would not be fun.  It's not even possible, because Verizon is evil.</p>
-
 <h3 id="the_ununlockable_phone">The Un-unlockable Phone</h3>
-
 <p>I'm well out of my depth on this subject, but as far as I understand from
 reading on the internet, when a phone powers up, there's a little system that
 loads a program that starts up another little system that loads a program that
 etc., etc. until the "real" operating system is loaded and starts running
 your beloved apps.</p>
-
 <p>At each stage in this process, or at at least one stage, the code whose job it
 is to further the loading of the system can check whether what it is loading
 is "legit," for some definition of legit.  Qualcomm even makes a special
 circuit that's effectively "write-once" memory, so that you can potentially
 modify such logic (e.g. to say "don't check whether it's legit") but can never
 change it back.</p>
-
 <p>Many phones that reach the consumer as part of a wireless service contract
 (such as my old one) have their "bootloader locked" so that the "ROM" loaded to
 start the system must have a certain digital signature.  This means that
@@ -116,38 +101,30 @@ merchandise.  Were you to replace the contents of the ROM with anything else,
 the phone would refuse to start, or perhaps permanently disable itself so that
 you can never do anything with it again (called "bricking," apparently because
 at that point the phone is little more than a silicon brick).</p>
-
 <p>Fortunately, phone manufacturers are not, on the whole, in the business of
 limiting the capabilities of their products, and so Motorola Android phones
 have a process you can use to "unlock the bootloader," typically voiding the
 phone's warranty in the process.</p>
-
 <p>This involves turning off the phone, turning it on in a special way (holding
 the power button and the volume-down button), copying down some magical
 numbers, and typing them in to one of Motorola's websites.  Then, supposedly,
 Motorola looks up some secret key based on what you typed, and then you can
 enter that key into your phone and, voila!  From then on your phone will load
 whatever happens to be in memory, digital signature be damned.</p>
-
 <p>Except that it doesn't work if you got your phone from Verizon.  The website
 will tell you that "your phone cannot be unlocked."  Why?  Because Verizon
 insisted on this.  Because Verizon is evil.</p>
-
 <p>This phone does not belong to you, it belongs to us.  We have no more use for
 it, and so neither shall you.</p>
-
 <h2 id="life_in_userland">Life in Userland</h2>
-
 <p>Ok, so it's disappointing that I can't completely control the system on the old
 phone, but not all is lost.  After all, Android is designed to make writing
 apps easy.  I could just code up my hobby as an application, rather than having
 to replace the entire system.</p>
-
 <p>In fact, I don't necessarily need to write any code.  Surely somebody has
 already released an <a href="https://play.google.com/store/apps/details?id=jp.ubi.common.http.server&amp;hl=en_US">Android app</a>
 that makes the phone serve web pages.  So, I can just download such an app from
 the Play Store, configure it to serve my static website, and job done.</p>
-
 <p>Where's the fun in that?  I want the full Linux experience.  Fortunately for
 me, there's an option.  It's called <a href="https://play.google.com/store/apps/details?id=tech.ula&amp;hl=en_US">UserLAnd</a>.
 These <a href="https://github.com/CypherpunkArmory/UserLAnd">wizards</a> have leveraged a
@@ -156,27 +133,21 @@ program called <a href="https://github.com/proot-me/proot">proot</a>, which allo
 Linux feature called <a href="https://en.wikipedia.org/wiki/Ptrace">ptrace</a> to trick
 a running program into thinking that it's running as root in a chroot jail,
 when in fact it's just being controlled by proot.</p>
-
 <p>The folks at UserLAnd wrapped up proot in Android app clothes, including a
 terminal emulator and <a href="https://busybox.net/">busybox</a>, a compact suite of Unix
 tools, including, conveniently enough, a simple <a href="https://git.busybox.net/busybox/tree/networking/httpd.c">HTTP server</a>.</p>
-
 <p>Once you have UserLAnd installed on your phone, you can instruct it to install
 a Linux distribution in the proot jail, then start a "session" on that system
 as a specified user with a specified password, and you're ready to go.</p>
-
 <h2 id="ssh">ssh</h2>
-
 <p>Working on the Linux command line using a phone is awful.  The first thing I
 did is find out which ssh server was running on my new system and connected to
 it from my laptop.  This involved me learning properly for the first time how
 to use <a href="https://linux.die.net/man/1/ssh-keygen">ssh-keygen</a>, <a href="https://linux.die.net/man/1/ssh-copy-id">ssh-copy-id</a>,
 and <a href="https://linux.die.net/man/1/ssh-agent">ssh-agent</a>.  Also, apparently
 <a href="https://en.wikipedia.org/wiki/Dropbear_(software)">dropbear</a> exists and is an alternative to <a href="https://linux.die.net/man/8/sshd">sshd</a>.</p>
-
 <p>The result is that I can now poke around inside my old phone from my laptop.
 For example:</p>
-
 <pre><code>david@LAPTOP-DTKG66RE:~
 $ ssh -Y david@192.168.1.4 -p 2022
 Warning: No xauth data; using fake authentication data for X11 forwarding.
@@ -193,9 +164,7 @@ david     6996  6995  0 Jun12 pts/0    00:00:00 -bash
 10085    10068   424  0 Jun11 ?        00:00:05 com.telecomsys.directedsms.android.SCG
 david@localhost:~$
 </code></pre>
-
 <p>Alright!  Now all I needed to do is:</p>
-
 <ul>
 <li><code>sudo apt install git</code>,</li>
 <li><code>git clone http://github.com/dgoffredo/dgoffredo.github.io</code></li>
@@ -203,12 +172,9 @@ david@localhost:~$
 <li><code>make</code></li>
 <li><code>busybox httpd -p 0.0.0.0:8080</code></li>
 </ul>
-
 <p>Now my phone is serving my blog at port 8080, but how do we access it from the
 internet?</p>
-
 <h2 id="port_forwarding">Port Forwarding</h2>
-
 <p>When you type an <a href="https://en.wikipedia.org/wiki/IP_address">IP address</a> into
 your web browser, the browser attempts to establish one or more <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>
 connections to that address on port 80.  But I'm not listening on port 80,
@@ -216,21 +182,16 @@ I'm listening on port 8080.  This is because you can't bind to ports below
 1024 unless you are root.  Besides, even if I were listening on port 80, it's
 my home wireless router that's getting the incoming connection. How is it to
 know that it is meant to forward that connection to my old phone?</p>
-
 <p>Fortunately, the <a href="https://www.downloads.netgear.com/files/GDC/WNDR3400V3/WNDR3400v3_UM_19June2014.pdf">Netgear WNDR3400v3</a>
 wireless router sitting by my window supports something called
 "port forwarding," which allows you to say "when you receive a connection on
 port X, instead forward that connection to local address Y on port Z."</p>
-
 <p>So, I navigated to my router's admin web interface at <code>http://192.168.1.1</code>, and
 configured the following settings:</p>
-
-<p><img alt="port forwarding" src="../site/port-forwarding.png" title="" /></p>
-
+<p><img alt="port forwarding" src="../site/port-forwarding.png" /></p>
 <p><code>192.168.1.4</code> is the local address of my old phone, which is connected to the
 router over Wi-Fi, port <code>80</code> is the port on which I can expect HTTP requests to
 enter my network, and port <code>8080</code> is the port on which my phone is listening.</p>
-
 <p>You'll notice I also configured forwarding for <a href="https://en.wikipedia.org/wiki/Secure_Shell">ssh</a>,
 so that I (or, now that I've written this, almost anybody) can remotely log in
 to my old phone.  Remember, though, that the system to which I'm logging in is
@@ -238,41 +199,31 @@ just a proot jail running inside of an Android app having no special
 permissions.  I suppose you could erase my SD card, which would be a dick move,
 but since I just reset the phone there isn't anything on it to lose.  Go ahead
 and add my phone to your botnet, see what I care!</p>
-
 <h2 id="address_reservation">Address Reservation</h2>
-
 <p>In addition to telling my router to forward HTTP requests to my phone, I also
 need to tell it always to assign the local IP address <code>192.168.1.4</code> to the
 phone.  Otherwise, the next time I restart the phone or the router, the phone
 might be assigned a different local address (e.g. <code>192.168.1.5</code>).  The router
 has another option for this, called "address reservation."</p>
-
-<p><img alt="address reservation" src="../site/address-reservation.png" title="" /></p>
-
+<p><img alt="address reservation" src="../site/address-reservation.png" /></p>
 <p>This says that any device having my laptop's <a href="https://en.wikipedia.org/wiki/MAC_address">MAC address</a>
 (which is just my laptop) will be assigned local address <code>192.168.1.2</code>, and any
 device having my old phone's MAC address will be assigned local address
 <code>192.168.1.4</code>.  So, that settles that.</p>
-
 <h2 id="dns">DNS</h2>
-
 <p>At this point, the old Android phone sitting in my apartment and connected to
 my Wi-Fi router is now accessible from the entire internet at <a href="http://74.68.159.94">74.68.159.94</a>,
 my router's <em>public</em> IP address.</p>
-
 <p>"Seventy-four, sixty-eight, one hundred fifty-nine, ninety-four" does not have
 much of a ring to it, I admit.  Sure, it's kind of like a weird phone number
 that you could memorize, but who wants to do that?</p>
-
 <p>It would be better if that address could be looked up somewhere using an
 alternative name -- a more human-friendly name.</p>
-
 <p>Fortunately, such a system exists.  It's called the
 <a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)</a>,
 and, luckily enough, there are people who own domain names and are willing to
 let you use a <a href="https://en.wikipedia.org/wiki/Subdomain">subdomain</a> of theirs
 for free!</p>
-
 <p>The service I used is called <a href="https://freedns.afraid.org/">freedns.afraid.org</a>.
 Using this, I was able to associate the subdomains
 <a href="http://dgoffredo.crabdance.com">dgoffredo.crabdance.com</a> and
@@ -281,11 +232,8 @@ Using this, I was able to associate the subdomains
 browser, the browser will ask DNS "what IP address(es) is (are) associated with
 this domain?"  DNS will reply "74.68.159.94," and then the browser will send
 an HTTP request to the old Android phone sitting in my apartment.</p>
-
 <p>FreeDNS's web interface looks like this:</p>
-
-<p><img alt="FreeDNS" src="../site/freedns.png" title="" /></p>
-
+<p><img alt="FreeDNS" src="../site/freedns.png" /></p>
 <p>That service even has a programmatic API, so in principle I could carry around
 my web server it my pocket, and every time it entered a new network and was
 assigned a new IP address, it could notify DNS of the new address, so that
@@ -293,32 +241,25 @@ my website remained available anywhere my old phone happened to be connected to
 the internet.  Besides being a useless idea, it wouldn't even really work,
 though, because I wouldn't be able to set up port forwarding on every network
 that I enter.</p>
-
 <h2 id="now_what">Now What?</h2>
-
 <p>I have no answer.</p>
-
 <p>After all, I don't <em>need</em> to host my blog from an old phone sitting in my
 apartment.  It's already hosted "in the cloud" at <a href="https://dgoffredo.github.io/">dgoffredo.github.io</a>.
 Instead, this was just for fun.</p>
-
 <p>It got me thinking, though, about how we all have these powerful computers in
 our pockets, connected to the internet, all day, every day.  Further, whenever
 you're asleep at night, the phone is plugged into a power source, screen off,
 still connected to the internet.</p>
-
 <p>I looked into the idea of a distributed only-when-you're-sleeping volunteer
 computing network, so that scientists could crunch the hard numbers on protein
 folding and quasar searching and whatever else, at no cost to you except the
 additional pennies in electricity that your phone would consume while you
 sleep.</p>
-
 <p>This already exists, of course.  It's called <a href="https://boinc.berkeley.edu/">BOINC</a>
 and there's an <a href="https://play.google.com/store/apps/details?id=edu.berkeley.boinc&amp;hl=en_US">Android app</a>
 for it that does exactly what I described.  It's now installed on my old phone
 server, chewing up CPU cycles looking for possible signals in
 <a href="https://www.ligo.caltech.edu/">LIGO's gravitational wave detection data</a>.</p>
-
 <p>So, hack around with your phone! It's fun, and you might learn something.</p>
 
 

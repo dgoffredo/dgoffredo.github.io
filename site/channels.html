@@ -1,0 +1,789 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+  <link href="../site/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+  <link href="../site/style.css" rel="stylesheet" type="text/css" />
+
+  <link href="../highlightjs/styles/default.css" rel="stylesheet" />
+
+  
+  <script src="../highlightjs/highlight.pack.js"> </script>
+
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>Channels</title>
+</head>
+
+<body>
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td align="left">
+        <a href="../site/posts.html">Posts</a>
+      </td>
+      <td align="center">
+        <a href="https://www.github.com/dgoffredo">About</a>
+      </td>
+      <td align="right">
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<p>Sunday, July  28, 2019</p>
+
+<div class="table-of-contents"><ul><li><a href="#channels">Channels</a><ul><li><a href="#motivation">Motivation</a></li><li><a href="#select">select(...)</a></li><li><a href="#concurrent_ml">Concurrent ML</a></li><li><a href="#events">Events</a></li><li><a href="#the_original_channel_design">The Original Channel Design</a></li><li><a href="#the_new_channel_design">The New Channel Design</a></li><li><a href="#selectondestroy">selectOnDestroy</a></li><li><a href="#error_handling">Error Handling</a></li><li><a href="#supporting_c98_sucks_without_boost">Supporting C++98 Sucks Without Boost</a></li><li><a href="#more">More</a></li></ul></li></ul></div>
+
+<h1 id="channels">Channels</h1>
+<p><img alt="" src="site/chan.png" /></p>
+<p>I implemented <a href="https://github.com/dgoffredo/chan">Go-style channels and select</a> in C++. The need doesn't
+arise often, but when it does, it's frustrating not to be able to multiplex
+operations easily.</p>
+<p>But <a href="https://www.boost.org/">Boost</a> already implements channels! And why not just use
+<a href="https://think-async.com/Asio/">asio</a>? And if you care so much about multiplexing operations on
+logical threads of execution, why not just use <a href="https://golang.org/">Go</a> instead of C++?
+What, you're going to use use <em>kernel</em> threads for this? Won't that use too
+many resources? Aren't you concerned about the cost of context switching? What
+about the <a href="https://en.wikipedia.org/wiki/C10k_problem">C10k problem</a>? Besides, you probably don't even need
+channels. You should just do things another way. Why are you reinventing the
+wheel? Don't you know anything?</p>
+<p>Okay, okay.  Your concerns are valid, but things are going to be fine.
+Computers are fun.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Back when I was writing a <a href="https://github.com/dgoffredo/ipc">C++ wrapper library</a> for
+<a href="http://man7.org/linux/man-pages/man7/mq_overview.7.html">POSIX message queues</a>, I was frustrated by how difficult it was to
+portably consume a message queue while also being able to stop on demand.  The
+simplest consumer I could imagine, "consume messages from this queue until I
+tell you to stop," in general requires the use of UNIX signals, since in
+general POSIX message queues are not files, and so cannot be used in IO
+multiplexing facilities like <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">poll</a>.  Sure, you could send a special
+message to the queue, "okay, stop now," but that works only if you are the only
+consumer.  You wouldn't want your "stop" message to go to some other consumer.</p>
+<p>Fortunately, on Linux it is the case that POSIX message queues <em>are</em> files,
+and so I can use <code>poll</code> to block on the condition that <em>either</em> a message
+arrives on the queue <em>or</em> somebody pokes me to tell me to stop. I could make
+a <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">pipe</a> on which the consumer would "poll" for reads, so that when I
+wanted to tell the consumer "stop," I'd just <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">write</a> to the pipe. The
+consumer would then handle that event by ceasing its queue consuming
+activities.</p>
+<p>What do I write to the pipe? Anything really. What if I wanted to
+communicate more than just "stop," though? Maybe there are other commands
+I'd like to send to the queue-consuming thread. I could invent a protocol of
+messages to encode onto the pipe, and then the queue-consuming thread would
+parse them on the other end. That would be silly, though, since the consumer
+is in the same address space as the "stopper."  Instead, it would be better to
+coordinate the copying/moving of a "command" object from one location to
+another, using the pipe only to wake a possibly sleeping thread.</p>
+<p>Now what if I had more than one thread that wanted to send a command to the
+consumer?  Well, they would contend for the mutex and thus each would have to
+wait its turn.</p>
+<p>I could even add a more contrived requirement that a thread be able to send
+such a command to one of multiple consumers, whichever is available first.
+Regardless, the abstraction that is coming into focus from this combination of
+<code>poll</code>ing files and copying objects is a <a href="https://en.wikipedia.org/wiki/Channel_(programming)"><em>channel</em></a>.  Let the mutex,
+the pipe, and <code>poll</code> all be implementation details of a mechanism for
+<em>exchanging a value with another thread</em>.  Further, I want to be able to
+perform one out of possibly many exchanges, with only one occurring between any
+two threads at a given time.</p>
+<h2 id="select"><code>select(...)</code></h2>
+<p>In <a href="https://golang.org/">Go</a>, the facility for doing exactly one send/receive operation from a
+set of possible channels is called <a href="https://gobyexample.com/select">select</a>.  I like that name, so
+let's use it.</p>
+<p>The thing is, we're not concerned solely with sending and receiving on
+channels.  In the motivating example, above, one of the operations is to
+receive from a POSIX message queue.  Or, possibly I want to read/write on a
+FIFO, or wait for some timeout to expire, or accept on a socket.  We need a
+more general notion of <code>select</code> than Go provides.</p>
+<p>Also, as a library writer in C++, I can't change the language itself.  What
+should the C++ analog of Go's select statement look like?  My favorite idea,
+from <a href="https://github.com/tylertreat/chan#select-statements">this project</a>, is to use a <a href="https://en.cppreference.com/w/cpp/language/switch">switch statement</a>:</p>
+<pre><code class="lang-c++">switch (select(file.read(&amp;buffer), chan1.send(thing), chan2.recv(&amp;message))) {
+    case 0:  // successfully read data from `file`
+    case 1:  // successfully sent `thing` to `chan1`
+    case 2:  // successfully received `message` from `chan2`
+    default: // an error occurred
+}
+</code></pre>
+<p>For the naughty-minded among you: <em>no</em>, you can't use preprocessor macros to
+make something more like Go's select statement.  Not without lambda
+expressions and additional overhead, anyway.</p>
+<h2 id="concurrent_ml">Concurrent ML</h2>
+<p>Go is not the only language with channels.  It is likely the most popular, and
+the reason why so many other languages are now adding similar facilities of
+their own (e.g. <a href="https://clojure.org/news/2013/06/28/clojure-clore-async-channels">Clojure</a>).</p>
+<p>I enjoy <a href="https://en.wikipedia.org/wiki/Scheme_(programming_language)">Scheme</a>. One of its variants with which I have the most
+<a href="https://github.com/dgoffredo?utf8=%E2%9C%93&amp;tab=repositories&amp;q=&amp;type=&amp;language=racket">experience</a>, <a href="https://racket-lang.org/">Racket</a>, has a <code>select</code>-like
+facility, called <a href="https://docs.racket-lang.org/reference/sync.html">sync</a>, that works with all kinds of things,
+not just channels. The "things" it works with are deemed "events," and
+evidently there's a whole <a href="https://en.wikipedia.org/wiki/Concurrent_ML">calculus</a>, called "Concurrent ML," for
+composing events and synchronizing threads of execution with them (see
+<a href="https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml">this</a>, <a href="https://www.youtube.com/watch?v=7IcI6sl5oBc">this</a>, and <a href="http://www.cs.uchicago.edu/~jhr/papers/1996/mspls-slides-reppy.ps">this</a>).</p>
+<p>I did not implement Concurrent ML in C++. It's a little beyond my grasp.
+What I <em>did</em> take from Concurrent ML, though, is the idea that my
+synchronization primitive, <code>select</code>, will operate on <em>events</em>, not on
+channels.</p>
+<h2 id="events">Events</h2>
+<p>What is an event?  To me, it's a state machine.  Under the hood, a thread will
+be blocking in a call to <code>poll</code>, but the events determine which files will be
+monitored by <code>poll</code>.</p>
+<p>Let an <code>IoEvent</code> be a notion of the sort of thing <code>poll</code> can monitor (like the
+<a href="http://pubs.opengroup.org/onlinepubs/9699919799/">pollfd</a> structure, but including timeouts and not depending on any
+system headers), together with a special value indicating "I'm done."  Then I
+call an <em>event</em> any object that supports the following three operations:</p>
+<ul>
+<li><code>IoEvent file()</code>: Give me something to wait on in <code>poll</code>.</li>
+<li><code>IoEvent fulfill(IoEvent)</code>: The indicated <code>IoEvent</code> is available now.  Either
+give me another (or the same) <code>IoEvent</code> to wait on, or otherwise indicate
+that you are done (have been fulfilled).</li>
+<li><code>void cancel(IoEvent)</code>: Somebody else was fulfilled before you, so clean up
+whatever you might have been doing.  Here's the most recent <code>IoEvent</code> you
+gave me to wait on.</li>
+</ul>
+<p>That's it!  Then a sketch of how <code>select</code> works is straightforward:</p>
+<pre><code>def select(events):
+    ioEvents = [event.file() for event in events]
+    while True:
+        poll(ioEvents)
+        for i, (ioEvent, event) in enumerate(zip(ioEvents, events)):
+            if ioEvent.ready:
+                ioEvent = ioEvents[i] = event.fulfill(ioEvent)
+                if ioEvent.fulfilled:
+                    for ioEvent, loser in zip(ioEvents, events):
+                        if loser is not event:
+                            loser.cancel(ioEvent)
+                    return event
+</code></pre>
+<p>The trick, then, is to express sending to or receiving from a channel as one
+such <em>event</em>.</p>
+<h2 id="the_original_channel_design">The Original Channel Design</h2>
+<p>I don't know how to implement channel send events and receive events using the
+framework described above.  I <em>thought</em> that I did, but there's an essential
+piece missing that, I think, makes <code>select</code>ing on channel events impossible.</p>
+<p>Here was my original design.  A channel contains a mutex, a queue of senders,
+and a queue of receivers.  Each sender or receiver has two pipes: one for
+communicating with that sender/receiver, and another for responding to whoever
+was writing to the sender/receiver.</p>
+<p>The <em>event</em> member functions for a sender or receiver could then look like
+this:</p>
+<ul>
+<li><p><code>IoEvent file()</code>: Lock the channel mutex and add myself to the relevant queue
+(sender queue if I'm a sender, etc.).  If I'm not the first in line, or if
+there is nobody in the other queue, then return an <code>IoEvent</code> that's the read
+end of my pipe.  I'm waiting for somebody to visit me.</p>
+<p>If I am first in line and there is somebody at the front of the other queue,
+then write a <code>HI</code> message to their pipe, and then return an <code>IoEvent</code> that's
+the read end of their reply pipe.  I'm waiting for them to respond.</p>
+</li>
+<li><p><code>IoEvent fulfill(IoEvent)</code>: Read a message (byte) from the pipe in the
+ indicated <code>IoEvent</code> and proceed based on the message:</p>
+<ul>
+<li><p><code>HI</code>: Somebody wants to exchange a value with me.  Write <code>READY</code> to my
+reply pipe <em>and then do a blocking read on my pipe</em>.  A blocking read
+seems counter-productive, but it is necessary.  Were I instead to return
+to <code>poll</code>, it could be that another event is fulfilled on my thread
+before, during, or after the other thread performs the exchange, and so
+at best there's a possibility that two events are fulfilled (a violation
+of <code>select</code>'s semantics), and at worst the other read reads from or writes
+to invalid memory, as I have already moved past the <code>select</code> call.</p>
+<p>The result of this blocking read will be one of the following messages:
+<code>DONE</code>, <code>CANCEL</code>, or <code>ERROR</code>. <code>DONE</code> means done.  I can return an
+<code>IoEvent</code> indicating that I am fulfilled and <code>select</code> will return to
+the caller.  First, though, I must look again at the channel to see
+whether there's anybody I need to <code>POKE</code> — more on that later.
+<code>CANCEL</code> means that the other thread fulfilled a different event, and
+so I must revisit the channel to see whether I can contact another
+thread or if I must wait to be visited by another thread.  <code>ERROR</code> means
+that an exception was thrown on the other thread while it attempted to
+exchange the value, and so I too should report an error on my thread
+(perhaps by throwing an exception).</p>
+<ul>
+<li><p><code>READY</code>: I had contacted another thread about exchanging a value, and now
+that thread is ready for the exchange.  Copy/move the object to/from
+their storage and then send them either a <code>DONE</code> or <code>ERROR</code> message,
+depending on how it goes.</p>
+</li>
+<li><p><code>CANCEL</code>: I had contacted another thread about exchanging a value, but
+now that thread has fulfilled another event.  I must revisit the channel
+to see whether I can contact another thread or if I must wait to be
+visited by another thread.</p>
+</li>
+<li><p><code>POKE</code>: I was not first in line, but then those in front of me finished
+and so now I am in front.  I should visit the channel to see whether
+there is anybody I can exchange a value with.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>void cancel(IoEvent)</code>: Another event was fulfilled on my thread.  Write a
+<code>CANCEL</code> message to whoever I was interacting with, visit the channel and
+remove myself from the queue, possibly <code>POKE</code> the guy behind me, and return.</p>
+</li>
+</ul>
+<p>I thought that this was a good protocol, and it mostly works.  The fatal flaw
+takes the form of a deadlock.</p>
+<p>Suppose you have two threads, <em>thread1</em> and <em>thread2</em>, selecting on two
+channels, <em>chan1</em> and <em>chan2</em>.  The following situation can produce a deadlock
+some minority of the time.</p>
+<p>On <em>thread1</em>:</p>
+<pre><code>switch (select(chan1.send(value), chan2.recv(&amp;destination))) {
+    // ...
+}
+</code></pre>
+<p>On <em>thread2</em>:</p>
+<pre><code>switch (select(chan2.send(value), chan1.recv(&amp;destination))) {
+    // ...
+}
+</code></pre>
+<p>That is, <em>thread1</em> is sending to <em>chan1</em> and receiving from <em>chan2</em>, while
+<em>thread2</em> is doing the opposite — sending to "chan2" and receiving from
+"chan1."</p>
+<p>What causes the deadlock is that blocking read in <code>IoEvent fulfill(IoEvent)</code>.
+Here's one possible interleaving that causes a deadlock.</p>
+<table>
+<thead><tr>
+<th><em>thread1</em></th>
+<th><em>thread2</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sit in <em>chan1</em></td>
+<td>sit <em>chan2</em></td>
+</tr>
+<tr>
+<td>say <code>HI</code> on <em>chan2</em></td>
+<td>say <code>HI</code> on <em>chan1</em></td>
+</tr>
+<tr>
+<td>got <code>HI</code> on <em>chan1</em></td>
+<td>got <code>HI</code> on <em>chan2</em></td>
+</tr>
+<tr>
+<td><strong>block</strong> for reply on <em>chan1</em></td>
+<td><strong>block</strong> for reply on <em>chan2</em></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="" src="site/sad-panda.png" /></p>
+<p>For comparison, what happens more often is the following:</p>
+<table>
+<thead><tr>
+<th><em>thread1</em></th>
+<th><em>thread2</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sit in <em>chan1</em></td>
+<td>sit in <em>chan2</em></td>
+</tr>
+<tr>
+<td>say <code>HI</code> on <em>chan2</em></td>
+<td>say <code>HI</code> on <em>chan1</em></td>
+</tr>
+<tr>
+<td>got <code>HI</code> on <em>chan1</em></td>
+<td />
+</tr>
+<tr>
+<td><strong>block</strong> for reply on <em>chan1</em></td>
+<td>got <code>READY</code> on <em>chan1</em></td>
+</tr>
+<tr>
+<td />
+<td>transfer value over <em>chan1</em></td>
+</tr>
+<tr>
+<td />
+<td>say <code>DONE</code> on <em>chan1</em></td>
+</tr>
+<tr>
+<td>got <code>DONE</code> on <em>chan1</em></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="" src="site/happy-panda.png" /></p>
+<p>Here there's no deadlock; instead, <em>chan1</em> "won the race."  How can I avoid the
+deadlocking case?</p>
+<p>No amount of protocol tweaking is enough to fix this problem.  In order to have
+the "exactly one event is fulfilled" guarantee, a send/receive event must
+perform a blocking read at some point, and doing so could cause a deadlock when
+<code>select</code> involves more than one channel.</p>
+<h2 id="the_new_channel_design">The New Channel Design</h2>
+<p>Deadlocked and forlorn, I looked to <a href="https://github.com/golang/go/blob/master/src/runtime/select.go">Go's implementation</a> of
+<code>select</code> for inspiration.  This <a href="https://docs.google.com/document/d/1yIAYmbvL3JxOKOjuCyon7JhW4cSv1wy5hC0ApeGMV9s/pub">description</a> of Go channels, by
+Dmitry Vyukov, was especially helpful.  In particular, he notes the following
+(emphasis mine):</p>
+<blockquote><p>There is another tricky aspect. We add select as waiter to several
+channels,
+<strong>but we do not want several sync channel operations to complete
+communication with the select</strong> (for sync channels unblocking completes
+successful communication). <strong>In order to prevent this, select-related
+entries in waiter queues contain a pointer to a select-global state
+word.</strong> Before unblocking such waiters other goroutines try to CAS(statep,
+nil, sg), which gives them the right to unblock/communicate with the
+waiter. If the CAS fails, goroutines ignore the waiter (it’s being
+signaled by somebody else).</p>
+</blockquote>
+<p>That's what I was missing!  In my original design, a thread interacting with
+another thread over a channel had no notion of the <em>other events</em> happening in
+either thread's <code>select</code> call.  A thread must bring along with it a piece of
+(as Dmitry put it) "select-global state," effectively allowing different events
+in the same call to <code>select</code> to interact with each other.</p>
+<p>While it's encouraging that there is a way to overcome the deadlock described
+above, doing so spoils the simplicity of the original <code>select</code> implementation.</p>
+<p>On the other hand, it simplifies the protocol described in the previous section
+(<code>HI</code>, <code>READY</code>, <code>DONE</code>, etc.) since now a mutex will be used for coordinating
+one side of the communication between two threads, rather than an additional
+pipe.</p>
+<h3 id="eventcontext"><code>EventContext</code></h3>
+<p>Associated with each call to <code>select</code> will be an instance of the following
+<code>struct</code>:</p>
+<pre><code class="lang-c++">// `SelectorFulfillment` is a means by which an event in one `select`
+// invocation can check or set the fulfillment of an event in a different
+// `select` invocation.
+struct SelectorFulfillment {
+    // Note that, by convention, `&amp;mutex` (the address of the `mutex`) will be
+    // used to determine the locking order among two or more
+    // `SelectorFulfillment::mutex`.
+    Mutex mutex;
+
+    enum State {
+        FULFILLABLE,   // not fulfilled, and fulfillment is allowed
+        FULFILLED,     // has already been fulfilled
+        UNFULFILLABLE  // not fulfilled, but fulfillment is not allowed
+    };
+
+    State state;
+
+    // key of the fulfilled event; valid only if `state == FULFILLED`
+    EventKey fulfilledEventKey;
+};
+</code></pre>
+<p>Channel send/receive events are then each given an <code>EventContext</code> by <code>select</code>,
+where the <code>EventContext</code> contains the <code>EventKey</code> of that event, and a smart
+pointer to the <code>select</code>'s <code>SelectorFulfillment</code>.  <code>EventContext</code> looks like
+this:</p>
+<pre><code class="lang-c++">struct EventContext {
+    SharedPtr&lt;SelectorFulfillment&gt; fulfillment;
+    // key of the event to which this `EventContext` was originally given
+    EventKey eventKey;
+};
+</code></pre>
+<p>An event can be given its <code>EventContext</code> as an argument to the one call to
+<code>IoEvent file()</code>, so now the <em>event</em> concept looks like this:</p>
+<ul>
+<li><code>IoEvent file(const EventContext&amp;)</code></li>
+<li><code>IoEvent fulfill(IoEvent)</code></li>
+<li><code>void cancel(IoEvent)</code></li>
+</ul>
+<p>Non-channel events, such as file reads/writes, can simply ignore the additional
+<code>const EventContext&amp;</code> argument.</p>
+<p>Now, to make this new scheme work, there are three things that need to happen.</p>
+<ol>
+<li><code>select</code> keeps its <code>SelectorFulfillment::mutex</code> locked at all times <em>except</em>
+when it's blocked by <code>::poll</code>.  Effectively, we're implementing a condition
+variable — but one that plays nice with file IO multiplexing.<pre><code class="lang-c++">fulfillment.mutex.unlock();
+const int rc = ::poll(/*...*/);
+fulfillment.mutex.lock();
+</code></pre>
+</li>
+<li><p>When a channel send/receive event wants to "visit" another thread, it does
+so by locking the other thread's <code>SelectorFulfillment</code>. Naively, this can
+cause another deadlock, where now instead of blocking each other on
+reading a pipe, threads could block each other acquiring a lock on each
+others' mutexes. The trick to avoiding this is always lock the mutexes in
+the same order. In particular, this means that if a thread's mutex comes
+<em>before</em> the mutex of the thread it is trying to visit, it must first
+<em>unlock</em> its mutex, the re-lock, and only then acquire a lock on the other
+mutex. The tiny gap left between the unlock and re-lock prevents the
+deadlock.</p>
+<p>Once a visiting thread has acquired the two locks, it examines the
+<code>state</code> field of the other thread's <code>SelectorFulfillment</code>. If the <code>state</code>
+is <code>FULFILLABLE</code>, then the thread performs the transfer, marks the
+<code>state</code> <code>FULFILLED</code>, notes the <code>EventKey</code> of the other thread (so that
+<code>select</code> knows <em>who</em> was fulfilled when that thread next awakens), and
+writes <code>DONE</code> to the other thread's pipe. If the <code>state</code> is not
+<code>FULFILLABLE</code>, then unlock that thread's mutex and try somebody else.</p>
+</li>
+<li><code>select</code> checks its <code>SelectorFulfillment::state</code> after each call to <code>poll</code>,
+or any event's <code>file</code> or to <code>fulfill</code> member functions. It could be that
+during one of those calls, the event fulfilled an event on another
+thread, or it could be that the event momentarily relinquished the lock
+on its mutex and was fulfilled by another thread. Either way, <code>select</code>'s
+work is done. It can see which event was fulfilled by reading the
+<code>SelectorFulfillment::fulfilledEventKey</code> field, and proceed with cleanup.</li>
+</ol>
+<p>Once I implemented these changes, the deadlock described in the previous
+section went away.</p>
+<h2 id="selectondestroy"><code>selectOnDestroy</code></h2>
+<p>For any of you still reading this (good job!), there were other morsels of C++
+design that I encountered while working on this project.</p>
+<p>For example, I want a channel's <code>send</code> and <code>recv</code> member functions to return
+an <em>event</em> object suitable for use as an argument to <code>select</code>:</p>
+<pre><code class="lang-c++">switch (select(chan1.send(something), chan2.recv(&amp;somethingElse))) {
+    case 0: // ...
+    case 1: // ...
+    default: // ...
+}
+</code></pre>
+<p>That's fine, but what if I want to perform a channel operation on its own, e.g.</p>
+<pre><code class="lang-c++">chan1.send(something);
+</code></pre>
+<p>or</p>
+<pre><code class="lang-c++">std::string message;
+chan2.recv(&amp;message);
+</code></pre>
+<p>How do I make sure that such calls actually <em>do</em> something?  One option is to
+have separate member functions instead:</p>
+<pre><code class="lang-c++">chan1.doSend(something)
+
+std::string message;
+chan2.doRecv(&amp;message);
+</code></pre>
+<p>That looks terrible.</p>
+<p>At least with <code>recv</code> we could overload the member function to have a
+no-argument version that just returns the received value:</p>
+<pre><code class="lang-c++">std::string message = chan2.recv();
+</code></pre>
+<p>This wouldn't work for <code>send</code>, though.</p>
+<p>The equivalent code using the existing <code>send</code> and <code>recv</code> would be:</p>
+<pre><code class="lang-c++">select(chan1.send(something));
+
+std::string message;
+select(chan2.recv(&amp;message));
+</code></pre>
+<p>That also looks terrible.</p>
+<p>If only send/receive events could somehow <em>know</em> whether they were part of a
+<code>select</code> invocation.  If they could, then they could have the policy "if my
+destructor is being called and I was never copied into a <code>select</code> call, then
+call <code>select</code> with myself as the argument.</p>
+<p>This way, code like this would still work:</p>
+<pre><code class="lang-c++">select(chan1.send(something));  // Used in `select`; don't block in destructor
+</code></pre>
+<p>but so would this:</p>
+<pre><code class="lang-c++">chan1.send(something);  // Not used in `select`; call `select` in destructor
+</code></pre>
+<p>For those of you currently thinking "that is a <em>terrible</em> idea," I agree with
+you.  Returning an object whose destructor then performs an operation is <em>not</em>
+the same thing as performing an operation before returning.</p>
+<p>Also, aren't we supposed to avoid blocking in destructors? I mean, look at
+<a href="https://en.cppreference.com/w/cpp/thread/thread/~thread">what std::thread does</a>. What about stack unwinding? Fortunately, a
+destructor can detect whether there are currently any <a href="https://en.cppreference.com/w/cpp/error/uncaught_exception">exceptions in
+flight</a>. It wouldn't surprise me if use of that
+function is frowned upon, though.</p>
+<p>Terrible idea or not, at least for the intended use case, the "history-aware
+destructor" gets the job done.  My main concern would be that returned
+temporaries are not destroyed until the "end of the full statement" in which
+they were created, which would mean that if you create multiple send/receive
+events as part of one complicated expression, the actual sends and receives
+will all happen "at the semicolon," rather than at their call sites.  I just
+don't see this being a problem, though, because there are only two reasons why
+a <code>send</code> or <code>recv</code> would be part of a larger statement:</p>
+<ol>
+<li>You're using them in <code>select</code>.  Fine, that's their intended use.</li>
+<li>You're using their return values as input to some expression other than a
+call to <code>select</code>.  Like what?  The overloads in question don't return
+meaningful values, so in what situation would you compose them into a
+non-<code>select</code> expression?</li>
+</ol>
+<p>So, the "history-aware destructor" solution is viable.  How do we implement it?</p>
+<p>Let's ignore C++11's move semantics for now, and restrict ourselves to copies.
+The signature of the copy constructor looks like this:</p>
+<pre><code class="lang-c++">Object(const Object&amp; other);
+</code></pre>
+<p><em><code>const</code></em> <code>Object</code>, so we can't modify the other object.  Then how are we
+supposed to mark it as "don't block in your destructor"?  We'll have to use
+<code>mutable</code>:</p>
+<pre><code class="lang-c++">class Object {
+    mutable bool selectOnDestroy = true;
+
+  public:
+    Object(const Object&amp; other)
+    : selectOnDestroy(other.selectOnDestroy) {
+        other.selectOnDestroy = false;
+    }
+
+    ~Object() {
+        if (selectOnDestroy &amp;&amp; !std::uncaught_exceptions()) {
+            select(*this);
+        }
+    }
+
+    // ...
+};
+</code></pre>
+<p>This breaks the idea of what it means to copy something.  Better would be to
+make <code>Object</code> a move-only type, and modify <code>other.selectOnDestroy</code> in the move
+constructor.  However, I want my library to support C++98, and so I'd need this
+hack anyway.</p>
+<p>Now,  how does an <code>Object</code> detect that it is being used in a call to
+<code>select</code>?  We could set <code>selectOnDestroy = false</code> in the <code>file</code> member
+function, but it's possible that <code>file</code> will never get called if another
+event's <code>file</code> causes the <code>select</code> to be fulfilled.  What's needed is an
+additional member function in the <em>event</em> concept:</p>
+<pre><code class="lang-c++">void touch() noexcept;
+</code></pre>
+<p><code>touch</code> is guaranteed to be called exactly once on each <em>event</em> before <code>file</code>
+is called on anybody.  This way, each <em>event</em> gets an opportunity to mark
+itself <code>selectOnDestroy = false</code>:</p>
+<pre><code class="lang-c++">void Object::touch() noexcept {
+    selectOnDestroy = false;
+}
+</code></pre>
+<p>With these changes, we support both usage styles for <code>send</code> and <code>recv</code>:</p>
+<pre><code class="lang-c++">// block until we can send
+chan1.send(something);
+
+std::string message;
+// block until we can receive
+chan2.recv(&amp;message);
+
+// block until we can either send or receive, but not both
+switch (select(chan1.send(somethingElse), chan2.recv(&amp;message))) {
+    case 0: // ...
+    case 1: // ...
+    default: // ...
+}
+</code></pre>
+<h2 id="error_handling">Error Handling</h2>
+<p>I haven't mentioned how error handling works in this channels library.  Does
+<code>select</code> throw exceptions?  Does it return special values indicating errors?
+How does a client of <code>select</code> know when an error occurs, and which kind?</p>
+<p>My first idea was just to have <code>select</code> throw an exception when an error
+occurs.  The trouble with this is that then if a client wants to handle the
+error immediately, they have to indent the entire select/switch construct in a
+<code>try</code> block:</p>
+<pre><code class="lang-c++">try {
+    switch (select(...)) {
+        case 0: // ...
+        case 1: // ...
+    }
+}
+catch (...) {
+    // ...
+}
+</code></pre>
+<p>This wouldn't bother me if it weren't for that fact that one of the strengths
+of the select/switch combination is that the "handler" for each case is right
+there in the switch statement.  Indenting the switch in order to catch
+exceptions means indenting all of the "handler" code as well.</p>
+<p>This problem goes away if the client allows the exception to propagate out of
+the scope in which <code>select</code> was called, which is probably the common case, and
+the benefit of exceptions generally.  However, I still consider the <code>try</code> block
+too high a price to pay.</p>
+<p>As an alternative, <code>select</code> can return negative values for errors, and
+associated with each error code there can be a descriptive (though
+non-specific) error message.  For example:</p>
+<pre><code class="lang-c++">switch (const int rc = select(...)) {
+    case 0: // ...
+    case 1: // ...
+    case 2: // ...
+    default:
+        std::cerr &lt;&lt; "error in select(): " &lt;&lt; errorMessage(rc) &lt;&lt; "\n";
+}
+</code></pre>
+<p>That looks okay.  But what if the client <em>wants</em> an exception to be thrown?
+For that, we can replace the <code>errorMessage(int)</code> function with a
+<code>SelectError(int)</code> constructor:</p>
+<pre><code class="lang-c++">switch (const int rc = select(...)) {
+    case 0: // ...
+    case 1: // ...
+    case 2: // ...
+    default:
+        throw SelectError(rc);
+}
+</code></pre>
+<p>This way, the extra code needed to use exceptions is just one statement.</p>
+<p>So far so good, but there is still something missing.  My original idea of
+using exceptions throughout had the added benefit that the <code>throw</code>er of the
+exception can include runtime-specific information in the exception.  For
+example, if copying/moving a value across a channel throws an exception, that
+exact exception could be propagated to the caller of <code>select</code>.  Or, if the
+error that occurred was at the system level, such as in the pthreads library,
+then the relevant <code>errno</code> value could be included in the thrown exception.
+This is not possible if all you have to work with is the <em>category</em> of error
+(one of the negative return values of <code>select</code>).</p>
+<p>Is there a way to combine the "throw an exception only if you want" behavior
+above with the "preserve information known only at the site of the error"
+property of using exceptions throughout?</p>
+<p>The only way I thought to reconcile them is by using a thread-local exception
+object.  When an error occurs within a call to <code>select</code>, an exception is
+thrown, but then rather than letting the exception escape, <code>select</code> instead
+catches it and copies it to thread-local storage.  This way, clients of
+<code>select</code> can do the following:</p>
+<pre><code class="lang-c++">switch (select(...)) {
+    case 0: // ...
+    case 1: // ...
+    case 2: // ...
+    default:
+        throw lastError();
+}
+</code></pre>
+<p>Maybe you don't like the idea of using thread-local storage.  It feels like a
+global variable.  It feels like a hack.  It feels dirty.</p>
+<p>Hey, it works.</p>
+<p>There's one more alternative that I considered.  Instead of returning
+an integer, what if <code>select</code> returned some object <em>implicitly convertible</em> to
+an integer, but that also contained error information?</p>
+<pre><code class="lang-c++">switch (Selection rc = select(...)) {
+    case 0: // ...
+    case 1: // ...
+    case 2: // ...
+    default:
+        throw rc.exception();
+}
+</code></pre>
+<p>Now there's no need for thread-local storage, because the exception object that
+clients might want to throw can be stored in the <code>Selection</code> object returned
+by <code>select</code>.  To be honest, I still prefer the thread-local version, but I
+might implement this variant as well, for naysayers.</p>
+<h2 id="supporting_c98_sucks_without_boost">Supporting C++98 Sucks Without Boost</h2>
+<p>I set out with the requirement that this channels library work with C++98 in
+addition to more recent versions of the language.  One reason is simply the joy
+of what I'll call "constraint driven design."  Another reason is that there are
+droves of programmers out there still chained to dead-end platforms and
+profitable balls of mud.  I highly doubt that any of those programmers are
+about to start using my channels library in their legacy code, <em>but they could
+if they wanted to</em>.</p>
+<p>One easy way to support C++98 without losing your mind is use <a href="https://www.boost.org/">boost</a>,
+the grandfather of all C++ libraries.  Boost is both at the cutting edge of
+what can be done with the language, <em>and</em> provides portable C++98 versions of
+various now-standard facilities.</p>
+<p>Boost is also <em>big</em>.  That's not a viable excuse for my not using it, but
+requiring clients of my library to have boost installed does contradict the
+goal of providing a minimal, portable (except for Windows), self-contained
+library.</p>
+<p>An alternative to boost that I considered is <a href="https://github.com/bloomberg/bde">BDE</a>,
+<a href="https://github.com/bloomberg">Bloomberg</a>'s C++ library.  It's about half the size of boost, and
+certainly implements all of the facilities I'd need for the channels library,
+but BDE is not nearly as widely used as boost, uses its own version of
+<a href="https://github.com/bloomberg/bde/tree/master/groups/bsl/bsl%2Bbslhdrs">parts of the standard library</a>, and
+<a href="https://github.com/bloomberg/bde/commits/master">does not seem to be maintained</a>.</p>
+<p>Without boost or something like it, I'm on my own to use POSIX for whatever
+I need.  At first I thought that this wouldn't be a big deal, but it ended up
+consuming most of my development time.</p>
+<p>Since you asked, here is the list of could-have-just-used-C++11 features that
+I ended up implementing:</p>
+<ul>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/threading/mutex.h">chan::Mutex</a>: Uses <code>pthread_mutex_t</code> under the hood.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/threading/lockguard.h">chan::LockGuard</a>: Works with a <code>chan::Mutex</code>.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/threading/sharedptr.h">chan::SharedPtr</a>: If <code>std::shared_ptr</code> is available, then it's
+just a type alias for that.  Otherwise, it's a minimal implementation that
+uses a <code>chan::Mutex</code> to protect its reference count.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/time/timepoint.h">chan::TimePoint</a>: In order to specify timeouts, I needed kosher
+representations of points of time and intervals of time.  I could have just
+used <code>int milliseconds</code>, but this is C++ and we can do better.
+<code>chan::TimePoint</code> fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/chrono/time_point">std::chrono::time_point</a>.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/time/duration.h">chan::Duration</a>: Fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/chrono/duration">std::chrono::duration</a>.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/time/timepoint.cpp">chan::now</a>: Fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/chrono/steady_clock">std::chrono::steady_clock</a>.  I implemented it using
+POSIX's <a href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/time.h.html">CLOCK_MONOTONIC</a>.  The C++ standardization
+committee <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3128.html">was right</a> to call it <code>steady_clock</code> instead of
+<code>monotonic_clock</code>.  If a "monotonic" clock is used for measuring intervals,
+then what would be the point of having an unsteady monotonic clock?  I
+suppose you could use it to <em>order events</em> relative to each other, but I'd
+say "clock" is too strong a word for a <em>counter</em>.  As far as I can tell
+from reading on the internet, <code>CLOCK_MONOTONIC</code> always happens to be a steady
+clock.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/select/random.h">chan::shuffle</a>: Fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/algorithm/random_shuffle">std::shuffle</a>.  In order to enforce fairness in breaking ties
+among multiple <em>events</em> that might be fulfilled at the same time, <code>select</code>
+randomly permutes the order in which it visits events.  I couldn't just use
+C++98's <code>std::random_shuffle</code>, because it is not guaranteed to be thread
+safe.  Instead, I wrote my own <code>shuffle</code> that takes a pseudo-random number
+generator as an argument.  I had to implement the generator as well.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/select/random.h">chan::Random15</a>: Fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/numeric/random/linear_congruential_engine">std::linear_congruential_engine</a>.  I couldn't just use C++98's
+<code>std::rand()</code>, because it is not guaranteed to be thread safe.  I also
+couldn't use any of <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/erand48.html">POSIX's pseudo-random number generators</a>, because
+even those APIs that could get around the thread safety problem are sometimes
+<a href="https://www.evanjones.ca/random-thread-safe.html">not implemented so</a>.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/select/random.h">chan::randomInt</a>: Fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/numeric/random/uniform_int_distribution">std::uniform_int_distribution</a>.  If you need to restrict the range
+of values produced by a pseudo-random number generator, you must be careful
+not to introduce a bias in the output (such as is often the case if you use
+<code>operator%</code> to do the restricting).  The implementation uses
+<a href="https://en.wikipedia.org/wiki/Rejection_sampling">rejection sampling</a>.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/select/random.h">chan::systemRandom</a>: Fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/numeric/random/random_device">std::random_device</a>.  Pseudo-random numbers don't look
+very random if they are seeded with a constant.  Instead, I need a random
+starting value with which to seed the generator.  The implementation uses
+<code>/dev/urandom</code>.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/select/lasterror.h">chan::lastError</a>: In order to implement the thread-local
+exception feature, described above, I had to simulate C++11's <code>thread_local</code>
+keyword.  Fortunately, every compiler under the sun supports the non-standard
+<a href="https://en.wikipedia.org/wiki/Thread-local_storage#C_and_C++">__thread</a> keyword, so I just used that.  In addition to thread
+local storage, I also needed to make sure that the object I put there was
+properly aligned.  Without C++11's <a href="https://en.cppreference.com/w/cpp/types/aligned_storage">std::aligned_storage</a>
+or <a href="https://en.wikipedia.org/wiki/Thread-local_storage#C_and_C++">std::max_align_t</a>, I had to use a <a href="https://github.com/dgoffredo/chan/blob/master/src/chan/select/lasterror.cpp">union</a>
+of all of the built-in numeric types supported by C++98.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/macros/macros.h">CHAN_MAP</a>: Since C++98 does not have
+<a href="https://en.cppreference.com/w/cpp/language/parameter_pack">variadic templates</a>, if I want to support up to, say,
+nine arguments in <code>select</code>, then I have three options:</p>
+<ol>
+<li>Copy-paste nine nearly identical overloads of <code>select</code>, one for each arity.</li>
+<li>Use a code generator during an additional build stage to produce the
+repeated sections of the C++ source file.</li>
+<li>Use the preprocessor during compilation to generate the repeated sections
+of the C++ source file.</li>
+</ol>
+<p>I opted for option 3, and so there's a small library of preprocessor macros
+in <a href="https://github.com/dgoffredo/chan/blob/master/src/chan/macros/macros.h">chan/macros/macros.h</a>, and their use in
+<a href="https://github.com/dgoffredo/chan/blob/master/src/chan/select/select.h">chan/select/select.h</a> is a real eyesore, but at least I didn't
+repeat myself.</p>
+</li>
+<li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/debug/currentthread.h">chan::currentThread</a>: Fills the same niche as
+<a href="https://en.cppreference.com/w/cpp/thread/get_id">std::this_thread::get_id()</a>.  I use it for debugging only.  The
+implementation uses <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">pthread_self</a>.</p>
+</li>
+</ul>
+<p>I could have avoided implementing those twelve components if only I had
+required C++11 or boost.  All together my implementations amount to an
+additional 1173 lines of source.  That sounds like a lot, but considering that
+it allows the library to support C++98 without depending on a large external
+library, I think that it's justified.</p>
+<h2 id="more">More</h2>
+<p>That's enough of that.  If your curiosity is piqued, then you can
+<a href="https://github.com/dgoffredo/chan#more">get started</a> playing with C++ channels and see how you like it.</p>
+
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td align="left">
+        <a href="../site/posts.html">Posts</a>
+      </td>
+      <td align="center">
+        <a href="https://www.github.com/dgoffredo">About</a>
+      </td>
+      <td align="right">
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+</body>
+</html>
