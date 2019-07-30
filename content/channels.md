@@ -236,7 +236,7 @@ Here's one possible interleaving that causes a deadlock.
 
 | _thread1_                      | _thread2_                      |
 | ---------                      | ---------                      |
-| sit in _chan1_                 | sit _chan2_                    |
+| sit in _chan1_                 | sit in _chan2_                 |
 | say `HI` on _chan2_            | say `HI` on _chan1_            |
 | got `HI` on _chan1_            | got `HI` on _chan2_            |
 | **block** for reply on _chan1_ | **block** for reply on _chan2_ |
