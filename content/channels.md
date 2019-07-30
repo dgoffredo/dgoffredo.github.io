@@ -228,8 +228,8 @@ On _thread2_:
     }
 
 That is, _thread1_ is sending to _chan1_ and receiving from _chan2_, while
-_thread2_ is doing the opposite &#x2014; sending to "chan2" and receiving from
-"chan1."
+_thread2_ is doing the opposite &#x2014; sending to _chan2_ and receiving from
+_chan1_.
 
 What causes the deadlock is that blocking read in `IoEvent fulfill(IoEvent)`.
 Here's one possible interleaving that causes a deadlock.
