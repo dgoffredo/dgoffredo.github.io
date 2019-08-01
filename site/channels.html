@@ -62,14 +62,14 @@ portably consume a message queue while also being able to stop on demand.  The
 simplest consumer I could imagine, "consume messages from this queue until I
 tell you to stop," in general requires the use of UNIX signals, since in
 general POSIX message queues are not files, and so cannot be used in IO
-multiplexing facilities like <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">poll</a>.  Sure, you could send a special
+multiplexing facilities like <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/poll.html">poll</a>.  Sure, you could send a special
 message to the queue, "okay, stop now," but that works only if you are the only
 consumer.  You wouldn't want your "stop" message to go to some other consumer.</p>
 <p>Fortunately, on Linux it is the case that POSIX message queues <em>are</em> files,
 and so I can use <code>poll</code> to block on the condition that <em>either</em> a message
 arrives on the queue <em>or</em> somebody pokes me to tell me to stop. I could make
-a <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">pipe</a> on which the consumer would "poll" for reads, so that when I
-wanted to tell the consumer "stop," I'd just <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">write</a> to the pipe. The
+a <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/pipe.html">pipe</a> on which the consumer would "poll" for reads, so that when I
+wanted to tell the consumer "stop," I'd just <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/write.html">write</a> to the pipe. The
 consumer would then handle that event by ceasing its queue consuming
 activities.</p>
 <p>What do I write to the pipe? Anything really. What if I wanted to
@@ -133,7 +133,7 @@ channels.</p>
 be blocking in a call to <code>poll</code>, but the events determine which files will be
 monitored by <code>poll</code>.</p>
 <p>Let an <code>IoEvent</code> be a notion of the sort of thing <code>poll</code> can monitor (like the
-<a href="http://pubs.opengroup.org/onlinepubs/9699919799/">pollfd</a> structure, but including timeouts and not depending on any
+<a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/poll.h.html">pollfd</a> structure, but including timeouts and not depending on any
 system headers), together with a special value indicating "I'm done."  Then I
 call an <em>event</em> any object that supports the following three operations:</p>
 <ul>
@@ -755,7 +755,7 @@ repeat myself.</p>
 </li>
 <li><p><a href="https://github.com/dgoffredo/chan/blob/master/src/chan/debug/currentthread.h">chan::currentThread</a>: Fills the same niche as
 <a href="https://en.cppreference.com/w/cpp/thread/get_id">std::this_thread::get_id()</a>.  I use it for debugging only.  The
-implementation uses <a href="http://pubs.opengroup.org/onlinepubs/9699919799/">pthread_self</a>.</p>
+implementation uses <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_self.html">pthread_self</a>.</p>
 </li>
 </ul>
 <p>I could have avoided implementing those twelve components if only I had
