@@ -791,11 +791,11 @@ That's enough of that.  If your curiosity is piqued, then you can
 [asio]: https://think-async.com/Asio/
 [go]: https://golang.org/
 [c10k]: https://en.wikipedia.org/wiki/C10k_problem
-[poll]: http://pubs.opengroup.org/onlinepubs/9699919799/
+[poll]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/poll.html
 [ipc]: https://github.com/dgoffredo/ipc
 [mq]: http://man7.org/linux/man-pages/man7/mq_overview.7.html
-[pipe]: http://pubs.opengroup.org/onlinepubs/9699919799/
-[write]: http://pubs.opengroup.org/onlinepubs/9699919799/
+[pipe]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/pipe.html
+[write]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/write.html
 [channel]: https://en.wikipedia.org/wiki/Channel_(programming)
 [go-select]: https://gobyexample.com/select
 [clojure-channels]: https://clojure.org/news/2013/06/28/clojure-clore-async-channels
@@ -807,7 +807,7 @@ That's enough of that.  If your curiosity is piqued, then you can
 [wingotalk]: https://www.youtube.com/watch?v=7IcI6sl5oBc
 [cml-slides]: http://www.cs.uchicago.edu/~jhr/papers/1996/mspls-slides-reppy.ps
 [dgoffredo-racket]: https://github.com/dgoffredo?utf8=%E2%9C%93&tab=repositories&q=&type=&language=racket
-[pollfd]: http://pubs.opengroup.org/onlinepubs/9699919799/
+[pollfd]: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/poll.h.html
 [go-select-src]: https://github.com/golang/go/blob/master/src/runtime/select.go
 [steroids]: https://docs.google.com/document/d/1yIAYmbvL3JxOKOjuCyon7JhW4cSv1wy5hC0ApeGMV9s/pub
 [uncaught_exceptions]: https://en.cppreference.com/w/cpp/error/uncaught_exception
@@ -843,7 +843,7 @@ That's enough of that.  If your curiosity is piqued, then you can
 [select]: https://github.com/dgoffredo/chan/blob/master/src/chan/select/select.h
 [currentthread]: https://github.com/dgoffredo/chan/blob/master/src/chan/debug/currentthread.h
 [std-getid]: https://en.cppreference.com/w/cpp/thread/get_id
-[pthread-self]: http://pubs.opengroup.org/onlinepubs/9699919799/
+[pthread-self]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_self.html
 [__thread]: https://en.wikipedia.org/wiki/Thread-local_storage#C_and_C++
 [std-alignedstorage]:https://en.cppreference.com/w/cpp/types/aligned_storage
 [std-maxalignt]: https://en.wikipedia.org/wiki/Thread-local_storage#C_and_C++
