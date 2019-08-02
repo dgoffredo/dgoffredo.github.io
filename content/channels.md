@@ -361,9 +361,9 @@ Now, to make this new scheme work, there are three things that need to happen.
    reading a pipe, threads could block each other acquiring a lock on each
    others' mutexes. The trick to avoiding this is always lock the mutexes in
    the same order. In particular, this means that if a thread's mutex comes
-   _before_ the mutex of the thread it is trying to visit, it must first
-   _unlock_ its mutex, the re-lock, and only then acquire a lock on the other
-   mutex. The tiny gap left between the unlock and re-lock prevents the
+   _after_ the mutex of the thread it is trying to visit, it must first
+   _unlock_ its mutex, then acquire a lock on the other mutex, and then re-lock
+   its mutex. The initial unlocking of the thread's mutex prevents the
    deadlock.
 
    Once a visiting thread has acquired the two locks, it examines the
