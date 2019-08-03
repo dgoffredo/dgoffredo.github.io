@@ -190,19 +190,19 @@ this:
      exchange the value, and so I too should report an error on my thread
      (perhaps by throwing an exception).
 
-    - `READY`: I had contacted another thread about exchanging a value, and now
-      that thread is ready for the exchange.  Copy/move the object to/from
-      their storage and then send them either a `DONE` or `ERROR` message,
-      depending on how it goes.
+   - `READY`: I had contacted another thread about exchanging a value, and now
+     that thread is ready for the exchange.  Copy/move the object to/from
+     their storage and then send them either a `DONE` or `ERROR` message,
+     depending on how it goes.
 
-    - `CANCEL`: I had contacted another thread about exchanging a value, but
-      now that thread has fulfilled another event.  I must revisit the channel
-      to see whether I can contact another thread or if I must wait to be
-      visited by another thread.
+   - `CANCEL`: I had contacted another thread about exchanging a value, but
+     now that thread has fulfilled another event.  I must revisit the channel
+     to see whether I can contact another thread or if I must wait to be
+     visited by another thread.
 
-    - `POKE`: I was not first in line, but then those in front of me finished
-      and so now I am in front.  I should visit the channel to see whether
-      there is anybody I can exchange a value with.
+   - `POKE`: I was not first in line, but then those in front of me finished
+     and so now I am in front.  I should visit the channel to see whether
+     there is anybody I can exchange a value with.
 
 - `void cancel(IoEvent)`: Another event was fulfilled on my thread.  Write a
   `CANCEL` message to whoever I was interacting with, visit the channel and

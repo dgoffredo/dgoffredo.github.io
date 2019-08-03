@@ -202,7 +202,7 @@ thread or if I must wait to be visited by another thread.  <code>ERROR</code> me
 that an exception was thrown on the other thread while it attempted to
 exchange the value, and so I too should report an error on my thread
 (perhaps by throwing an exception).</p>
-<ul>
+</li>
 <li><p><code>READY</code>: I had contacted another thread about exchanging a value, and now
 that thread is ready for the exchange.  Copy/move the object to/from
 their storage and then send them either a <code>DONE</code> or <code>ERROR</code> message,
@@ -216,8 +216,6 @@ visited by another thread.</p>
 <li><p><code>POKE</code>: I was not first in line, but then those in front of me finished
 and so now I am in front.  I should visit the channel to see whether
 there is anybody I can exchange a value with.</p>
-</li>
-</ul>
 </li>
 </ul>
 </li>
