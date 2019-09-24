@@ -12,11 +12,11 @@ This is Aniruddha Ram Kumar Mukherjee.  He is a dog.  Like many natives of
 Delhi, Aniruddha must find ways to cope with the oppressive afternoon summer
 heat.  A quick nap on a bench can help pass by the hottest part of the day.
 
-Fortunately, since it is late September, the monsoon season has just begun and
-temperatures are starting to fall as the rains arrive.  Still, Aniruddha and
-his large extended family of conspicuously similar looking and ubiquitous
-canines seem hardly to ever move, preferring instead to lie out and sleep in
-the center of lawns, hills, sidewalks, roads, and crowded temple entrances.
+Fortunately, since it is late September, Winter is arriving and so
+temperatures are beginning to fall.  Still, Aniruddha and his large extended
+family of conspicuously similar looking and ubiquitous canines seem hardly
+to ever move, preferring instead to lie out and sleep in the center of
+lawns, hills, sidewalks, roads, and crowded temple entrances.
 
 I found myself thinking that perhaps it is the same dog, silently following us
 when we're not looking and then plopping down onto the ground apparently fast
