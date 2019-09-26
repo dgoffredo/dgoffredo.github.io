@@ -6,7 +6,9 @@ img {
 }
 </style>
 
-![](../site/india2_38.jpg)
+<script src="../site/linkify.js"> </script>
+
+![](../site/india2_38_small.jpg)
 
 Copper (II) sulfate is the product of the reaction between copper metal and
 sulfuric acid.  It's water soluble and moderately toxic.
@@ -27,25 +29,25 @@ samples are below 0.185 milligrams per liter.
 
 Anyway, here are some pictures of the Taj Mahal:
 
-![](../site/india2_37.jpg)
+![](../site/india2_37_small.jpg)
 
-![](../site/india2_39.jpg)
+![](../site/india2_39_small.jpg)
 
-![](../site/india2_41.jpg)
+![](../site/india2_41_small.jpg)
 
-![](../site/india2_43.jpg)
+![](../site/india2_43_small.jpg)
 
-![](../site/india2_47.jpg)
+![](../site/india2_47_small.jpg)
 
 You get the idea.  White, pretty, enormous.  Totally my type.  We even saw some
 monkeys:
 
-![](../site/india2_50.jpg)
+![](../site/india2_50_small.jpg)
 
 I said, "oh, more monkeys!"  Our guide for that day replied, slightly amused,
 "Yes, more monkeys.  Don't go near them."
 
-![](../site/india2_1.jpg)
+![](../site/india2_1_small.jpg)
 
 The Taj Mahal is in the city of Agra, which is not Delhi.  So, Mr. Singh drove
 us for a few hours through the Indian countryside.  You can probably guess from
@@ -88,7 +90,7 @@ that I don't have any. In India so far I have taken more pictures of
 pigeons, the undisputed rulers of New York City, than I have of Hindu's
 sacred animal. I'll try to correct this before returning to Delhi.
 
-![](../site/india2_2.jpg)
+![](../site/india2_2_small.jpg)
 
 We saw more than the Taj Mahal in Agra.  The first tour was of the so-called
 "mini Taj," properly the tomb of I'timād-ud-Daulah.  You can read about the
@@ -103,13 +105,13 @@ Jaipur on a river.
 
 Here's the "mini Taj."
 
-![](../site/india2_7.jpg)
+![](../site/india2_7_small.jpg)
 
-![](../site/india2_8.jpg)
+![](../site/india2_8_small.jpg)
 
-![](../site/india2_5.jpg)
+![](../site/india2_5_small.jpg)
 
-![](../site/india2_4.jpg)
+![](../site/india2_4_small.jpg)
 
 There are two styles of ornamentation at play.  One is inlaid stonework
 ([pietra dura][2]), and the other is mural painting.  In a similar way to how
@@ -118,7 +120,7 @@ relatively devoid of murals, instead using extensive pietra dura.
 
 But that's all pretty boring, isn't it?  Check out these camels.
 
-![](../site/india2_70.jpg)
+![](../site/india2_70_small.jpg)
 
 As we approached this caravan from afar, Mr. Singh said "look, elephants!"
 After a few seconds I contributed, "they're very small elephants," and I don't
@@ -128,14 +130,14 @@ Thank you for listening.
 
 My favorite picture so far is this one:
 
-![](../site/india2_129.jpg)
+![](../site/india2_129_small.jpg)
 
 Rashād watches over all of us from his kingly roost.  [HDR][3] is really
 growing on me.  
 
 Speaking of elephants, here is what they look like:
 
-![](../site/india2_75.jpg)
+![](../site/india2_75_small.jpg)
 
 Yes, we exploited the elephants.  I'm sorry, ok?  To be honest, had we known
 that the item on the tour mentioning elephants was a touristastic ride up a
@@ -158,7 +160,7 @@ they are in the Americas.
 
 I'm just saying that I wish well for the elephants.  Moving on.
 
-![](../site/india2_93.jpg)
+![](../site/india2_93_small.jpg)
 
 Ok, one more thing about the elephants.  Two things.  The first is that Andrea
 had the sensibility to greet the elephant once we dismounted it, and earlier
@@ -177,19 +179,19 @@ the photographs.  We suffered no such trouble, but once we got to the top, I
 was amused to get the "behind the scenes" shot.
 
 Here is a picture of doorframes framing door frames.
-![](../site/india2_66.jpg)
+![](../site/india2_66_small.jpg)
 
 Here is a picture of someone taking a picture of doorframes framing doorframes.
-![](../site/india2_65.jpg)
+![](../site/india2_65_small.jpg)
 
 We need to go deeper.
 
 Here is a picture of a blog post being prepared about a picture of someone
 taking a picture of doorframes framing doorframes.
-![](../site/india2_155.jpg)
+![](../site/india2_155_small.jpg)
 
 Here is a picture of Asha the cat.
-![](../site/asha2.jpg)
+![](../site/asha2_small.jpg)
 
 We saw a bunch of palaces.  The Mughals moved here, and then they moved there,
 and then they moved back again, and then a prince killed his brothers and
@@ -197,19 +199,19 @@ imprisoned his father and somebody built the Taj Mahal.  I'm probably getting
 some of this wrong.  People died, it was all deadly serious.  Also, harems.
 
 The first palace was inside of a fort.  If you look closely, there are cows.
-![](../site/india2_9.jpg)
+![](../site/india2_9_small.jpg)
 
 Inside of the fort, there are multiple layers of defensive obstacles.  There
 are attack monkeys,
-![](../site/india2_11.jpg)
+![](../site/india2_11_small.jpg)
 
 boulder corridors of death,
-![](../site/india2_12.jpg)
+![](../site/india2_12_small.jpg)
 
 and arresting views of the vast, lush landscape that would pull invaders into
 a state of placid reflection, whence they can be slain by arrows or boiling
 oil.
-![](../site/india2_19.jpg)
+![](../site/india2_19_small.jpg)
 
 The guy in the picture was our tour guide in Agra.  He was alright.  I found
 him off-putting in a subtle way.  There was a rote thinness to his
@@ -222,24 +224,24 @@ after an energetic monologue, he would turn away and sigh.
 The fort palace has three notable sections.  The first is the courtyard where
 the king would address a private audience.  It's real fancy.
 
-![](../site/india2_14.jpg)
+![](../site/india2_14_small.jpg)
 
-![](../site/india2_17.jpg)
+![](../site/india2_17_small.jpg)
 
-![](../site/india2_18.jpg)
+![](../site/india2_18_small.jpg)
 
 The second section is the king's private quarters, which is even fancier.
 
-![](../site/india2_20.jpg)
+![](../site/india2_20_small.jpg)
 
-![](../site/india2_21.jpg)
+![](../site/india2_21_small.jpg)
 
 The last section is the courtyard where the king would address a public
 audience.  I'm not sure what is meant by "public."
 
-![](../site/india2_23.jpg)
+![](../site/india2_23_small.jpg)
 
-![](../site/india2_24.jpg)
+![](../site/india2_24_small.jpg)
 
 One of the kings married three wives: a Muslim, a Christian, and a Hindu.  The
 Muslim wife lived in a lavishly decorated shoebox.  The Christian wife lived
@@ -253,17 +255,17 @@ The other token wives did not bear the king any children.
 Here are some pictures of the palace in which the king, his three wives, and a
 ton of other people temporarily lived while away from the fort.
 
-![](../site/india2_54.jpg)
+![](../site/india2_54_small.jpg)
 
-![](../site/india2_56.jpg)
+![](../site/india2_56_small.jpg)
 
-![](../site/india2_57.jpg)
+![](../site/india2_57_small.jpg)
 
-![](../site/india2_58.jpg)
+![](../site/india2_58_small.jpg)
 
-![](../site/india2_60.jpg)
+![](../site/india2_60_small.jpg)
 
-![](../site/india2_69.jpg)
+![](../site/india2_69_small.jpg)
 
 These tours do this thing that's new to me.  Mr. Singh motivated it for us on
 the way from Delhi to Agra.  You go to a showroom adjacent to a factory where
@@ -315,20 +317,20 @@ The friendly and slightly avian jewelry salesman told me point blank,
 
 For example, behold this impromptu pout:
 
-![](../site/rbf.jpg)
+![](../site/rbf_small.jpg)
 
 The elephants were leading us up to a palace on a hill, my favorite palace of
 the trip:
 
-![](../site/india2_77.jpg)
+![](../site/india2_77_small.jpg)
 
-![](../site/india2_89.jpg)
+![](../site/india2_89_small.jpg)
 
-![](../site/india2_98.jpg)
+![](../site/india2_98_small.jpg)
 
-![](../site/india2_103.jpg)
+![](../site/india2_103_small.jpg)
 
-![](../site/india2_108.jpg)
+![](../site/india2_108_small.jpg)
 
 Our tour guide in Jaipur was much better than the previous.  It was a state
 secret how that silver shone for so many years without tarnishing.  Such
@@ -343,42 +345,42 @@ told her about the [mad hatters][9].
 
 There were many things to look at.
 
-![](../site/india2_101.jpg)
+![](../site/india2_101_small.jpg)
 
-![](../site/india2_114.jpg)
+![](../site/india2_114_small.jpg)
 
-![](../site/india2_119.jpg)
+![](../site/india2_119_small.jpg)
 
-![](../site/india2_121.jpg)
+![](../site/india2_121_small.jpg)
 
-![](../site/india2_122.jpg)
+![](../site/india2_122_small.jpg)
 
-![](../site/india2_125.jpg)
+![](../site/india2_125_small.jpg)
 
-![](../site/india2_110.jpg)
+![](../site/india2_110_small.jpg)
 
 Does the following building look to you like it's partially submerged?
 
-![](../site/india2_134.jpg)
+![](../site/india2_134_small.jpg)
 
 There's an 18th Century observatory in Jaipur, where giant instruments are made
 of stone.  For example, this building is a sundial.  It _is_ a sundial.
 
-![](../site/india2_144.jpg)
+![](../site/india2_144_small.jpg)
 
-![](../site/india2_146.jpg)
+![](../site/india2_146_small.jpg)
 
 The triangular steppy thing casts a shadow on the curved marble thing, and on
 the latter are marked two-second increments.  On a morning with good direct
 sunlight, you could watch the shadow crawl across the ticks in real time.
 
-![](../site/india2_138.jpg)
+![](../site/india2_138_small.jpg)
 
 Here is an image of the dome of the night sky, carved in stone:
 
-![](../site/india2_140.jpg)
+![](../site/india2_140_small.jpg)
 
-![](../site/india2_139.jpg)
+![](../site/india2_139_small.jpg)
 
 There are two versions, each omitting half of the sky to make room for
 astonomers and/or astrologers to stand and take measurements.  Simple solution,
@@ -390,12 +392,12 @@ you can plot the curve of its transit, and from this deduce the current
 inclination of the Earth in the plane of the solar system, and probably a bunch
 of other things.
 
-![](../site/india2_152.jpg)
+![](../site/india2_152_small.jpg)
 
 Next we went to a museum on the grounds of the current royal family of Jaipur,
 but we wouldn't take pictures inside.  Nearby, there was this:
 
-![](../site/india2_154.jpg)
+![](../site/india2_154_small.jpg)
 
 I forget what it is, but it looks cool.
 
