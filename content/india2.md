@@ -217,7 +217,7 @@ The guy in the picture was our tour guide in Agra.  He was alright.  I found
 him off-putting in a subtle way.  There was a rote thinness to his
 presentation, and he more often deflected questions than answered them.  Andrea
 suggested that he was acting like a salesman who isn't selling anything.  I
-thought that he was crushed my the monotony of saying the same things in the
+thought that he was crushed by the monotony of saying the same things in the
 same way in the same places nearly every day for years and years.  Sometimes,
 after an energetic monologue, he would turn away and sigh.
 
@@ -402,8 +402,8 @@ but we wouldn't take pictures inside.  Nearby, there was this:
 I forget what it is, but it looks cool.
 
 We were thoroughly pooped when we returned to the hotel late that afternoon.
-They also moved us into a room with two proper beds, so Andrea could vacate
-her stay on the cot from the previous night.
+They also moved us into a room with two proper beds, so Andrea could end her
+stay on the cot from the previous night.
 
 Today is a down day.  We might do something this afternoon, and we might not.
 There is a nice pool.  Tonight is a cooking class.
