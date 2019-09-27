@@ -1,0 +1,6 @@
+#!/bin/sh
+
+  echo "$@"               \
+| grep -v '_small\.jpg$'  \
+| sed 's/\.jpg$//'        \
+| parallel convert -resize '700\>' {}.jpg {}_small.jpg
