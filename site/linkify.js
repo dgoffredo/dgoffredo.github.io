@@ -1,1 +1,1 @@
-../content/linkify.js
+../config/linkify.js

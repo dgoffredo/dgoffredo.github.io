@@ -1,13 +1,5 @@
 India, Day 1
 ============
-<style>
-img {
-    width: 700px;
-}
-</style>
-
-<script src="../site/linkify.js"> </script>
-
 ![dog](../site/india_20_small.jpg)
 
 This is Aniruddha Ram Kumar Mukherjee.  He is a dog.  Like many natives of

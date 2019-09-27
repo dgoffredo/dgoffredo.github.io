@@ -76,6 +76,9 @@ html_template = '''
 
   <script>hljs.initHighlightingOnLoad();</script>
 
+  <!-- The space character prevents etree from omitting the closing tag. -->
+  <script src="../site/linkify.js"> </script>
+
   <title>{title}</title>
 </head>
 
@@ -186,6 +189,7 @@ def generate(root):
     navigate = (config/'navigate.html').read_text()
     site = root/'site'
     (site/'style.css').symlink_to('../config/style.css')
+    (site/'linkify.js').symlink_to('../config/linkify.js')
 
     page_titles = {}
  

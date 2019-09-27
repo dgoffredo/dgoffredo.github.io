@@ -1,6 +1,6 @@
 Channels
 ========
-![](site/chan.png)
+![](../site/chan.png)
 
 I implemented [Go-style channels and select][chan] in C++. The need doesn't
 arise often, but when it does, it's frustrating not to be able to multiplex
@@ -241,7 +241,7 @@ Here's one possible interleaving that causes a deadlock.
 | got `HI` on _chan1_            | got `HI` on _chan2_            |
 | **block** for reply on _chan1_ | **block** for reply on _chan2_ |
 
-![](site/sad-panda.png)
+![](../site/sad-panda.png)
 
 For comparison, what happens more often is the following:
 
@@ -255,7 +255,7 @@ For comparison, what happens more often is the following:
 |                                | say `DONE` on _chan1_          |
 | got `DONE` on _chan1_          |                                |
 
-![](site/happy-panda.png)
+![](../site/happy-panda.png)
 
 Here there's no deadlock; instead, _chan1_ "won the race."  How can I avoid the
 deadlocking case?

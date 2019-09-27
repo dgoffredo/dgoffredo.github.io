@@ -43,3 +43,7 @@ tr:nth-child(even) {
 div.table-of-contents {
     font-size: 14pt;
 }
+
+img.thumbnail {
+    width: 700px;
+}

@@ -1,13 +1,5 @@
 India, Day 6
 ============
-<style>
-img {
-    width: 700px;
-}
-</style>
-
-<script src="../site/linkify.js"> </script>
-
 ![](../site/india2_38_small.jpg)
 
 Copper (II) sulfate is the product of the reaction between copper metal and
