@@ -51,9 +51,9 @@ Immediately after, it looks like this:
 The women then are unable to use their hands for well over an hour.  It was
 hilarious.
 
-After drying and being scratched off onto a torn piece of newspaper, the
-stained skin starts to gradually darken from a iodine orange to a deep red
-brown.  Here's Andrea a day after:
+After the henna has dried and been scratched off onto a torn piece of
+newspaper, the stained skin starts to gradually darken from a iodine orange to
+a deep red brown.  Here's Andrea a day after:
 
 ![](../site/india4_37_small.jpg)
 
