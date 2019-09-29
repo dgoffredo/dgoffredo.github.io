@@ -101,6 +101,10 @@ neighborhood.  We had:
 
 ![](../site/india3_23_small.jpg)
 
+We began with another Sikh temple, and along the way there was a quiet street
+of Jain households.  After kulfi we rickshawed back to the car, where our guide
+seemed oddly interested in keeping far away from our driver.
+
 So ended the street food walking tour.
 
 On the way back, we stopped to get some cash for tipping Mr. Singh, as it would
