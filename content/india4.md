@@ -23,7 +23,7 @@ bench opposite a small fire.  On the other side was a priest with a microphone.
 </video>
 
 I should mention that the wedding couple are not visible in the video (they're
-off to the left), and that the shaking due to coffee.
+off to the left), and that the shaking image is due to coffee.
 
 This ritual likely had a deep significance for a few attending, but not for the
 bride or groom.
