@@ -63,7 +63,7 @@ There we boarded a big ol' houseboat just for us six and the three crew.
 
 ![](../site/india6_14_small.jpg)
 
-There was a driver,
+There was a helmsman,
 
 ![](../site/india6_7_small.jpg)
 
