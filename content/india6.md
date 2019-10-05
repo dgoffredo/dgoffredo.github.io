@@ -163,7 +163,7 @@ etc., etc., but also there was this Hindu-looking guy on a horse.  I didn't
 learn about him in school.  Dude on a horse, in a church.  He was depicted in
 both the smaller old chapel and in the cavernous new one.
 
-Our last stop was a very fancy shopping mall.  I had chicken friend rice and
+Our last stop was a very fancy shopping mall.  I had chicken fried rice and
 Vineet got some new kicks.
 
 ![](../site/india6_67_small.jpg)
