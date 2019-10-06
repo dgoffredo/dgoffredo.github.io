@@ -50,9 +50,10 @@ img.thumbnail {
 
 table.india {
     width: 100%;
+    max-width: 700px;
     margin-bottom: 20px;
 }
 
-table.india > tbody > tr > th {
+table.india > tbody > tr {
     text-align: center;
 }
