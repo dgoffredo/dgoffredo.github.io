@@ -44,7 +44,7 @@ They gave us a room with two beds.  They had guilty looks on their faces and
 upgraded us to a larger room, with a refrigerator.  Serves them right.  Finally
 somewhere to put the cheap champagne that Mr. Singh gifted us.
 
-It's not really champaign in any sense of the word.  It's twelve percent
+It's not really champagne in any sense of the word.  It's twelve percent
 alcohol by volume, is probably derived from grapes, and contains carbon
 dioxide, but aside from these things it more resembles fortified Kool-Aid.  I
 will drink it.
