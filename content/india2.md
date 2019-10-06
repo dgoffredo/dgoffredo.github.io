@@ -401,6 +401,18 @@ Today is a down day.  We might do something this afternoon, and we might not.
 There is a nice pool.  Tonight is a cooking class.
 <img style="width: 200px;" src="../site/hindi.png"/>
 
+<table class="india">
+  <tr><th colspan="6">India</th></tr>
+  <tr>
+    <td><a href="../site/india1.html">Day 1</a></td>
+    <td>Day 6</td>
+    <td><a href="../site/india3.html">Day 8</a></td>
+    <td><a href="../site/india4.html">Day 10</a></td>
+    <td><a href="../site/india5.html">Day 13</a></td>
+    <td><a href="../site/india6.html">Day 15</a></td>
+  </tr>
+</table>
+
 [1]: https://en.wikipedia.org/wiki/Tomb_of_I%27tim%C4%81d-ud-Daulah
 [2]: https://en.wikipedia.org/wiki/Pietra_dura
 [3]: https://en.wikipedia.org/wiki/High-dynamic-range_imaging

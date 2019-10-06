@@ -114,6 +114,18 @@ be our last drive with him.
 
 Thanks for the jungle juice.
 
+<table class="india">
+  <tr><th colspan="6">India</th></tr>
+  <tr>
+    <td><a href="../site/india1.html">Day 1</a></td>
+    <td><a href="../site/india2.html">Day 6</a></td>
+    <td>Day 8</td>
+    <td><a href="../site/india4.html">Day 10</a></td>
+    <td><a href="../site/india5.html">Day 13</a></td>
+    <td><a href="../site/india6.html">Day 15</a></td>
+  </tr>
+</table>
+
 [1]: https://en.wikipedia.org/wiki/Old_Delhi
 [2]: https://en.wikipedia.org/wiki/Aloo_tikki
 [3]: https://en.wikipedia.org/wiki/Nankhatai

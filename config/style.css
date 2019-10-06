@@ -36,7 +36,7 @@ table.posts {
     line-height: 2;
 }
 
-tr:nth-child(even) {
+table.posts > tbody > tr:nth-child(even) {
   background-color: #eee6ff
 }
 
@@ -46,4 +46,13 @@ div.table-of-contents {
 
 img.thumbnail {
     width: 700px;
+}
+
+table.india {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table.india > tbody > tr > th {
+    text-align: center;
 }
