@@ -121,7 +121,7 @@ Without a beast in sight for wrestling, more yoga was sought as a substitute.
 ![](../site/india6_29_small.jpg)
 
 The rest of the morning was another leisurely cruise down the river, until we
-once again reached the shore and was picked up by our driver.
+once again reached the shore and were picked up by our driver.
 
 ![](../site/india6_32_small.jpg)
 
