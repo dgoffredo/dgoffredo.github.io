@@ -129,7 +129,7 @@ a function:</p>
 <pre><code class="lang-c++">#include &lt;utility&gt;
 
 template &lt;typename Value&gt;
-Value thrush(Value&amp;&amp; value) {
+Value&amp;&amp; thrush(Value&amp;&amp; value) {
     return std::forward&lt;Value&gt;(value);
 }
 

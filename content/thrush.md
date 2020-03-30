@@ -124,7 +124,7 @@ This makes me wonder what a horrid affair this would be in C++.  Let's try it:
 #include <utility>
 
 template <typename Value>
-Value thrush(Value&& value) {
+Value&& thrush(Value&& value) {
     return std::forward<Value>(value);
 }
 
