@@ -6,7 +6,8 @@ shrunk-images := $(shell sed -n '$(sed-expression)' content/*.md)
 
 .PHONY: graphs clean
 
-index.html: clean $(graph-targets) $(shrunk-images) content/*
+index.html: $(graph-targets) $(shrunk-images) content/*
+	rm -f site/*
 	bin/generate
 
 # This rule will be used for $(graph-targets)
@@ -16,7 +17,9 @@ index.html: clean $(graph-targets) $(shrunk-images) content/*
 # This rule will be used for $(shrunk-images)
 # Set width of small images to 700 pixels, scaling the height proportionally.
 %_small.jpg: %.jpg
-	convert $< -resize 700x -quality 90 $@
+	bin/shrink $< $@
 
 clean:
-	bin/clean
+	rm -f site/*
+	rm -f content/*_small.jpg
+	rm -f content/*.dot.png
