@@ -71,3 +71,15 @@ and they have balloons:
 
 I have so far resisted the cesspool of disease otherwise known as Vineet,
 but we'll see how I fare waking up for work tomorrow. Ciao.
+
+<table class="series">
+  <tr><th colspan="6">Europe</th></tr>
+  <tr>
+    <td><a href="../site/europe1.html">Day 1</a></td>
+    <td><a href="../site/europe2.html">Day 2</a></td>
+    <td><a href="../site/europe7.html">Day 7</a></td>
+    <td><a href="../site/europe8.html">Day 8</a></td>
+    <td><a href="../site/europe10.html">Day 10</a></td>
+    <td>Day 13</td>
+  </tr>
+</table>

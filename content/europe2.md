@@ -76,3 +76,15 @@ You want to see more cats? Me too:
 
 These are the true Icelanders. The humans are kept alive only to act as
 caretakers in their intergalactic communist utopia.
+
+<table class="series">
+  <tr><th colspan="6">Europe</th></tr>
+  <tr>
+    <td><a href="../site/europe1.html">Day 1</a></td>
+    <td>Day 2</td>
+    <td><a href="../site/europe7.html">Day 7</a></td>
+    <td><a href="../site/europe8.html">Day 8</a></td>
+    <td><a href="../site/europe10.html">Day 10</a></td>
+    <td><a href="../site/europe13.html">Day 13</a></td>
+  </tr>
+</table>

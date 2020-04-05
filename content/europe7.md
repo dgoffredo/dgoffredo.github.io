@@ -66,3 +66,15 @@ of wine can:
 ![](../site/europe7-11_small.jpg)
 
 Vamos a Madrid!
+
+<table class="series">
+  <tr><th colspan="6">Europe</th></tr>
+  <tr>
+    <td><a href="../site/europe1.html">Day 1</a></td>
+    <td><a href="../site/europe2.html">Day 2</a></td>
+    <td>Day 7</td>
+    <td><a href="../site/europe8.html">Day 8</a></td>
+    <td><a href="../site/europe10.html">Day 10</a></td>
+    <td><a href="../site/europe13.html">Day 13</a></td>
+  </tr>
+</table>

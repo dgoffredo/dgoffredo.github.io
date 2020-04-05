@@ -31,13 +31,14 @@ https://www.google.is/maps/place/Reykjav%C3%ADk/@64.1369699,-21.8860857,11.43z/d
 
 DNS insists on bringing me to Icelandic websites. Don’t they know who I am?
 
-<!--
 <table class="series">
-  <tr><th colspan="TODO">Europe</th></tr>
+  <tr><th colspan="6">Europe</th></tr>
   <tr>
     <td>Day 1</td>
     <td><a href="../site/europe2.html">Day 2</a></td>
-    TODO
+    <td><a href="../site/europe7.html">Day 7</a></td>
+    <td><a href="../site/europe8.html">Day 8</a></td>
+    <td><a href="../site/europe10.html">Day 10</a></td>
+    <td><a href="../site/europe13.html">Day 13</a></td>
   </tr>
 </table>
--->

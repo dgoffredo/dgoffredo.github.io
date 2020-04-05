@@ -125,3 +125,15 @@ department, but they make a good effort:
 ![](../site/europe8-017_small.jpg) 
  
 Tomorrow it’s off to Barcelona. Buenas noches.
+
+<table class="series">
+  <tr><th colspan="6">Europe</th></tr>
+  <tr>
+    <td><a href="../site/europe1.html">Day 1</a></td>
+    <td><a href="../site/europe2.html">Day 2</a></td>
+    <td><a href="../site/europe7.html">Day 7</a></td>
+    <td>Day 8</td>
+    <td><a href="../site/europe10.html">Day 10</a></td>
+    <td><a href="../site/europe13.html">Day 13</a></td>
+  </tr>
+</table>
