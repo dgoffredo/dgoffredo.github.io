@@ -114,7 +114,7 @@ be our last drive with him.
 
 Thanks for the jungle juice.
 
-<table class="india">
+<table class="series">
   <tr><th colspan="6">India</th></tr>
   <tr>
     <td><a href="../site/india1.html">Day 1</a></td>

@@ -401,7 +401,7 @@ Today is a down day.  We might do something this afternoon, and we might not.
 There is a nice pool.  Tonight is a cooking class.
 <img style="width: 200px;" src="../site/hindi.png"/>
 
-<table class="india">
+<table class="series">
   <tr><th colspan="6">India</th></tr>
   <tr>
     <td><a href="../site/india1.html">Day 1</a></td>

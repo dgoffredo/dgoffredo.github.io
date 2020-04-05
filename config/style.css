@@ -48,12 +48,12 @@ img.thumbnail {
     width: 700px;
 }
 
-table.india {
+table.series {
     width: 100%;
     max-width: 700px;
     margin-bottom: 20px;
 }
 
-table.india > tbody > tr {
+table.series > tbody > tr {
     text-align: center;
 }

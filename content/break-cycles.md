@@ -298,13 +298,13 @@ edges, would proceed starting from another vertex, say, `A`. But we already did
 The next interesting vertex to start from, alphabetically, is `D`. Here is the
 complete animation starting from `D`, and then the resulting edges removed:
 
-<div><img src="../site/graph-animation-4.gif"/><img src="../site/edges-removed-d.dot.png"/></div>
+<div><img src="../site/graph-animation-4.gif"/><img src="../site/edges-removed-d.png"/></div>
 
 As you can see, one of the edges is different than before.
 
 The punchline is the result starting from `F`. Here it is:
 
-<div><img src="../site/graph-animation-5.gif"/><img src="../site/edges-removed-f.dot.png"/></div>
+<div><img src="../site/graph-animation-5.gif"/><img src="../site/edges-removed-f.png"/></div>
 
 So we discover that the minimum feedback arc set of this directed graph is
 `{DF}`.

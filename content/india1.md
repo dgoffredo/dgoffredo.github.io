@@ -171,7 +171,7 @@ o'clock in the morning, and I am going to bed.
 
 <img style="width: 200px;" src="../site/hindi.png"/>
 
-<table class="india">
+<table class="series">
   <tr><th colspan="6">India</th></tr>
   <tr>
     <td>Day 1</td>

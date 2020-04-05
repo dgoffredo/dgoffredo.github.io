@@ -9,12 +9,13 @@ window.onload = () => {
 
         img.className = 'thumbnail';  // for styling
 
-        const p = img.parentNode;
-        p.removeChild(img);
+        const p = img.parentNode,
+              link = document.createElement('a');
 
-        const link = document.createElement('a');
+        //             new   old
+        p.replaceChild(link, img);
+
         link.setAttribute('href', img.src.replace(/_small\.jpg$/, '.jpg'));
         link.appendChild(img);
-        p.appendChild(link);
     });
 }
