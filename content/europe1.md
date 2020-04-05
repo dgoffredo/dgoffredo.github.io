@@ -1,8 +1,7 @@
 Europe, Day 1
 =============
 ![](../site/vineet_ice_small.jpg)
-
-Vineet copes with the low coefficient of friction in Iceland.
+*Vineet copes with the low coefficient of friction in Iceland.*
 
 Morning from the North,
 
