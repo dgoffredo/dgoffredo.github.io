@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
 
-  <link href="../site/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link rel="shortcut icon" type="image/x-icon" href="../site/favicon.ico" />
 
-  <link href="../site/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="../site/style.css" />
 
-  <link href="../highlightjs/styles/default.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../highlightjs/styles/default.css" />
 
   
   <script src="../highlightjs/highlight.pack.js"> </script>
@@ -44,7 +44,7 @@
 <div class="table-of-contents"><ul><li><a href="#channels">Channels</a><ul><li><a href="#motivation">Motivation</a></li><li><a href="#select">select(...)</a></li><li><a href="#concurrent_ml">Concurrent ML</a></li><li><a href="#events">Events</a></li><li><a href="#the_original_channel_design">The Original Channel Design</a></li><li><a href="#the_new_channel_design">The New Channel Design</a></li><li><a href="#selectondestroy">selectOnDestroy</a></li><li><a href="#error_handling">Error Handling</a></li><li><a href="#supporting_c98_sucks_without_boost">Supporting C++98 Sucks Without Boost</a></li><li><a href="#more">More</a></li></ul></li></ul></div>
 
 <h1 id="channels">Channels</h1>
-<p><img alt="" src="../site/chan.png" /></p>
+<p><img src="../site/chan.png" alt="" /></p>
 <p>I implemented <a href="https://github.com/dgoffredo/chan">Go-style channels and select</a> in C++. The need doesn't
 arise often, but when it does, it's frustrating not to be able to multiplex
 operations easily.</p>
@@ -272,7 +272,7 @@ Here's one possible interleaving that causes a deadlock.</p>
 </tr>
 </tbody>
 </table>
-<p><img alt="" src="../site/sad-panda.png" /></p>
+<p><img src="../site/sad-panda.png" alt="" /></p>
 <p>For comparison, what happens more often is the following:</p>
 <table>
 <thead><tr>
@@ -310,7 +310,7 @@ Here's one possible interleaving that causes a deadlock.</p>
 </tr>
 </tbody>
 </table>
-<p><img alt="" src="../site/happy-panda.png" /></p>
+<p><img src="../site/happy-panda.png" alt="" /></p>
 <p>Here there's no deadlock; instead, <em>chan1</em> "won the race."  How can I avoid the
 deadlocking case?</p>
 <p>No amount of protocol tweaking is enough to fix this problem.  In order to have

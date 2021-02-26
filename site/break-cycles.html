@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
 
-  <link href="../site/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link rel="shortcut icon" type="image/x-icon" href="../site/favicon.ico" />
 
-  <link href="../site/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="../site/style.css" />
 
-  <link href="../highlightjs/styles/default.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../highlightjs/styles/default.css" />
 
   
   <script src="../highlightjs/highlight.pack.js"> </script>
@@ -120,16 +120,16 @@ graph.</p>
 where <code>C</code> <em>depends upon</em> <code>B</code>. That is, <code>A</code> <em>depends upon</em> <code>B</code> if there exists a
 directed path from <code>A</code> to <code>B</code> in the dependency graph.</p>
 <p>The graph for the types in <code>(package basic ...)</code>, above, looks like this:</p>
-<p><img alt="dependency graph of &quot;Value&quot;" src="../site/just-value.dot.png" /></p>
+<p><img src="../site/just-value.dot.png" alt="dependency graph of &quot;Value&quot;" /></p>
 <p>It has one vertex and one edge, from <code>Value</code> to itself: because (before our
 modification) <code>Value</code> <em>contains</em> <code>Value</code>. Our modification, though, creates
 a level of indirection: replacing <code>Value</code> with <code>Allocated&lt;Value&gt;</code> within the
 class definition removes the one edge in the graph, since <code>Value</code> no longer
 contains <code>Value</code>:</p>
-<p><img alt="no more cycle" src="../site/bare-value.dot.png" /></p>
+<p><img src="../site/bare-value.dot.png" alt="no more cycle" /></p>
 <p>A cycle involving only one vertex is not very interesting. But suppose the
 dependency graph looked like this instead:</p>
-<p><img alt="a more complicated dependency graph" src="../site/cyclic.dot.png" /></p>
+<p><img src="../site/cyclic.dot.png" alt="a more complicated dependency graph" /></p>
 <p>How many cycles does that directed graph contain? I see two:</p>
 <div><img src="../site/cyclic.1.dot.png" /><img src="../site/cyclic.2.dot.png" /></div><p>As before, we wish to make this directed graph acyclic by removing edges, where
 we remove an edge by replacing the appearance of a type <code>T</code> within a class
@@ -147,7 +147,7 @@ other way around.</p>
 and <code>G</code> classes and replace all appearances of <code>D</code> with <code>Allocated&lt;D&gt;</code>.</p>
 <p>You might have noticed that there is another way we could have broken the
 cycles. Here's the original cyclic graph again:</p>
-<p><img alt="a more complicated dependency graph" src="../site/cyclic.dot.png" /></p>
+<p><img src="../site/cyclic.dot.png" alt="a more complicated dependency graph" /></p>
 <p>Both cycles share an edge, <code>DF</code>, and removing just that one breaks both
 cycles:</p>
 <div><img src="../site/cyclic.remove.3.dot.png" /><img src="../site/cyclic.remove.4.dot.png" /></div><p>Now graphviz wants to put <code>F</code> on top, interesting.</p>
@@ -191,7 +191,7 @@ cycles in a directed graph efficiently is <a href="https://blog.mister-muffin.de
 A <a href="https://en.wikipedia.org/wiki/Complete_graph">complete directed graph</a> having <var>n</var> vertices and
 <var>~n<sup>2</sup></var> edges can have up to <a href="https://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF">this many</a> (simple)
 cycles:</p>
-<p><img alt="maximum number of cycles in complete digraph with n vertices" src="../site/max-cycles.dot.png" /></p>
+<p><img src="../site/max-cycles.dot.png" alt="maximum number of cycles in complete digraph with n vertices" /></p>
 <p>That's way more than <var>2<sup>n</sup></var>, so at worst we're totally
 screwed.</p>
 <p>Fortunately, no schema describing C++ classes is going to have a <em>complete</em>
@@ -242,20 +242,20 @@ feedback arc set.</p>
 <h3 id="pictures">Pictures</h3>
 <p>Here is an animated example using the same graph we've been using.</p>
 <p>Start at vertex <code>A</code> and do a depth-first traversal until you run into trouble:</p>
-<p><img alt="" src="../site/graph-animation-1.gif" /></p>
+<p><img src="../site/graph-animation-1.gif" alt="" /></p>
 <p>In these animations, the purple (pink) node is the one from which we started,
 blue indicates the edge or vertex we're currently examining, and gray indicates
 an edge or vertex that we've already visited. Red marks edges that lead to a
 vertex in the current set <code>s</code> of ancestors.</p>
 <p>We detected that the edge <code>FA</code> creates a cycle, so we remember it, remove it,
 and continue:</p>
-<p><img alt="" src="../site/graph-animation-2.gif" /></p>
+<p><img src="../site/graph-animation-2.gif" alt="" /></p>
 <p>We detected that the edge <code>GD</code> creates a cycle, and so we did as before. Now
 there's little left to do, from <code>A</code>'s point of view:</p>
-<p><img alt="" src="../site/graph-animation-3.gif" /></p>
+<p><img src="../site/graph-animation-3.gif" alt="" /></p>
 <p>Thus the following two edges were removed to make the graph acyclic, starting
 from <code>A</code>:</p>
-<p><img alt="" src="../site/edges-removed-a.dot.png" /></p>
+<p><img src="../site/edges-removed-a.dot.png" alt="" /></p>
 <p>Next we do the whole thing over, but this time starting from <code>B</code>. Starting from
 <code>B</code> or <code>C</code> is not very interesting, since they're both leaves. The algorithm,
 having run out of tree at <code>B</code> and noticing that there were still unvisited
