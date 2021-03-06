@@ -67,6 +67,11 @@ had leeks before.
 I also cooked a big batch of my [chicken stew][3] last night, but I don't
 have any pictures.
 
+There's a tiny sorbet store of great renown near Grace's parents' place. She
+got strawberry and I got tamarind.
+
+![](../site/mexico_32_small.jpg)
+
 The real culinary innovation of the trip so far is how to eat fruit.  In Mexico
 there are two magical condiments that form a dyad of fruictific perfection:
 [chamoy][4] and [tajín][5].  They balance the sweetness of fruit with tart,
