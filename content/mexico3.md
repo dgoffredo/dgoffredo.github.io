@@ -70,7 +70,7 @@ have any pictures.
 There's a tiny sorbet store of great renown near Grace's parents' place. She
 got strawberry and I got tamarind.
 
-![](../site/mexico_32_small.jpg)
+![](../content/mexico_32_small.jpg)
 
 The real culinary innovation of the trip so far is how to eat fruit.  In Mexico
 there are two magical condiments that form a dyad of fruictific perfection:
