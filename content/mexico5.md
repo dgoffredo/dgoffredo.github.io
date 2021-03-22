@@ -74,3 +74,14 @@ We in no way finished the puzzle.
 ![](../site/mexico_62_small.jpg) <!-- puzzle -->
 
 Ahora, a Nueva York.
+
+<table class="series">
+  <tr><th colspan="5">Mexico</th></tr>
+  <tr>
+    <td><a href="../site/mexico1.html">Day 5</a></td>
+    <td><a href="../site/mexico2.html">Day 8</a></td>
+    <td><a href="../site/mexico3.html">Day 13</a></td>
+    <td><a href="../site/mexico4.html">Day 21</a></td>
+    <td>Day 29</td>
+  </tr>
+</table>

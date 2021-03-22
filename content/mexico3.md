@@ -86,6 +86,17 @@ Here she is looking smug about her preparation of pineapple.
 Speaking of food, it's one o'clock here and I haven't eaten today.  Let's put
 that microwave to use.  ¡Adios!
 
+<table class="series">
+  <tr><th colspan="5">Mexico</th></tr>
+  <tr>
+    <td><a href="../site/mexico1.html">Day 5</a></td>
+    <td><a href="../site/mexico2.html">Day 8</a></td>
+    <td>Day 13</td>
+    <td><a href="../site/mexico4.html">Day 21</a></td>
+    <td><a href="../site/mexico5.html">Day 29</a></td>
+  </tr>
+</table>
+
 [1]: https://en.wikipedia.org/wiki/Calvillo
 [2]: https://en.wikipedia.org/wiki/Chile_relleno
 [3]: https://www.littlebroken.com/one-pot-chicken-stew/

@@ -74,6 +74,17 @@ I will not run out of water.
 
 ¡Hasta la proxima vez!
 
+<table class="series">
+  <tr><th colspan="5">Mexico</th></tr>
+  <tr>
+    <td><a href="../site/mexico1.html">Day 5</a></td>
+    <td>Day 8</td>
+    <td><a href="../site/mexico3.html">Day 13</a></td>
+    <td><a href="../site/mexico4.html">Day 21</a></td>
+    <td><a href="../site/mexico5.html">Day 29</a></td>
+  </tr>
+</table>
+
 [1]: https://en.wikipedia.org/wiki/Churro
 [2]: https://en.wikipedia.org/wiki/Carne_asada
 [3]: https://en.wikipedia.org/wiki/Salsa_verde
