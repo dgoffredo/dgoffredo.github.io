@@ -23,7 +23,7 @@ As compensation, here is another sunset.
 ![](../site/mexico_52_small.jpg) <!-- sunset car -->
 
 I invited Grace's parents over to the Airbnb for dinner.  Here we are having a
-dessert of pineapple and mango with chamoy and tarjín.  The main course was
+dessert of pineapple and mango with chamoy and tajín.  The main course was
 again Grace's sun-dried tomato chicken and roasted potatoes, and my chicken
 stew.  This time I put a little wine in the soup; I think it worked well.
 
