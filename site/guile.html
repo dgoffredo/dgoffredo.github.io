@@ -1,0 +1,129 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="../site/favicon.ico" />
+
+  <link rel="stylesheet" type="text/css" href="../site/style.css" />
+
+  <link rel="stylesheet" href="../highlightjs/styles/default.css" />
+
+  
+  <script src="../highlightjs/highlight.pack.js"> </script>
+
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  
+  <script src="../site/linkify.js"> </script>
+
+  <title>Installing Guile from Source</title>
+</head>
+
+<body>
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td align="left">
+        <a href="../site/posts.html">Posts</a>
+      </td>
+      <td align="center">
+        <a href="https://www.github.com/dgoffredo">About</a>
+      </td>
+      <td align="right">
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<p>Friday, April  30, 2021</p>
+
+<div class="table-of-contents"><ul><li><a href="#installing_guile_from_source">Installing Guile from Source</a><ul><li><a href="#debian_packages">Debian Packages</a></li><li><a href="#installation">Installation</a></li></ul></li></ul></div>
+
+<h1 id="installing_guile_from_source">Installing Guile from Source</h1>
+<p>It's not hard, but the <a href="https://git.savannah.gnu.org/cgit/guile.git/tree/HACKING">HACKING</a> file doesn't cover it all, so here's the
+rest.</p>
+<h2 id="debian_packages">Debian Packages</h2>
+<p>TL;DR: Do the following.</p>
+<pre><code class="lang-console">$ sudo apt install git
+
+$ git clone https://git.sv.gnu.org/git/guile.git
+
+$ cd guile
+
+$ sudo apt install -y \
+        autoconf automake libtool gettext flex \
+        autopoint libreadline-dev pkg-config libgmp-dev \
+        libunistring-dev libgc-dev make gperf texinfo
+
+$ ./autogen.sh
+
+$ ./configure
+
+$ make -j 16
+
+$ sudo make install
+
+$ sudo ldconfig
+
+$ guile
+</code></pre>
+<p>Now in more detail.</p>
+<p>Here are the dependencies mentioned in the <a href="https://git.savannah.gnu.org/cgit/guile.git/tree/HACKING">HACKING</a> file:</p>
+<pre><code class="lang-console">$ sudo apt install autoconf automake libtool gettext flex
+</code></pre>
+<p>Then <code>./autogen.sh</code> wants the following, due to the presence of <code>gettext</code>:</p>
+<pre><code class="lang-console">$ sudo apt install autopoint
+</code></pre>
+<p>I wouldn't want to use a REPL without readline support, so install that, too:</p>
+<pre><code class="lang-console">$ sudo apt install libreadline-dev
+</code></pre>
+<p><code>./configure</code> will complain unless all of the following are installed:</p>
+<pre><code class="lang-console">$ sudo apt install pkg-config libgmp-dev libunistring-dev libgc-dev
+</code></pre>
+<p>Then of course you need <code>make</code>, but also <code>gperf</code> (for some reason) and
+<code>texinfo</code> for documentation:</p>
+<pre><code class="lang-console">$ sudo apt install make gperf texinfo
+</code></pre>
+<h2 id="installation">Installation</h2>
+<p>After <code>sudo make install</code>, guile will be installed under <code>/usr/local/</code>, but
+will fail to run until you first refresh the loader's knowledge of where
+shared objects are:</p>
+<pre><code class="lang-console">$ sudo ldconfig
+</code></pre>
+<p>Finally, guile is ready:</p>
+<pre><code class="lang-console">$ guile
+GNU Guile 3.0.6.7-3bce5
+Copyright (C) 1995-2021 Free Software Foundation, Inc.
+
+Guile comes with ABSOLUTELY NO WARRANTY; for details type `,show w'.
+This program is free software, and you are welcome to redistribute it
+under certain conditions; type `,show c' for details.
+
+Enter `,help' for help.
+scheme@(guile-user)&gt; 
+</code></pre>
+
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td align="left">
+        <a href="../site/posts.html">Posts</a>
+      </td>
+      <td align="center">
+        <a href="https://www.github.com/dgoffredo">About</a>
+      </td>
+      <td align="right">
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+</body>
+</html>
