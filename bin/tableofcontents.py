@@ -114,7 +114,7 @@ def insert_table_of_contents(html, max_depth=None):
         element.set('id', name)
 
         def start_sibling():
-            table.start('li')
+            table.start('li', {})
             insert_link_to_anchor(table, name, text)
 
         level = int(match[1])
@@ -122,7 +122,7 @@ def insert_table_of_contents(html, max_depth=None):
             # If we haven't reached max depth already, then start a new list
             # indented within the current one.
             if max_depth is None or depth() <= max_depth:
-                table.start('ul')
+                table.start('ul', {})
                 start_sibling()
                 push_level(level)
             continue
