@@ -1,0 +1,57 @@
+body {
+    /* The chosen font, the line height, and the color, are all based
+       off of what github.com does when displaying markdown. */
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+                 Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                 "Segoe UI Symbol";
+    font-size: 16pt;
+    line-height: 1.5;
+    color: #24292e;
+}
+
+/* Code snippets are only as wide as their content. */
+pre {
+    display: table;
+    width: 100%;
+}
+
+/* Make the background of code look different from surrounding text. */
+code {
+    background: #F0F0F0
+}
+
+p, table.navigate, table.posts, ul, ol {
+    width: 100%;
+}
+
+table.navigate {
+    width: 100%;
+    font-size: 14pt;
+}
+
+table.posts {
+    width: 100%;
+	font-size: 16pt;
+    line-height: 2;
+}
+
+table.posts > tbody > tr:nth-child(even) {
+  background-color: #eee6ff
+}
+
+div.table-of-contents {
+    font-size: 14pt;
+}
+
+img.thumbnail {
+    width: 700px;
+}
+
+table.series {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table.series > tbody > tr {
+    text-align: center;
+}

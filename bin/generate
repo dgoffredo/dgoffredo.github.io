@@ -67,7 +67,15 @@ html_template = '''
 
   <link rel="shortcut icon" type="image/x-icon" href="../site/favicon.ico" />
 
-  <link rel="stylesheet" type="text/css" href="../site/style.css" />
+  <!-- style for landscape orientation, e.g. desktop browser -->
+  <link rel="stylesheet" type="text/css"
+      media="(orientation: landscape)"
+      href="../site/landscape.css" />
+
+  <!-- style for portrait orientation, e.g. mobile browser -->
+  <link rel="stylesheet" type="text/css"
+      media="(orientation: portrait)"
+      href="../site/portrait.css" />
 
   <link rel="stylesheet" href="../highlightjs/styles/default.css" />
 
@@ -188,7 +196,8 @@ def generate(root):
     config = root/'config'
     navigate = (config/'navigate.html').read_text()
     site = root/'site'
-    (site/'style.css').symlink_to('../config/style.css')
+    (site/'landscape.css').symlink_to('../config/landscape.css')
+    (site/'portrait.css').symlink_to('../config/portrait.css')
     (site/'linkify.js').symlink_to('../config/linkify.js')
 
     page_titles = {}
