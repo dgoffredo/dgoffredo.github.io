@@ -186,6 +186,20 @@ def create_posts(posts_list, page_titles, site, navigate):
                                      table_of_contents='',
                                      content=content))
 
+def up_to(descendant, ancestor):
+    """Return a relative path of multiple ".." that describes the specified
+    `descendent` file in terms of its specified `ancestor` directory, e.g.
+    `up_to(Path('foo/bar/baz/thing.txt', 'foo'))` is `Path('../..')`.
+    """
+    assert not descendant.is_dir()
+    assert descendant.parts[:len(ancestor.parts)] == ancestor.parts
+
+    result = Path('.')
+    for _ in range(len(descendant.parent.parts) - len(ancestor.parts)):
+        result = result/Path('..')
+
+    return result
+
 def generate(root):
     posts = root/'posts'
     post_dates = { 
@@ -194,6 +208,7 @@ def generate(root):
     }
 
     config = root/'config'
+    content = root/'content'
     navigate = (config/'navigate.html').read_text()
     site = root/'site'
     (site/'landscape.css').symlink_to('../config/landscape.css')
@@ -202,24 +217,33 @@ def generate(root):
 
     page_titles = {}
  
-    for file_path in (root/'content').iterdir():
+    for file_path in content.rglob('*'):
         file_path = file_path.resolve()
         name      = file_path.name
         if name.startswith('.'):
             # ignore "hidden" files (e.g. vim swap files)
             continue
+        
+        relative_path = file_path.relative_to(content)
+        in_site = site/relative_path
+        
+        # Directories get a corresponding directory under site/
+        if file_path.is_dir():
+            if not in_site.exists():
+                in_site.mkdir()
+            continue
 
         extension = file_path.suffix.lower()
         # If it's not a markdown file, then just create a link to it in ./site
         if extension not in ('.md', '.markdown'):
-            (site/name).symlink_to('../content/' + name)
+            in_site.symlink_to(up_to(in_site, root)/'content'/relative_path)
             continue
 
         # It's a markdown file, so generate HTML (with a date, if applicable)
         # TODO: The difference between `site_html_from_full_path` and what I
         #       do with `file_path` below is subtle.  Work that out better.
         date = post_dates.get(file_path.resolve())
-        html_path = Path('site/')/file_path.with_suffix('.html').name
+        html_path = in_site.with_suffix('.html')
         title = create_page(file_path,
                             html_path,
                             navigate, 
@@ -239,4 +263,3 @@ def generate(root):
 
 if __name__ == '__main__':
     generate(Path.cwd())
-
