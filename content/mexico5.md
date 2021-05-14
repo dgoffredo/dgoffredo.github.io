@@ -1,7 +1,7 @@
 Mexico, Day 29
 ==============
 
-![](./mexico_49_small.jpg) <!-- horse -->
+![](../site/mexico_49_small.jpg) <!-- horse -->
 
 If you zoom in (click), you can see a horse above the third post from the left,
 in the center of the image.  My first few days in Aguascalientes, this horse
