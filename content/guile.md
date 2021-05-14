@@ -3,6 +3,8 @@ Installing Guile from Source
 It's not hard, but the [HACKING][1] file doesn't cover it all, so here's the
 rest.
 
+![](./india_1_small.jpg)
+
 Debian Packages
 ---------------
 TL;DR: Do the following.
