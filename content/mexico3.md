@@ -3,39 +3,39 @@ Mexico, Day 13
 It's laundry day again.  This time I included two bath towels, so now all of
 my clothes are covered in white lint.
 
-![](../site/mexico_19a_small.jpg)
+![](mexico_19a_small.jpg)
 
 Aguascalientes doesn't fuck around with its sunsets.
 
-![](../site/mexico_19b_small.jpg) <!-- mirror sunset -->
+![](mexico_19b_small.jpg) <!-- mirror sunset -->
 
-![](../site/mexico_20_small.jpg) <!-- street sunset -->
+![](mexico_20_small.jpg) <!-- street sunset -->
 
 Yesterday, Grace, her parents, and I visited the town of [Calvillo][1].
 Manuel drove us down from the stratosphere and across swaths of
 characteristically Mexican landscape.
 
-![](../site/mexico_21_small.jpg) <!-- road -->
+![](mexico_21_small.jpg) <!-- road -->
 
-![](../site/mexico_22_small.jpg) <!-- more road -->
+![](mexico_22_small.jpg) <!-- more road -->
 
 Calvillo has narrow streets lined with brightly colored buildings.  Some of
 the streets (not pictured) were steeply inclined and reminded me of San
 Francisco.
 
-![](../site/mexico_23_small.jpg) <!-- Calvillo street -->
+![](mexico_23_small.jpg) <!-- Calvillo street -->
 
-![](../site/mexico_24_small.jpg) <!-- Calvillo colors -->
+![](mexico_24_small.jpg) <!-- Calvillo colors -->
 
-![](../site/mexico_25_small.jpg) <!-- Calvillo view -->
+![](mexico_25_small.jpg) <!-- Calvillo view -->
 
 We stopped for lunch at a nice outdoor restaurant attached to a hillside hotel.
 
-![](../site/mexico_26a_small.jpg) <!-- drinks -->
+![](mexico_26a_small.jpg) <!-- drinks -->
 
-![](../site/mexico_26b_small.jpg) <!-- hotel -->
+![](mexico_26b_small.jpg) <!-- hotel -->
 
-![](../site/mexico_27_small.jpg) <!-- Grace swing -->
+![](mexico_27_small.jpg) <!-- Grace swing -->
 
 For a desert-dwelling Mexican, Grace does not much tolerate hot weather.  She
 prefers a vampiric lifestyle.
@@ -44,25 +44,25 @@ I've been eating food, can you believe?
 
 That morning I fried some leftover bacon for breakfast.
 
-![](../site/mexico_28_small.jpg)
+![](mexico_28_small.jpg)
 
 Previously, madre Graciela had prepared Manuel's favorite dish for us:
 [chile relleno][2].  They are distantly related to the stuffed bell peppers
 that my mom used to make, except fried with egg whites and filled with
 minced meat.
 
-![](../site/mexico_29_small.jpg)
+![](mexico_29_small.jpg)
 
 Grace and I cooked a pasta/chicken/eggplant recipe of hers. There is still
 some left over...
 
-![](../site/mexico_30_small.jpg)
+![](mexico_30_small.jpg)
 
 I improvised some chicken-with-leeks-over-pasta dish.  I got the wrong cut of
 chicken from the supermarket, but it was edible nonetheless.  Grace had never
 had leeks before.
 
-![](../site/mexico_31_small.jpg)
+![](mexico_31_small.jpg)
 
 I also cooked a big batch of my [chicken stew][3] last night, but I don't
 have any pictures.
@@ -70,18 +70,18 @@ have any pictures.
 There's a tiny sorbet store of great renown near Grace's parents' place. She
 got strawberry and I got tamarind.
 
-![](../site/mexico_32_small.jpg)
+![](mexico_32_small.jpg)
 
 The real culinary innovation of the trip so far is how to eat fruit.  In Mexico
 there are two magical condiments that form a dyad of fruictific perfection:
 [chamoy][4] and [tajín][5].  They balance the sweetness of fruit with tart,
 salty, and savory goodness.  Grace's favorite is on mango.
 
-![](../site/mexico_33_small.jpg)
+![](mexico_33_small.jpg)
 
 Here she is looking smug about her preparation of pineapple.
 
-![](../site/mexico_34_small.jpg)
+![](mexico_34_small.jpg)
 
 Speaking of food, it's one o'clock here and I haven't eaten today.  Let's put
 that microwave to use.  ¡Adios!
@@ -89,11 +89,11 @@ that microwave to use.  ¡Adios!
 <table class="series">
   <tr><th colspan="5">Mexico</th></tr>
   <tr>
-    <td><a href="../site/mexico1.html">Day 5</a></td>
-    <td><a href="../site/mexico2.html">Day 8</a></td>
+    <td><a href="mexico1.html">Day 5</a></td>
+    <td><a href="mexico2.html">Day 8</a></td>
     <td>Day 13</td>
-    <td><a href="../site/mexico4.html">Day 21</a></td>
-    <td><a href="../site/mexico5.html">Day 29</a></td>
+    <td><a href="mexico4.html">Day 21</a></td>
+    <td><a href="mexico5.html">Day 29</a></td>
   </tr>
 </table>
 

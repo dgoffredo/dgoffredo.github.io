@@ -16,7 +16,7 @@ occurred to me that I hadn't charged my phone, so I wouldn't be able to take
 pictures. I walked up up up to the top of a big hill that has a tiny Eiffel
 Tower on it. It was something of a climb. My phone did allow me one picture:
 
-![](../site/russia10-8_small.jpg)
+![](russia10-8_small.jpg)
 
 I descended the hill and crossed another bridge back onto the other side of
 the city. It was about noon and I was surprised to find nobody anywhere.
@@ -24,25 +24,25 @@ Every restaurant I passed was presumably open but completely empty. Since I
 was in the mood for some authentic Czech cuisine, I finally decided on a
 little Korean place:
 
-![](../site/russia10-6_small.jpg)
+![](russia10-6_small.jpg)
 
 They even allowed me to borrow a phone charger. Just me and the Czech
 waitress. Wasn't she a doll. Now I was feeling quite better, and proceeded
 to walk around all day until my feet hurt. There was a bunch of stuff, most
 of which I didn't photograph (had to conserve phone juice):
 
-![](../site/russia10-13_small.jpg)
+![](russia10-13_small.jpg)
 
-![](../site/russia10-10_small.jpg)
+![](russia10-10_small.jpg)
 
 There was a horrible noise coming from that garden place above. Turns out
 there are at least three peacocks:
 
-![](../site/russia10-2_small.jpg)
+![](russia10-2_small.jpg)
 
 There are plenty of pretty nooks and crannies:
 
-![](../site/russia10-11_small.jpg)
+![](russia10-11_small.jpg)
 
 It's better to be there than to see pictures of it, I think. The weather was
 nice and the breeze off of the river was chilly, so there was this nice
@@ -119,7 +119,7 @@ was more like a short nap. Anyway, there was a lot there to interest a music
 geek like me, but I photographed relatively little. Here are clarinets
 specially built to support quarter tone scales:
 
-![](../site/russia10-14_small.jpg)
+![](russia10-14_small.jpg)
 
 If you have a vague idea of how to play the clarinet, you'll wonder how this
 arrangement manages to allow twice as many different notes to be played. Too
@@ -128,11 +128,11 @@ bad quarter tone music sounds like shit.
 The building itself was interesting. In one of the exhibition rooms, there
 was a tiny staircase leading only to a window.
 
-![](../site/russia10-5_small.jpg)
+![](russia10-5_small.jpg)
 
 Here is the main room:
 
-![](../site/russia10-3_small.jpg)
+![](russia10-3_small.jpg)
 
 In each room in the permanent exhibit, there's a little chair with two sets
 of headphones. The idea is you look at the period instruments and read about
@@ -157,24 +157,24 @@ my face.
 
 But still, life was good. The sun was setting:
 
-![](../site/russia10-9_small.jpg)
+![](russia10-9_small.jpg)
 
 There is a life-sized crucifix on the Charles Bridge:
 
-![](../site/russia10-4_small.jpg)
+![](russia10-4_small.jpg)
 
 And the city does look great at night, though it's difficult to capture
 without better optical control:
 
-![](../site/russia10-15_small.jpg)
+![](russia10-15_small.jpg)
 
-![](../site/russia10-12_small.jpg)
+![](russia10-12_small.jpg)
 
-![](../site/russia10-1_small.jpg)
+![](russia10-1_small.jpg)
 
-![](../site/russia10-16_small.jpg)
+![](russia10-16_small.jpg)
 
-![](../site/russia10-7_small.jpg)
+![](russia10-7_small.jpg)
 
 I stopped by a Chinese restaurant on my way back to the hostel, mindful of
 how famished I'd be the next morning. Turned out to be a good move. So, I
@@ -188,9 +188,9 @@ back to Newark. Ahoy!
 <table class="series">
   <tr><th colspan="4">Russia and Czechia</th></tr>
   <tr>
-    <td><a href="../site/russia1.html">Day 3</a></td>
-    <td><a href="../site/russia2.html">Day 4</a></td>
-    <td><a href="../site/russia7.html">Day 7</a></td>
+    <td><a href="russia1.html">Day 3</a></td>
+    <td><a href="russia2.html">Day 4</a></td>
+    <td><a href="russia7.html">Day 7</a></td>
     <td>Day 10</td>
   </tr>
 </table>

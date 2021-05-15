@@ -1,7 +1,7 @@
 Llama JSON
 ==========
 
-![](../site/llama.jpg) ![](../site/json.gif)
+![](llama.jpg) ![](json.gif)
 
 Playing with a [pet project][pet project], I noticed a relationship between
 [s-expressions][s-expressions] and [JSON][JSON].

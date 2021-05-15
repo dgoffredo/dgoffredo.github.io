@@ -65,17 +65,17 @@ html_template = '''
 <head>
   <meta charset="UTF-8" />
 
-  <link rel="shortcut icon" type="image/x-icon" href="../site/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
   <!-- style for landscape orientation, e.g. desktop browser -->
   <link rel="stylesheet" type="text/css"
       media="(orientation: landscape)"
-      href="../site/landscape.css" />
+      href="landscape.css" />
 
   <!-- style for portrait orientation, e.g. mobile browser -->
   <link rel="stylesheet" type="text/css"
       media="(orientation: portrait)"
-      href="../site/portrait.css" />
+      href="portrait.css" />
 
   <link rel="stylesheet" href="../highlightjs/styles/default.css" />
 
@@ -85,7 +85,7 @@ html_template = '''
   <script>hljs.initHighlightingOnLoad();</script>
 
   <!-- The space character prevents etree from omitting the closing tag. -->
-  <script src="../site/linkify.js"> </script>
+  <script src="linkify.js"> </script>
 
   <title>{title}</title>
 </head>
@@ -154,7 +154,7 @@ def create_page(from_path, to_path, navigate, date=None):
     return title
 
 def site_html_from_full_path(path):
-    "Given /full/path/to/thing.md, return ../site/thing.html"
+    "Given /full/path/to/thing.md, return thing.html"
     return Path('../site')/path.with_suffix('.html').name
 
 def create_posts(posts_list, page_titles, site, navigate):

@@ -1,7 +1,7 @@
 Mexico, Day 5
 =============
 
-![](../site/mexico_1_small.jpg)
+![](mexico_1_small.jpg)
 
 An electric fence tops the walls surrounding my neighborhood.  Presumably
 this is to keep bad people out, but I can't leave unless the man at the gate
@@ -16,7 +16,7 @@ out to a restaurant or cafe. There's a big screen TV and a 1000-piece
 puzzle. I'm becoming fond of my morning ritual of coffee and computer in the
 backyard.
 
-![](../site/mexico_2_small.jpg)
+![](mexico_2_small.jpg)
 
 Bottled water is the way to go, but for making coffee you can get away with
 boiling the tap for a while.  Once the water cools, there's a slick of
@@ -24,7 +24,7 @@ precipitated minerals on top, and it smells slightly of sulfur.  No wonder
 the coffee tasted bland; this morning I used bottled water and it was much
 improved.
 
-![](../site/mexico_3_small.jpg)
+![](mexico_3_small.jpg)
 
 I didn't realize until yesterday that Aguascalientes sits at an elevation of
 over 6000 feet (1888 meters).  I've been to Aspen before, where altitude
@@ -49,16 +49,16 @@ recipe.  Then later we'll take a walk downtown.  Originally I planned to stay
 for a week or two, but now I'm staying for a month.  For $40 per day, where
 else would I be?  Hasta luego...
 
-![](../site/mexico_4_small.jpg)
+![](mexico_4_small.jpg)
 
 <table class="series">
   <tr><th colspan="5">Mexico</th></tr>
   <tr>
     <td>Day 5</td>
-    <td><a href="../site/mexico2.html">Day 8</a></td>
-    <td><a href="../site/mexico3.html">Day 13</a></td>
-    <td><a href="../site/mexico4.html">Day 21</a></td>
-    <td><a href="../site/mexico5.html">Day 29</a></td>
+    <td><a href="mexico2.html">Day 8</a></td>
+    <td><a href="mexico3.html">Day 13</a></td>
+    <td><a href="mexico4.html">Day 21</a></td>
+    <td><a href="mexico5.html">Day 29</a></td>
   </tr>
 </table>
 

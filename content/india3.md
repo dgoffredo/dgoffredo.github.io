@@ -1,6 +1,6 @@
 India, Day 8
 ============
-![](../site/india3_5_small.jpg)
+![](india3_5_small.jpg)
 
 I promised you a cow.  You know, I won't be eating them for a while.  It's just
 not right.  Well, I might have eaten some of them today.  More on that later.
@@ -9,18 +9,18 @@ It wasn't just one, either.  There are at least three cows in India.  I saw one
 chewing on a newspaper from a garbage pile.  Some are employed as roadside
 landscapers.
 
-![](../site/india3_1_small.jpg)
+![](india3_1_small.jpg)
 
 In the morning, we got into Mr. Singh's car for the considerable drive back to
 Delhi.  The road is farms and truck stops across the semi-arid landscape.
 
-![](../site/india3_2_small.jpg)
+![](india3_2_small.jpg)
 
 Unlike in Agra, these cows have impressive horns.
 
-![](../site/india3_6_small.jpg)
+![](india3_6_small.jpg)
 
-![](../site/legend_small.jpg)
+![](legend_small.jpg)
 
 At the halfway point, we stopped at a roadside hotel with an attached café.
 The owner (the man was, as I later found out) has a family member in tech at
@@ -37,7 +37,7 @@ what gets a good response from us the customers.  On the other hand, I
 sometimes thought we were a resource being passed through a quiet network of
 receivers.
 
-![](../site/india3_7_small.jpg)
+![](india3_7_small.jpg)
 
 We got back to Delhi just in time, as my bladder was about to explode.
 They gave us a room with two beds.  They had guilty looks on their faces and
@@ -49,7 +49,7 @@ alcohol by volume, is probably derived from grapes, and contains carbon
 dioxide, but aside from these things it more resembles fortified Kool-Aid.  I
 will drink it.
 
-![](../site/india3_18_small.jpg)
+![](india3_18_small.jpg)
 
 At 4:30 we were back in the car on our way to a walking tour of
 [Old Delhi's][1] street foods.  Our guide was an adorable college student from
@@ -63,7 +63,7 @@ We ate a lot of food.  Andrea and I skipped lunch, but it didn't seem to help.
 I'm not moved by food.  That's not to say I don't enjoy good food, which it all
 was.  It's just that I have trouble focusing on food.
 
-![](../site/india3_15_small.jpg)
+![](india3_15_small.jpg)
 
 That being said, we sampled quite the spread as we squeezed through the crowded
 streets of Old Delhi, sometimes hopping on a rickshaw to reach another
@@ -97,9 +97,9 @@ neighborhood.  We had:
   office than an ice cream shop.  Andrea liked the fruit flavors, whereas I
   think I preferred the nuts.
 
-![](../site/india3_25_small.jpg)
+![](india3_25_small.jpg)
 
-![](../site/india3_23_small.jpg)
+![](india3_23_small.jpg)
 
 We began with another Sikh temple, and along the way there was a quiet street
 of Jain households.  After kulfi we rickshawed back to the car, where our guide
@@ -110,19 +110,19 @@ So ended the street food walking tour.
 On the way back, we stopped to get some cash for tipping Mr. Singh, as it would
 be our last drive with him.
 
-![](../site/india3_26_small.jpg)
+![](india3_26_small.jpg)
 
 Thanks for the jungle juice.
 
 <table class="series">
   <tr><th colspan="6">India</th></tr>
   <tr>
-    <td><a href="../site/india1.html">Day 1</a></td>
-    <td><a href="../site/india2.html">Day 6</a></td>
+    <td><a href="india1.html">Day 1</a></td>
+    <td><a href="india2.html">Day 6</a></td>
     <td>Day 8</td>
-    <td><a href="../site/india4.html">Day 10</a></td>
-    <td><a href="../site/india5.html">Day 13</a></td>
-    <td><a href="../site/india6.html">Day 15</a></td>
+    <td><a href="india4.html">Day 10</a></td>
+    <td><a href="india5.html">Day 13</a></td>
+    <td><a href="india6.html">Day 15</a></td>
   </tr>
 </table>
 

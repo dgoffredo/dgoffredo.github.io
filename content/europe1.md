@@ -1,6 +1,6 @@
 Europe, Day 1
 =============
-![](../site/vineet_ice_small.jpg)
+![](vineet_ice_small.jpg)
 *Vineet copes with the low coefficient of friction in Iceland.*
 
 Morning from the North,
@@ -34,10 +34,10 @@ DNS insists on bringing me to Icelandic websites. Don’t they know who I am?
   <tr><th colspan="6">Europe</th></tr>
   <tr>
     <td>Day 1</td>
-    <td><a href="../site/europe2.html">Day 2</a></td>
-    <td><a href="../site/europe7.html">Day 7</a></td>
-    <td><a href="../site/europe8.html">Day 8</a></td>
-    <td><a href="../site/europe10.html">Day 10</a></td>
-    <td><a href="../site/europe13.html">Day 13</a></td>
+    <td><a href="europe2.html">Day 2</a></td>
+    <td><a href="europe7.html">Day 7</a></td>
+    <td><a href="europe8.html">Day 8</a></td>
+    <td><a href="europe10.html">Day 10</a></td>
+    <td><a href="europe13.html">Day 13</a></td>
   </tr>
 </table>

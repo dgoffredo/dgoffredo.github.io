@@ -1,6 +1,6 @@
 India, Day 1
 ============
-![dog](../site/india_20_small.jpg)
+![dog](india_20_small.jpg)
 
 This is Aniruddha Ram Kumar Mukherjee.  He is a dog.  Like many natives of
 Delhi, Aniruddha must find ways to cope with the oppressive afternoon summer
@@ -28,24 +28,24 @@ bathrooms — though the bathrooms were nice, too). It looks the same from all
 four sides, such that when you walk out of it you don't know which side
 you're on. You must travel with somebody who knows which side you're on.
 
-![symmetry](../site/india_11_small.jpg)
+![symmetry](india_11_small.jpg)
 
 Inside of the tomb are nooks and crannies, domes and doves and a human thumb
 that kept photobombing me.  There are no dead bodies, though.  Those are
 allegedly kept underneath the tomb, off limits, to be sanctified by elected
 officials at regular intervals.
 
-![thumb](../site/india_16_small.jpg)
+![thumb](india_16_small.jpg)
 
-![window](../site/india_17_small.jpg)
+![window](india_17_small.jpg)
 
-![ceiling](../site/india_18_small.jpg)
+![ceiling](india_18_small.jpg)
 
 The grounds surrounding the tomb are a grid of sixteen patches of lawn
 landscaped with lime trees, jasmine, shrubs, one of Aniruddha's cousins, and my
 thumb.
 
-![lawn](../site/india_13_small.jpg)
+![lawn](india_13_small.jpg)
 
 The trip started out on one of Emirates' Airbus A380 super mega mondo grande
 venti mocha soymilk airplanes, or as it's referred to in the industry: "that
@@ -66,7 +66,7 @@ experiencing the passage of the sun at 186% its normal rate, which I think is a
 pretty good deal.  Also I had the whole row to myself, so I could lie down and
 torture everyone with my snoring.
 
-![plane](../site/india_1_small.jpg)
+![plane](india_1_small.jpg)
 
 That flight was twelve hours long.  We were late getting out of JFK, and so we
 had to hustle our way across the Dubai airport to make our three hour
@@ -90,7 +90,7 @@ That evening Vineet (the groom) reached out to us and invited us to come over
 to his place for dinner, to meet his father and hang out with his mother and
 Asha (the bride, not the cat).  Here is a picture of Asha the cat:
 
-![asha](../site/asha_small.jpg)
+![asha](asha_small.jpg)
 
 Andrea and I nearly fell asleep at the dinner table, and so we politely ate and
 ran to an Uber who "had a GPS malfunction" and so took twice the time to get
@@ -120,65 +120,65 @@ either.
 Also, you must cover your hair, because that is how the Sikhs do.  There's this
 guy:
 
-![david](../site/india_6_small.jpg)
+![david](india_6_small.jpg)
 
 and then there's Andrea:
 
-![andrea](../site/india_5_small.jpg)
+![andrea](india_5_small.jpg)
 
 Young Indian men kept coming up to Andrea and asking whether they could take
 a picture with her, but I have yet to figure out why.
 
 After that we walked around a big old fort/palace, "the city within a city"
 
-![fort](../site/india_7_small.jpg)
+![fort](india_7_small.jpg)
 
 Here is a picture of where Gandhi was cremated:
 
-![gandhi](../site/india_9_small.jpg)
+![gandhi](india_9_small.jpg)
 
 Here is another tomb:
 
-![motomb](../site/india_21_small.jpg)
+![motomb](india_21_small.jpg)
 
 Here are two of my fingers, with a tower in the background:
 
-![tower](../site/india_24_small.jpg)
+![tower](india_24_small.jpg)
 
 Here is the tower closer:
 
-![motower](../site/india_28_small.jpg)
+![motower](india_28_small.jpg)
 
 Here are two of my fingers, a woman, and one of the archways of what remains of
 a mosque that was built out of the demolished remains of multiple Hindu
 temples.  They removed all of the faces of the various depictions of Hindu
 gods, because Allah is the one true god, right?  Right?
 
-![wall](../site/india_25_small.jpg)
+![wall](india_25_small.jpg)
 
 Oh yeah, earlier in the day we also walked around the parliamentary buildings
 and saw distant views of an arch and the Prime Minister's mansion.  Here you
 are:
 
-![](../site/india_2_small.jpg)
+![](india_2_small.jpg)
 
-![](../site/india_3_small.jpg)
+![](india_3_small.jpg)
 
-![](../site/india_4_small.jpg)
+![](india_4_small.jpg)
 
 At some point we ate dinner, and the food was delicious.  Now it is nearly one
 o'clock in the morning, and I am going to bed. 
 
-<img style="width: 200px;" src="../site/hindi.png"/>
+<img style="width: 200px;" src="hindi.png"/>
 
 <table class="series">
   <tr><th colspan="6">India</th></tr>
   <tr>
     <td>Day 1</td>
-    <td><a href="../site/india2.html">Day 6</a></td>
-    <td><a href="../site/india3.html">Day 8</a></td>
-    <td><a href="../site/india4.html">Day 10</a></td>
-    <td><a href="../site/india5.html">Day 13</a></td>
-    <td><a href="../site/india6.html">Day 15</a></td>
+    <td><a href="india2.html">Day 6</a></td>
+    <td><a href="india3.html">Day 8</a></td>
+    <td><a href="india4.html">Day 10</a></td>
+    <td><a href="india5.html">Day 13</a></td>
+    <td><a href="india6.html">Day 15</a></td>
   </tr>
 </table>

@@ -1,25 +1,37 @@
+# Some conveniences.  See <https://tech.davis-hansson.com/p/make/>
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
 
-graph-targets := $(shell ls content/*.dot | sed 's/dot$$/dot.png/')
+markdowns := $(shell find content/ -type f -name '*.md')
 
-sed-expression := s,.*\<site/\([^/]\+_small\.jpg\)\>.*,content/\1,p
-shrunk-images := $(shell sed -n '$(sed-expression)' content/*.md)
+.PHONY: clean
 
-.PHONY: graphs clean
-
-index.html: $(graph-targets) $(shrunk-images) content/*
-	rm -f site/*
+site/index.html: $(shell find content/) bin/generate
+	rm -rf site/*
 	bin/generate
 
-# This rule will be used for $(graph-targets)
+# Dependencies of a markdown file can be deduced by a script.
+# The output file (*.d) adds make dependencies to site/index.html.
+# The make dependencies are included at the bottom of this file.  Those
+# dependencies so added will then be made according to their recipes (e.g.
+# %_small.jpg).
+%.md.d: %.md bin/dependencies
+	bin/dependencies $< >$@
+
+# Create PNG images from graphviz files (.dot files)
 %.dot.png: %.dot
 	dot -T png -o $@ $< 
 
-# This rule will be used for $(shrunk-images)
 # Set width of small images to 700 pixels, scaling the height proportionally.
-%_small.jpg: %.jpg
+%_small.jpg: %.jpg bin/shrink
 	bin/shrink $< $@
 
 clean:
-	rm -f site/*
-	rm -f content/*_small.jpg
-	rm -f content/*.dot.png
+	rm -rf site/*
+	find content/ -type f -name '*_small.jpg' -exec rm {} \;
+	# find content/ -type f -name '*.dot.png' -exec rm {} \;
+
+# Include dependencies parsed from input markdown files,
+# e.g. links to *_small.jpg, *.dot.png
+include $(markdowns:.md=.md.d)

@@ -17,18 +17,18 @@ setting behind this sort of wall of stone, and the picture really doesn't do
 it justice. The setting sunlight painted the structures gold, LIKE THE HALLS
 OF VALHALLA!!!
 
-![](../site/europe2-1_small.jpg) 
+![](europe2-1_small.jpg) 
 
 You really would need multiple exposures combined to see what it looked
 like.
 
 Anyway, strange rocks:
 
-![](../site/europe2-2_small.jpg) 
+![](europe2-2_small.jpg) 
 
 This is what Vineet looks like when he's not falling to his death:
 
-![](../site/europe2-3_small.jpg)
+![](europe2-3_small.jpg)
 
 Mountains in the distance to your right (where the glacier is) and the ocean
 to your left:
@@ -37,27 +37,27 @@ https://drive.google.com/open?id=0B6rp2WsQNNAlVzVVOTBTWjVXTW8
 
 And did I mention yesterday? No? Well that involved energy drinks,
 
-![](../site/europe2-4_small.jpg) 
+![](europe2-4_small.jpg) 
 
 geothermal ejaculation,
  
-![](../site/europe2-5_small.jpg)
+![](europe2-5_small.jpg)
 *\[2020 note: this picture was cropped badly due to file corruption.\]* 
 
 waterfalls,
 
-![](../site/europe2-6_small.jpg)
+![](europe2-6_small.jpg)
 *\[2020 note: this picture was cropped badly due to file corruption.\]* 
 
 a lake formed in a volcanic crater,
 
-![](../site/europe2-7_small.jpg)
+![](europe2-7_small.jpg)
 *\[2020 note: this picture was cropped badly due to file corruption.\]* 
 
 and sometimes climbing to the top of a hill to sit and listen to the creek
 and look at the horses.
 
-![](../site/europe2-8_small.jpg)
+![](europe2-8_small.jpg)
 *\[2020 note: this picture was cropped badly due to file corruption.\]* 
  
 We're at a hostel-like hotel in "Hella" now after having gone to "Vik" for
@@ -68,9 +68,9 @@ and then we're LONDON BOUND.
 
 You want to see more cats? Me too:
 
-![](../site/europe2-9_small.jpg)
+![](europe2-9_small.jpg)
 
-![](../site/europe2-10_small.jpg)
+![](europe2-10_small.jpg)
 *\[2020 note: these pictures are cropped badly due to file corruption.\]* <br/>
 *\[2020 note: my God, look at the cock on that one.\]* 
 
@@ -80,11 +80,11 @@ caretakers in their intergalactic communist utopia.
 <table class="series">
   <tr><th colspan="6">Europe</th></tr>
   <tr>
-    <td><a href="../site/europe1.html">Day 1</a></td>
+    <td><a href="europe1.html">Day 1</a></td>
     <td>Day 2</td>
-    <td><a href="../site/europe7.html">Day 7</a></td>
-    <td><a href="../site/europe8.html">Day 8</a></td>
-    <td><a href="../site/europe10.html">Day 10</a></td>
-    <td><a href="../site/europe13.html">Day 13</a></td>
+    <td><a href="europe7.html">Day 7</a></td>
+    <td><a href="europe8.html">Day 8</a></td>
+    <td><a href="europe10.html">Day 10</a></td>
+    <td><a href="europe13.html">Day 13</a></td>
   </tr>
 </table>
