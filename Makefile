@@ -29,8 +29,6 @@ site/index.html: $(shell find content/) bin/generate
 
 clean:
 	rm -rf site/*
-	find content/ -type f -name '*_small.jpg' -exec rm {} \;
-	# no, some are missing .dot sources: find content/ -type f -name '*.dot.png' -exec rm {} \;
 
 # Include dependencies parsed from input markdown files,
 # e.g. links to *_small.jpg, *.dot.png
