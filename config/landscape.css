@@ -21,13 +21,8 @@ code {
     background: #F0F0F0
 }
 
-p, table.navigate, table.posts, ul, ol {
+p, .navigation-bar, table.posts, ul, ol {
     max-width: 700;
-}
-
-table.navigate {
-    width: 100%;
-    font-size: 14pt;
 }
 
 table.posts {
@@ -57,3 +52,12 @@ table.series {
 table.series > tbody > tr {
     text-align: center;
 }
+
+.navigation-bar {
+    width: 100%;
+    font-size: 14pt;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }

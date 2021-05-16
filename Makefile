@@ -7,7 +7,7 @@ markdowns := $(shell find content/ -type f -name '*.md')
 
 .PHONY: clean
 
-site/index.html: $(shell find content/) bin/generate
+site/index.html: $(shell find content/) bin/generate config/*
 	rm -rf site/*
 	bin/generate
 
