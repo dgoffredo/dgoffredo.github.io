@@ -1,0 +1,301 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="/site/favicon.ico" />
+
+  
+  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/site/landscape.css" />
+
+  
+  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/site/portrait.css" />
+
+  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+
+  
+  <script src="/highlightjs/highlight.pack.js"> </script>
+
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  
+  <script src="/site/linkify.js"> </script>
+
+  <title>Code Generation and the Minimum Feedback Arc Set</title>
+</head>
+
+<body>
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td align="left">
+        <a href="/site/posts.html">Posts</a>
+      </td>
+      <td align="center">
+        <a href="https://www.github.com/dgoffredo">About</a>
+      </td>
+      <td align="right">
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<p>Wednesday, January  2, 2019</p>
+
+<div class="table-of-contents"><ul><li><a href="#code_generation_and_the_minimum_feedback_arc_set">Code Generation and the Minimum Feedback Arc Set</a><ul><li><a href="#generating_c_classes">Generating C++ Classes</a></li><li><a href="#larger_cycles">Larger Cycles</a></li><li><a href="#tradeoffs">Trade-offs</a></li><li><a href="#the_minimum_feedback_arc_set">The Minimum Feedback Arc Set</a></li><li><a href="#a_potential_compromise">A Potential Compromise</a></li></ul></li></ul></div>
+
+<h1 id="code_generation_and_the_minimum_feedback_arc_set">Code Generation and the Minimum Feedback Arc Set</h1>
+<p>I ran into a graph problem a while back, and finally decided to write about it.</p>
+<h2 id="generating_c_classes">Generating C++ Classes</h2>
+<p>One day I'll write a <a href="https://github.com/bloomberg/bde/blob/master/groups/bdl/bdlat/doc/bdlat.txt">bdlat</a>-compatible C++ class
+<a href="https://github.com/dgoffredo/bat-codegen">generator</a>. It will allow you to write things like <code>basic.bdlat</code>:</p>
+<pre><code>(package basic
+
+  (import core)
+
+  (type Value
+    "a generic value in a restricted type system"
+    (choice
+      ("integer"  core/integer)
+      ("decimal"  core/decimal)
+      ("string"   core/string)
+      ("optional" (optional Value))
+      ("array"    (array Value))))
+</code></pre>
+<p>and then do something like</p>
+<pre><code>$ bat-codegen --language c++ --toplevel Lakos --component types basic.bdlat
+</code></pre>
+<p>to produce the files <code>basic_types.h</code> and <code>basic_types.cpp</code> containing the C++
+class <code>Lakos::basic::Value</code>.</p>
+<p>Here's a first shot at what the definition of <code>Lakos::basic::Value</code> might look
+like:</p>
+<pre><code>class Value {
+    bdlb::Variant&lt;int64_t,
+                  bdldfp::Decimal64,
+                  bsl::string,
+                  bdlb::NullableValue&lt;Value&gt;,
+                  bsl::vector&lt;Value&gt; &gt; 
+        d_data;
+
+  public:
+      // ...
+};
+</code></pre>
+<p>A real implementation would need to account for choice elements having the same
+type, and so the types in the <code>Variant</code> would each have to be tagged with a
+distinct integer, but let's ignore that for now.</p>
+<p>We've already run into worse trouble, because this code won't even compile.
+<code>Value</code>'s size depends on its own size. To work around this, a level of
+indirection is needed. Suppose the class template <code>Allocated&lt;T&gt;</code> were a
+wrapper around a heap-allocated <code>T</code> referred to by a <code>T*</code>, but with value
+semantics rather than pointer semantics (i.e. copying the <code>Allocated&lt;T&gt;</code>
+copies the referred to <code>T</code> instance). Then <code>Value</code> can be defined as:</p>
+<pre><code>class Value {
+    bdlb::Variant&lt;int64_t,
+                  bdldfp::Decimal64,
+                  bsl::string,
+                  Allocated&lt;bdlb::NullableValue&lt;Value&gt; &gt;,
+                  Allocated&lt;bsl::vector&lt;Value&gt; &gt; &gt;
+        d_data;
+
+  public:
+    // ...
+};
+</code></pre>
+<p>That would work, because <code>Allocated&lt;T&gt;</code>'s size is independent of <code>T</code>.</p>
+<h2 id="larger_cycles">Larger Cycles</h2>
+<p>When a type depends upon itself, it doesn't necessarily do so by having itself
+as a member (as was nearly the case with <code>Value</code> above). It could be that the
+type contains a type that contains the original type. Or it could be that the
+type contains a type that contains a type that contains the original type, etc.</p>
+<p>Generally, a type <code>A</code> <em>contains</em> a type <code>B</code> if any of the following is true:</p>
+<ul>
+<li><code>A</code> is a sequence or a choice having an element of type <code>B</code></li>
+<li><code>A</code> is a sequence or a choice having an element of type <code>(optional B)</code></li>
+<li><code>A</code> is a sequence or a choice having an element of type <code>(array B)</code></li>
+</ul>
+<p>We can think of a set of types as a directed graph where an edge points from
+<code>A</code> to <code>B</code> if <code>A</code> <em>contains</em> <code>B</code>. Let's call such a directed graph a dependency
+graph.</p>
+<p>Then <code>A</code> <em>depends upon</em> <code>B</code> if <code>A</code> <em>contains</em> <code>B</code> or if <code>A</code> <em>contains</em> a <code>C</code>
+where <code>C</code> <em>depends upon</em> <code>B</code>. That is, <code>A</code> <em>depends upon</em> <code>B</code> if there exists a
+directed path from <code>A</code> to <code>B</code> in the dependency graph.</p>
+<p>The graph for the types in <code>(package basic ...)</code>, above, looks like this:</p>
+<p><img src="just-value.dot.png" alt="dependency graph of &quot;Value&quot;" /></p>
+<p>It has one vertex and one edge, from <code>Value</code> to itself: because (before our
+modification) <code>Value</code> <em>contains</em> <code>Value</code>. Our modification, though, creates
+a level of indirection: replacing <code>Value</code> with <code>Allocated&lt;Value&gt;</code> within the
+class definition removes the one edge in the graph, since <code>Value</code> no longer
+contains <code>Value</code>:</p>
+<p><img src="bare-value.dot.png" alt="no more cycle" /></p>
+<p>A cycle involving only one vertex is not very interesting. But suppose the
+dependency graph looked like this instead:</p>
+<p><img src="cyclic.dot.png" alt="a more complicated dependency graph" /></p>
+<p>How many cycles does that directed graph contain? I see two:</p>
+<div><img src="cyclic.1.dot.png" /><img src="cyclic.2.dot.png" /></div><p>As before, we wish to make this directed graph acyclic by removing edges, where
+we remove an edge by replacing the appearance of a type <code>T</code> within a class
+definition with <code>Allocated&lt;T&gt;</code>.</p>
+<p>Which edges should be removed?</p>
+<p>Perhaps only because of the way the graph is drawn, I'm tempted to think of the
+vertex <code>D</code> as the "main" type in the schema, and that makes me want to remove
+the two edges inbound into it:</p>
+<div><img src="cyclic.remove.1.dot.png" /><img src="cyclic.remove.2.dot.png" /></div><p>The graph now has no cycles. In fact, it would be a tree were it not for <code>B</code>
+having two parents (<code>A</code> and <code>F</code>). Also, note that since this is a <em>directed</em>
+graph, the edge sequence <code>FA</code>, <code>AB</code>, <code>BF</code> is not a path, and thus not a
+cycle, because the edge between <code>B</code> and <code>F</code> goes from <code>F</code> to <code>B</code>, not the
+other way around.</p>
+<p>What we did from the C++ point of view is go into the definitions of the <code>A</code>
+and <code>G</code> classes and replace all appearances of <code>D</code> with <code>Allocated&lt;D&gt;</code>.</p>
+<p>You might have noticed that there is another way we could have broken the
+cycles. Here's the original cyclic graph again:</p>
+<p><img src="cyclic.dot.png" alt="a more complicated dependency graph" /></p>
+<p>Both cycles share an edge, <code>DF</code>, and removing just that one breaks both
+cycles:</p>
+<div><img src="cyclic.remove.3.dot.png" /><img src="cyclic.remove.4.dot.png" /></div><p>Now graphviz wants to put <code>F</code> on top, interesting.</p>
+<h2 id="tradeoffs">Trade-offs</h2>
+<p>What's the difference between the two de-cyclings demonstrated above? My first
+thought was that less is more, and so removing the cycles by adding only one
+<code>Allocated&lt;T&gt;</code> is better than adding two. That's not a fully reasoned argument,
+though.</p>
+<p>It's true that there is a cost associated with the level of indirection
+introduced by <code>Allocated&lt;T&gt;</code>. Whenever you want to read or write to
+something in that member, you have to chase a pointer, rather than just work
+at an offset from the parent object. Also, when the <code>Allocated&lt;T&gt;</code> is
+created, it must <em>allocate</em> space for the <code>T</code>. That cost might or might not
+be significant depending on how memory is allocated.</p>
+<p>How much is the total cost, though? Suppose that we replaced <em>every</em> member
+of every class with <code>Allocated&lt;T&gt;</code>, as is done in dynamic and "object
+oriented" languages. Would a running program notice the difference? Would
+all the concern about "cache friendliness" matter?</p>
+<p>Here's another thought. If the object of type <code>T</code> that you are replacing with an
+<code>Allocated&lt;T&gt;</code> is much larger than <code>Allocated&lt;T&gt;</code> on the stack, and if access to
+that <code>T</code> would have been infrequent anyway, it might actually be advantageous
+to "tuck away" the rarely accessed member to allow adjacent objects to remain
+in cache more often.</p>
+<p>Nothing but a good suite of benchmarks could answer these questions.</p>
+<p>Still, we have to at least get the code to compile. Making <em>everything</em> an
+<code>Allocated&lt;T&gt;</code> seems at least unnecessary, if not detrimental. How, then, do
+we decide which edges to remove from our cyclic graphs?</p>
+<h2 id="the_minimum_feedback_arc_set">The Minimum Feedback Arc Set</h2>
+<p>Simple but suboptimal would be to say: "Any type that appears in a cycle must
+be referred to only by <code>Allocated&lt;T&gt;</code>." This makes certain that all cycles are
+removed, but potentially introduces many more <code>Allocated&lt;T&gt;</code> than necessary.</p>
+<p>In the previous example, it would mean removing five edges instead of one:</p>
+<div><img src="cyclic.remove.5.dot.png" /><img src="cyclic.remove.6.dot.png" /></div><p>Also, if there were edges coming in from other vertices into any of the vertices
+<code>A</code>, <code>D</code>, <code>F</code>, or <code>G</code>, those edges too would be removed, even though they aren't
+part of either cycle.</p>
+<p>It seems a waste, but on the other hand, maybe it's simple to implement:
+just walk through the graph with a clipboard, noting all of the nodes
+appearing in cycles, and you're done. Surprisingly, enumerating all of the
+cycles in a directed graph efficiently is <a href="https://blog.mister-muffin.de/2012/07/04/enumerating-elementary-circuits-of-a-directed_graph/">nontrivial</a>.</p>
+<p>The problem is that there can be an awful lot of cycles in a directed graph.
+A <a href="https://en.wikipedia.org/wiki/Complete_graph">complete directed graph</a> having <var>n</var> vertices and
+<var>~n<sup>2</sup></var> edges can have up to <a href="https://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF">this many</a> (simple)
+cycles:</p>
+<p><img src="max-cycles.png" alt="maximum number of cycles in complete digraph with n vertices" /></p>
+<p>That's way more than <var>2<sup>n</sup></var>, so at worst we're totally
+screwed.</p>
+<p>Fortunately, no schema describing C++ classes is going to have a <em>complete</em>
+dependency graph. Even if it were complete, then <var>n</var> would be small.</p>
+<p>So, the shotgun method of "<code>Allocated&lt;T&gt;</code> for every <code>T</code> appearing in a cycle" is
+still on the table, but can we do better?</p>
+<p>What about the <em>smallest</em> set of edges we'd need to remove to make the
+dependency graph acyclic? How do we calculate that set? In the example, above,
+the answer is just the one edge <code>DF</code> — we can't remove <em>zero</em> edges, and
+removing the <em>one</em> edge <code>DF</code> does the trick, and so that must be the smallest
+set (assuming there is no other single edge that could be removed instead, and
+there isn't).</p>
+<p>The problem of finding the size (cardinality) of a minimal set of edges to
+remove from a cyclic directed graph to render it acyclic is called <a href="https://en.wikipedia.org/wiki/Feedback_arc_set#Minimum_feedback_arc_set">the
+minimum feedback arc set problem</a>, and it's
+<a href="https://en.wikipedia.org/wiki/NP-completeness">NP-complete</a>, which <a href="https://www.mat.univie.ac.at/~neum/ms/minimum_feedback_arc_set.pdf">sucks</a>.</p>
+<p>Apparently the solution can be approximated to an arbitrary level of accuracy,
+but unless I find a tested implementation of one of the approximate or complete
+solutions in an off-the-shelf graph library, I'm not about to implement it
+myself for a code generator.</p>
+<h2 id="a_potential_compromise">A Potential Compromise</h2>
+<p>I've come up with an algorithm that spits out a set of edges to remove from a
+directed graph to render it acyclic, and as far as I can reason its worse case
+time complexity is a polynomial in <code>n</code>, the number of vertices, and <code>e</code>, the
+number of edges.</p>
+<p>Now, maybe I'm wrong about that complexity, but regardless, either the
+algorithm is more complex than I think, or it's doesn't always find the
+<em>minimum</em> feedback arc set (or both). Because <var>P ≠ NP</var>. Probably.</p>
+<p>Still seems pretty good to me, though. Here's how it works.</p>
+<h3 id="words">Words</h3>
+<p>The idea is to do a depth-first search for "cyclic edges," trying multiple
+times, once for each vertex. The result is then the smallest of the sets of
+"cyclic edges" found. If there multiple disconnected subgraphs, then the result
+is the smallest union of the results from all subgraphs.</p>
+<p>Choose a starting vertex, say, <code>A</code>. Walk the directed graph depth-first,
+keeping track of ancestor nodes using a hash set <code>s</code> (i.e. add nodes "on the
+way down" and remove them "on the way back up" — or mark the vertices in
+place, if possible).</p>
+<p>If you re-encounter an ancestor in your set <code>s</code> while traversing the graph,
+note which edge brought you to the ancestor, take a step back (across that
+edge) and then proceed as if that edge did not exist. That edge is what I called
+a "cyclic edge," above.</p>
+<p>This procedure will give you a set of edges removed from the graph in order
+to make it acyclic <strong><em>from <code>A</code>'s point of view</em></strong>.</p>
+<p>The hunch of this algorithm is that if you repeat the procedure starting at
+each other vertex as well, then maybe you'll stumble upon the minimum
+feedback arc set.</p>
+<h3 id="pictures">Pictures</h3>
+<p>Here is an animated example using the same graph we've been using.</p>
+<p>Start at vertex <code>A</code> and do a depth-first traversal until you run into trouble:</p>
+<p><img src="graph-animation-1.gif" alt="" /></p>
+<p>In these animations, the purple (pink) node is the one from which we started,
+blue indicates the edge or vertex we're currently examining, and gray indicates
+an edge or vertex that we've already visited. Red marks edges that lead to a
+vertex in the current set <code>s</code> of ancestors.</p>
+<p>We detected that the edge <code>FA</code> creates a cycle, so we remember it, remove it,
+and continue:</p>
+<p><img src="graph-animation-2.gif" alt="" /></p>
+<p>We detected that the edge <code>GD</code> creates a cycle, and so we did as before. Now
+there's little left to do, from <code>A</code>'s point of view:</p>
+<p><img src="graph-animation-3.gif" alt="" /></p>
+<p>Thus the following two edges were removed to make the graph acyclic, starting
+from <code>A</code>:</p>
+<p><img src="edges-removed-a.png" alt="" /></p>
+<p>Next we do the whole thing over, but this time starting from <code>B</code>. Starting from
+<code>B</code> or <code>C</code> is not very interesting, since they're both leaves. The algorithm,
+having run out of tree at <code>B</code> and noticing that there were still unvisited
+edges, would proceed starting from another vertex, say, <code>A</code>. But we already did
+<code>A</code>. So this adds no new information.</p>
+<p>The next interesting vertex to start from, alphabetically, is <code>D</code>. Here is the
+complete animation starting from <code>D</code>, and then the resulting edges removed:</p>
+<div><img src="graph-animation-4.gif" /><img src="edges-removed-d.png" /></div><p>As you can see, one of the edges is different than before.</p>
+<p>The punchline is the result starting from <code>F</code>. Here it is:</p>
+<div><img src="graph-animation-5.gif" /><img src="edges-removed-f.png" /></div><p>So we discover that the minimum feedback arc set of this directed graph is
+<code>{DF}</code>.</p>
+<h3 id="correctness">Correctness</h3>
+<p>As I said before, this algorithm can't be right. What might help is a
+<a href="https://github.com/josch/cycle_test">test suite</a> that randomly generates directed graphs, and then compares
+the result of this algorithm with the result of brute-force checking the power
+set of the graph's edges. I could hope to find a counter-example that way,
+though none very large, since the brute force solution is exponential in the
+number of edges.</p>
+
+
+<div>
+  <table class="navigate">
+    <tr>
+      <td align="left">
+        <a href="/site/posts.html">Posts</a>
+      </td>
+      <td align="center">
+        <a href="https://www.github.com/dgoffredo">About</a>
+      </td>
+      <td align="right">
+        <a href="https://www.github.com/dgoffredo/dgoffredo.github.io">Code</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+</body>
+</html>

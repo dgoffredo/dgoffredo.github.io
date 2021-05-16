@@ -65,27 +65,27 @@ html_template = '''
 <head>
   <meta charset="UTF-8" />
 
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="/site/favicon.ico" />
 
   <!-- style for landscape orientation, e.g. desktop browser -->
   <link rel="stylesheet" type="text/css"
       media="(orientation: landscape)"
-      href="landscape.css" />
+      href="/site/landscape.css" />
 
   <!-- style for portrait orientation, e.g. mobile browser -->
   <link rel="stylesheet" type="text/css"
       media="(orientation: portrait)"
-      href="portrait.css" />
+      href="/site/portrait.css" />
 
-  <link rel="stylesheet" href="../highlightjs/styles/default.css" />
+  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
 
   <!-- The space character prevents etree from omitting the closing tag. -->
-  <script src="../highlightjs/highlight.pack.js"> </script>
+  <script src="/highlightjs/highlight.pack.js"> </script>
 
   <script>hljs.initHighlightingOnLoad();</script>
 
   <!-- The space character prevents etree from omitting the closing tag. -->
-  <script src="linkify.js"> </script>
+  <script src="/site/linkify.js"> </script>
 
   <title>{title}</title>
 </head>
@@ -153,10 +153,6 @@ def create_page(from_path, to_path, navigate, date=None):
 
     return title
 
-def site_html_from_full_path(path):
-    "Given /full/path/to/thing.md, return thing.html"
-    return Path('../site')/path.with_suffix('.html').name
-
 def create_posts(posts_list, page_titles, site, navigate):
     "Create site/posts.html using the specified arguments. `site` is a `Path`."
     
@@ -172,8 +168,9 @@ def create_posts(posts_list, page_titles, site, navigate):
           <td align="right"><a href="{href}">{title}</a></td></tr>
     '''
 
+    content_dir = Path('content').resolve()
     rows = [row_template.format(date=date,
-                                href=str(site_html_from_full_path(path)),
+                                href=str(path.relative_to(content_dir).with_suffix('.html')),
                                 title=page_titles[path]) \
             for path, date in posts_list]
 
@@ -201,6 +198,10 @@ def up_to(descendant, ancestor):
     return result
 
 def generate(root):
+    # `posts` is a directory of symbolic links to markdown files.
+    # The name of each symbolic link is an ISO-8601 date.
+    # `post_dates` maps the resolved paths of the markdown files
+    # to the `datetime.Date` parsed from the name of the symbolic link.
     posts = root/'posts'
     post_dates = { 
         p.resolve(): datetime.strptime(p.name, "%Y-%m-%d").date() \
@@ -239,9 +240,7 @@ def generate(root):
             in_site.symlink_to(up_to(in_site, root)/'content'/relative_path)
             continue
 
-        # It's a markdown file, so generate HTML (with a date, if applicable)
-        # TODO: The difference between `site_html_from_full_path` and what I
-        #       do with `file_path` below is subtle.  Work that out better.
+        # It's a markdown file, so generate HTML (with a date, if applicable).
         date = post_dates.get(file_path.resolve())
         html_path = in_site.with_suffix('.html')
         title = create_page(file_path,
@@ -256,7 +255,7 @@ def generate(root):
                              key=lambda item: item[1],
                              reverse=True))
 
-    recent_post_html_path = site_html_from_full_path(posts_list[0][0])
+    recent_post_html_path = posts_list[0][0].relative_to(content).with_suffix('.html')
     (site/'index.html').symlink_to(recent_post_html_path)
 
     create_posts(posts_list, page_titles, site, navigate)
