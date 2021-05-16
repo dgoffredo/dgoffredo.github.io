@@ -21,7 +21,7 @@ each symlink has a name like `YYYY-MM-DD`, e.g. `2018-01-07`, and then run
 The generator requires python3.6+ and the following `apt` packages (or their
 equivalents on other systems):
 ```console
-$ sudo apt install graphviz imagemagick
+$ sudo apt install graphviz imagemagick make coreutils
 ```
 
 More
