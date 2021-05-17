@@ -1,18 +1,18 @@
 #!/bin/sh
 
 xmllint --format --html - | \
-sed 's/ class="[^"]*"//g' | \
-sed 's/<span[^>]*>//g' | \
-sed 's/<\/span>//g' | \
-sed '/^<p\>/!d' | \
-sed "s/&rsquo;/'/g" | \
-sed "s/&lsquo;/'/g" | \
-sed 's/&rdquo;/"/g' | \
-sed 's/&ldquo;/"/g' | \
-sed 's/&nbsp;/ /g' | \
-sed 's/<\/p>/\n/g' | \
-sed 's/<p>//g' | \
-sed 's,<img .*src="\([^"]\+\.jpg\)"[^>]*>,![](\1),' | \
-sed 's/&ndash;/–/g' | \
+sed -e 's/ class="[^"]*"//g' \
+    -e 's/<span[^>]*>//g' \
+    -e 's/<\/span>//g' \
+    -e '/^<p\>/!d' \
+    -e "s/&rsquo;/'/g" \
+    -e "s/&lsquo;/'/g" \
+    -e 's/&rdquo;/"/g' \
+    -e 's/&ldquo;/"/g' \
+    -e 's/&nbsp;/ /g' \
+    -e 's/<\/p>/\n/g' \
+    -e 's/<p>//g' \
+    -e 's,<img .*src="\([^"]\+\.jpg\)"[^>]*>,![](\1),' \
+    -e 's/&ndash;/–/g' | \
 cat -s
 
