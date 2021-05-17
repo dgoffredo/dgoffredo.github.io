@@ -5,7 +5,7 @@ Here's a bare-bones hand-written blog generator.  I use it to create
 
 Why
 ---
-I will resist web things.
+I want to learn the mistakes of writing a static website generator.
 
 What
 ----

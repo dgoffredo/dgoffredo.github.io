@@ -9,7 +9,7 @@ import re
 import sys
 
 
-class ImageVisitingRenderer(mistune.Renderer):
+class ImageScrapingRenderer(mistune.Renderer):
     def __init__(self, img_src_output_list):
         self.img_src_output_list = img_src_output_list
         super().__init__()
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     img_srcs = []
     md_path = Path(sys.argv[1])
 
-    visitor = mistune.Markdown(renderer=ImageVisitingRenderer(img_srcs))
+    visitor = mistune.Markdown(renderer=ImageScrapingRenderer(img_srcs))
     visitor(md_path.read_text())
 
     dep_srcs = [src for src in img_srcs if re.match(dep_file_pattern, src)]

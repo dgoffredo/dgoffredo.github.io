@@ -32,9 +32,9 @@ def linkify(element):
     return text, name
 
 def uniquify(name, names):
-    """If the string `name` is not in the set `names`, return `name`.
-    Otherwise, create a variant based off of `name` that is not in `names`,
-    add the variant to `names`, and return the variant.
+    """If the string `name` is not in the set `names`, add it to `names` and
+    return `name`.  Otherwise, create a variant based off of `name` that is
+    not in `names`, add the variant to `names`, and return the variant.
     """
     candidate = name
     for i in itertools.count(1):
