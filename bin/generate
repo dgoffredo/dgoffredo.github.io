@@ -49,10 +49,12 @@ The result will be
 """
 
 import mistune
+import linkify
 import tableofcontents
 
 from datetime import datetime
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 # Note that this is actually XML.  I omit the XHTML-required "!DOC" stuff,
 # though, because I found that it caused browsers to ignore CSS's max-width
@@ -83,9 +85,6 @@ html_template = '''
   <script src="/highlightjs/highlight.pack.js"> </script>
 
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <!-- The space character prevents etree from omitting the closing tag. -->
-  <script src="/site/linkify.js"> </script>
 
   <title>{title}</title>
 </head>
@@ -145,11 +144,16 @@ def create_page(from_path, to_path, navigate, date=None):
                                     date=date,
                                     table_of_contents=toc,
                                     content=content)
+        html = ET.fromstring(html)
+
         if date:
             # This is a post, so expand the table of contents.
-            html = tableofcontents.add_table_of_contents(html, max_depth=2)
+            tableofcontents.insert_table_of_contents(html, max_depth=2)
+            
+        # Wrap <img ...> tags in links of the img src is a *_small.jpg
+        linkify.wrap_images(html, r'^(.*)_small\.jpg$', r'\1.jpg')
 
-        destination.write(html)
+        ET.ElementTree(html).write(destination, encoding='unicode')
 
     return title
 
@@ -214,7 +218,6 @@ def generate(root):
     site = root/'site'
     (site/'landscape.css').symlink_to('../config/landscape.css')
     (site/'portrait.css').symlink_to('../config/portrait.css')
-    (site/'linkify.js').symlink_to('../config/linkify.js')
 
     page_titles = {}
  
