@@ -106,8 +106,6 @@ html_template = '''
 '''
 
 def get_first_h1(html_markup):
-    """Don't judge me.  I tried a few things, and this is best."""
-
     begin = html_markup.find('<h1>') + len('<h1>')
     if begin == -1:
         return None
@@ -209,7 +207,7 @@ def generate(root):
     posts = root/'posts'
     post_dates = { 
         p.resolve(): datetime.strptime(p.name, "%Y-%m-%d").date() \
-        for p in posts.iterdir()
+        for p in posts.iterdir() if p.is_symlink()
     }
 
     config = root/'config'
@@ -224,8 +222,8 @@ def generate(root):
     for file_path in content.rglob('*'):
         file_path = file_path.resolve()
         name      = file_path.name
-        if name.startswith('.'):
-            # ignore "hidden" files (e.g. vim swap files)
+        if name.startswith('.') or name.startswith('README'):
+            # ignore "hidden" files (e.g. vim swap files) and README files.
             continue
         
         relative_path = file_path.relative_to(content)
