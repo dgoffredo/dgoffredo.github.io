@@ -51,17 +51,6 @@ else would I be?  Hasta luego...
 
 ![](mexico_4_small.jpg)
 
-<table class="series">
-  <tr><th colspan="5">Mexico</th></tr>
-  <tr>
-    <td>Day 5</td>
-    <td><a href="mexico2.html">Day 8</a></td>
-    <td><a href="mexico3.html">Day 13</a></td>
-    <td><a href="mexico4.html">Day 21</a></td>
-    <td><a href="mexico5.html">Day 29</a></td>
-  </tr>
-</table>
-
 [1]: https://en.wikipedia.org/wiki/Chilaquiles
 [2]: https://en.wikipedia.org/wiki/Taco
 [3]: https://en.wikipedia.org/wiki/Tortilla_soup

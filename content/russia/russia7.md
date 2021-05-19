@@ -265,13 +265,3 @@ and... can you guess it? A church! This one has famous dead people in it.
 
 That's enough for now. It's almost 11 PM here, and I think I ought to venture
 out in search of food before bed. Solo in Prague!
-
-<table class="series">
-  <tr><th colspan="4">Russia and Czechia</th></tr>
-  <tr>
-    <td><a href="russia1.html">Day 3</a></td>
-    <td><a href="russia2.html">Day 4</a></td>
-    <td>Day 7</td>
-    <td><a href="russia10.html">Day 10</a></td>
-  </tr>
-</table>

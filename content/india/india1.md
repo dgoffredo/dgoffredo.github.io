@@ -170,15 +170,3 @@ At some point we ate dinner, and the food was delicious.  Now it is nearly one
 o'clock in the morning, and I am going to bed. 
 
 <img style="width: 200px;" src="hindi.png"/>
-
-<table class="series">
-  <tr><th colspan="6">India</th></tr>
-  <tr>
-    <td>Day 1</td>
-    <td><a href="india2.html">Day 6</a></td>
-    <td><a href="india3.html">Day 8</a></td>
-    <td><a href="india4.html">Day 10</a></td>
-    <td><a href="india5.html">Day 13</a></td>
-    <td><a href="india6.html">Day 15</a></td>
-  </tr>
-</table>

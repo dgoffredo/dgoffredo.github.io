@@ -145,15 +145,3 @@ the Basilica, don't you?
 Now it's a just-under three-hour flight to Stockholm, where presumably we will
 eat meatballs and shop for furniture. The snack guy is coming around I NEED
 COFFEE.
-
-<table class="series">
-  <tr><th colspan="6">Europe</th></tr>
-  <tr>
-    <td><a href="europe1.html">Day 1</a></td>
-    <td><a href="europe2.html">Day 2</a></td>
-    <td><a href="europe7.html">Day 7</a></td>
-    <td><a href="europe8.html">Day 8</a></td>
-    <td>Day 10</td>
-    <td><a href="europe13.html">Day 13</a></td>
-  </tr>
-</table>

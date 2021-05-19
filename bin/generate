@@ -50,9 +50,12 @@ The result will be
 
 import mistune
 import linkify
+import pathutil
+import series
 import tableofcontents
 
 from datetime import datetime
+import os
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -99,6 +102,8 @@ html_template = '''
 
 {content}
 
+{series_navigation}
+
 {navigate}
 
 </body>
@@ -126,7 +131,7 @@ def pretty_date(date):
     day_of_week_and_month_name = date.strftime('%A, %B ')
     return f'{day_of_week_and_month_name} {date.day}, {date.year}'
 
-def create_page(from_path, to_path, navigate, date=None):
+def create_page(from_path, to_path, navigate, series_by_date, date=None):
     """Write HTML to the specified `to_path` from the markdown at the specified
     `from_path`, the specified `navigate` HTML, and the optionally specified
     `date` object.  Return the title of the generated HTML document."""
@@ -134,19 +139,25 @@ def create_page(from_path, to_path, navigate, date=None):
     with to_path.open('w', encoding='utf8') as destination:
         content = markdown2html(from_path)
         title = get_first_h1(content)
-        date = '<p>' + pretty_date(date) + '</p>' if date is not None else ''
+        date_paragraph = '<p>' + pretty_date(date) + '</p>' if date is not None else ''
         title = title if title is not None else ''
         toc = '<div class="table-of-contents"></div>'
+        series_navigation = '<div class="series-navigation-placeholder"></div>'
         html = html_template.format(title=title,
                                     navigate=navigate,
-                                    date=date,
+                                    date=date_paragraph,
                                     table_of_contents=toc,
-                                    content=content)
+                                    content=content,
+                                    series_navigation=series_navigation)
         html = ET.fromstring(html)
 
         if date:
             # This is a post, so expand the table of contents.
             tableofcontents.insert_table_of_contents(html, max_depth=2)
+ 
+        if date in series_by_date:
+            # series.insert_series_navigation(html, Path('series/Russia and Czechia'), from_path)
+            series.insert_series_navigation(html, series_by_date[date], from_path)
             
         # Wrap <img ...> tags in links of the img src is a *_small.jpg
         linkify.wrap_images(html, r'^(.*)_small\.jpg$', r'\1.jpg')
@@ -183,21 +194,8 @@ def create_posts(posts_list, page_titles, site, navigate):
                                      navigate=navigate,
                                      date='',
                                      table_of_contents='',
-                                     content=content))
-
-def up_to(descendant, ancestor):
-    """Return a relative path of multiple ".." that describes the specified
-    `descendent` file in terms of its specified `ancestor` directory, e.g.
-    `up_to(Path('foo/bar/baz/thing.txt', 'foo'))` is `Path('../..')`.
-    """
-    assert not descendant.is_dir()
-    assert descendant.parts[:len(ancestor.parts)] == ancestor.parts
-
-    result = Path('.')
-    for _ in range(len(descendant.parent.parts) - len(ancestor.parts)):
-        result = result/Path('..')
-
-    return result
+                                     content=content,
+                                     series_navigation=''))
 
 def generate(root):
     # `posts` is a directory of symbolic links to markdown files.
@@ -209,6 +207,14 @@ def generate(root):
         p.resolve(): datetime.strptime(p.name, "%Y-%m-%d").date() \
         for p in posts.iterdir() if p.is_symlink()
     }
+
+    # TODO: consider moving this to `series.py`
+    series = root/'series'
+    series_by_date = {} # {<date>: <path to dir in series/>}
+    for dir in filter(Path.is_dir, series.iterdir()):
+        for link in filter(Path.is_symlink, dir.iterdir()):
+            date = datetime.strptime(Path(os.readlink(link)).name, "%Y-%m-%d").date()
+            series_by_date[date] = dir
 
     config = root/'config'
     content = root/'content'
@@ -238,7 +244,7 @@ def generate(root):
         extension = file_path.suffix.lower()
         # If it's not a markdown file, then just create a link to it in ./site
         if extension not in ('.md', '.markdown'):
-            in_site.symlink_to(up_to(in_site, root)/'content'/relative_path)
+            in_site.symlink_to(pathutil.up_to(in_site, root)/'content'/relative_path)
             continue
 
         # It's a markdown file, so generate HTML (with a date, if applicable).
@@ -246,7 +252,8 @@ def generate(root):
         html_path = in_site.with_suffix('.html')
         title = create_page(file_path,
                             html_path,
-                            navigate, 
+                            navigate,
+                            series_by_date,
                             date)
 
         page_titles[file_path] = title

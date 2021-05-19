@@ -171,13 +171,3 @@ tired and we sleep.
 Pasha and American sleep almost twelve hours! American wake up and start
 writing log of travels. Now it 2 PM and Ella come home from work for lunch. До
 связи!
-
-<table class="series">
-  <tr><th colspan="4">Russia and Czechia</th></tr>
-  <tr>
-    <td>Day 3</td>
-    <td><a href="russia2.html">Day 4</a></td>
-    <td><a href="russia7.html">Day 7</a></td>
-    <td><a href="russia10.html">Day 10</a></td>
-  </tr>
-</table>

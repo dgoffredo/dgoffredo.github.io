@@ -46,13 +46,3 @@ nonsense, and then it was back to Russian.
 
 Today we'll probably go to a park where there are a lot of tanks. Gotta love
 tanks. Cheerio!
-
-<table class="series">
-  <tr><th colspan="4">Russia and Czechia</th></tr>
-  <tr>
-    <td><a href="russia1.html">Day 3</a></td>
-    <td>Day 4</td>
-    <td><a href="russia7.html">Day 7</a></td>
-    <td><a href="russia10.html">Day 10</a></td>
-  </tr>
-</table>

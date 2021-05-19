@@ -209,16 +209,4 @@ wandering;  less airport, more nature.
 
 <img style="width: 200px;" src="hindi.png"/>
 
-<table class="series">
-  <tr><th colspan="6">India</th></tr>
-  <tr>
-    <td><a href="india1.html">Day 1</a></td>
-    <td><a href="india2.html">Day 6</a></td>
-    <td><a href="india3.html">Day 8</a></td>
-    <td><a href="india4.html">Day 10</a></td>
-    <td><a href="india5.html">Day 13</a></td>
-    <td>Day 15</td>
-  </tr>
-</table>
-
 [1]: https://en.wikipedia.org/wiki/Kerala_backwaters

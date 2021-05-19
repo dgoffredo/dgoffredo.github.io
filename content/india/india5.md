@@ -134,15 +134,3 @@ The view in the morning is even better.
 Then it was another five hour drive, this time into the backwaters.
 
 <img style="width: 200px;" src="hindi.png"/>
-
-<table class="series">
-  <tr><th colspan="6">India</th></tr>
-  <tr>
-    <td><a href="india1.html">Day 1</a></td>
-    <td><a href="india2.html">Day 6</a></td>
-    <td><a href="india3.html">Day 8</a></td>
-    <td><a href="india4.html">Day 10</a></td>
-    <td>Day 13</td>
-    <td><a href="india6.html">Day 15</a></td>
-  </tr>
-</table>

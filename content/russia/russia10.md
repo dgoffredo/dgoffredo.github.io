@@ -184,13 +184,3 @@ hilarious sausage). Next time.
 That's about it for my trip. I'm waiting for the plane to arrive here in
 Prague. Then it's a few hours in Warsaw, and finally the long ass flight
 back to Newark. Ahoy!
-
-<table class="series">
-  <tr><th colspan="4">Russia and Czechia</th></tr>
-  <tr>
-    <td><a href="russia1.html">Day 3</a></td>
-    <td><a href="russia2.html">Day 4</a></td>
-    <td><a href="russia7.html">Day 7</a></td>
-    <td>Day 10</td>
-  </tr>
-</table>

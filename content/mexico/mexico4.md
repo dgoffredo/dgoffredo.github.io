@@ -82,14 +82,3 @@ impromptu mariachi party.  The singers had trained voices, and the trumpets
 were in tune.  Yes, they played "Cielito Lindo."  Of course they did.
 
 _Ayyyy yaaaay yah yahhhhhhh..._
-
-<table class="series">
-  <tr><th colspan="5">Mexico</th></tr>
-  <tr>
-    <td><a href="mexico1.html">Day 5</a></td>
-    <td><a href="mexico2.html">Day 8</a></td>
-    <td><a href="mexico3.html">Day 13</a></td>
-    <td>Day 21</td>
-    <td><a href="mexico5.html">Day 29</a></td>
-  </tr>
-</table>

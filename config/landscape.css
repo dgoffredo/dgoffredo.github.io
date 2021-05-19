@@ -43,14 +43,29 @@ img.thumbnail {
     width: 700px;
 }
 
-table.series {
+.series-navigation {
     width: 100%;
+    font-size: 12pt;
     max-width: 700px;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-table.series > tbody > tr {
-    text-align: center;
+.series-navigation-header {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.series-navigation-links {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .navigation-bar {
