@@ -68,6 +68,10 @@ img.thumbnail {
     flex-wrap: wrap;
 }
 
+.series-page-item .series-navigation-header {
+  background-color: #eee6ff
+}
+
 .navigation-bar {
     width: 100%;
     font-size: 14pt;

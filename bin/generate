@@ -166,9 +166,40 @@ def create_page(from_path, to_path, navigate, series_by_date, date=None):
 
     return title
 
-def create_posts(posts_list, page_titles, site, navigate):
-    "Create site/posts.html using the specified arguments. `site` is a `Path`."
+def create_series(series_by_date, site: Path, navigate):
+    """Create site/series.html"""
+    content = '<div class="series-navigation-placeholder"></div>'
+    html = html_template.format(title='Series',
+                                 navigate=navigate,
+                                 date='',
+                                 table_of_contents='',
+                                 content=content,
+                                 series_navigation='')
+    html = ET.fromstring(html)
     
+    # TODO: this stuff with `relative_to` is a hack
+    relative_to = site.parent/'content'/'README.md'
+    container = html.find('body').find("div[@class='series-navigation-placeholder']")
+    
+    # Go through series directories most-recently-updated first.
+    # Visit each directory exactly once.
+    dirs = set()
+    series_dirs = [] # in order
+    for date, dir in sorted(series_by_date.items(), key=lambda x: x[0], reverse=True):
+        if dir in dirs:
+            continue # already added this series
+        dirs.add(dir)
+        series_dirs.append(dir)
+
+    for dir in series_dirs:
+        wrapper = ET.TreeBuilder().start('div', {'class': 'series-page-item'})
+        wrapper.append(series.series_navigation(dir, relative_to))
+        container.append(wrapper)
+        
+    ET.ElementTree(html).write(site/'series.html', encoding='unicode')
+
+def create_posts(posts_list, page_titles, site: Path, navigate):
+    """Create site/posts.html"""
     content_template = '''
     <table class="posts">
       <tr><th align="left">Date</th><th align="right">Post</th></tr>
@@ -267,6 +298,8 @@ def generate(root):
     (site/'index.html').symlink_to(recent_post_html_path)
 
     create_posts(posts_list, page_titles, site, navigate)
+    
+    create_series(series_by_date, site, navigate)
 
 if __name__ == '__main__':
     generate(Path.cwd())
