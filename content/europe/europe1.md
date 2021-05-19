@@ -29,15 +29,3 @@ For those of you stalking along at home, we are currently here:
 https://www.google.is/maps/place/Reykjav%C3%ADk/@64.1369699,-21.8860857,11.43z/data=!4m5!3m4!1s0x48d674b9eedcedc3:0xec912ca230d26071!8m2!3d64.1265206!4d-21.8174393
 
 DNS insists on bringing me to Icelandic websites. Don’t they know who I am?
-
-<div class="series-navigation">
-  <div class="series-navigation-header">Europe</div>
-  <div class="series-navigation-links">
-    <span>Day 1</span>
-    <a href="europe2.html">Day 2</a>
-    <a href="europe7.html">Day 7</a>
-    <a href="europe8.html">Day 8</a>
-    <a href="europe10.html">Day 10</a>
-    <a href="europe13.html">Day 13</a>
-  </div>
-</div>
