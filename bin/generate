@@ -295,7 +295,11 @@ def generate(root):
                              reverse=True))
 
     recent_post_html_path = posts_list[0][0].relative_to(content).with_suffix('.html')
-    (site/'index.html').symlink_to(recent_post_html_path)
+    
+    redirect_template = (config/'redirect.template.html').read_text()
+    # TODO: This double-redirect is not ideal.
+    (site/'index.html').write_text(redirect_template.format(href=str(recent_post_html_path)))
+    (root/'index.html').write_text(redirect_template.format(href=str('site/index.html')))
 
     create_posts(posts_list, page_titles, site, navigate)
     
