@@ -28,7 +28,7 @@ beer out of it anyway.
   <tr><td>Roasted Barley</td><td>≈2 oz.</td><td>"a handful," for color</td></tr>
   
   <tr><th>Hop</th><th>Quantity</th><th>Boil Time</th></tr>
-  <tr><td>Citra (12.7% [AA][3])</td><td>1 ⅓ oz.</td><td>split: 60 min., 15 min., and 2 min.</td></tr>
+  <tr><td>Citra (12.7% <a href="https://en.wikipedia.org/wiki/Alpha_acid">AA</a>)</td><td>1 ⅓ oz.</td><td>split: 60 min., 15 min., and 2 min.</td></tr>
   <tr><td>Centennial (12% AA)</td><td>1 ⅓ oz.</td><td>split: 60 min., 15 min., and 2 min.</td></tr>
   <tr><td>Cascade (7.3% AA)</td><td>1 ⅓ oz.</td><td>split: 60 min., 15 min., and 2 min.</td></tr>
   <tr><td>Belma (5% AA)</td><td>1 oz.</td><td>split: 60 min., 15 min., and 2 min.</td></tr>
@@ -234,6 +234,5 @@ day.
 
 [1]: https://en.wikipedia.org/wiki/India_pale_ale
 [2]: https://victoriacookware.com/
-[3]: https://en.wikipedia.org/wiki/Alpha_acid
 [4]: https://en.wikipedia.org/wiki/Beer_measurement#Bitterness
 [5]: https://www.amazon.com/s?k=auto+siphon
