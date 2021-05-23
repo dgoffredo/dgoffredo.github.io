@@ -8,4 +8,9 @@
 __pycache__
 
 # intermediate makefiles
+
+# build artifacts
+/site/
 *.d
+/config/**/*_small.jpg
+/config/**/*.dot.png
