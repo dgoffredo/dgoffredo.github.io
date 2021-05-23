@@ -11,6 +11,6 @@ __pycache__
 
 # build artifacts
 /site/
-*.d
-/config/**/*_small.jpg
-/config/**/*.dot.png
+/content/**/*.d
+/content/**/*_small.jpg
+/content/**/*.dot.png
