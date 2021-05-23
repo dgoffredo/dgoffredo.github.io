@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# This script is based off of <https://github.com/dgoffredo/gitree>.
+
+set -e # bail on error
+
+repo=$(realpath "$(git rev-parse --show-toplevel)")
+cd "$repo"
+upstream=$(git remote get-url origin)
+make # output will be under $repo/site/
+
+tmpdir=$(mktemp -d)
+branch=site
+commit_message="site build based off of commit $(git rev-parse HEAD)"
+
+# See https://stackoverflow.com/questions/31278902/
+cd "$tmpdir"
+git init .
+git remote add origin "$repo/.git"
+git fetch --depth 1 origin "$branch"
+git checkout "$branch" 
+git submodule update --init --depth 1 --recursive
+
+# Now that we have the "before," replace the tree with a symlink-traversing
+# deep copy of the "after."
+rm --recursive *
+cp --recursive --dereference "$repo"/site/* .
+git add --all
+git commit -m "$commit_message"
+git remote add upstream "$upstream"
+git push upstream "$branch"
+ 
+cd "$repo"
+rm --recursive "$tmpdir"
