@@ -263,8 +263,8 @@ def generate(root):
     for file_path in content.rglob('*'):
         file_path = file_path.resolve()
         name      = file_path.name
-        if name.startswith('.') or name.startswith('README'):
-            # ignore "hidden" files (e.g. vim swap files) and README files.
+        if name.startswith('.') or name.startswith('README') or file_path.suffix == '.d':
+            # ignore "hidden" files (e.g. vim swap files), README files, and `make` artifacts.
             continue
         
         relative_path = file_path.relative_to(content)
