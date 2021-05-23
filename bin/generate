@@ -70,17 +70,17 @@ html_template = '''
 <head>
   <meta charset="UTF-8" />
 
-  <link rel="shortcut icon" type="image/x-icon" href="/site/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
   <!-- style for landscape orientation, e.g. desktop browser -->
   <link rel="stylesheet" type="text/css"
       media="(orientation: landscape)"
-      href="/site/landscape.css" />
+      href="/landscape.css" />
 
   <!-- style for portrait orientation, e.g. mobile browser -->
   <link rel="stylesheet" type="text/css"
       media="(orientation: portrait)"
-      href="/site/portrait.css" />
+      href="/portrait.css" />
 
   <link rel="stylesheet" href="/highlightjs/styles/default.css" />
 
@@ -253,6 +253,7 @@ def generate(root):
     site = root/'site'
     (site/'landscape.css').symlink_to('../config/landscape.css')
     (site/'portrait.css').symlink_to('../config/portrait.css')
+    (site/'CNAME').symlink_to('../config/CNAME')
 
     page_titles = {}
  
@@ -297,9 +298,8 @@ def generate(root):
     recent_post_html_path = posts_list[0][0].relative_to(content).with_suffix('.html')
     
     redirect_template = (config/'redirect.template.html').read_text()
-    # TODO: This double-redirect is not ideal.
+    # TODO: This redirect is not ideal.
     (site/'index.html').write_text(redirect_template.format(href=str(recent_post_html_path)))
-    (root/'index.html').write_text(redirect_template.format(href=str('site/index.html')))
 
     create_posts(posts_list, page_titles, site, navigate)
     

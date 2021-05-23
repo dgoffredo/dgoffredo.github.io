@@ -177,5 +177,5 @@ the output-parameters overload:
 A colleague of mine called this "like the opposite of bind," or maybe it's an
 inside-out bind.  Six lines of C++11 is what it is.
 
-[part1]: /site/callbacks.html
+[part1]: callbacks.html
 [bdlat]: https://bloomberg.github.io/bde/group__bdlat.html
