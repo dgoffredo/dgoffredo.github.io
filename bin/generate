@@ -251,6 +251,8 @@ def generate(root):
     content = root/'content'
     navigate = (config/'navigate.html').read_text()
     site = root/'site'
+    if not site.exists():
+        site.mkdir()
     (site/'landscape.css').symlink_to('../config/landscape.css')
     (site/'portrait.css').symlink_to('../config/portrait.css')
     (site/'CNAME').symlink_to('../config/CNAME')
