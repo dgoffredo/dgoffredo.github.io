@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+const usage = `Highlight source code from standard input and print the
+resulting HTML to standard output.
+
+usage: highlight [-h | --help] [<language>]
+
+<language> is the optional name of the input language.
+If no <language> is specified, then it is deduced from
+the input.
+
+-h or --help prints this message to standard output.
+`;
+
+const [node, script, ...args] = process.argv;
+
+if (args.includes('-h') || args.includes('--help')) {
+    console.log(usage);
+    process.exit();
+}
+
+if (args.length > 1) {
+    console.error(usage);
+    process.exit(1);
+}
+
+let language;
+if (args.length === 1) {
+    language = args[0];
+}
+
+const hljs = require('../highlightjs/highlight.js');
+const fs = require('fs');
+
+const stdin_fd = 0;  // using `process.stdin.fd` fails with `EAGAIN`
+const code = fs.readFileSync(stdin_fd, 'utf-8');
+
+if (language === undefined) {
+    // deduce language
+    process.stdout.write(hljs.highlightAuto(code).value);
+} else {
+    // use specified language
+    process.stdout.write(hljs.highlight(code, {language}).value);
+}
