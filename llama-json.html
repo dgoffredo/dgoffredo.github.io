@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>Llama JSON</title>
 </head>
@@ -36,13 +30,13 @@
 <div class="table-of-contents"><ul><li><a href="#llama_json">Llama JSON</a><ul><li><a href="#its_a_macro">It's a Macro</a></li><li><a href="#dealing_with_null">Dealing with null</a></li><li><a href="#distinguishing_arrays_from_objects">Distinguishing Arrays from Objects</a></li><li><a href="#empty_objects_and_arrays">Empty Objects and Arrays</a></li><li><a href="#numbers_and_jsonstringify">Numbers and JSON.stringify</a></li><li><a href="#helper_procedure">Helper Procedure</a></li><li><a href="#the_json_macro">The json Macro</a></li><li><a href="#example">Example</a></li></ul></li></ul></div>
 
 <h1 id="llama_json">Llama JSON</h1>
-<p><img src="llama.jpg" alt="" /> <img src="json.gif" alt="" /></p>
+<p><img src="llama.jpg" alt=""> <img src="json.gif" alt=""></p>
 <p>Playing with a <a href="https://github.com/dgoffredo/llama">pet project</a>, I noticed a relationship between
 <a href="https://en.wikipedia.org/wiki/S-expression">s-expressions</a> and <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>.</p>
 <p>The following JSON is also valid <a href="https://github.com/dgoffredo/llama">Llama</a>:</p>
-<pre><code>{
-    "hello": null, 
-    "isn't": ["it", 2, "conveninent?"]
+<pre><code class="hljs">{
+    <span class="hljs-attr">"hello"</span>: <span class="hljs-literal">null</span>, 
+    <span class="hljs-attr">"isn't"</span>: [<span class="hljs-string">"it"</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"conveninent?"</span>]
 }
 </code></pre>
 <p>Since</p>
@@ -52,70 +46,70 @@
 <li>the colon (<code>:</code>) and <code>null</code> are valid symbol names,</li>
 </ul>
 <p>the above is the same as:</p>
-<pre><code>("hello" ': 'null "isn't" ': ("it" 2 "convenient?"))
+<pre><code class="hljs">(<span class="hljs-string">"hello"</span> <span class="hljs-symbol">':</span> <span class="hljs-symbol">'null</span> <span class="hljs-string">"isn't"</span> <span class="hljs-symbol">':</span> (<span class="hljs-string">"it"</span> <span class="hljs-number">2</span> <span class="hljs-string">"convenient?"</span>))
 </code></pre>
 <p>Does that mean we can represent JSON text within Llama without having to escape
 our quotes?</p>
-<pre><code>(Document ((version 1.1) (xmlns "http://mycompany.com"))
-  (Widget ((name Fred))
-    (_.content
-      (json {
-          "columns": ["Foo", "Bar", "Baz"],
-          "rows": [
-              [1, 2, 3],
+<pre><code class="hljs">(<span class="hljs-name">Document</span> ((<span class="hljs-name">version</span> <span class="hljs-number">1.1</span>) (<span class="hljs-name">xmlns</span> <span class="hljs-string">"http://mycompany.com"</span>))
+  (<span class="hljs-name">Widget</span> ((<span class="hljs-name"><span class="hljs-builtin-name">name</span></span> Fred))
+    (<span class="hljs-name">_.content</span>
+      (<span class="hljs-name">json</span> {
+          <span class="hljs-string">"columns"</span>: [<span class="hljs-string">"Foo"</span>, <span class="hljs-string">"Bar"</span>, <span class="hljs-string">"Baz"</span>],
+          <span class="hljs-string">"rows"</span>: [
+              [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
               [null, null, null]
           ]
       }))))
 </code></pre>
 <p>Ideally that would be the same as:</p>
-<pre><code>(Document ((version 1.1) (xmlns "http://mycompany.com"))
+<pre><code class="hljs">(Document ((version <span class="hljs-number">1.1</span>) (xmlns <span class="hljs-string">"http://mycompany.com"</span>))
   (Widget ((name Fred))
     (_.content
-      "{
-          \"columns\": [\"Foo\", \"Bar\", \"Baz\"],
-          \"rows\": [
+      <span class="hljs-string">"{
+          <span class="hljs-subst">\"</span>columns<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>Foo<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Bar<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Baz<span class="hljs-subst">\"</span>],
+          <span class="hljs-subst">\"</span>rows<span class="hljs-subst">\"</span>: [
               [1, 2, 3],
               [null, null, null]
           ]
-      }")))
+      }"</span>)))
 </code></pre>
 <p>Values could even be substituted in:</p>
-<pre><code>(let ([names ["John" "Paul" "George" "Ringo"]])
-  (json {
-      "Beatles": names,
-      "musicians": names,
-      "Brits": names
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([names [<span class="hljs-string">"John"</span> <span class="hljs-string">"Paul"</span> <span class="hljs-string">"George"</span> <span class="hljs-string">"Ringo"</span>]])
+  (<span class="hljs-name">json</span> {
+      <span class="hljs-string">"Beatles"</span>: names,
+      <span class="hljs-string">"musicians"</span>: names,
+      <span class="hljs-string">"Brits"</span>: names
   }))
 </code></pre>
 <p>yielding:</p>
-<pre><code>"{
-     \"Beatles\": [\"John\", \"Paul\", \"George\", \"Ringo\"],
-     \"musicians\": [\"John\", \"Paul\", \"George\", \"Ringo\"],
-     \"Brits\": [\"John\", \"Paul\", \"George\", \"Ringo\"]
-}"
+<pre><code class="hljs"><span class="hljs-string">"{
+     <span class="hljs-subst">\"</span>Beatles<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>John<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Paul<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>George<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Ringo<span class="hljs-subst">\"</span>],
+     <span class="hljs-subst">\"</span>musicians<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>John<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Paul<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>George<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Ringo<span class="hljs-subst">\"</span>],
+     <span class="hljs-subst">\"</span>Brits<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>John<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Paul<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>George<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Ringo<span class="hljs-subst">\"</span>]
+}"</span>
 </code></pre>
 <p>Perhaps even <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names">computed property names</a>:</p>
-<pre><code>(let ([key "Willy Wonka"])
-  (json {[key]: "value"}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([key <span class="hljs-string">"Willy Wonka"</span>])
+  (<span class="hljs-name">json</span> {[key]: <span class="hljs-string">"value"</span>}))
 </code></pre>
 <p>It's a happy coincidence that the syntax for computed property names looks like
 a Llama list. The above expands to:</p>
-<pre><code>(json (("Willy Wonka") ': "value"))
+<pre><code class="hljs">(<span class="hljs-name">json</span> ((<span class="hljs-string">"Willy Wonka"</span>) <span class="hljs-symbol">':</span> <span class="hljs-string">"value"</span>))
 </code></pre>
 <p>It's not hard to imagine that the <code>json</code> form might have a special case for
 lists in property name position -- just pretend the (singular) contents of
 the list were there instead.</p>
 <p>The one thing that bothers me is Javascript-style unquoted property names:</p>
-<pre><code>{
-    "quoted": "value",
-    unquoted: "value"
+<pre><code class="hljs">{
+    <span class="hljs-string">"quoted"</span>: <span class="hljs-string">"value"</span>,
+    unquoted: <span class="hljs-string">"value"</span>
 }
 </code></pre>
 <p>In Javascript (but notably <em>not</em> in JSON), that's the same as if the second
 property name were in quotes:</p>
-<pre><code>{
-    "quoted": "value",
-    "unquoted": "value"
+<pre><code class="hljs">{
+    <span class="hljs-attr">"quoted"</span>: <span class="hljs-string">"value"</span>,
+    <span class="hljs-attr">"unquoted"</span>: <span class="hljs-string">"value"</span>
 }
 </code></pre>
 <p>In particular, in Javascript, even if there's a variable named <code>unquoted</code>, that
@@ -133,8 +127,8 @@ propose a definition for the <code>json</code> form.</p>
 <h2 id="its_a_macro">It's a Macro</h2>
 <p>Well, there you have it. It has to be a macro, not a regular procedure. Here's
 why:</p>
-<pre><code>(let ([: "colon lol"])
-  (json {"foo": "bar"}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([: <span class="hljs-string">"colon lol"</span>])
+  (<span class="hljs-name">json</span> {<span class="hljs-string">"foo"</span>: <span class="hljs-string">"bar"</span>}))
 </code></pre>
 <p>As perverse as that might seem, it's perfectly valid to bind the symbol named
 <code>:</code> to some value. If <code>json</code> were a normal procedure, its arguments would be
@@ -149,27 +143,27 @@ the symbol <code>null</code> might be bound to some value during evaluation. I t
 therefore, it's best to force <code>null</code> always to mean <code>null</code> within a <code>json</code>
 form. However, it's reasonable to accept it as a valid value after
 evaluation as well, so that this:</p>
-<pre><code>(let ([nada null])
-  (json {value: nada}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([nada null])
+  (<span class="hljs-name">json</span> {value: nada}))
 </code></pre>
 <p>yields</p>
-<pre><code>"{\"value\": null}"
+<pre><code class="hljs"><span class="hljs-string">"{<span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>: null}"</span>
 </code></pre>
 <p>As an aside, note that the appearance of <code>null</code> in the <code>let</code> binding, above,
 would need to be <code>'null</code> (quoted) if <code>null</code> were bound to a value above. That
 is, while the expression above is fine, the following:</p>
-<pre><code>(let ([null "oops!"]
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([null <span class="hljs-string">"oops!"</span>]
       [nada null])
-  (json {value: nada}))
+  (<span class="hljs-name">json</span> {value: nada}))
 </code></pre>
 <p>would yield a different answer; namely,</p>
-<pre><code>"{\"value\": \"oops!\"}"
+<pre><code class="hljs"><span class="hljs-string">"{<span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>: <span class="hljs-subst">\"</span>oops!<span class="hljs-subst">\"</span>}"</span>
 </code></pre>
 <p>In order to refer to the literal <code>null</code>, it has to be prefixed by the quoting
 character:</p>
-<pre><code>(let ([null "oops!"]
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([null <span class="hljs-string">"oops!"</span>]
       [nada 'null])
-  (json {value: nada}))
+  (<span class="hljs-name">json</span> {value: nada}))
 </code></pre>
 <p>so that once again the result is <code>"{\"value\": null}"</code>.</p>
 <p>So, <code>null</code> will be treated literally without evaluation when appearing in a
@@ -178,7 +172,7 @@ character:</p>
 <p>Trickier even than encountering the colon (<code>:</code>) symbol are the situations we
 get into supporting <code>unquoted:</code> property names. Is the following a JSON
 object, or JSON array having two elements?</p>
-<pre><code>(foo: "bar")
+<pre><code class="hljs">(<span class="hljs-name">foo:</span> <span class="hljs-string">"bar"</span>)
 </code></pre>
 <p>Well, we have to decide. Fortunately, JSON does not have a concept of
 "symbols" <a href="https://github.com/edn-format/edn">like</a> most <a href="https://en.wikipedia.org/wiki/S-expression">s-expressions</a> do, and so we can
@@ -187,8 +181,8 @@ forbid them outright in the final output of the <code>json</code> form (except f
 <p>This means that the example above, <code>(foo: "bar")</code> is a JSON object with one
 property named <code>"foo"</code> having the value <code>"bar"</code>.</p>
 <p>Or is it? What if <code>foo:</code> were a name bound to some other value?</p>
-<pre><code>(let ([foo: "gotcha"])
-  (json (foo: "bar")))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([foo: <span class="hljs-string">"gotcha"</span>])
+  (<span class="hljs-name">json</span> (<span class="hljs-name">foo:</span> <span class="hljs-string">"bar"</span>)))
 </code></pre>
 <p>Now we might want this to expand to <code>(json ("gotcha" "bar"))</code>, and that looks
 at lot more like a JSON array having two elements, i.e. <code>["gotcha", "bar"]</code>.</p>
@@ -203,8 +197,8 @@ Javascript without also having the unquoted property names.</p>
 <p>One idea that helps is to parse symbols-ending-in-colon as unquoted property
 names, <em>during macro expansion</em>, before any potential value substitution. This
 means that</p>
-<pre><code>(let ([tricky: "look out!"])
-  (json {tricky: "tricks"}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([tricky: <span class="hljs-string">"look out!"</span>])
+  (<span class="hljs-name">json</span> {tricky: <span class="hljs-string">"tricks"</span>}))
 </code></pre>
 <p>yields <code>"{\"tricky\": \"tricks\"}"</code> instead of <code>"[\"look out!\" \"tricks\"]"</code>.
 That settles that ambiguity, but still we have a problem if the object or array
@@ -220,15 +214,15 @@ must match it up with the corresponding <code>)</code>, <code>}</code>, or <code
 datum is represented in the implementation as a Javascript object whose sole
 property name tells you the type and the value at that propery is the value,
 e.g.</p>
-<pre><code>const listOfNumbers = {list: [{number: "1"}, {number: "2"}, {number: "3"}]},
-      aNumber       = {number: "13"},
-      aString       = {string: "hello"};
+<pre><code class="hljs"><span class="hljs-keyword">const</span> listOfNumbers = {list: [{<span class="hljs-built_in">number</span>: <span class="hljs-string">"1"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"2"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"3"</span>}]},
+      aNumber       = {<span class="hljs-built_in">number</span>: <span class="hljs-string">"13"</span>},
+      aString       = {<span class="hljs-built_in">string</span>: <span class="hljs-string">"hello"</span>}<span class="hljs-comment">;</span>
 </code></pre>
 <p>The datum <code>listOfNumbers</code> could have been parsed from any of <code>(1 2 3)</code>,
 <code>[1 2 3]</code>, or <code>{1 2 3}</code>, but the parser has jettisoned the distinction.</p>
 <p>What if a list datum had an additional property, "suffix"?</p>
-<pre><code>const listOfNumbers = {list: [{number: "1"}, {number: "2"}, {number: "3"}],
-                       suffix: "]"};
+<pre><code class="hljs"><span class="hljs-keyword">const</span> listOfNumbers = {list: [{<span class="hljs-built_in">number</span>: <span class="hljs-string">"1"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"2"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"3"</span>}],
+                       suffix: <span class="hljs-string">"]"</span>}<span class="hljs-comment">;</span>
 </code></pre>
 <p>This way, we would know that it was <code>[1 2 3]</code> to begin with.</p>
 <p>Doing this would solve the "empty object or array?" problem, at the cost of
@@ -282,31 +276,31 @@ that <code>null</code> means <code>null</code> regardless of whether the symbol 
 </ul>
 <p>So, the job of the helper procedure is to convert, for example, the following
 Llama (note the lack of colons):</p>
-<pre><code>[1, {"foo" "hi" "bar" null}]
+<pre><code class="hljs">[<span class="hljs-number">1</span>, {<span class="hljs-string">"foo"</span> <span class="hljs-string">"hi"</span> <span class="hljs-string">"bar"</span> null}]
 </code></pre>
 <p>whose AST is the following Javascript object:</p>
-<pre><code>{
-    suffix: ']',
-    list: [
-        {number: '1'},
+<pre><code class="hljs">{
+    suffix: <span class="hljs-string">']'</span>,
+    lis<span class="hljs-variable">t:</span> [
+        {<span class="hljs-keyword">number</span>: <span class="hljs-string">'1'</span>},
         {
-            suffix: '}',
-            list: [
-                {string: 'foo'},
-                {string: 'hi'},
-                {string: 'bar'},
-                {symbol: 'null'}
+            suffix: <span class="hljs-string">'}'</span>,
+            lis<span class="hljs-variable">t:</span> [
+                {strin<span class="hljs-variable">g:</span> <span class="hljs-string">'foo'</span>},
+                {strin<span class="hljs-variable">g:</span> <span class="hljs-string">'hi'</span>},
+                {strin<span class="hljs-variable">g:</span> <span class="hljs-string">'bar'</span>},
+                {symbo<span class="hljs-variable">l:</span> <span class="hljs-string">'null'</span>}
             ]
         }
     ]
 }
 </code></pre>
 <p>into the following Javascript object:</p>
-<pre><code>[
-    {[numberProperty]: '1'},
+<pre><code class="hljs">[
+    {[<span class="hljs-name">numberProperty</span>]: <span class="hljs-symbol">'1</span>'},
     {
-        foo: 'hi',
-        'bar': null
+        foo: <span class="hljs-symbol">'hi</span>',
+        <span class="hljs-symbol">'bar</span><span class="hljs-symbol">':</span> null
     }
 ]
 </code></pre>
@@ -321,10 +315,10 @@ recursion helped here).</p>
 <p>All that remains to write is the <code>json</code> macro itself, which will prepare its
 argument for the helper procedure and then expand into an invocation of the
 helper procedure with the modified argument, i.e.</p>
-<pre><code>(json argument)
+<pre><code class="hljs">(<span class="hljs-name">json</span> argument)
 </code></pre>
 <p>becomes</p>
-<pre><code>((lambda ...) modified-argument)
+<pre><code class="hljs">((<span class="hljs-name"><span class="hljs-builtin-name">lambda</span></span> <span class="hljs-name"><span class="hljs-builtin-name">...</span></span>) modified-argument)
 </code></pre>
 <p>so that then the evaluator will evaluate <code>modified-argument</code> before applying it
 to the helper procedure.</p>
@@ -337,59 +331,59 @@ its work before calling the <a href="https://github.com/dgoffredo/llama/commit/f
 <p>With that, we're done! JSON embedded within a lisp, using macros.</p>
 <h2 id="example">Example</h2>
 <p>Input (Llama):</p>
-<pre><code>(pml ((xmlns http://www.proprietary.com/ui)
-      (xmlns:pml http://www.proprietary.com/markup))
-  (Table ((pml:name tickets))
-    (_.dataSource
-      (pml:json (json
-        (let ([(row ticket status owner desc)
+<pre><code class="hljs">(<span class="hljs-name">pml</span> ((<span class="hljs-name">xmlns</span> http://www.proprietary.com/ui)
+      (<span class="hljs-name">xmlns:pml</span> http://www.proprietary.com/markup))
+  (<span class="hljs-name">Table</span> ((<span class="hljs-name">pml:name</span> tickets))
+    (<span class="hljs-name">_.dataSource</span>
+      (<span class="hljs-name">pml:json</span> (<span class="hljs-name">json</span>
+        (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([(<span class="hljs-name">row</span> ticket status owner desc)
                {ticket: ticket, status: status, owner: owner, desc: desc}])
         {
-            columnTitles: ["Ticket", "Status", "Owner", "Description"],
+            columnTitles: [<span class="hljs-string">"Ticket"</span>, <span class="hljs-string">"Status"</span>, <span class="hljs-string">"Owner"</span>, <span class="hljs-string">"Description"</span>],
             rows: [
-                (row 11333 "open"   "Bob"   "The darn thing doesn't work")
-                (row 11334 "closed" "Bob"   "Could you do this for me?")
-                (row 11332 "open"   "Alice" "URGENT: label is wrong color")
+                (<span class="hljs-name">row</span> <span class="hljs-number">11333</span> <span class="hljs-string">"open"</span>   <span class="hljs-string">"Bob"</span>   <span class="hljs-string">"The darn thing doesn't work"</span>)
+                (<span class="hljs-name">row</span> <span class="hljs-number">11334</span> <span class="hljs-string">"closed"</span> <span class="hljs-string">"Bob"</span>   <span class="hljs-string">"Could you do this for me?"</span>)
+                (<span class="hljs-name">row</span> <span class="hljs-number">11332</span> <span class="hljs-string">"open"</span>   <span class="hljs-string">"Alice"</span> <span class="hljs-string">"URGENT: label is wrong color"</span>)
             ]
         }))))))
 </code></pre>
 <p>Output (XML, after additional formatting):</p>
-<pre><code>&lt;pml xmlns="http://www.proprietary.com/ui"
-     xmlns:pml="http://www.proprietary.com/markup"&gt;
-  &lt;Table pml:name="tickets"&gt;
-    &lt;_.dataSource&gt;
-      &lt;pml:json&gt;{
-          "columnTitles": ["Ticket", "Status", "Owner", "Description"],
-          "rows": [
+<pre><code class="hljs">&lt;pml xmlns=<span class="hljs-string">"http://www.proprietary.com/ui"</span>
+     xmlns:pml=<span class="hljs-string">"http://www.proprietary.com/markup"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">pml:name</span>=<span class="hljs-string">"tickets"</span>&gt;</span>
+    </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">_.dataSource</span>&gt;</span>
+      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">pml:json</span>&gt;</span></span><span class="xquery">{
+          <span class="hljs-string">"columnTitles"</span>: [<span class="hljs-string">"Ticket"</span>, <span class="hljs-string">"Status"</span>, <span class="hljs-string">"Owner"</span>, <span class="hljs-string">"Description"</span>],
+          <span class="hljs-string">"rows"</span>: [
               {
-                  "ticket": 11333,
-                  "status": "open",
-                  "owner":  "Bob",
-                  "desc":   "The darn thing doesn't work"
-              },
-              {
-                  "ticket": 11334,
-                  "status": "closed",
-                  "owner":"Bob",
-                  "desc": "Could you do this for me?"
-              },
-              {
-                  "ticket": 11332,
-                  "status": "open",
-                  "owner":"Alice",
-                  "desc": "URGENT: label is wrong color"
-              }
+                  <span class="hljs-string">"ticket"</span>: <span class="hljs-number">11333</span>,
+                  <span class="hljs-string">"status"</span>: <span class="hljs-string">"open"</span>,
+                  <span class="hljs-string">"owner"</span>:  <span class="hljs-string">"Bob"</span>,
+                  <span class="hljs-string">"desc"</span>:   <span class="hljs-string">"The darn thing doesn't work"</span>
+              }</span><span class="xml">,
+              </span><span class="xquery">{
+                  <span class="hljs-string">"ticket"</span>: <span class="hljs-number">11334</span>,
+                  <span class="hljs-string">"status"</span>: <span class="hljs-string">"closed"</span>,
+                  <span class="hljs-string">"owner"</span>:<span class="hljs-string">"Bob"</span>,
+                  <span class="hljs-string">"desc"</span>: <span class="hljs-string">"Could you do this for me?"</span>
+              }</span><span class="xml">,
+              </span><span class="xquery">{
+                  <span class="hljs-string">"ticket"</span>: <span class="hljs-number">11332</span>,
+                  <span class="hljs-string">"status"</span>: <span class="hljs-string">"open"</span>,
+                  <span class="hljs-string">"owner"</span>:<span class="hljs-string">"Alice"</span>,
+                  <span class="hljs-string">"desc"</span>: <span class="hljs-string">"URGENT: label is wrong color"</span>
+              }</span><span class="xml">
           ]
-      }&lt;/pml:json&gt;
-    &lt;/_.dataSource&gt;
-  &lt;/Table&gt;
+      }<span class="hljs-tag">&lt;/<span class="hljs-name">pml:json</span>&gt;</span></span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">_.dataSource</span>&gt;</span></span><span class="xml">
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Table</span>&gt;</span></span>
 &lt;/pml&gt;
 </code></pre>
 <p>You can try it out by cloning <a href="https://github.com/dgoffredo/llama">Llama</a> onto your computer and
 opening the <a href="https://github.com/dgoffredo/llama#using-the-playground">playground</a> in a web browser.</p>
 
 
-<div class="series-navigation-placeholder" />
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>

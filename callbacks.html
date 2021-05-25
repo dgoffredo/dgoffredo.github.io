@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>Callbacks (Part 1)</title>
 </head>
@@ -46,12 +40,12 @@ maybe you're writing a database accessor.</p>
 that you and your users have agreed upon, so that they can indicate the
 structure of their data in the types of object that they use with your API.</p>
 <p>This means that one way to write your API is using templates.  For example:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results, typename Parameters&gt;
-    void syncQuery(const std::string_view&amp; query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">syncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp; query,
                    Results&amp;                results,
-                   const Parameters&amp;       parameters);
+                   <span class="hljs-keyword">const</span> Parameters&amp;       parameters)</span></span>;
 };
 </code></pre>
 <p>The user specifies a (SQL?) query, a reference to an object into which the
@@ -70,33 +64,33 @@ object will behave at runtime, e.g. "pretend to be an array of strings," or
 named 'bar'."</p>
 <p>The reason that it works is that in this synchronous API, the user creates the
 <code>Results</code> object, not the library:</p>
-<pre><code>DynamicValue      results(parseSchema("fpml_exotics.xsd"), "Stellar");
-StellarParameters params = /* ... */;
+<pre><code class="hljs">DynamicValue      results(parse<span class="hljs-constructor">Schema(<span class="hljs-string">"fpml_exotics.xsd"</span>)</span>, <span class="hljs-string">"Stellar"</span>);
+StellarParameters params = <span class="hljs-comment">/* ... */</span>;
 
-database.syncQuery("execute GetContract(@id, @client);", results, params);
+database.sync<span class="hljs-constructor">Query(<span class="hljs-string">"execute GetContract(@id, @client);"</span>, <span class="hljs-params">results</span>, <span class="hljs-params">params</span>)</span>;
 </code></pre>
 <p><em>But what about an asynchronous API?</em>  In that case, it's the library that will
 be creating the <code>Results</code> object.  For example:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = std::function&lt;void(Results&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;;
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback,
-                    const Parameters&amp;        parameters);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback,
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters)</span></span>;
 };
 </code></pre>
 <p>The user provides a function that takes a <code>Results</code>, but where does that
 <code>Results</code> object come from?  It's created by the library:</p>
-<pre><code>void onResponse(DynamicValue&amp; results) {
-   // ...
+<pre><code class="hljs"><span class="hljs-keyword">void</span> <span class="hljs-function"><span class="hljs-title">onResponse</span>(<span class="hljs-params">DynamicValue&amp; results</span>)</span> {
+   <span class="hljs-comment">// ...</span>
 }
 
-database.asyncQuery("execute GetContract(@id, @client);",
-                    std::function&lt;void(DynamicValue&amp;)&gt;(&amp;onResponse), 
-                    params);
+database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client);"</span>,
+                    <span class="hljs-attr">std</span>::<span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">void</span>(<span class="hljs-params">DynamicValue&amp;</span>)&gt;(<span class="hljs-params">&amp;onResponse</span>), 
+                    <span class="hljs-title">params</span>)</span>;
 </code></pre>
 <p>What happened to the stuff about the schema?  This is trouble, because unlike
 with a type whose structure is known at compile-time, the library can't just
@@ -108,35 +102,35 @@ the synchronous API, the library can't have the user provide the object.</p>
 API that takes an additional "factory" argument from which objects of the
 <code>Results</code> type can be constructed.  This way, the user can specify any dynamic
 construction logic in the factory.  It might look like this:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = std::function&lt;void(Results&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;;
 
-    template &lt;typename Results&gt;
-    using Factory = std::function&lt;Results()&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Factory = std::function&lt;<span class="hljs-built_in">Results</span>()&gt;;
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback,
-                    const Parameters&amp;        parameters,
-                    const Factory&lt;Results&gt;&amp;  resultsFactory);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback,
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters,
+                    <span class="hljs-keyword">const</span> Factory&lt;Results&gt;&amp;  resultsFactory)</span></span>;
 };
 </code></pre>
 <p>This solves the conundrum.  Now the user can write this:</p>
-<pre><code>DynamicValue makeStellar() {
-    return DynamicValue(parseSchema("fpml_exotics.xsd"), "Stellar");
+<pre><code class="hljs">DynamicValue <span class="hljs-function"><span class="hljs-title">makeStellar</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> DynamicValue(parseSchema(<span class="hljs-string">"fpml_exotics.xsd"</span>), <span class="hljs-string">"Stellar"</span>);
 }
 
-void onResponse(DynamicValue&amp; results) {
-   // ...
+<span class="hljs-keyword">void</span> <span class="hljs-function"><span class="hljs-title">onResponse</span>(<span class="hljs-params">DynamicValue&amp; results</span>)</span> {
+   <span class="hljs-comment">// ...</span>
 }
 
-database.asyncQuery("execute GetContract(@id, @client);",
-                    std::function&lt;void(DynamicValue&amp;)&gt;(&amp;onResponse), 
-                    params,
-                    std::function&lt;DynamicValue()&gt;(&amp;makeStellar)); 
-</code></pre>
+database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client);"</span>,
+                    <span class="hljs-attr">std</span>::<span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">void</span>(<span class="hljs-params">DynamicValue&amp;</span>)&gt;(<span class="hljs-params">&amp;onResponse</span>), 
+                    <span class="hljs-title">params</span>,
+                    <span class="hljs-title">std</span>::<span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">DynamicValue</span>(<span class="hljs-params"></span>)&gt;(<span class="hljs-params">&amp;makeStellar</span>))</span>; 
+</span></code></pre>
 <h2 id="a_prettier_way">A Prettier Way</h2>
 <p>I don't like the factory.  I don't know why, it just makes me feel bad.  You
 can see another way, though, once you observe that <code>resultsFactory</code> is not just
@@ -161,45 +155,45 @@ that takes <code>Results</code>.</li>
 <li>I'll create <code>Results</code> object and call your continuation with it (or not).</li>
 </ol>
 <p>In code, this alternative contract looks like this:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = 
-        std::function&lt;void(const std::function&lt;void(Results&amp;)&gt;&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = 
+        std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(<span class="hljs-keyword">const</span> std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;&amp;)&gt;;
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback,
-                    const Parameters&amp;        parameters);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback,
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters)</span></span>;
 };
 </code></pre>
 <p>That hurts my head a little at first.  <code>Callback&lt;Results&gt;</code> is a function that
 returns <code>void</code> and takes as its one argument a function that returns <code>void</code>
 and takes as its one argument a <code>Results&amp;</code>.</p>
 <p>Seeing it used helps:</p>
-<pre><code>void onResponse(const std::function&lt;void(DynamicValue&amp;)&gt; fillResults) {
-    DynamicValue results(parseSchema("fpml_exotics.xsd"), "Stellar");
+<pre><code class="hljs"><span class="hljs-keyword">void</span> <span class="hljs-function"><span class="hljs-title">onResponse</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> std::<span class="hljs-keyword">function</span>&lt;<span class="hljs-keyword">void</span>(DynamicValue&amp;)&gt; fillResults</span>)</span> {
+    DynamicValue results(parseSchema(<span class="hljs-string">"fpml_exotics.xsd"</span>), <span class="hljs-string">"Stellar"</span>);
     fillResults(results);
-    // ...
+    <span class="hljs-comment">// ...</span>
 }
 
-database.asyncQuery("execute GetContract(@id, @client);",
-                    DatabaseAccessor::Callback&lt;Results&gt;(&amp;onResponse), 
+database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client);"</span>,
+                    <span class="hljs-attr">DatabaseAccessor</span>::Callback&lt;Results&gt;(&amp;onResponse), 
                     params);
 </code></pre>
 <p>Notice how I use the <code>DatabaseAccessor::Callback</code> alias to keep things short.</p>
 <p>Isn't that cool?</p>
 <p>It rolls off the tongue a bit more easily if you're willing to employ a macro:</p>
-<pre><code>#define FN(...) std::function&lt;void(__VA_ARGS__)&gt;
-#define CB(...) const FN(__VA_ARGS__)&amp;
+<pre><code class="hljs">#define FN(<span class="hljs-params">...</span>) std<span class="hljs-type">::function</span>&lt;<span class="hljs-literal">void</span>(__VA_ARGS__)&gt;
+#define CB(<span class="hljs-params">...</span>) const FN(__VA_ARGS__)&amp;
 </code></pre>
 <p>This way, the signatures are easier to read:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;))         callback,
-                    const Parameters&amp;        parameters);
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters)</span></span>;
 };
 </code></pre>
 <p>Though your willingness to use macros, especially with such short names, is a
@@ -227,7 +221,7 @@ give the user what they need and have them do what they want.</p>
 <p>Of course, in the case where default constructing a <code>Results</code> object is the
 right thing, it's convenient to have a version of the API that does this for
 you, since then the API looks more like a function:</p>
-<pre><code>makeQuery :: Query -&gt; Results
+<pre><code class="hljs">makeQuery :: Query -&gt; Results
 </code></pre>
 <p>But that's not the general case.</p>
 <h3 id="its_just_a_different_kind_of_callback">It's just a different kind of callback</h3>

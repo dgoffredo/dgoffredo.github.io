@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>Channels</title>
 </head>
@@ -36,7 +30,7 @@
 <div class="table-of-contents"><ul><li><a href="#channels">Channels</a><ul><li><a href="#motivation">Motivation</a></li><li><a href="#select">select(...)</a></li><li><a href="#concurrent_ml">Concurrent ML</a></li><li><a href="#events">Events</a></li><li><a href="#the_original_channel_design">The Original Channel Design</a></li><li><a href="#the_new_channel_design">The New Channel Design</a></li><li><a href="#selectondestroy">selectOnDestroy</a></li><li><a href="#error_handling">Error Handling</a></li><li><a href="#supporting_c98_sucks_without_boost">Supporting C++98 Sucks Without Boost</a></li><li><a href="#more">More</a></li></ul></li></ul></div>
 
 <h1 id="channels">Channels</h1>
-<p><img src="chan.png" alt="" /></p>
+<p><img src="chan.png" alt=""></p>
 <p>I implemented <a href="https://github.com/dgoffredo/chan">Go-style channels and select</a> in C++. The need doesn't
 arise often, but when it does, it's frustrating not to be able to multiplex
 operations easily.</p>
@@ -98,11 +92,11 @@ more general notion of <code>select</code> than Go provides.</p>
 <p>Also, as a library writer in C++, I can't change the language itself.  What
 should the C++ analog of Go's select statement look like?  My favorite idea,
 from <a href="https://github.com/tylertreat/chan#select-statements">this project</a>, is to use a <a href="https://en.cppreference.com/w/cpp/language/switch">switch statement</a>:</p>
-<pre><code class="lang-c++">switch (select(file.read(&amp;buffer), chan1.send(thing), chan2.recv(&amp;message))) {
-    case 0:  // successfully read data from `file`
-    case 1:  // successfully sent `thing` to `chan1`
-    case 2:  // successfully received `message` from `chan2`
-    default: // an error occurred
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(file.<span class="hljs-built_in">read</span>(&amp;buffer), chan1.<span class="hljs-built_in">send</span>(thing), chan2.<span class="hljs-built_in">recv</span>(&amp;message))) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:  <span class="hljs-comment">// successfully read data from `file`</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:  <span class="hljs-comment">// successfully sent `thing` to `chan1`</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:  <span class="hljs-comment">// successfully received `message` from `chan2`</span>
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// an error occurred</span>
 }
 </code></pre>
 <p>For the naughty-minded among you: <em>no</em>, you can't use preprocessor macros to
@@ -141,19 +135,19 @@ whatever you might have been doing.  Here's the most recent <code>IoEvent</code>
 gave me to wait on.</li>
 </ul>
 <p>That's it!  Then a sketch of how <code>select</code> works is straightforward:</p>
-<pre><code>def select(events):
-    ioEvents = [event.file() for event in events]
-    while True:
+<pre><code class="hljs"><span class="hljs-function">def <span class="hljs-title">select</span>(<span class="hljs-params">events</span>):
+    ioEvents</span> = [<span class="hljs-keyword">event</span>.file() <span class="hljs-keyword">for</span> <span class="hljs-keyword">event</span> <span class="hljs-keyword">in</span> events]
+    <span class="hljs-keyword">while</span> True:
         poll(ioEvents)
-        for i, (ioEvent, event) in enumerate(zip(ioEvents, events)):
-            if ioEvent.ready:
-                ioEvent = ioEvents[i] = event.fulfill(ioEvent)
-                if ioEvent.fulfilled:
-                    for ioEvent, loser in zip(ioEvents, events):
-                        if loser is not event:
-                            loser.cancel(ioEvent)
-                    return event
-</code></pre>
+        <span class="hljs-keyword">for</span> i, (ioEvent, <span class="hljs-keyword">event</span>) <span class="hljs-function"><span class="hljs-keyword">in</span> <span class="hljs-title">enumerate</span>(<span class="hljs-params">zip(ioEvents, events</span>)):
+            <span class="hljs-keyword">if</span> ioEvent.ready:
+                ioEvent</span> = ioEvents[i] = <span class="hljs-keyword">event</span>.fulfill(ioEvent)
+                <span class="hljs-keyword">if</span> ioEvent.fulfilled:
+                    <span class="hljs-keyword">for</span> ioEvent, <span class="hljs-function">loser <span class="hljs-keyword">in</span> <span class="hljs-title">zip</span>(<span class="hljs-params">ioEvents, events</span>):
+                        <span class="hljs-keyword">if</span> loser <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">event</span>:
+                            loser.<span class="hljs-title">cancel</span>(<span class="hljs-params">ioEvent</span>)
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">event</span>
+</span></code></pre>
 <p>The trick, then, is to express sending to or receiving from a channel as one
 such <em>event</em>.</p>
 <h2 id="the_original_channel_design">The Original Channel Design</h2>
@@ -225,13 +219,13 @@ takes the form of a deadlock.</p>
 channels, <em>chan1</em> and <em>chan2</em>.  The following situation can produce a deadlock
 some minority of the time.</p>
 <p>On <em>thread1</em>:</p>
-<pre><code>switch (select(chan1.send(value), chan2.recv(&amp;destination))) {
-    // ...
+<pre><code class="hljs">switch <span class="hljs-comment">(select(chan1.send(value)</span>, cha<span class="hljs-symbol">n2</span>.recv<span class="hljs-comment">(&amp;destination)</span>)) {
+    <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>On <em>thread2</em>:</p>
-<pre><code>switch (select(chan2.send(value), chan1.recv(&amp;destination))) {
-    // ...
+<pre><code class="hljs">switch <span class="hljs-comment">(select(chan2.send(value)</span>, cha<span class="hljs-symbol">n1</span>.recv<span class="hljs-comment">(&amp;destination)</span>)) {
+    <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>That is, <em>thread1</em> is sending to <em>chan1</em> and receiving from <em>chan2</em>, while
@@ -264,7 +258,7 @@ Here's one possible interleaving that causes a deadlock.</p>
 </tr>
 </tbody>
 </table>
-<p><img src="sad-panda.png" alt="" /></p>
+<p><img src="sad-panda.png" alt=""></p>
 <p>For comparison, what happens more often is the following:</p>
 <table>
 <thead><tr>
@@ -283,18 +277,18 @@ Here's one possible interleaving that causes a deadlock.</p>
 </tr>
 <tr>
 <td>got <code>HI</code> on <em>chan1</em></td>
-<td />
+<td></td>
 </tr>
 <tr>
 <td><strong>block</strong> for reply on <em>chan1</em></td>
 <td>got <code>READY</code> on <em>chan1</em></td>
 </tr>
 <tr>
-<td />
+<td></td>
 <td>transfer value over <em>chan1</em></td>
 </tr>
 <tr>
-<td />
+<td></td>
 <td>say <code>DONE</code> on <em>chan1</em></td>
 </tr>
 <tr>
@@ -302,7 +296,7 @@ Here's one possible interleaving that causes a deadlock.</p>
 </tr>
 </tbody>
 </table>
-<p><img src="happy-panda.png" alt="" /></p>
+<p><img src="happy-panda.png" alt=""></p>
 <p>Here there's no deadlock; instead, <em>chan1</em> "won the race."  How can I avoid the
 deadlocking case?</p>
 <p>No amount of protocol tweaking is enough to fix this problem.  In order to have
@@ -339,24 +333,24 @@ pipe.</p>
 <h3 id="eventcontext"><code>EventContext</code></h3>
 <p>Associated with each call to <code>select</code> will be an instance of the following
 <code>struct</code>:</p>
-<pre><code class="lang-c++">// `SelectorFulfillment` is a means by which an event in one `select`
-// invocation can check or set the fulfillment of an event in a different
-// `select` invocation.
-struct SelectorFulfillment {
-    // Note that, by convention, `&amp;mutex` (the address of the `mutex`) will be
-    // used to determine the locking order among two or more
-    // `SelectorFulfillment::mutex`.
+<pre><code class="lang-c++ hljs"><span class="hljs-comment">// `SelectorFulfillment` is a means by which an event in one `select`</span>
+<span class="hljs-comment">// invocation can check or set the fulfillment of an event in a different</span>
+<span class="hljs-comment">// `select` invocation.</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">SelectorFulfillment</span> {</span>
+    <span class="hljs-comment">// Note that, by convention, `&amp;mutex` (the address of the `mutex`) will be</span>
+    <span class="hljs-comment">// used to determine the locking order among two or more</span>
+    <span class="hljs-comment">// `SelectorFulfillment::mutex`.</span>
     Mutex mutex;
 
-    enum State {
-        FULFILLABLE,   // not fulfilled, and fulfillment is allowed
-        FULFILLED,     // has already been fulfilled
-        UNFULFILLABLE  // not fulfilled, but fulfillment is not allowed
+    <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">State</span> {</span>
+        FULFILLABLE,   <span class="hljs-comment">// not fulfilled, and fulfillment is allowed</span>
+        FULFILLED,     <span class="hljs-comment">// has already been fulfilled</span>
+        UNFULFILLABLE  <span class="hljs-comment">// not fulfilled, but fulfillment is not allowed</span>
     };
 
     State state;
 
-    // key of the fulfilled event; valid only if `state == FULFILLED`
+    <span class="hljs-comment">// key of the fulfilled event; valid only if `state == FULFILLED`</span>
     EventKey fulfilledEventKey;
 };
 </code></pre>
@@ -364,9 +358,9 @@ struct SelectorFulfillment {
 where the <code>EventContext</code> contains the <code>EventKey</code> of that event, and a smart
 pointer to the <code>select</code>'s <code>SelectorFulfillment</code>.  <code>EventContext</code> looks like
 this:</p>
-<pre><code class="lang-c++">struct EventContext {
+<pre><code class="lang-c++ hljs"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">EventContext</span> {</span>
     SharedPtr&lt;SelectorFulfillment&gt; fulfillment;
-    // key of the event to which this `EventContext` was originally given
+    <span class="hljs-comment">// key of the event to which this `EventContext` was originally given</span>
     EventKey eventKey;
 };
 </code></pre>
@@ -383,9 +377,9 @@ this:</p>
 <ol>
 <li><code>select</code> keeps its <code>SelectorFulfillment::mutex</code> locked at all times <em>except</em>
 when it's blocked by <code>::poll</code>.  Effectively, we're implementing a condition
-variable — but one that plays nice with file IO multiplexing.<pre><code class="lang-c++">fulfillment.mutex.unlock();
-const int rc = ::poll(/*...*/);
-fulfillment.mutex.lock();
+variable — but one that plays nice with file IO multiplexing.<pre><code class="lang-c++ hljs">fulfillment.mutex.<span class="hljs-built_in">unlock</span>();
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> rc = ::<span class="hljs-built_in">poll</span>(<span class="hljs-comment">/*...*/</span>);
+fulfillment.mutex.<span class="hljs-built_in">lock</span>();
 </code></pre>
 </li>
 <li><p>When a channel send/receive event wants to "visit" another thread, it does
@@ -421,37 +415,37 @@ section went away.</p>
 design that I encountered while working on this project.</p>
 <p>For example, I want a channel's <code>send</code> and <code>recv</code> member functions to return
 an <em>event</em> object suitable for use as an argument to <code>select</code>:</p>
-<pre><code class="lang-c++">switch (select(chan1.send(something), chan2.recv(&amp;somethingElse))) {
-    case 0: // ...
-    case 1: // ...
-    default: // ...
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(something), chan2.<span class="hljs-built_in">recv</span>(&amp;somethingElse))) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>That's fine, but what if I want to perform a channel operation on its own, e.g.</p>
-<pre><code class="lang-c++">chan1.send(something);
+<pre><code class="lang-c++ hljs">chan1.<span class="hljs-built_in">send</span>(something);
 </code></pre>
 <p>or</p>
-<pre><code class="lang-c++">std::string message;
-chan2.recv(&amp;message);
+<pre><code class="lang-c++ hljs">std::string message;
+chan2.<span class="hljs-built_in">recv</span>(&amp;message);
 </code></pre>
 <p>How do I make sure that such calls actually <em>do</em> something?  One option is to
 have separate member functions instead:</p>
-<pre><code class="lang-c++">chan1.doSend(something)
+<pre><code class="lang-c++ hljs">chan1.<span class="hljs-built_in">doSend</span>(something)
 
 std::string message;
-chan2.doRecv(&amp;message);
+chan2.<span class="hljs-built_in">doRecv</span>(&amp;message);
 </code></pre>
 <p>That looks terrible.</p>
 <p>At least with <code>recv</code> we could overload the member function to have a
 no-argument version that just returns the received value:</p>
-<pre><code class="lang-c++">std::string message = chan2.recv();
+<pre><code class="lang-c++ hljs">std::string message = chan2.<span class="hljs-built_in">recv</span>();
 </code></pre>
 <p>This wouldn't work for <code>send</code>, though.</p>
 <p>The equivalent code using the existing <code>send</code> and <code>recv</code> would be:</p>
-<pre><code class="lang-c++">select(chan1.send(something));
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(something));
 
 std::string message;
-select(chan2.recv(&amp;message));
+<span class="hljs-built_in">select</span>(chan2.<span class="hljs-built_in">recv</span>(&amp;message));
 </code></pre>
 <p>That also looks terrible.</p>
 <p>If only send/receive events could somehow <em>know</em> whether they were part of a
@@ -459,10 +453,10 @@ select(chan2.recv(&amp;message));
 destructor is being called and I was never copied into a <code>select</code> call, then
 call <code>select</code> with myself as the argument.</p>
 <p>This way, code like this would still work:</p>
-<pre><code class="lang-c++">select(chan1.send(something));  // Used in `select`; don't block in destructor
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(something));  <span class="hljs-comment">// Used in `select`; don't block in destructor</span>
 </code></pre>
 <p>but so would this:</p>
-<pre><code class="lang-c++">chan1.send(something);  // Not used in `select`; call `select` in destructor
+<pre><code class="lang-c++ hljs">chan1.<span class="hljs-built_in">send</span>(something);  <span class="hljs-comment">// Not used in `select`; call `select` in destructor</span>
 </code></pre>
 <p>For those of you currently thinking "that is a <em>terrible</em> idea," I agree with
 you.  Returning an object whose destructor then performs an operation is <em>not</em>
@@ -490,27 +484,27 @@ non-<code>select</code> expression?</li>
 <p>So, the "history-aware destructor" solution is viable.  How do we implement it?</p>
 <p>Let's ignore C++11's move semantics for now, and restrict ourselves to copies.
 The signature of the copy constructor looks like this:</p>
-<pre><code class="lang-c++">Object(const Object&amp; other);
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in">Object</span>(<span class="hljs-keyword">const</span> Object&amp; other);
 </code></pre>
 <p><em><code>const</code></em> <code>Object</code>, so we can't modify the other object.  Then how are we
 supposed to mark it as "don't block in your destructor"?  We'll have to use
 <code>mutable</code>:</p>
-<pre><code class="lang-c++">class Object {
-    mutable bool selectOnDestroy = true;
+<pre><code class="lang-c++ hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Object</span> {</span>
+    <span class="hljs-keyword">mutable</span> <span class="hljs-keyword">bool</span> selectOnDestroy = <span class="hljs-literal">true</span>;
 
-  public:
-    Object(const Object&amp; other)
-    : selectOnDestroy(other.selectOnDestroy) {
-        other.selectOnDestroy = false;
+  <span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">Object</span>(<span class="hljs-keyword">const</span> Object&amp; other)
+    : <span class="hljs-built_in">selectOnDestroy</span>(other.selectOnDestroy) {
+        other.selectOnDestroy = <span class="hljs-literal">false</span>;
     }
 
-    ~Object() {
-        if (selectOnDestroy &amp;&amp; !std::uncaught_exceptions()) {
-            select(*this);
+    ~<span class="hljs-built_in">Object</span>() {
+        <span class="hljs-keyword">if</span> (selectOnDestroy &amp;&amp; !std::<span class="hljs-built_in">uncaught_exceptions</span>()) {
+            <span class="hljs-built_in">select</span>(*<span class="hljs-keyword">this</span>);
         }
     }
 
-    // ...
+    <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 <p>This breaks the idea of what it means to copy something.  Better would be to
@@ -522,28 +516,28 @@ hack anyway.</p>
 function, but it's possible that <code>file</code> will never get called if another
 event's <code>file</code> causes the <code>select</code> to be fulfilled.  What's needed is an
 additional member function in the <em>event</em> concept:</p>
-<pre><code class="lang-c++">void touch() noexcept;
+<pre><code class="lang-c++ hljs"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">touch</span><span class="hljs-params">()</span> <span class="hljs-keyword">noexcept</span></span>;
 </code></pre>
 <p><code>touch</code> is guaranteed to be called exactly once on each <em>event</em> before <code>file</code>
 is called on anybody.  This way, each <em>event</em> gets an opportunity to mark
 itself <code>selectOnDestroy = false</code>:</p>
-<pre><code class="lang-c++">void Object::touch() noexcept {
-    selectOnDestroy = false;
+<pre><code class="lang-c++ hljs"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Object::touch</span><span class="hljs-params">()</span> <span class="hljs-keyword">noexcept</span> </span>{
+    selectOnDestroy = <span class="hljs-literal">false</span>;
 }
 </code></pre>
 <p>With these changes, we support both usage styles for <code>send</code> and <code>recv</code>:</p>
-<pre><code class="lang-c++">// block until we can send
-chan1.send(something);
+<pre><code class="lang-c++ hljs"><span class="hljs-comment">// block until we can send</span>
+chan1.<span class="hljs-built_in">send</span>(something);
 
 std::string message;
-// block until we can receive
-chan2.recv(&amp;message);
+<span class="hljs-comment">// block until we can receive</span>
+chan2.<span class="hljs-built_in">recv</span>(&amp;message);
 
-// block until we can either send or receive, but not both
-switch (select(chan1.send(somethingElse), chan2.recv(&amp;message))) {
-    case 0: // ...
-    case 1: // ...
-    default: // ...
+<span class="hljs-comment">// block until we can either send or receive, but not both</span>
+<span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(somethingElse), chan2.<span class="hljs-built_in">recv</span>(&amp;message))) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <h2 id="error_handling">Error Handling</h2>
@@ -554,14 +548,14 @@ How does a client of <code>select</code> know when an error occurs, and which ki
 occurs.  The trouble with this is that then if a client wants to handle the
 error immediately, they have to indent the entire select/switch construct in a
 <code>try</code> block:</p>
-<pre><code class="lang-c++">try {
-    switch (select(...)) {
-        case 0: // ...
-        case 1: // ...
+<pre><code class="lang-c++ hljs"><span class="hljs-keyword">try</span> {
+    <span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(...)) {
+        <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
     }
 }
-catch (...) {
-    // ...
+<span class="hljs-built_in"><span class="hljs-keyword">catch</span></span> (...) {
+    <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>This wouldn't bother me if it weren't for that fact that one of the strengths
@@ -575,23 +569,23 @@ too high a price to pay.</p>
 <p>As an alternative, <code>select</code> can return negative values for errors, and
 associated with each error code there can be a descriptive (though
 non-specific) error message.  For example:</p>
-<pre><code class="lang-c++">switch (const int rc = select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        std::cerr &lt;&lt; "error in select(): " &lt;&lt; errorMessage(rc) &lt;&lt; "\n";
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> rc = <span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        std::cerr &lt;&lt; <span class="hljs-string">"error in select(): "</span> &lt;&lt; <span class="hljs-built_in">errorMessage</span>(rc) &lt;&lt; <span class="hljs-string">"\n"</span>;
 }
 </code></pre>
 <p>That looks okay.  But what if the client <em>wants</em> an exception to be thrown?
 For that, we can replace the <code>errorMessage(int)</code> function with a
 <code>SelectError(int)</code> constructor:</p>
-<pre><code class="lang-c++">switch (const int rc = select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        throw SelectError(rc);
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> rc = <span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">SelectError</span>(rc);
 }
 </code></pre>
 <p>This way, the extra code needed to use exceptions is just one statement.</p>
@@ -612,12 +606,12 @@ object.  When an error occurs within a call to <code>select</code>, an exception
 thrown, but then rather than letting the exception escape, <code>select</code> instead
 catches it and copies it to thread-local storage.  This way, clients of
 <code>select</code> can do the following:</p>
-<pre><code class="lang-c++">switch (select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        throw lastError();
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">lastError</span>();
 }
 </code></pre>
 <p>Maybe you don't like the idea of using thread-local storage.  It feels like a
@@ -626,12 +620,12 @@ global variable.  It feels like a hack.  It feels dirty.</p>
 <p>There's one more alternative that I considered.  Instead of returning
 an integer, what if <code>select</code> returned some object <em>implicitly convertible</em> to
 an integer, but that also contained error information?</p>
-<pre><code class="lang-c++">switch (Selection rc = select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        throw rc.exception();
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (Selection rc = <span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> rc.<span class="hljs-built_in">exception</span>();
 }
 </code></pre>
 <p>Now there's no need for thread-local storage, because the exception object that
@@ -761,7 +755,7 @@ library, I think that it's justified.</p>
 <a href="https://github.com/dgoffredo/chan#more">get started</a> playing with C++ channels and see how you like it.</p>
 
 
-<div class="series-navigation-placeholder" />
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>
