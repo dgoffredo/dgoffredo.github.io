@@ -49,6 +49,7 @@ The result will be
 """
 
 import mistune
+import highlight
 import linkify
 import pathutil
 import series
@@ -67,20 +68,16 @@ html_template = '''
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
   <!-- style for landscape orientation, e.g. desktop browser -->
-  <link rel="stylesheet" type="text/css"
+  <link rel="stylesheet"
       media="(orientation: landscape)"
       href="/landscape.css" />
 
   <!-- style for portrait orientation, e.g. mobile browser -->
-  <link rel="stylesheet" type="text/css"
+  <link rel="stylesheet"
       media="(orientation: portrait)"
       href="/portrait.css" />
 
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
-
-  <script src="/highlightjs/highlight.pack.js"></script>
-
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css" />
 
   <title>{title}</title>
 </head>
@@ -104,6 +101,9 @@ html_template = '''
 '''
 
 def get_first_h1(html_markup):
+    # I could modify `create_page` so that the argument to this function is an
+    # `ET.Element`, so that we can do a real tag lookup.
+    # Instead, the argument is a string and we do a naive text search.
     begin = html_markup.find('<h1>') + len('<h1>')
     if begin == -1:
         return None
@@ -149,11 +149,13 @@ def create_page(from_path, to_path, navigate, series_by_date, date=None):
             tableofcontents.insert_table_of_contents(html, max_depth=2)
  
         if date in series_by_date:
-            # series.insert_series_navigation(html, Path('series/Russia and Czechia'), from_path)
             series.insert_series_navigation(html, series_by_date[date], from_path)
             
         # Wrap <img ...> tags in links of the img src is a *_small.jpg
         linkify.wrap_images(html, r'^(.*)_small\.jpg$', r'\1.jpg')
+
+        # Use highlightjs to highlight code in <pre><code> blocks.
+        highlight.highlight_code_blocks(html)
 
         # Could specify `short_empty_elements=False`, but `method='html'` seems
         # to cover that.
