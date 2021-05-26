@@ -3,11 +3,13 @@
 # See <https://github.com/highlightjs/highlight.js/releases>
 HLJS_VERSION = 10.7.2
 
+WGET = wget --quiet --output-document=-
+
 .PHONY: all
 all: highlight.js default.min.css
 
 default.min.css:
-	wget cdnjs.cloudflare.com/ajax/libs/highlight.js/$(HLJS_VERSION)/styles/default.min.css
+	$(WGET) https://cdnjs.cloudflare.com/ajax/libs/highlight.js/$(HLJS_VERSION)/styles/default.min.css >$@
 
 highlight.js: core.js
 	printf "" >$@
@@ -23,16 +25,16 @@ core.js: pack.js
 	head -$$((begin_languages - 1)) $< >$@
 
 pack.js:
-	curl https://cdnjs.cloudflare.com/ajax/libs/highlight.js/$(HLJS_VERSION)/highlight.min.js >$@
+	$(WGET) https://cdnjs.cloudflare.com/ajax/libs/highlight.js/$(HLJS_VERSION)/highlight.min.js >$@
 	
 languages/Makefile:
-	curl https://api.github.com/repos/highlightjs/highlight.js/contents/src/languages | \
+	$(WGET) https://api.github.com/repos/highlightjs/highlight.js/contents/src/languages | \
 		jq -r '.[] | select((.name | endswith(".js")) and .type == "file") | .name' | \
 		sed 's/\.js$$/.min.js/' | \
 		sed 's,^,highlight.js: languages/,' >$@
 	
 languages/%.js:
-	-wget -O$@ https://cdnjs.cloudflare.com/ajax/libs/highlight.js/$(HLJS_VERSION)/languages/$*.js
+	-$(WGET) https://cdnjs.cloudflare.com/ajax/libs/highlight.js/$(HLJS_VERSION)/languages/$*.js >$@
 
 .PHONY: clean
 clean:
