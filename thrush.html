@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>The Thrush Combinator</title>
 </head>
@@ -36,7 +30,7 @@
 <div class="table-of-contents"><ul><li><a href="#the_thrush_combinator">The Thrush Combinator</a></li></ul></div>
 
 <h1 id="the_thrush_combinator">The Thrush Combinator</h1>
-<pre><code class="lang-javascript">const thrush = (value, func, ...funcs) =&gt;
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> thrush = <span class="hljs-function">(<span class="hljs-params">value, func, ...funcs</span>) =&gt;</span>
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
 <p>I was looking up how I've <a href="https://github.com/dgoffredo/llama/blob/master/bin/llama.js">previously</a> used <a href="https://requirejs.org/">requirejs</a> and noticed the
@@ -45,11 +39,11 @@ function definition above.</p>
 a thing.  It has nothing to do with <a href="https://en.wikipedia.org/wiki/Linear_gingival_erythema">HIV</a>.</p>
 <p>The idea is that you have an initial value on which you want to perform a
 sequence of transformations.  For example, in a UNIX shell, you might write</p>
-<pre><code class="lang-console">$ echo foobar | tr i x | sed 's/./\0\n/g' | sort | uniq -c | sort -rn | head -1
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">echo</span> foobar | tr i x | sed <span class="hljs-string">'s/./\0\n/g'</span> | sort | uniq -c | sort -rn | head -1</span>
       2 o
 </code></pre>
 <p>In programming languages with function invocation syntax, you might write</p>
-<pre><code class="lang-javascript">const result = finally_this(and_then_this(then_this(do_this(initial_data))))
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result = finally_this(and_then_this(then_this(do_this(initial_data))))
 </code></pre>
 <p>The order in which those functions are applied reads right-to-left:</p>
 <ol>
@@ -61,25 +55,25 @@ sequence of transformations.  For example, in a UNIX shell, you might write</p>
 <li>and then (5) is the answer.</li>
 </ol>
 <p><code>thrush</code> allows you to rewrite that expression in the following way:</p>
-<pre><code class="lang-javascript">const result =
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result =
     thrush(initial_data, do_this, then_this, and_then_this, finally_this);
 </code></pre>
 <p>That looks more like the shell pipeline.  It also looks like a sequence of
 statements in an imperative programming language, where there is an implicit
 <a href="https://en.wikipedia.org/wiki/Sequence_point">sequence point</a> after each function invocation:</p>
-<pre><code>declare initial_data;
-do_this();
-then_this();
-and_then_this();
-finally_this();
+<pre><code class="hljs">declare initial_data<span class="hljs-comment">;</span>
+do_this()<span class="hljs-comment">;</span>
+then_this()<span class="hljs-comment">;</span>
+and_then_this()<span class="hljs-comment">;</span>
+finally_this()<span class="hljs-comment">;</span>
 </code></pre>
 <p>In programming languages with objects and methods, this is sometimes expressed
 as a chain of method invocations and called a <a href="https://en.wikipedia.org/wiki/Fluent_interface">fluent interface</a>:</p>
-<pre><code class="lang-javascript">const result =
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result =
     initial_data.do_this().then_this().and_then_this().finally_this();
 </code></pre>
 <p>That's often formatted vertically to give an imperative feel:</p>
-<pre><code class="lang-javascript">const result =
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result =
     initialdata
     .do_this()
     .then_this()
@@ -88,46 +82,46 @@ as a chain of method invocations and called a <a href="https://en.wikipedia.org/
 </code></pre>
 <p>Clojure has a macro version of the thrush combinator, spelled <a href="https://en.wikipedia.org/wiki/Fluent_interface">-&gt;</a>, and
 confusingly called the "threading macro":</p>
-<pre><code class="lang-clojure">(def result
-  (-&gt; initial-data do-this then-this and-then-this finally-this))
+<pre><code class="lang-clojure hljs">(<span class="hljs-keyword">def</span> <span class="hljs-title">result</span>
+  (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> initial-data do-this then-this and-then-this finally-this))
 </code></pre>
 <p>Getting back to the Javascript implementation from before:</p>
-<pre><code class="lang-javascript">const thrush = (value, func, ...funcs) =&gt;
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> thrush = <span class="hljs-function">(<span class="hljs-params">value, func, ...funcs</span>) =&gt;</span>
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
 <p>Isn't it cool how that works?  Maybe it's clearer with less syntax, in
 <a href="https://racket-lang.org/">Racket</a>:</p>
-<pre><code class="lang-scheme">(define (thrush value . funcs)
-  (if (empty? funcs)
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> (<span class="hljs-name">thrush</span> value . funcs)
+  (<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> (<span class="hljs-name">empty?</span> funcs)
     value
-    (apply thrush (cons ((first funcs) value) (rest funcs)))))
+    (<span class="hljs-name"><span class="hljs-builtin-name">apply</span></span> thrush (<span class="hljs-name"><span class="hljs-builtin-name">cons</span></span> ((<span class="hljs-name">first</span> funcs) value) (<span class="hljs-name">rest</span> funcs)))))
 </code></pre>
 <p>Yuck, that didn't help at all.  Maybe pattern matching will help.  How about
 this?</p>
-<pre><code class="lang-scheme">(define thrush
-  (match-lambda*
-    [(list value) value]
-    [(list value func funcs ...) (thrush (func value) funcs ...)]))
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> thrush
+  (<span class="hljs-name">match-lambda*</span>
+    [(<span class="hljs-name"><span class="hljs-builtin-name">list</span></span> value) value]
+    [(<span class="hljs-name"><span class="hljs-builtin-name">list</span></span> value func funcs ...) (<span class="hljs-name">thrush</span> (<span class="hljs-name">func</span> value) funcs ...)]))
 </code></pre>
 <p>Getting better?  Maybe it's clearer as a pattern matching <em>macro</em> instead of as
 a function:</p>
-<pre><code class="lang-scheme">(define-syntax thrush
-  (syntax-rules ()
-    [(thrush value) value]
-    [(thrush value func funcs ...) (thrush (func value) funcs ...)]))
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define-syntax</span></span> thrush
+  (<span class="hljs-name"><span class="hljs-builtin-name">syntax-rules</span></span> ()
+    [(<span class="hljs-name">thrush</span> value) value]
+    [(<span class="hljs-name">thrush</span> value func funcs ...) (<span class="hljs-name">thrush</span> (<span class="hljs-name">func</span> value) funcs ...)]))
 </code></pre>
 <p>They're really very similar, aren't they?</p>
 <p>This makes me wonder what a horrid affair this would be in C++.  Let's try it:</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;typename Value&gt;
-Value&amp;&amp; thrush(Value&amp;&amp; value) {
-    return std::forward&lt;Value&gt;(value);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function">Value&amp;&amp; <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> std::forward&lt;Value&gt;(value);
 }
 
-template &lt;typename Value, typename Func, typename ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(std::forward&lt;Value&gt;(value)),
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value, <span class="hljs-keyword">typename</span> Func, <span class="hljs-keyword">typename</span> ... Funcs&gt;
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(std::forward&lt;Value&gt;(value)),
                   std::forward&lt;Funcs&gt;(funcs)...);
 }
 </code></pre>
@@ -136,54 +130,54 @@ type) is a C++14 feature.  You know, if it weren't for the <code>std::forward</c
 noise, this would be nearly as clean as the Racket code.  Maybe we can omit the
 <code>std::forward</code> calls and it will only matter sometimes.  What do I know?  Let's
 see what that looks like:</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;typename Value&gt;
-Value thrush(Value&amp;&amp; value) {
-    return value;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function">Value <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> value;
 }
 
-template &lt;typename Value, typename Func, typename ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(value), funcs...);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value, <span class="hljs-keyword">typename</span> Func, <span class="hljs-keyword">typename</span> ... Funcs&gt;
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(value), funcs...);
 }
 </code></pre>
 <p>Hot damn!  What about using <code>class</code> instead of <code>typename</code>?</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;class Value&gt;
-Value thrush(Value&amp;&amp; value) {
-    return value;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>&gt;</span>
+<span class="hljs-function">Value <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> value;
 }
 
-template &lt;class Value, class Func, class ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(value), funcs...);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Func</span>, <span class="hljs-keyword">class</span> ... <span class="hljs-title">Funcs</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(value), funcs...);
 }
 </code></pre>
 <p>That's pretty good.  The last thing I'd do is make the first overload <code>auto</code>,
 even though it doesn't save us much.  It makes the two overloads more
 consistent:</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;class Value&gt;
-auto thrush(Value&amp;&amp; value) {
-    return value;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> value;
 }
 
-template &lt;class Value, class Func, class ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(value), funcs...);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Func</span>, <span class="hljs-keyword">class</span> ... <span class="hljs-title">Funcs</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(value), funcs...);
 }
 </code></pre>
 <p>Not too shabby.  Still can't beat Javascript, though.</p>
-<pre><code class="lang-javascript">const thrush = (value, func, ...funcs) =&gt;
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> thrush = <span class="hljs-function">(<span class="hljs-params">value, func, ...funcs</span>) =&gt;</span>
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
 <p>What about in <a href="https://golang.org/">Go</a>?  Forget it.</p>
 
 
-<div class="series-navigation-placeholder" />
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>

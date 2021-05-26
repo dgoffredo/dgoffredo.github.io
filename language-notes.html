@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>The Language That I Think I Want</title>
 </head>
@@ -35,24 +29,24 @@
 
 <div class="table-of-contents"><ul><li><a href="#the_language_that_i_think_i_want">The Language That I Think I Want</a><ul><li><a href="#observations">Observations</a></li><li><a href="#aims">Aims</a></li><li><a href="#tbd">TBD</a></li><li><a href="#conclusions">Conclusions</a></li></ul></li></ul></div>
 
-<pre><code>(define sum
-  (λ (args ...)
-    (+ args ...)))
+<pre><code class="hljs">(<span class="hljs-name">define</span> sum
+  (λ (<span class="hljs-name">args</span> ...)
+    (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> args ...)))
 
-(define (sum args ...)
-  (+ args ...))
+(<span class="hljs-name">define</span> (<span class="hljs-name"><span class="hljs-builtin-name">sum</span></span> args ...)
+  (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> args ...))
 
-(define-as (list 1 2 third _ ...) (something "foo"))
+(<span class="hljs-name">define-as</span> (<span class="hljs-name">list</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span> third _ ...) (<span class="hljs-name">something</span> <span class="hljs-string">"foo"</span>))
 
 {key value key2 value2}
 
 [value value2 value3]
 
-(let (foo bar
+(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> (<span class="hljs-name">foo</span> bar
       baz buzz)
   whatever)
 
-(match value
+(<span class="hljs-name">match</span> value
   pattern template
   pattern2 template2)
 </code></pre>
@@ -87,13 +81,13 @@ fonts can move mountains.  Digital mountains, of course.</p>
 </ul>
 <h2 id="aims">Aims</h2>
 <p>The <em>reason</em> for this exercise is to end up at:</p>
-<pre><code>$ mkdir solveproblem
-$ cd solveproblem
-$ vim somefile.language
-[... write a small amount of non-arcane code ...]
-$ sometool
-$ ./solveproblem
-$ xdg-open beer
+<pre><code class="hljs"><span class="hljs-variable">$</span> mkdir solveproblem
+<span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> solveproblem
+<span class="hljs-variable">$</span> vim somefile.language
+[<span class="hljs-type">...</span> <span class="hljs-type">write</span> <span class="hljs-type">a</span> <span class="hljs-type">small</span> <span class="hljs-type">amount</span> <span class="hljs-type">of</span> <span class="hljs-type">non</span>-<span class="hljs-type">arcane</span> <span class="hljs-type">code</span> <span class="hljs-type">...</span>]
+<span class="hljs-variable">$</span> sometool
+<span class="hljs-variable">$</span> ./solveproblem
+<span class="hljs-variable">$</span> xdg<span class="hljs-literal">-open</span> beer
 </code></pre>
 <p>Maybe you're thinking "Perl."  I'm thinking more of something:</p>
 <ul>
@@ -201,7 +195,7 @@ my head (and nobody else's).</li>
 </ul>
 
 
-<div class="series-navigation-placeholder" />
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>

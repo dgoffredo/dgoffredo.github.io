@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>Installing Guile from Source</title>
 </head>
@@ -40,54 +34,54 @@
 rest.</p>
 <h2 id="debian_packages">Debian Packages</h2>
 <p>TL;DR: Do the following.</p>
-<pre><code class="lang-console">$ sudo apt install git
-
-$ git clone https://git.sv.gnu.org/git/guile.git
-
-$ cd guile
-
-$ sudo apt install -y \
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install git</span>
+<span class="hljs-meta">
+$</span><span class="bash"> git <span class="hljs-built_in">clone</span> https://git.sv.gnu.org/git/guile.git</span>
+<span class="hljs-meta">
+$</span><span class="bash"> <span class="hljs-built_in">cd</span> guile</span>
+<span class="hljs-meta">
+$</span><span class="bash"> sudo apt install -y \
         autoconf automake libtool gettext flex \
         autopoint libreadline-dev pkg-config libgmp-dev \
-        libunistring-dev libgc-dev make gperf texinfo
-
-$ ./autogen.sh
-
-$ ./configure
-
-$ make -j 16
-
-$ sudo make install
-
-$ sudo ldconfig
-
-$ guile
+        libunistring-dev libgc-dev make gperf texinfo</span>
+<span class="hljs-meta">
+$</span><span class="bash"> ./autogen.sh</span>
+<span class="hljs-meta">
+$</span><span class="bash"> ./configure</span>
+<span class="hljs-meta">
+$</span><span class="bash"> make -j 16</span>
+<span class="hljs-meta">
+$</span><span class="bash"> sudo make install</span>
+<span class="hljs-meta">
+$</span><span class="bash"> sudo ldconfig</span>
+<span class="hljs-meta">
+$</span><span class="bash"> guile</span>
 </code></pre>
 <p>Now in more detail.</p>
 <p>Here are the dependencies mentioned in the <a href="https://git.savannah.gnu.org/cgit/guile.git/tree/HACKING">HACKING</a> file:</p>
-<pre><code class="lang-console">$ sudo apt install autoconf automake libtool gettext flex
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install autoconf automake libtool gettext flex</span>
 </code></pre>
 <p>Then <code>./autogen.sh</code> wants the following, due to the presence of <code>gettext</code>:</p>
-<pre><code class="lang-console">$ sudo apt install autopoint
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install autopoint</span>
 </code></pre>
 <p>I wouldn't want to use a REPL without readline support, so install that, too:</p>
-<pre><code class="lang-console">$ sudo apt install libreadline-dev
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install libreadline-dev</span>
 </code></pre>
 <p><code>./configure</code> will complain unless all of the following are installed:</p>
-<pre><code class="lang-console">$ sudo apt install pkg-config libgmp-dev libunistring-dev libgc-dev
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install pkg-config libgmp-dev libunistring-dev libgc-dev</span>
 </code></pre>
 <p>Then of course you need <code>make</code>, but also <code>gperf</code> (for some reason) and
 <code>texinfo</code> for documentation:</p>
-<pre><code class="lang-console">$ sudo apt install make gperf texinfo
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install make gperf texinfo</span>
 </code></pre>
 <h2 id="installation">Installation</h2>
 <p>After <code>sudo make install</code>, guile will be installed under <code>/usr/local/</code>, but
 will fail to run until you first refresh the loader's knowledge of where
 shared objects are:</p>
-<pre><code class="lang-console">$ sudo ldconfig
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo ldconfig</span>
 </code></pre>
 <p>Finally, guile is ready:</p>
-<pre><code class="lang-console">$ guile
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> guile</span>
 GNU Guile 3.0.6.7-3bce5
 Copyright (C) 1995-2021 Free Software Foundation, Inc.
 
@@ -96,11 +90,11 @@ This program is free software, and you are welcome to redistribute it
 under certain conditions; type `,show c' for details.
 
 Enter `,help' for help.
-scheme@(guile-user)&gt; 
+<span class="hljs-meta">scheme@(guile-user)&gt;</span><span class="bash"> </span>
 </code></pre>
 
 
-<div class="series-navigation-placeholder" />
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>

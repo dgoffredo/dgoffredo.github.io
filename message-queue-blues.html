@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>Message Queue Blues</title>
 </head>
@@ -33,7 +27,7 @@
 
 
 
-<div class="table-of-contents" />
+<div class="table-of-contents"></div>
 
 <h1>Message Queue Blues</h1>
 <p>Imagine a portable, local, available, and minimal message queue: like a file or
@@ -76,37 +70,37 @@ into any C/C++ build with a single <code>.c</code> file, and has bindings to man
 languages.</p>
 <p>So how might you implement a queue this way?  First attempt -- a database
 containing a single table "Queue":</p>
-<pre><code>create table Queue(
-    Id      integer primary key not null,
-    Message text                not null);
+<pre><code class="hljs"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> Queue(
+    Id      <span class="hljs-type">integer</span> <span class="hljs-keyword">primary</span> key <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>,
+    Message text                <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>);
 </code></pre>
 <p>For example:</p>
-<pre><code>Id      Message                
----     -------                
-1       "I was enqueued first."
-2       "Then I was enqueued." 
-3       "I am most recent."    
+<pre><code class="hljs">Id      Message                
+<span class="hljs-params">---</span>     <span class="hljs-params">-------</span>                
+1       <span class="hljs-string">"I was enqueued first."</span>
+2       <span class="hljs-string">"Then I was enqueued."</span> 
+3       <span class="hljs-string">"I am most recent."</span>    
 </code></pre>
 <p>That's ID as in "identity," not the word "id."  Then a dequeue looks like this:</p>
-<pre><code>begin immediate transaction;
+<pre><code class="hljs"><span class="hljs-keyword">begin</span> <span class="hljs-keyword">immediate</span> <span class="hljs-keyword">transaction</span>;
 </code></pre>
 <p>followed by</p>
-<pre><code>select Id, Message from Queue order by Id limit 1;
+<pre><code class="hljs"><span class="hljs-keyword">select</span> Id, Message <span class="hljs-keyword">from</span> Queue <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> Id <span class="hljs-keyword">limit</span> <span class="hljs-number">1</span>;
 </code></pre>
 <p>If we get something, then we have to remove it from the queue:</p>
-<pre><code>delete from Queue where Id = @Id;
+<pre><code class="hljs"><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> Queue <span class="hljs-keyword">where</span> Id <span class="hljs-operator">=</span> <span class="hljs-variable">@Id</span>;
 </code></pre>
 <p>and in either case finish the transaction:</p>
-<pre><code>commit transaction;
+<pre><code class="hljs"><span class="hljs-keyword">commit</span> <span class="hljs-keyword">transaction</span>;
 </code></pre>
 <p>In this scheme, if the queue is empty, our only recourse is to commit the
 transaction, sleep a bit, and then try again.  A more complicated protocol
 could get around this, so that a dequeuer is notified when a message is
 available for it.  I discuss this in another section.</p>
 <p>The enqueue operation is simpler:</p>
-<pre><code>begin immediate transaction;
-insert into Queue(Message) values(@Message);
-commit transaction;
+<pre><code class="hljs"><span class="hljs-selector-tag">begin</span> <span class="hljs-selector-tag">immediate</span> <span class="hljs-selector-tag">transaction</span>;
+<span class="hljs-selector-tag">insert</span> <span class="hljs-selector-tag">into</span> <span class="hljs-selector-tag">Queue</span>(Message) <span class="hljs-selector-tag">values</span>(<span class="hljs-variable">@Message</span>);
+<span class="hljs-selector-tag">commit</span> <span class="hljs-selector-tag">transaction</span>;
 </code></pre>
 <p>Not so hard, right?  But there are problems:</p>
 <ol>
@@ -171,7 +165,7 @@ the establishment or reestablishment of a broker.</p>
 <p>TODO Mention the <code>mq</code> repository.</p>
 
 
-<div class="series-navigation-placeholder" />
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>

@@ -1,22 +1,16 @@
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
-  
-  <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="/landscape.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   
-  <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/portrait.css" />
-
-  <link rel="stylesheet" href="/highlightjs/styles/default.css" />
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
 
   
-  <script src="/highlightjs/highlight.pack.js"> </script>
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
 
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="/highlightjs/default.min.css">
 
   <title>Callbacks (Part 2)</title>
 </head>
@@ -40,45 +34,45 @@
 in such a way that the caller provides the object into which the query results
 are written, but without having to specify an object factory.  It looked like
 this:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = 
-        std::function&lt;void(const std::function&lt;void(Results&amp;)&gt;&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = 
+        std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(<span class="hljs-keyword">const</span> std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;&amp;)&gt;;
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback)</span></span>;
 };
 </code></pre>
-<p>For brevity, let's define a couple of macros<a id="macros" />:</p>
-<pre><code>#define FN(...) std::function&lt;void(__VA_ARGS__)&gt;
-#define CB(...) const FN(__VA_ARGS__)&amp;
+<p>For brevity, let's define a couple of macros<a id="macros"></a>:</p>
+<pre><code class="hljs">#define FN(<span class="hljs-params">...</span>) std<span class="hljs-type">::function</span>&lt;<span class="hljs-literal">void</span>(__VA_ARGS__)&gt;
+#define CB(<span class="hljs-params">...</span>) const FN(__VA_ARGS__)&amp;
 </code></pre>
 <p>So we have:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;)          callback);
 };
-</code></pre>
+</span></span></code></pre>
 <p>What if, in addition to producing result sets, this database API also has a
 concept of output parameters?  These are like query parameters, except that
 their values are overwritten by the query rather than used in it.</p>
 <p>We could define an overload of <code>DatabaseAccessor::asyncQuery</code> that takes a
 callback with an amended signature:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;)          callback);
 
-    template &lt;typename Results, typename OutputParameters&gt;
-    void asyncQuery(const std::string_view&amp;            query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> OutputParameters&gt;
+    <span class="hljs-keyword">void</span> asyncQuery(<span class="hljs-keyword">const</span> std::string_view&amp;            query,
                     CB(CB(Results&amp;, OutputParameters&amp;) callback);
 };
-</code></pre>
+</span></span></code></pre>
 <p>If the user wants output parameters, then he provides a callback that fits
 the second signature, while if he doesn't want output parameters, he specifies
 a callback that fits the first signature.</p>
@@ -104,26 +98,26 @@ second, "as if" the user had specified an <code>EmptySequence</code> for
 <p>How do you write this?  I find it very tricky to think about.</p>
 <h2 id="writing_the_forwarding_implementation">Writing the Forwarding Implementation</h2>
 <p>Let's look at the code again:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;)          callback);
 
-    template &lt;typename Results, typename OutputParameters&gt;
-    void asyncQuery(const std::string_view&amp;            query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> OutputParameters&gt;
+    <span class="hljs-keyword">void</span> asyncQuery(<span class="hljs-keyword">const</span> std::string_view&amp;            query,
                     CB(CB(Results&amp;, OutputParameters&amp;) callback);
 };
-</code></pre>
+</span></span></code></pre>
 <p>We want to implement the first in terms of the second using the <code>EmptySequence</code>
 type for the dummy <code>OutputParameters</code>.</p>
-<pre><code>template &lt;typename Results&gt;
-void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
+<pre><code class="hljs"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DatabaseAccessor::asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp; query,
                                   CB(CB(Results&amp;)         callback)
 {
-    asyncQuery(query, /* ? */);
+    asyncQuery(query, <span class="hljs-comment">/* ? */</span>);
 }
-</code></pre>
+</span></span></code></pre>
 <p>The difference, of course, is in the second argument of each <code>asyncQuery</code>
 overload.  We're given a function that takes a function that takes a
 <code>Results&amp;</code>, and we need to call the overload that takes a function that takes
@@ -132,16 +126,16 @@ additionally see to it that the <code>EmptySequence&amp;</code> refers to some (
 instance.</p>
 <p>One way to think about this is that we need a function, <code>injectDummy</code>, that
 maps one type of function into another type of function:</p>
-<pre><code>template &lt;typename Results&gt;
-void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
-                                  CB(CB(Results&amp;)         callback)
+<pre><code class="hljs">template &lt;typename Results&gt;
+void DatabaseAccessor::<span class="hljs-built_in">asyncQuery</span>(const std::string_view&amp; query,
+                                  <span class="hljs-built_in">CB</span>(<span class="hljs-built_in">CB</span>(Results&amp;)         callback)
 {
-    asyncQuery(query, injectDummy(callback));
+    <span class="hljs-built_in">asyncQuery</span>(query, <span class="hljs-built_in">injectDummy</span>(callback));
 }
 </code></pre>
 <p>where <code>injectDummy</code> has the following signature:</p>
-<pre><code>template &lt;typename Results&gt;
-FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)));
+<pre><code class="hljs">template &lt;typename Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">FN</span>(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;, EmptySequence&amp;</span>)</span>) <span class="hljs-title">injectDummy</span>(<span class="hljs-params">CB(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;</span>)</span>)</span>)</span>;
 </code></pre>
 <p>You might want to look again at what the <code>FN</code> and <code>CB</code> <a href="#macros">macros</a> mean.</p>
 <p>You know that thing where when you have a cube drawn in two dimensions, you can
@@ -151,10 +145,10 @@ and forth?</p>
 <p>I feel like figuring out an answer to this C++ puzzle gave me a new sort of
 facility along those lines.  Here's the implementation of <code>injectDummy</code> that I
 came up with, written using lambda expressions:</p>
-<pre><code>template &lt;typename Results&gt;
-FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callback)
-{
-    return [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
+<pre><code class="hljs">template &lt;typename Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">FN</span>(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;, EmptySequence&amp;</span>)</span>) <span class="hljs-title">injectDummy</span>(<span class="hljs-params">CB(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;</span>)</span>) callback</span>)
+</span>{
+    <span class="hljs-keyword">return</span> [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
         EmptySequence dummy;
         callback([&amp;](Results&amp; results) {
             innerCallback(results, dummy);
@@ -167,10 +161,10 @@ FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callba
 operation, but it does feel a bit mathy, doesn't it?</p>
 <p>So there we have it -- the no-output-parameters overload written in terms of 
 the output-parameters overload:</p>
-<pre><code>template &lt;typename Results&gt;
-FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callback)
-{
-    return [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
+<pre><code class="hljs">template &lt;typename Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">FN</span>(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;, EmptySequence&amp;</span>)</span>) <span class="hljs-title">injectDummy</span>(<span class="hljs-params">CB(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;</span>)</span>) callback</span>)
+</span>{
+    <span class="hljs-keyword">return</span> [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
         EmptySequence dummy;
         callback([&amp;](Results&amp; results) {
             innerCallback(results, dummy);
@@ -179,7 +173,7 @@ FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callba
 }
 
 template &lt;typename Results&gt;
-void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
+<span class="hljs-keyword">void</span> DatabaseAccessor::asyncQuery(<span class="hljs-keyword">const</span> std::string_view&amp; query,
                                   CB(CB(Results&amp;)         callback)
 {
     asyncQuery(query, injectDummy(callback));
