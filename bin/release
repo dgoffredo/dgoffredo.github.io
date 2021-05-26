@@ -1,34 +1,42 @@
 #!/bin/sh
 
-# This script is based off of <https://github.com/dgoffredo/gitree>.
+# Build the site, and then deep copy site/ into release/, which is a git
+# repository on the "site" branch.  Commit release/ to the "site" branch
+# and push the commit upstream.
 
+set -x # echo commands before executing them
 set -e # bail on error
 
 repo=$(realpath "$(git rev-parse --show-toplevel)")
 cd "$repo"
-upstream=$(git remote get-url origin)
-make # output will be under $repo/site/
+origin=$(git remote get-url origin)
 
-tmpdir=$(mktemp -d)
 branch=site
-commit_message="site build based off of commit $(git rev-parse HEAD)"
+commit_message="site build based off of commit $(git rev-parse HEAD) on $(git branch --show-current) branch"
 
-# See https://stackoverflow.com/questions/31278902/
-cd "$tmpdir"
-git init .
-git remote add origin "$repo/.git"
-git fetch --depth 1 origin "$branch"
+if ! [ -d release ]; then
+    mkdir release
+fi
+
+cd release
+
+if ! [ -d .git ]; then
+    git init .
+    git remote add origin "$origin"
+    git fetch --depth 1 origin "$branch"
+fi
+
+# Checkout the release branch and remove the working tree.
 git checkout "$branch" 
-git submodule update --init --depth 1 --recursive
-
-# Now that we have the "before," replace the tree with a symlink-traversing
-# deep copy of the "after."
 rm --recursive *
-cp --recursive --dereference "$repo"/site/* .
+
+# Build the website.  It goes in site/
+cd ../
+make
+cd release
+
+cp --recursive --dereference ../site/* .
 git add --all
 git commit -m "$commit_message"
-git remote add upstream "$upstream"
-git push upstream "$branch"
+git push origin "$branch"
  
-cd "$repo"
-rm --recursive --force "$tmpdir"
