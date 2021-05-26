@@ -18,6 +18,8 @@ are based on some release version.  Thus it's likely that some of the files
 will fail to download (HTTP 404) due to having been added to the source since
 the release.  This is fine.
 
+A clean build calls `wget` many times -- you'll want to use `make -j` or similar.
+
 [1]: default.min.css
 [2]: languages/
 [3]: Makefile

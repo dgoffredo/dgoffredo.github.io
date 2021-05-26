@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# usage:
+#
+#     $ height content/foo.png
+#     768
+#     $ height content/foo.png content/bar.jpg
+#     768
+#     700
+#
+
+identify -format '%h\n' "$@"

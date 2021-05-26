@@ -49,6 +49,7 @@ The result will be
 """
 
 import mistune
+import heightify
 import highlight
 import linkify
 import pathutil
@@ -124,7 +125,7 @@ def pretty_date(date):
     day_of_week_and_month_name = date.strftime('%A, %B ')
     return f'{day_of_week_and_month_name} {date.day}, {date.year}'
 
-def create_page(from_path, to_path, navigate, series_by_date, date=None):
+def create_page(from_path, to_path, navigate, series_by_date, content_dir, date=None):
     """Write HTML to the specified `to_path` from the markdown at the specified
     `from_path`, the specified `navigate` HTML, and the optionally specified
     `date` object.  Return the title of the generated HTML document."""
@@ -156,6 +157,9 @@ def create_page(from_path, to_path, navigate, series_by_date, date=None):
 
         # Use highlightjs to highlight code in <pre><code> blocks.
         highlight.highlight_code_blocks(html)
+        
+        # Add "height" attributes to <img>s.
+        heightify.add_height_attributes(html, content_dir, from_path.resolve())
 
         # Could specify `short_empty_elements=False`, but `method='html'` seems
         # to cover that.
@@ -286,6 +290,7 @@ def generate(root):
                             html_path,
                             navigate,
                             series_by_date,
+                            content,
                             date)
 
         page_titles[file_path] = title
