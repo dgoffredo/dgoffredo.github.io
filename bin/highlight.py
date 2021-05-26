@@ -10,14 +10,25 @@ or otherwise the language is deduced from the inline code itself.
 """
 
 
+import json
 from pathlib import Path
 import re
-import subprocess
+from subprocess import Popen, PIPE
 from typing import Optional
 from xml.etree import ElementTree as ET
 
 
-_highlighter = (Path(__file__)/'..'/'highlight').resolve()
+_highlightd_popen = None
+
+
+def highlightd():
+    global _highlightd_popen
+
+    if _highlightd_popen is None:
+        exe = str((Path(__file__)/'..'/'highlightd').resolve())
+        _highlightd_popen = Popen([exe], encoding='utf8', stdin=PIPE, stdout=PIPE, bufsize=0)
+
+    return _highlightd_popen
 
 
 def highlight_string(code: str, language: str = None) -> ET.Element:
@@ -27,12 +38,15 @@ def highlight_string(code: str, language: str = None) -> ET.Element:
     Javascript library.  If `language` is `None`, then it is deduced from
     `code`.
     """
-    command = [str(_highlighter)]
+    command = {'code': code}
     if language is not None:
-        command.append(language)
+        command['language'] = language
 
-    result = subprocess.run(command, input=code, capture_output=True, encoding='utf8', check=True)
-    markup = result.stdout
+    highlightd().stdin.write(json.dumps(command) + '\n')
+    result = highlightd().stdout.readline().rstrip()
+    result = json.loads(result)
+
+    markup = result['markup']
     # Wrap the markup in a <code> so that there's one root element.
     return ET.fromstring(f'<code>{markup}</code>')
 
@@ -82,3 +96,6 @@ def highlight_code_blocks(html: ET.Element) -> ET.Element:
 
     for child in html:
         visit(html, child)   
+
+    return html
+    

@@ -31,4 +31,4 @@ git remote add upstream "$upstream"
 git push upstream "$branch"
  
 cd "$repo"
-rm --recursive "$tmpdir"
+rm --recursive --force "$tmpdir"

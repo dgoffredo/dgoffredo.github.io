@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+// Read JSON lines from standard input and write JSON lines to standard output.
+//
+//     {code: String, language?: String} -> stdin
+//     
+//     stdout -> {markup: String, language: String}
+
+const readline = require('readline');
+const hljs = require('../highlightjs/highlight.js');
+
+const input = readline.createInterface({
+    input: process.stdin
+});
+
+input.on('line', function (line) {
+    const {language, code} = JSON.parse(line);
+
+    let result;
+    if (language === undefined) {
+        // deduce language
+        result = hljs.highlightAuto(code);
+    } else {
+        // use specified language
+        result = hljs.highlight(code, {language});
+    }
+
+    process.stdout.write(JSON.stringify({
+        'language': result.language,
+        'markup': result.value
+    }) + '\n');
+});

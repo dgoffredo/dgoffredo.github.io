@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if ! command -v snakeviz >/dev/null 2>&1; then
+    >&2 echo '"snakeviz" not be found. Consider installing with: pip3 install snakeviz'
+else
+    snakeviz $1
+fi

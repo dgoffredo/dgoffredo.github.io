@@ -5,8 +5,6 @@ MAKEFLAGS += --no-builtin-rules
 
 markdowns := $(shell find content/ -type f -name '*.md')
 
-.PHONY: clean
-
 site/index.html: $(shell find content/) bin/* config/* posts/ series/*
 	rm -rf site/*
 	bin/generate
@@ -27,8 +25,15 @@ site/index.html: $(shell find content/) bin/* config/* posts/ series/*
 %_small.jpg: %.jpg bin/shrink
 	bin/shrink $< $@
 
+.PHONY: clean
 clean:
 	rm -rf site/*
+
+.PHONY: profile
+profile:
+	rm -rf site/*
+	python3 -m cProfile -o profile.out bin/generate
+	bin/visualize-profile profile.out &
 
 # Include dependencies parsed from input markdown files,
 # e.g. links to *_small.jpg, *.dot.png
