@@ -10,6 +10,7 @@ or otherwise the language is deduced from the inline code itself.
 """
 
 
+import functools
 import json
 from pathlib import Path
 import re
@@ -18,17 +19,10 @@ from typing import Optional
 from xml.etree import ElementTree as ET
 
 
-_highlightd_popen = None
-
-
+@functools.cache
 def highlightd():
-    global _highlightd_popen
-
-    if _highlightd_popen is None:
-        exe = str((Path(__file__)/'..'/'highlightd').resolve())
-        _highlightd_popen = Popen([exe], encoding='utf8', stdin=PIPE, stdout=PIPE, bufsize=0)
-
-    return _highlightd_popen
+    exe = str((Path(__file__)/'..'/'highlightd').resolve())
+    return Popen([exe], encoding='utf8', stdin=PIPE, stdout=PIPE, bufsize=0)
 
 
 def highlight_string(code: str, language: str = None) -> ET.Element:

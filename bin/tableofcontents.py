@@ -5,7 +5,9 @@ import re
 import string
 from xml.etree import ElementTree as ET
 
+
 no_punctuation_table = str.maketrans('', '', string.punctuation) 
+
 
 def linkify(element):
     """Derived from the specified XML `element` two strings suitable for use in
@@ -31,6 +33,7 @@ def linkify(element):
     
     return text, name
 
+
 def uniquify(name, names):
     """If the string `name` is not in the set `names`, add it to `names` and
     return `name`.  Otherwise, create a variant based off of `name` that is
@@ -44,10 +47,12 @@ def uniquify(name, names):
             names.add(candidate)
             return candidate
 
+
 def insert_link_to_anchor(table, name, text):
     table.start('a', {'href': f'#{name}'})
     table.data(text)
     table.end('a')
+
 
 def insert_table_of_contents(html, max_depth=None):
     """Modify the `html` element tree to contain a table of contents inside of
@@ -161,6 +166,7 @@ def insert_table_of_contents(html, max_depth=None):
 
     container.append(table_of_contents)
 
+
 def add_table_of_contents(html_text, max_depth=None):
     """Return a string that is `html_text` with a table of contents."""
     debugging = False
@@ -171,6 +177,7 @@ def add_table_of_contents(html_text, max_depth=None):
     html = ET.fromstring(html_text)
     insert_table_of_contents(html, max_depth)
     return ET.tostring(html, encoding='unicode')
+
 
 def with_table_of_contents(in_file, out_file, max_depth=None):
     """Add a table of contents to HTML text.
@@ -183,6 +190,7 @@ def with_table_of_contents(in_file, out_file, max_depth=None):
     html = ET.parse(in_file).getroot()
     insert_table_of_contents(html, max_depth)
     out_file.write(ET.tostring(html, encoding='unicode'))
+
 
 if __name__ == '__main__':
     import argparse
@@ -217,4 +225,3 @@ if __name__ == '__main__':
         shutil.move(output.name, in_file.name)
     else:
         with_table_of_contents(in_file, sys.stdout, options.depth)
-

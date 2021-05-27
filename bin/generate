@@ -48,6 +48,7 @@ The result will be
            index.html  ->  ./grinds-my-gears.html
 """
 
+
 import mistune
 import highlight
 import imgdimensions
@@ -62,6 +63,7 @@ from datetime import datetime
 import os
 from pathlib import Path
 from xml.etree import ElementTree as ET
+
 
 html_template = '''
 <html>
@@ -116,6 +118,7 @@ def get_first_h1(html_markup):
         return None
 
     return html_markup[begin:end]
+
 
 _markdown_converter = mistune.Markdown(use_xhtml=True)
 
@@ -348,6 +351,7 @@ def generate(root):
     create_posts(posts_list, page_titles, site, navigate)
     
     create_series(series_by_date, site, navigate)
+
 
 if __name__ == '__main__':
     generate(Path.cwd())
