@@ -1,12 +1,15 @@
-"""Add height attributes to `<img>` tags that refer to a local image.
+"""Add width and height attributes to `<img>` tags that refer to a local image.
 
 For example, if `content/mexico/mexico3.md` includes an image with
 `href="mexico_23_small.jpg"`, then this module will fork to an imagemagick
-tool (`identify`) to determine the image's height and then modify the relevent
-`ElementTree.Element` to be `<img src="mexico_23_small.jpg" height="933" />`.
+tool (`identify`) to determine the image's dimensions and then modify the
+relevent `ElementTree.Element` to be
+`<img src="mexico_23_small.jpg" width="700" height="933" />`.
 """
 
 
+import functools
+import json
 from pathlib import Path
 import subprocess
 from typing import Optional
@@ -46,38 +49,26 @@ def resolve_path_to_image(src: str, content_dir: Path, markdown: Path) -> Option
     return markdown.parent/src_path
 
 
-def calculate_height(image: Path) -> int:
-    script = Path(__file__).parent/'height'
-    command = [script, str(image)]
-    result = subprocess.run(command, encoding='utf8', capture_output=True)
+@functools.cache
+def image_dimensions(image: Path) -> dict:
+    command = [
+        'identify',
+        '-format', r'{"width": %w, "height": %h}\n',
+         str(image)
+    ]
+    result = subprocess.run(command, encoding='utf8', capture_output=True, check=True)
 
-    # If `image` is an animated GIF, then the script will print the height of
-    # each frame.  So, allow for that possibility, and use the height of the
-    # first frame, which I've found empirically is the "real height" of the
-    # GIF.
-    heights = [int(chunk) for chunk in result.stdout.split()]
-    assert len(heights) > 0
-    return heights[0]
-
-
-_heights_cache = {} # absolute Path -> int
-
-
-def height(image: Path) -> int:
-    assert image.is_absolute()
-    
-    cached_value = _heights_cache.get(image)
-    if cached_value is not None:
-        return cached_value
-
-    calculated_value = calculate_height(image)
-    _heights_cache[image] = calculated_value
-    return calculated_value
+    # If `image` is an animated GIF, then the script will print the dimensions of
+    # each frame.  So, allow for that possibility, and use the dimensions of the
+    # first frame, which I've found empirically is the "real size" of the GIF.
+    dimensions = [json.loads(chunk) for chunk in result.stdout.split('\n') if chunk]
+    assert len(dimensions) > 0
+    return dimensions[0]
 
 
-def add_height_attribute(img: ET.Element, content_dir: Path, markdown: Path) -> ET.Element:
-    """Return the specified `img` modified in place to include a "height"
-    attribute that is the height of the image named in its "src."
+def add_attributes(img: ET.Element, content_dir: Path, markdown: Path) -> ET.Element:
+    """Return the specified `img` modified in place to include "width" and
+    "height" attributes.
     """
     assert content_dir.is_absolute()
     assert markdown.is_absolute()
@@ -88,20 +79,23 @@ def add_height_attribute(img: ET.Element, content_dir: Path, markdown: Path) -> 
     if image is None:
         return img # nothing to do; the src is an external URL
     
-    img.set('height', str(height(image)))
+    dimensions = image_dimensions(image)
+    img.set('width', str(dimensions['width']))
+    img.set('height', str(dimensions['height']))
+
     return image
 
 
-def add_height_attributes(html: ET.Element, content_dir: Path, markdown: Path) -> ET.Element:
-    """Walk the specified `html` tree adding "height" attributes to all
-    applicable <img> elements.  Return `html`, possibly modified in place.
+def add_img_attributes(html: ET.Element, content_dir: Path, markdown: Path) -> ET.Element:
+    """Walk the specified `html` tree adding "width" and "height" attributes to
+    all applicable <img> elements.  Return `html`, possibly modified in place.
     """
     assert content_dir.is_absolute()
     assert markdown.is_absolute()
     
     def visit(element: ET.Element):
         if element.tag == 'img':
-            add_height_attribute(element, content_dir, markdown)
+            add_attributes(element, content_dir, markdown)
             return
         
         for child in element:
