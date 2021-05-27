@@ -13,7 +13,7 @@ site/index.html: $(shell find content/) bin/* config/* posts/ series/*
 # The output file (*.d) adds make dependencies to site/index.html.
 # The make dependencies are included at the bottom of this file.  Those
 # dependencies so added will then be made according to their recipes (e.g.
-# %_small.jpg).
+# %_small.webp).
 %.md.d: %.md bin/dependencies
 	bin/dependencies $< >$@
 
@@ -22,7 +22,7 @@ site/index.html: $(shell find content/) bin/* config/* posts/ series/*
 	dot -T png -o $@ $< 
 
 # Set width of small images to 700 pixels, scaling the height proportionally.
-%_small.jpg: %.jpg bin/shrink
+%_small.webp: %.jpg bin/shrink
 	bin/shrink $< $@
 
 .PHONY: clean
@@ -36,5 +36,5 @@ profile:
 	bin/visualize-profile profile.out &
 
 # Include dependencies parsed from input markdown files,
-# e.g. links to *_small.jpg, *.dot.png
+# e.g. links to *_small.webp, *.dot.png
 include $(markdowns:.md=.md.d)

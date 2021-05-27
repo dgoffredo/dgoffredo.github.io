@@ -1,6 +1,6 @@
 India, Day 1
 ============
-![dog](india_20_small.jpg)
+![dog](india_20_small.webp)
 
 This is Aniruddha Ram Kumar Mukherjee.  He is a dog.  Like many natives of
 Delhi, Aniruddha must find ways to cope with the oppressive afternoon summer
@@ -28,24 +28,24 @@ bathrooms — though the bathrooms were nice, too). It looks the same from all
 four sides, such that when you walk out of it you don't know which side
 you're on. You must travel with somebody who knows which side you're on.
 
-![symmetry](india_11_small.jpg)
+![symmetry](india_11_small.webp)
 
 Inside of the tomb are nooks and crannies, domes and doves and a human thumb
 that kept photobombing me.  There are no dead bodies, though.  Those are
 allegedly kept underneath the tomb, off limits, to be sanctified by elected
 officials at regular intervals.
 
-![thumb](india_16_small.jpg)
+![thumb](india_16_small.webp)
 
-![window](india_17_small.jpg)
+![window](india_17_small.webp)
 
-![ceiling](india_18_small.jpg)
+![ceiling](india_18_small.webp)
 
 The grounds surrounding the tomb are a grid of sixteen patches of lawn
 landscaped with lime trees, jasmine, shrubs, one of Aniruddha's cousins, and my
 thumb.
 
-![lawn](india_13_small.jpg)
+![lawn](india_13_small.webp)
 
 The trip started out on one of Emirates' Airbus A380 super mega mondo grande
 venti mocha soymilk airplanes, or as it's referred to in the industry: "that
@@ -66,7 +66,7 @@ experiencing the passage of the sun at 186% its normal rate, which I think is a
 pretty good deal.  Also I had the whole row to myself, so I could lie down and
 torture everyone with my snoring.
 
-![plane](india_1_small.jpg)
+![plane](india_1_small.webp)
 
 That flight was twelve hours long.  We were late getting out of JFK, and so we
 had to hustle our way across the Dubai airport to make our three hour
@@ -90,7 +90,7 @@ That evening Vineet (the groom) reached out to us and invited us to come over
 to his place for dinner, to meet his father and hang out with his mother and
 Asha (the bride, not the cat).  Here is a picture of Asha the cat:
 
-![asha](asha_small.jpg)
+![asha](asha_small.webp)
 
 Andrea and I nearly fell asleep at the dinner table, and so we politely ate and
 ran to an Uber who "had a GPS malfunction" and so took twice the time to get
@@ -120,51 +120,51 @@ either.
 Also, you must cover your hair, because that is how the Sikhs do.  There's this
 guy:
 
-![david](india_6_small.jpg)
+![david](india_6_small.webp)
 
 and then there's Andrea:
 
-![andrea](india_5_small.jpg)
+![andrea](india_5_small.webp)
 
 Young Indian men kept coming up to Andrea and asking whether they could take
 a picture with her, but I have yet to figure out why.
 
 After that we walked around a big old fort/palace, "the city within a city"
 
-![fort](india_7_small.jpg)
+![fort](india_7_small.webp)
 
 Here is a picture of where Gandhi was cremated:
 
-![gandhi](india_9_small.jpg)
+![gandhi](india_9_small.webp)
 
 Here is another tomb:
 
-![motomb](india_21_small.jpg)
+![motomb](india_21_small.webp)
 
 Here are two of my fingers, with a tower in the background:
 
-![tower](india_24_small.jpg)
+![tower](india_24_small.webp)
 
 Here is the tower closer:
 
-![motower](india_28_small.jpg)
+![motower](india_28_small.webp)
 
 Here are two of my fingers, a woman, and one of the archways of what remains of
 a mosque that was built out of the demolished remains of multiple Hindu
 temples.  They removed all of the faces of the various depictions of Hindu
 gods, because Allah is the one true god, right?  Right?
 
-![wall](india_25_small.jpg)
+![wall](india_25_small.webp)
 
 Oh yeah, earlier in the day we also walked around the parliamentary buildings
 and saw distant views of an arch and the Prime Minister's mansion.  Here you
 are:
 
-![](india_2_small.jpg)
+![](india_2_small.webp)
 
-![](india_3_small.jpg)
+![](india_3_small.webp)
 
-![](india_4_small.jpg)
+![](india_4_small.webp)
 
 At some point we ate dinner, and the food was delicious.  Now it is nearly one
 o'clock in the morning, and I am going to bed. 

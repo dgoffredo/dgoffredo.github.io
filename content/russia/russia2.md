@@ -11,9 +11,9 @@ was to check out the church and then to take a short boat trip along the
 Moscow river, but I'm guessing that the schedules did not align, so instead
 we did just the boat ride, which was nice.
 
-![](russia2-1_small.jpg)
+![](russia2-1_small.webp)
 
-![](russia2-4_small.jpg)
+![](russia2-4_small.webp)
 
 After that, the sun was beginning to set, and we drove to a theater across
 the river from "Moscow City," which is the skyscraping financial district of
@@ -24,9 +24,9 @@ which I'm guessing would have been an excessive expenditure. I always had
 assumed that any sufficiently large hub of industry and urbanity would have
 a district of tall buildings, but not in the Soviet Union.
 
-![](russia2-3_small.jpg)
+![](russia2-3_small.webp)
 
-![](russia2-2_small.jpg)
+![](russia2-2_small.webp)
 
 A relative of Gregory's (and Pasha's) works as chief engineer at the
 theater. We met him at the theater to mooch off of the employees' cafeteria

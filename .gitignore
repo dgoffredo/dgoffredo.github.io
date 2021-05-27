@@ -10,7 +10,7 @@ __pycache__
 # build artifacts
 /site/
 /content/**/*.d
-/content/**/*_small.jpg
+/content/**/*_small.webp
 /content/**/*.dot.png
 
 # `make profile` artifacts

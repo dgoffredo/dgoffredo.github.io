@@ -26,7 +26,7 @@ class ImageScrapingRenderer(mistune.Renderer):
     
 
 if __name__ == '__main__':
-    dep_file_pattern = r'.*_small\.jpg$|.*\.dot\.png$'
+    dep_file_pattern = r'.*_small\.webp$|.*\.dot\.png$'
     img_srcs = []
     md_path = Path(sys.argv[1])
 

@@ -49,7 +49,7 @@ measured.
 
 I crushed the grain out back using my trusty modified [Victoria][2] grain mill.
 
-![grain mill setup](mill_small.jpg)
+![grain mill setup](mill_small.webp)
 
 Instead of letting the crushed grain collect in a garbage bag, I cut the bag so
 that it acts as a chute, and the grains fall into a plastic bucket below.  Much
@@ -132,7 +132,7 @@ At some point, I scooped a few quarts of wort out of the kettle.  Some I saved
 in a tupperware container for priming bottles, and some I discarded.
 The wort that I saved was at 1.068 SG.
 
-![wort set aside for priming bottles down the road](wort_small.jpg)
+![wort set aside for priming bottles down the road](wort_small.webp)
 
 ### Hop Additions
 The recipe started with one ounce each of the four hop varieties listed in the
@@ -199,7 +199,7 @@ brewing.
 
 By the following day, fermentation had taken off like a bat out of hell.
 
-![fermentation with blowoff tube](fermentor-with-blowoff_small.jpg)
+![fermentation with blowoff tube](fermentor-with-blowoff_small.webp)
 
 Are both yeast strains working on the beer?  Is it just the lager yeast?  Or
 maybe it's just the ale yeast, after a two day lag as before?  I don't know.
@@ -207,7 +207,7 @@ maybe it's just the ale yeast, after a two day lag as before?  I don't know.
 A few days later I replaced the blowoff tube with an airlock, and as of today
 the batch is still quietly bubbling away.
 
-![fermentation with airlock](fermentor-with-airlock_small.jpg)
+![fermentation with airlock](fermentor-with-airlock_small.webp)
 
 Bottling
 --------
@@ -227,7 +227,7 @@ Yesterday I cleaned out the years of boxes, move-in artifacts, and other
 detritus from the storage loft in my apartment, so now I have a tidy collection
 of empty bottles that I can de-label in preparation for filling.
 
-![empty bottles](empties_small.jpg)
+![empty bottles](empties_small.webp)
 
 The beer is not yet done fermenting, so I'll update this post come bottling
 day.

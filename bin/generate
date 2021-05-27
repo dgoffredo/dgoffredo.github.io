@@ -166,8 +166,8 @@ def create_page(from_path, to_path, navigate, series_by_date, root_dir, date=Non
         if date in series_by_date:
             series.insert_series_navigation(html, series_by_date[date], from_path)
             
-        # Wrap <img ...> tags in links if the img src is a *_small.jpg
-        linkify.wrap_images(html, r'^(.*)_small\.jpg$', r'\1.jpg')
+        # Wrap <img ...> tags in links if the img src is a *_small.webp
+        linkify.wrap_images(html, r'^(.*)_small\.webp$', r'\1.jpg')
 
         # Use highlightjs to highlight code in <pre><code> blocks.
         highlight.highlight_code_blocks(html)

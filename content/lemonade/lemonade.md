@@ -49,7 +49,7 @@ When the lemonade has cooled to room temperature (takes a while), add ice
 cubes and serve with a ladle.  Or, scoop your glass into the pot because life
 is short.
 
-![lemonade in pot in sink](lemonade_small.jpg)
+![lemonade in pot in sink](lemonade_small.webp)
 
 Happy almost Summer.
 

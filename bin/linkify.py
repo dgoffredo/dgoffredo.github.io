@@ -2,15 +2,15 @@
 
 For example, to turn
 
-    <img src="foo_small.jpg"/>
+    <img src="foo_small.webp"/>
 
 into
 
-    <a href="foo.jpg"><img src="foo_small.jpg"/></a>
+    <a href="foo.jpg"><img src="foo_small.webp"/></a>
 
 use
 
-    wrap_images(element, r'^(.*)_small\.jpg$', r'\1.jpg')
+    wrap_images(element, r'^(.*)_small\.webp$', r'\1.jpg')
 """
 
 

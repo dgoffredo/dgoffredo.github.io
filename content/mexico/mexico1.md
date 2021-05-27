@@ -1,7 +1,7 @@
 Mexico, Day 5
 =============
 
-![](mexico_1_small.jpg)
+![](mexico_1_small.webp)
 
 An electric fence tops the walls surrounding my neighborhood.  Presumably
 this is to keep bad people out, but I can't leave unless the man at the gate
@@ -16,7 +16,7 @@ out to a restaurant or cafe. There's a big screen TV and a 1000-piece
 puzzle. I'm becoming fond of my morning ritual of coffee and computer in the
 backyard.
 
-![](mexico_2_small.jpg)
+![](mexico_2_small.webp)
 
 Bottled water is the way to go, but for making coffee you can get away with
 boiling the tap for a while.  Once the water cools, there's a slick of
@@ -24,7 +24,7 @@ precipitated minerals on top, and it smells slightly of sulfur.  No wonder
 the coffee tasted bland; this morning I used bottled water and it was much
 improved.
 
-![](mexico_3_small.jpg)
+![](mexico_3_small.webp)
 
 I didn't realize until yesterday that Aguascalientes sits at an elevation of
 over 6000 feet (1888 meters).  I've been to Aspen before, where altitude
@@ -49,7 +49,7 @@ recipe.  Then later we'll take a walk downtown.  Originally I planned to stay
 for a week or two, but now I'm staying for a month.  For $40 per day, where
 else would I be?  Hasta luego...
 
-![](mexico_4_small.jpg)
+![](mexico_4_small.webp)
 
 [1]: https://en.wikipedia.org/wiki/Chilaquiles
 [2]: https://en.wikipedia.org/wiki/Taco

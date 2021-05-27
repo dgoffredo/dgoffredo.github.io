@@ -37,9 +37,9 @@ Russian politicians. Pasha translate for American. Vladimir has much hair in
 nose. He look like tooth brush! Tooth brush know much of Russian political
 history. Pasha translate whole history for American.
 
-![](russia1-9_small.jpg)
+![](russia1-9_small.webp)
 
-![](russia1-7_small.jpg)
+![](russia1-7_small.webp)
 
 In Duma we eat lunch in cafeteria, and there is much to eat. Then we have
 tea in cafe. American have trouble staying awake in Russian conversation,
@@ -61,15 +61,15 @@ pretty. There are many tourists. Then we go to fast food Russian pancakes
 and then to outside bar cafe. Beer cost New York prices near tourist area.
 Pasha says before exchange collapse, Moscow very expensive city.
 
-![](russia1-14_small.jpg)
+![](russia1-14_small.webp)
 
-![](russia1-11_small.jpg)
+![](russia1-11_small.webp)
 
-![](russia1-2_small.jpg)
+![](russia1-2_small.webp)
 
-![](russia1-12_small.jpg)
+![](russia1-12_small.webp)
 
-![](russia1-15_small.jpg)
+![](russia1-15_small.webp)
 
 Then we walk to famous street in Moscow, like La Rambla in Barcelona. It
 long walk to get there, but we pee before so no problem. There we find fancy
@@ -127,11 +127,11 @@ and cannot get pass, so we walk around campus. Moscow State University have
 very nice campus. Pasha tell American next time Pasha in Moscow, he stay
 near university.
 
-![](russia1-6_small.jpg)
+![](russia1-6_small.webp)
 
-![](russia1-4_small.jpg)
+![](russia1-4_small.webp)
 
-![](russia1-10_small.jpg)
+![](russia1-10_small.webp)
 
 Gregory buy everyone business lunch at restaurant near campus. American and
 Pasha have rubles, but Gregory insist. Gregory order for American all
@@ -154,19 +154,19 @@ view from tower. Many good picture of sun setting from tower. After tower,
 Gregory return with machina and take us back to flat of Ella. American very
 tired and we sleep.
 
-![](russia1-5_small.jpg)
+![](russia1-5_small.webp)
 
-![](russia1-16_small.jpg)
+![](russia1-16_small.webp)
 
-![](russia1-13_small.jpg)
+![](russia1-13_small.webp)
 
-![](russia1-1_small.jpg)
+![](russia1-1_small.webp)
 
-![](russia1-17_small.jpg)
+![](russia1-17_small.webp)
 
-![](russia1-8_small.jpg)
+![](russia1-8_small.webp)
 
-![](russia1-3_small.jpg)
+![](russia1-3_small.webp)
 
 Pasha and American sleep almost twelve hours! American wake up and start
 writing log of travels. Now it 2 PM and Ella come home from work for lunch. До

@@ -1,10 +1,10 @@
 """Add width and height attributes to `<img>` tags that refer to a local image.
 
 For example, if `content/mexico/mexico3.md` includes an image with
-`href="mexico_23_small.jpg"`, then this module will fork to an imagemagick
+`href="mexico_23_small.webp"`, then this module will fork to an imagemagick
 tool (`identify`) to determine the image's dimensions and then modify the
 relevent `ElementTree.Element` to be
-`<img src="mexico_23_small.jpg" width="700" height="933" />`.
+`<img src="mexico_23_small.webp" width="700" height="933" />`.
 """
 
 

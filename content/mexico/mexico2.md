@@ -1,21 +1,21 @@
 Mexico, Day 8
 =============
 
-![](mexico_5_small.jpg) <!-- washer -->
+![](mexico_5_small.webp) <!-- washer -->
 
-![](mexico_6_small.jpg) <!-- washing -->
+![](mexico_6_small.webp) <!-- washing -->
 
 I haven't done my own laundry in a while. In this arid climate, you hardly
 even need to hang the clothes to dry.
 
-![](mexico_7_small.jpg) <!-- hanging to dry -->
+![](mexico_7_small.webp) <!-- hanging to dry -->
 
-![](mexico_8_small.jpg) <!-- salmon plate -->
+![](mexico_8_small.webp) <!-- salmon plate -->
 
 The salmon came out well.  Luxurious though this stove may be, its lowest
 setting is more flame than I'd like, so I'm learning how not to burn things.
 
-![](mexico_9_small.jpg) <!-- salmon stove -->
+![](mexico_9_small.webp) <!-- salmon stove -->
 
 Grace and I ubered downtown in the afternoon to check things out. My
 favorite moment was when we sat at a small cafe table outside in a "codo" of
@@ -23,20 +23,20 @@ shops under the shade of some large trees. I don't have a picture of it. I
 had a small vanilla ice cream and Grace had [churros][1].  Grace managed to
 get pooped on by one of the birds above. She was momentarily inconsolable.
 
-![](mexico_10_small.jpg) <!-- cathedral -->
+![](mexico_10_small.webp) <!-- cathedral -->
 
-![](mexico_11_small.jpg) <!-- ave maria -->
+![](mexico_11_small.webp) <!-- ave maria -->
 
-![](mexico_12_small.jpg) <!-- eagle -->
+![](mexico_12_small.webp) <!-- eagle -->
 
-![](mexico_13_small.jpg) <!-- tops -->
+![](mexico_13_small.webp) <!-- tops -->
 
 After downtown, we had a 5:00 dinner date with Grace's parents. The menu was
 [carne asada][2] and "tacos gorda," an invention of Grace's.  They call her
 "Gorda" because she was a fat baby, and because Mexicans have a habit of
 choosing contrary nicknames.
 
-![](mexico_14_small.jpg) <!-- tacos -->
+![](mexico_14_small.webp) <!-- tacos -->
 
 Tacos Gorda contain slices carne asada with grilled buttered potatoes and carmelized onions, together in a tortilla with [salsa verde][3].  They're so good.
 
@@ -44,15 +44,15 @@ After some wine and some beer, we switched to tequila.  Things got festive.
 This is how Grace's mother, Graciela, reacts when you point a camera at her
 and say "¡Oye, bonita!"
 
-![](mexico_15_small.jpg) <!-- madre graciela -->
+![](mexico_15_small.webp) <!-- madre graciela -->
 
 Here she is with her husband, Manuel.
 
-![](mexico_16_small.jpg) <!-- padres -->
+![](mexico_16_small.webp) <!-- padres -->
 
 Here's Grace and yours truly.
 
-![](mexico_17_small.jpg) <!-- us -->
+![](mexico_17_small.webp) <!-- us -->
 
 After dinner, we put away the picnic table and moved into the kitchen to play
 dominoes.  Can you believe that I'd never played before?  There was more
@@ -70,7 +70,7 @@ Try playing Pictionary in Spanish.
 
 I will not run out of water.
 
-![](mexico_18_small.jpg) <!-- water -->
+![](mexico_18_small.webp) <!-- water -->
 
 ¡Hasta la proxima vez!
 
