@@ -1,16 +1,16 @@
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"></meta>
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-
-  
-  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"></link>
 
   
-  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css">
+  <link rel="stylesheet" media="(orientation: landscape)" href="/landscape.css"></link>
 
-  <link rel="stylesheet" href="/highlightjs/default.min.css">
+  
+  <link rel="stylesheet" media="(orientation: portrait)" href="/portrait.css"></link>
+
+  <link rel="stylesheet" href="/highlightjs/default.min.css"></link>
 
   <title>Phone Server</title>
 </head>
@@ -177,7 +177,7 @@ wireless router sitting by my window supports something called
 port X, instead forward that connection to local address Y on port Z."</p>
 <p>So, I navigated to my router's admin web interface at <code>http://192.168.1.1</code>, and
 configured the following settings:</p>
-<p><img src="port-forwarding.png" alt="port forwarding" height="297"></p>
+<p><img src="port-forwarding.png" alt="port forwarding" height="297"></img></p>
 <p><code>192.168.1.4</code> is the local address of my old phone, which is connected to the
 router over Wi-Fi, port <code>80</code> is the port on which I can expect HTTP requests to
 enter my network, and port <code>8080</code> is the port on which my phone is listening.</p>
@@ -194,7 +194,7 @@ need to tell it always to assign the local IP address <code>192.168.1.4</code> t
 phone.  Otherwise, the next time I restart the phone or the router, the phone
 might be assigned a different local address (e.g. <code>192.168.1.5</code>).  The router
 has another option for this, called "address reservation."</p>
-<p><img src="address-reservation.png" alt="address reservation" height="210"></p>
+<p><img src="address-reservation.png" alt="address reservation" height="210"></img></p>
 <p>This says that any device having my laptop's <a href="https://en.wikipedia.org/wiki/MAC_address">MAC address</a>
 (which is just my laptop) will be assigned local address <code>192.168.1.2</code>, and any
 device having my old phone's MAC address will be assigned local address
@@ -222,7 +222,7 @@ browser, the browser will ask DNS "what IP address(es) is (are) associated with
 this domain?"  DNS will reply "74.68.159.94," and then the browser will send
 an HTTP request to the old Android phone sitting in my apartment.</p>
 <p>FreeDNS's web interface looks like this:</p>
-<p><img src="freedns.png" alt="FreeDNS" height="195"></p>
+<p><img src="freedns.png" alt="FreeDNS" height="195"></img></p>
 <p>That service even has a programmatic API, so in principle I could carry around
 my web server it my pocket, and every time it entered a new network and was
 assigned a new IP address, it could notify DNS of the new address, so that
