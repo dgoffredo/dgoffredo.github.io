@@ -1,6 +1,6 @@
 Double Panda IPA
 ================
-<a href="label.png"><img src="label.jpg" alt="Double Panda IPA beer label"/></a>
+<a href="label.png"><img src="label.webp" alt="Double Panda IPA beer label"/></a>
 
 <!-- Put some space between columns in tables on this page. -->
 <style>
