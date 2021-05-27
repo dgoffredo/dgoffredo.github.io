@@ -52,6 +52,7 @@ import mistune
 import heightify
 import highlight
 import linkify
+import multiprocessing
 import pathutil
 import series
 import tableofcontents
@@ -229,6 +230,19 @@ def create_posts(posts_list, page_titles, site: Path, navigate):
                                      content=content,
                                      series_navigation=''))
 
+def page_job(args):
+    """Wrap a call to `create_page`, for use in a `multiprocessing.Pool`."""
+    file_path, html_path, navigate, series_by_date, content, date = args
+
+    title = create_page(file_path,
+                        html_path,
+                        navigate,
+                        series_by_date,
+                        content,
+                        date)
+
+    return file_path, title
+
 def generate(root):
     # `posts` is a directory of symbolic links to markdown files.
     # The name of each symbolic link is an ISO-8601 date.
@@ -260,7 +274,8 @@ def generate(root):
     (site/'highlightjs').symlink_to('../highlightjs')
 
     page_titles = {}
- 
+    pool_job_args = []
+
     for file_path in content.rglob('*'):
         file_path = file_path.resolve()
         name      = file_path.name
@@ -286,14 +301,17 @@ def generate(root):
         # It's a markdown file, so generate HTML (with a date, if applicable).
         date = post_dates.get(file_path.resolve())
         html_path = in_site.with_suffix('.html')
-        title = create_page(file_path,
-                            html_path,
-                            navigate,
-                            series_by_date,
-                            content,
-                            date)
+        
+        # Rather than generating the page now, push the function's arguments
+        # onto a list to be executed in parallel later.
+        pool_job_args.append((file_path, html_path, navigate, series_by_date, content, date))
 
-        page_titles[file_path] = title
+    # Generate the (HTML) pages in parallel using a pool of processes.
+    max_procs = 64
+    num_procs = min(len(pool_job_args), max_procs)
+    with multiprocessing.Pool(processes=num_procs) as pool:
+        for file_path, title in pool.imap_unordered(page_job, pool_job_args):
+            page_titles[file_path] = title
 
     # Most recent first [(full path, date) ...]
     posts_list = list(sorted(post_dates.items(),
