@@ -55,6 +55,7 @@ import linkify
 import multiprocessing
 import pathutil
 import series
+import styles
 import tableofcontents
 
 from datetime import datetime
@@ -138,7 +139,7 @@ def write_html(html: ET.Element, destination: Path):
         ET.ElementTree(html).write(destination, encoding='unicode', short_empty_elements=False)
 
 
-def create_page(from_path, to_path, navigate, series_by_date, content_dir, date=None):
+def create_page(from_path, to_path, navigate, series_by_date, root_dir, date=None):
     """Write HTML to the specified `to_path` from the markdown at the specified
     `from_path`, the specified `navigate` HTML, and the optionally specified
     `date` object.  Return the title of the generated HTML document."""
@@ -172,7 +173,10 @@ def create_page(from_path, to_path, navigate, series_by_date, content_dir, date=
         highlight.highlight_code_blocks(html)
         
         # Add "width" and "height" attributes to <img>s.
-        imgdimensions.add_img_attributes(html, content_dir, from_path.resolve())
+        imgdimensions.add_img_attributes(html, root_dir/'content', from_path.resolve())
+        
+        # Inline CSS where applicable.
+        styles.inline_styles(html, root_dir/'config')
 
         write_html(html, destination)
 
@@ -245,13 +249,13 @@ def create_posts(posts_list, page_titles, site: Path, navigate):
         
 def page_job(args):
     """Wrap a call to `create_page`, for use in a `multiprocessing.Pool`."""
-    file_path, html_path, navigate, series_by_date, content, date = args
+    file_path, html_path, navigate, series_by_date, root, date = args
 
     title = create_page(file_path,
                         html_path,
                         navigate,
                         series_by_date,
-                        content,
+                        root,
                         date)
 
     return file_path, title
@@ -327,7 +331,7 @@ def generate(root):
         
         # Rather than generating the page now, push the function's arguments
         # onto a list to be executed in parallel later.
-        pool_job_args.append((file_path, html_path, navigate, series_by_date, content, date))
+        pool_job_args.append((file_path, html_path, navigate, series_by_date, root, date))
 
     # Generate the (HTML) pages in parallel using a pool of processes.
     max_procs = 64
