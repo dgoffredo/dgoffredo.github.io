@@ -217,7 +217,7 @@ aside on brew day.  Maybe I should just use corn sugar instead, I don't know.
 The bottles will get [these labels](labels.pdf), and caps that look something
 like this:
 
-<a href="cap.png"><img src="cap.jpg"/></a>
+<a href="cap.png"><img src="cap.webp"/></a>
 
 The labels I'll print out on glossy paper, cut out with scissors, and then
 attach to the bottles using a glue stick.  The caps I ordered from a printer
