@@ -334,9 +334,7 @@ def generate(root):
         pool_job_args.append((file_path, html_path, navigate, series_by_date, root, date))
 
     # Generate the (HTML) pages in parallel using a pool of processes.
-    max_procs = 64
-    num_procs = min(len(pool_job_args), max_procs)
-    with multiprocessing.Pool(processes=num_procs) as pool:
+    with multiprocessing.Pool() as pool:
         for file_path, title in pool.imap_unordered(page_job, pool_job_args):
             page_titles[file_path] = title
 
