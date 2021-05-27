@@ -126,6 +126,13 @@ def pretty_date(date):
     day_of_week_and_month_name = date.strftime('%A, %B ')
     return f'{day_of_week_and_month_name} {date.day}, {date.year}'
 
+def write_html(html: ET.Element, destination: Path):
+        # Could specify `method='html'`, but I want to be able to parse the
+        # output again as XML (e.g. to add a <base> tag to index.html).
+        # `short_empty_elements=False` is so far the sweet spot for
+        # HTML-compatible XML output, at least for this site.
+        ET.ElementTree(html).write(destination, encoding='unicode', short_empty_elements=False)
+
 def create_page(from_path, to_path, navigate, series_by_date, content_dir, date=None):
     """Write HTML to the specified `to_path` from the markdown at the specified
     `from_path`, the specified `navigate` HTML, and the optionally specified
@@ -162,9 +169,7 @@ def create_page(from_path, to_path, navigate, series_by_date, content_dir, date=
         # Add "height" attributes to <img>s.
         heightify.add_height_attributes(html, content_dir, from_path.resolve())
 
-        # Could specify `short_empty_elements=False`, but `method='html'` seems
-        # to cover that.
-        ET.ElementTree(html).write(destination, method='html', encoding='unicode')
+        write_html(html, destination)
 
     return title
 
@@ -243,6 +248,14 @@ def page_job(args):
 
     return file_path, title
 
+def create_index(posts_list, site: Path, content: Path):
+    recent_post_html_path = posts_list[0][0].relative_to(content).with_suffix('.html')
+    html = ET.parse(site/recent_post_html_path).getroot()
+    head = html.find('head')
+    base = ET.TreeBuilder().start('base', {'href': str(recent_post_html_path)})
+    head.insert(0, base)
+    write_html(html, site/'index.html')
+
 def generate(root):
     # `posts` is a directory of symbolic links to markdown files.
     # The name of each symbolic link is an ISO-8601 date.
@@ -318,12 +331,8 @@ def generate(root):
                              key=lambda item: item[1],
                              reverse=True))
 
-    recent_post_html_path = posts_list[0][0].relative_to(content).with_suffix('.html')
+    create_index(posts_list, site, content)
     
-    redirect_template = (config/'redirect.template.html').read_text()
-    # TODO: This redirect is not ideal.
-    (site/'index.html').write_text(redirect_template.format(href=str(recent_post_html_path)))
-
     create_posts(posts_list, page_titles, site, navigate)
     
     create_series(series_by_date, site, navigate)
