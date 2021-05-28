@@ -15,6 +15,5 @@ def create_api(posts_list, page_titles, site: Path, content: Path):
     (api/'newest.json').write_text(json.dumps({
         'date': post_date.isoformat(),
         'title': page_titles[markdown_path],
-        'href': '/' + str(markdown_path.relative_to(content).with_suffix('.html')),
-        'TODO': 'remove this item'
+        'href': '/' + str(markdown_path.relative_to(content).with_suffix('.html'))
     }))
