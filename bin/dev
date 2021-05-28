@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Handy script for incorporating changes and starting a local web server.
-make && python3 -m http.server
+make && cd site && python3 -m http.server
