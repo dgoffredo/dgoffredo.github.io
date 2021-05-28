@@ -273,6 +273,23 @@ def create_index(posts_list, site: Path, content: Path):
     write_html(html, site/'index.html')
 
 
+def index_lonely_directories(directory: Path):
+    """If there's a directory under the specified `directory` that has only one
+    .html file, and that file isn't "index.html", then create a symbolic link
+    to it called "index.html".
+    """
+    assert directory.is_dir()
+
+    htmls = set(p.name for p in directory.iterdir() if p.is_file() and p.suffix == '.html')
+    if len(htmls) == 1 and 'index.html' not in htmls:
+        target, = htmls
+        (directory/'index.html').symlink_to(directory/target)
+
+    for child in directory.iterdir():
+        if child.is_dir():
+            index_lonely_directories(child)
+
+
 def generate(root):
     # `posts` is a directory of symbolic links to markdown files.
     # The name of each symbolic link is an ISO-8601 date.
@@ -351,6 +368,8 @@ def generate(root):
     create_posts(posts_list, page_titles, site, navigate)
     
     create_series(series_by_date, site, navigate)
+    
+    index_lonely_directories(site)
 
 
 if __name__ == '__main__':
