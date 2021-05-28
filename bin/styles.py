@@ -55,11 +55,15 @@ def inline_style(link: ET.Element, styles_dir: Path) -> ET.Element:
     assert path.is_absolute()
     
     style = styles_dir/path.relative_to(path.root)
+    media = link.get('media')
 
     # Wipe out the <link> element and make it a <style> element with the
-    # contents of the style sheet inline.
+    # contents of the style sheet inline.  Preserve the "media" attribute, if
+    # any.
     link.clear()
     link.tag = 'style'
+    if media is not None:
+        link.set('media', media)
     link.text = read_style(style)
     return link
 
