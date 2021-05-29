@@ -223,7 +223,10 @@ def create_series(series_by_date, site: Path, navigate):
         wrapper.append(series.series_navigation(dir, relative_to))
         container.append(wrapper)
         
-    ET.ElementTree(html).write(site/'series.html', encoding='unicode')
+    # Inline CSS where applicable.
+    styles.inline_styles(html, site.parent/'config')
+
+    write_html(html, site/'series.html')
 
 
 def create_posts(posts_list, page_titles, site: Path, navigate):
@@ -248,13 +251,18 @@ def create_posts(posts_list, page_titles, site: Path, navigate):
 
     content = content_template.format(rows='\n'.join(rows))
 
-    with (site/'posts.html').open('w') as f:
-        f.write(html_template.format(title='Posts',
+    html = html_template.format(title='Posts',
                                      navigate=navigate,
                                      date='',
                                      table_of_contents='',
                                      content=content,
-                                     series_navigation=''))
+                                     series_navigation='')
+    html = ET.fromstring(html)
+
+    # Inline CSS where applicable.
+    styles.inline_styles(html, site.parent/'config')
+
+    write_html(html, site/'posts.html')
 
         
 def page_job(args):
