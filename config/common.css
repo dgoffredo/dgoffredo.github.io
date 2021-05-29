@@ -64,4 +64,9 @@ div.table-of-contents {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-  }
+    white-space: nowrap;
+}
+
+img.preview {
+    width: 100%
+}

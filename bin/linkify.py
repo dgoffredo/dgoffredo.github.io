@@ -6,7 +6,7 @@ For example, to turn
 
 into
 
-    <a href="foo.jpg"><img src="foo_small.webp"/></a>
+    <a href="foo.jpg"><img src="foo_small.webp" class="preview"/></a>
 
 use
 
@@ -45,6 +45,8 @@ def wrap_image(parent, child, child_index, src_pattern, href_template):
     anchor.start('a', {'href': re.sub(src_pattern, href_template, child.get('src'))})
     anchor.end('a')
     anchor = anchor.close()
+    
+    child.set('class', child.get('class', '') + ' preview')
 
     anchor.append(child)
     parent.remove(child)
