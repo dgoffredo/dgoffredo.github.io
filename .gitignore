@@ -12,6 +12,7 @@ __pycache__
 /content/**/*.d
 /content/**/*_small.webp
 /content/**/*.dot.png
+/config/fonts.css
 
 # `make profile` artifacts
 profile.out

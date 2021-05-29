@@ -5,9 +5,14 @@ MAKEFLAGS += --no-builtin-rules
 
 markdowns := $(shell find content/ -type f -name '*.md')
 
-site/index.html: $(shell find content/) bin/* config/* posts/ series/*
+site/index.html: $(shell find content/) bin/* config/* posts/ series/* config/fonts.css
 	rm -rf site/*
 	bin/generate
+
+FONT_FACE = 'Akzidenz-Grotesk BQ Light'
+config/fonts.css: config/font.otf config/font-italic.otf
+	bin/font-face $(FONT_FACE) config/font.otf >$@
+	bin/font-face --italic $(FONT_FACE) config/font-italic.otf >>$@
 
 # Dependencies of a markdown file can be deduced by a script.
 # The output file (*.d) adds make dependencies to site/index.html.
