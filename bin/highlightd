@@ -7,7 +7,7 @@
 //     stdout -> {markup: String, language: String}
 
 const readline = require('readline');
-const hljs = require('../highlightjs/highlight.js');
+const hljs = require('../config/highlightjs/highlight.js');
 
 const input = readline.createInterface({
     input: process.stdin

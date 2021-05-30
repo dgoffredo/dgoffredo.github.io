@@ -46,7 +46,8 @@ def wrap_image(parent, child, child_index, src_pattern, href_template):
     anchor.end('a')
     anchor = anchor.close()
     
-    child.set('class', child.get('class', '') + ' preview')
+    # Add "preview" to the img's styles.
+    child.set('class', ' '.join(child.get('class', '').split() + ['preview']))
 
     anchor.append(child)
     parent.remove(child)

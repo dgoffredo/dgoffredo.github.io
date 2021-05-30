@@ -6,7 +6,7 @@ HLJS_VERSION = 10.7.2
 WGET = wget --quiet --output-document=-
 
 .PHONY: all
-all: highlight.js default.min.css
+all: highlight.js default.min.css LICENSE
 
 default.min.css:
 	$(WGET) https://cdnjs.cloudflare.com/ajax/libs/highlight.js/$(HLJS_VERSION)/styles/default.min.css >$@
@@ -39,5 +39,8 @@ languages/%.js:
 .PHONY: clean
 clean:
 	-rm -f languages/* core.js pack.js highlight.js default.min.css
+
+LICENSE:
+	$(WGET) https://github.com/highlightjs/highlight.js/blob/main/LICENSE >$@
 
 -include languages/Makefile

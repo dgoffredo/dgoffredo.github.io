@@ -16,16 +16,10 @@ def inline_styles(html: ET.Element, config_dir: Path) -> ET.Element:
     
     def visit(parent: ET.Element, element: ET.Element):
         if element.tag == 'link' and element.get('rel') == 'stylesheet':
-            if element.get('href').startswith('/highlightjs/'):
-                # See whether we need code highlighting.  If so, inline the
-                # style sheet.  If not, remove the element.
-                # The highlightjs style sheet is also different from the others,
-                # because it doesn't live in the config/ directory.
-                if html.find('.//code') is None:
-                    # No <code> tags, so we don't need the highlightjs styles.
-                    parent.remove(element)
-                else:
-                    inline_style(element, config_dir.parent)
+            # See whether we need code highlighting (i.e. there are <code>
+            # tags).  If so, inline the style sheet.  If not, remove the element.
+            if element.get('href').startswith('/highlightjs/') and html.find('.//code') is None:
+                parent.remove(element)
             else:
                 inline_style(element, config_dir)
         else:
