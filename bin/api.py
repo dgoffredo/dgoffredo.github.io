@@ -24,6 +24,12 @@ _index_html = """\
 }</code></pre>
       </dd>
 
+      <dt><code>/api/atom.xml</code></dt>
+      <dt><code>/feed</code></dt>
+      <dd>An <a href="https://en.wikipedia.org/wiki/Atom_(Web_standard)">Atom</a> feed for the blog.</dd>
+
+      <!-- Add new elements here -->
+
       <dt><code>/api/</code></dt>
       <dt><code>/api/index.html</code></dt>
       <dd>This page.<dd>
