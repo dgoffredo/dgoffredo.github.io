@@ -176,6 +176,8 @@ def create_page(from_path, to_path, navigate, series_by_date, root_dir, date=Non
             tableofcontents.insert_table_of_contents(html, max_depth=2)
  
         if date in series_by_date:
+            # This post is part of a series, so add links to other posts in the
+            # same series.
             series.insert_series_navigation(html, series_by_date[date], from_path)
             
         # Wrap <img ...> tags in links if the img src is a *_small.webp

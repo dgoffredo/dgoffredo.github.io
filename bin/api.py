@@ -1,6 +1,8 @@
 """Create JSON files accessible under /api/ in the site."""
 
 
+import atom
+from xml.etree import ElementTree as ET
 import json
 from pathlib import Path
 
@@ -46,3 +48,8 @@ def create_api(posts_list, page_titles, site: Path, content: Path):
         'title': page_titles[markdown_path],
         'href': '/' + str(markdown_path.relative_to(content).with_suffix('.html'))
     }))
+
+    # Atom feed
+    feed = atom.create_feed(posts_list, page_titles, content)
+    ET.ElementTree(feed).write(api/'atom.xml', encoding='unicode')
+    (site/'feed').symlink_to(api/'atom.xml')
