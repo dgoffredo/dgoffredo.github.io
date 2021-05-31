@@ -1,4 +1,4 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-05-27</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Lemonade</title><link href="https://www.davidgoffredo.com/lemonade/lemonade.md" /><id>https://www.davidgoffredo.com/lemonade/lemonade.md</id><updated>2021-05-27</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Lemonade</h1>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-05-27</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Lemonade</title><link href="https://www.davidgoffredo.com/lemonade/lemonade.html" /><id>https://www.davidgoffredo.com/lemonade/lemonade.html</id><updated>2021-05-27</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Lemonade</h1>
 <p>I've been making lemonade.  Here's how.</p>
 <h2>Ingredients</h2>
 <ul>
@@ -37,7 +37,7 @@ cubes and serve with a ladle.  Or, scoop your glass into the pot because life
 is short.</p>
 <p><img src="lemonade_small.webp" alt="lemonade in pot in sink" /></p>
 <p>Happy almost Summer.</p>
-</div></div></content></entry><entry><title>Double Panda IPA</title><link href="https://www.davidgoffredo.com/double-panda-ipa/double-panda-ipa.md" /><id>https://www.davidgoffredo.com/double-panda-ipa/double-panda-ipa.md</id><updated>2021-05-19</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Double Panda IPA</h1>
+</div></div></content></entry><entry><title>Double Panda IPA</title><link href="https://www.davidgoffredo.com/double-panda-ipa/double-panda-ipa.html" /><id>https://www.davidgoffredo.com/double-panda-ipa/double-panda-ipa.html</id><updated>2021-05-19</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Double Panda IPA</h1>
 <p><a href="label.png"><img src="label.webp" alt="Double Panda IPA beer label" /></a></p>
 <p />
 <style>
@@ -204,7 +204,7 @@ of empty bottles that I can de-label in preparation for filling.</p>
 <p><img src="empties_small.webp" alt="empty bottles" /></p>
 <p>The beer is not yet done fermenting, so I'll update this post come bottling
 day.</p>
-</div></div></content></entry><entry><title>Installing Guile from Source</title><link href="https://www.davidgoffredo.com/guile.md" /><id>https://www.davidgoffredo.com/guile.md</id><updated>2021-04-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Installing Guile from Source</h1>
+</div></div></content></entry><entry><title>Installing Guile from Source</title><link href="https://www.davidgoffredo.com/guile.html" /><id>https://www.davidgoffredo.com/guile.html</id><updated>2021-04-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Installing Guile from Source</h1>
 <p>It's not hard, but the <a href="https://git.savannah.gnu.org/cgit/guile.git/tree/HACKING">HACKING</a> file doesn't cover it all, so here's the
 rest.</p>
 <h2>Debian Packages</h2>
@@ -267,7 +267,7 @@ under certain conditions; type `,show c' for details.
 Enter `,help' for help.
 scheme@(guile-user)&gt; 
 </code></pre>
-</div></div></content></entry><entry><title>Mexico, Day 29</title><link href="https://www.davidgoffredo.com/mexico/mexico5.md" /><id>https://www.davidgoffredo.com/mexico/mexico5.md</id><updated>2021-03-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 29</h1>
+</div></div></content></entry><entry><title>Mexico, Day 29</title><link href="https://www.davidgoffredo.com/mexico/mexico5.html" /><id>https://www.davidgoffredo.com/mexico/mexico5.html</id><updated>2021-03-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 29</h1>
 <p><img src="mexico_49_small.webp" alt="" /> </p>
 <p>If you zoom in (click), you can see a horse above the third post from the left,
 in the center of the image.  My first few days in Aguascalientes, this horse
@@ -316,7 +316,7 @@ Except the pepper.  Grace's mom got the pepper.</p>
 <p>We in no way finished the puzzle.</p>
 <p><img src="mexico_62_small.webp" alt="" /> </p>
 <p>Ahora, a Nueva York.</p>
-</div></div></content></entry><entry><title>Mexico, Day 21</title><link href="https://www.davidgoffredo.com/mexico/mexico4.md" /><id>https://www.davidgoffredo.com/mexico/mexico4.md</id><updated>2021-03-14</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 21</h1>
+</div></div></content></entry><entry><title>Mexico, Day 21</title><link href="https://www.davidgoffredo.com/mexico/mexico4.html" /><id>https://www.davidgoffredo.com/mexico/mexico4.html</id><updated>2021-03-14</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 21</h1>
 <p><img src="mexico_35_small.webp" alt="" /> </p>
 <p><img src="mexico_36_small.webp" alt="" /> </p>
 <p><img src="mexico_37_small.webp" alt="" /> </p>
@@ -372,7 +372,7 @@ Irish within.  More likely, this they deemed a special occasion.  My personal
 impromptu mariachi party.  The singers had trained voices, and the trumpets
 were in tune.  Yes, they played "Cielito Lindo."  Of course they did.</p>
 <p><em>Ayyyy yaaaay yah yahhhhhhh...</em></p>
-</div></div></content></entry><entry><title>Mexico, Day 13</title><link href="https://www.davidgoffredo.com/mexico/mexico3.md" /><id>https://www.davidgoffredo.com/mexico/mexico3.md</id><updated>2021-03-06</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 13</h1>
+</div></div></content></entry><entry><title>Mexico, Day 13</title><link href="https://www.davidgoffredo.com/mexico/mexico3.html" /><id>https://www.davidgoffredo.com/mexico/mexico3.html</id><updated>2021-03-06</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 13</h1>
 <p>It's laundry day again.  This time I included two bath towels, so now all of
 my clothes are covered in white lint.</p>
 <p><img src="mexico_19a_small.webp" alt="" /></p>
@@ -425,7 +425,7 @@ salty, and savory goodness.  Grace's favorite is on mango.</p>
 <p><img src="mexico_34_small.webp" alt="" /></p>
 <p>Speaking of food, it's one o'clock here and I haven't eaten today.  Let's put
 that microwave to use.  ¡Adios!</p>
-</div></div></content></entry><entry><title>Mexico, Day 8</title><link href="https://www.davidgoffredo.com/mexico/mexico2.md" /><id>https://www.davidgoffredo.com/mexico/mexico2.md</id><updated>2021-03-01</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 8</h1>
+</div></div></content></entry><entry><title>Mexico, Day 8</title><link href="https://www.davidgoffredo.com/mexico/mexico2.html" /><id>https://www.davidgoffredo.com/mexico/mexico2.html</id><updated>2021-03-01</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 8</h1>
 <p><img src="mexico_5_small.webp" alt="" /> </p>
 <p><img src="mexico_6_small.webp" alt="" /> </p>
 <p>I haven't done my own laundry in a while. In this arid climate, you hardly
@@ -471,7 +471,7 @@ listening to Grace's newly bought The Police vinyls, and then a round of
 <p>I will not run out of water.</p>
 <p><img src="mexico_18_small.webp" alt="" /> </p>
 <p>¡Hasta la proxima vez!</p>
-</div></div></content></entry><entry><title>Mexico, Day 5</title><link href="https://www.davidgoffredo.com/mexico/mexico1.md" /><id>https://www.davidgoffredo.com/mexico/mexico1.md</id><updated>2021-02-26</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 5</h1>
+</div></div></content></entry><entry><title>Mexico, Day 5</title><link href="https://www.davidgoffredo.com/mexico/mexico1.html" /><id>https://www.davidgoffredo.com/mexico/mexico1.html</id><updated>2021-02-26</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Mexico, Day 5</h1>
 <p><img src="mexico_1_small.webp" alt="" /></p>
 <p>An electric fence tops the walls surrounding my neighborhood.  Presumably
 this is to keep bad people out, but I can't leave unless the man at the gate
@@ -511,7 +511,7 @@ recipe.  Then later we'll take a walk downtown.  Originally I planned to stay
 for a week or two, but now I'm staying for a month.  For $40 per day, where
 else would I be?  Hasta luego...</p>
 <p><img src="mexico_4_small.webp" alt="" /></p>
-</div></div></content></entry><entry><title>The Language That I Think I Want</title><link href="https://www.davidgoffredo.com/language-notes.md" /><id>https://www.davidgoffredo.com/language-notes.md</id><updated>2020-04-15</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><pre><code>(define sum
+</div></div></content></entry><entry><title>The Language That I Think I Want</title><link href="https://www.davidgoffredo.com/language-notes.html" /><id>https://www.davidgoffredo.com/language-notes.html</id><updated>2020-04-15</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><pre><code>(define sum
   (λ (args ...)
     (+ args ...)))
 
@@ -675,7 +675,7 @@ my head (and nobody else's).</li>
 </ul>
 </li>
 </ul>
-</div></div></content></entry><entry><title>The Thrush Combinator</title><link href="https://www.davidgoffredo.com/thrush.md" /><id>https://www.davidgoffredo.com/thrush.md</id><updated>2020-03-24</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>The Thrush Combinator</h1>
+</div></div></content></entry><entry><title>The Thrush Combinator</title><link href="https://www.davidgoffredo.com/thrush.html" /><id>https://www.davidgoffredo.com/thrush.html</id><updated>2020-03-24</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>The Thrush Combinator</h1>
 <pre><code class="lang-javascript">const thrush = (value, func, ...funcs) =&gt;
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
@@ -821,7 +821,7 @@ auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
 <p>What about in <a href="https://golang.org/">Go</a>?  Forget it.</p>
-</div></div></content></entry><entry><title>India, Day 15</title><link href="https://www.davidgoffredo.com/india/india6.md" /><id>https://www.davidgoffredo.com/india/india6.md</id><updated>2019-10-04</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 15</h1>
+</div></div></content></entry><entry><title>India, Day 15</title><link href="https://www.davidgoffredo.com/india/india6.html" /><id>https://www.davidgoffredo.com/india/india6.html</id><updated>2019-10-04</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 15</h1>
 <p>They have Jesus in Kerala.</p>
 <p><img src="india6_66_small.webp" alt="" /></p>
 <p>Christianity, Islam, and Hinduism simmer together in the region like mismatched
@@ -958,7 +958,7 @@ night flights, people.</p>
 adjusting a few knobs:  fewer tours, more people;  less driving, more
 wandering;  less airport, more nature.</p>
 <p><img style="width: 200px;" src="hindi.png" /></p>
-</div></div></content></entry><entry><title>India, Day 13</title><link href="https://www.davidgoffredo.com/india/india5.md" /><id>https://www.davidgoffredo.com/india/india5.md</id><updated>2019-10-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 13</h1>
+</div></div></content></entry><entry><title>India, Day 13</title><link href="https://www.davidgoffredo.com/india/india5.html" /><id>https://www.davidgoffredo.com/india/india5.html</id><updated>2019-10-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 13</h1>
 <p><img src="india5_28_small.webp" alt="" /></p>
 <p>One of the unsung advantages of having acute diarrhea is the ability to use the
 little flush button instead of the big one.  As you can imagine, I've been
@@ -1045,7 +1045,7 @@ midnight, drank some water, and slept again until 6 AM.</p>
 <p><img src="india5_83_small.webp" alt="" /></p>
 <p>Then it was another five hour drive, this time into the backwaters.</p>
 <p><img style="width: 200px;" src="hindi.png" /></p>
-</div></div></content></entry><entry><title>India, Day 10</title><link href="https://www.davidgoffredo.com/india/india4.md" /><id>https://www.davidgoffredo.com/india/india4.md</id><updated>2019-09-29</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 10</h1>
+</div></div></content></entry><entry><title>India, Day 10</title><link href="https://www.davidgoffredo.com/india/india4.html" /><id>https://www.davidgoffredo.com/india/india4.html</id><updated>2019-09-29</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 10</h1>
 <p><img src="india4_23_small.webp" alt="" /></p>
 <p>He didn't get left behind, after all.  It should have occurred to me earlier
 to search for the marble elephant in a marble room.</p>
@@ -1117,7 +1117,7 @@ this is trying to tell me.</p>
 rather early tomorrow for a flight to <a href="https://en.wikipedia.org/wiki/Kerala">Kerala</a>, where the second half of
 this trip begins.
 <img style="width: 200px;" src="hindi.png" /></p>
-</div></div></content></entry><entry><title>India, Day 8</title><link href="https://www.davidgoffredo.com/india/india3.md" /><id>https://www.davidgoffredo.com/india/india3.md</id><updated>2019-09-27</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 8</h1>
+</div></div></content></entry><entry><title>India, Day 8</title><link href="https://www.davidgoffredo.com/india/india3.html" /><id>https://www.davidgoffredo.com/india/india3.html</id><updated>2019-09-27</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 8</h1>
 <p><img src="india3_5_small.webp" alt="" /></p>
 <p>I promised you a cow.  You know, I won't be eating them for a while.  It's just
 not right.  Well, I might have eaten some of them today.  More on that later.</p>
@@ -1206,7 +1206,7 @@ seemed oddly interested in keeping far away from our driver.</p>
 be our last drive with him.</p>
 <p><img src="india3_26_small.webp" alt="" /></p>
 <p>Thanks for the jungle juice.</p>
-</div></div></content></entry><entry><title>India, Day 6</title><link href="https://www.davidgoffredo.com/india/india2.md" /><id>https://www.davidgoffredo.com/india/india2.md</id><updated>2019-09-25</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 6</h1>
+</div></div></content></entry><entry><title>India, Day 6</title><link href="https://www.davidgoffredo.com/india/india2.html" /><id>https://www.davidgoffredo.com/india/india2.html</id><updated>2019-09-25</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 6</h1>
 <p><img src="india2_38_small.webp" alt="" /></p>
 <p>Copper (II) sulfate is the product of the reaction between copper metal and
 sulfuric acid.  It's water soluble and moderately toxic.</p>
@@ -1487,7 +1487,7 @@ stay on the cot from the previous night.</p>
 <p>Today is a down day.  We might do something this afternoon, and we might not.
 There is a nice pool.  Tonight is a cooking class.
 <img style="width: 200px;" src="hindi.png" /></p>
-</div></div></content></entry><entry><title>India, Day 1</title><link href="https://www.davidgoffredo.com/india/india1.md" /><id>https://www.davidgoffredo.com/india/india1.md</id><updated>2019-09-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 1</h1>
+</div></div></content></entry><entry><title>India, Day 1</title><link href="https://www.davidgoffredo.com/india/india1.html" /><id>https://www.davidgoffredo.com/india/india1.html</id><updated>2019-09-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>India, Day 1</h1>
 <p><img src="india_20_small.webp" alt="dog" /></p>
 <p>This is Aniruddha Ram Kumar Mukherjee.  He is a dog.  Like many natives of
 Delhi, Aniruddha must find ways to cope with the oppressive afternoon summer
@@ -1610,7 +1610,7 @@ are:</p>
 <p>At some point we ate dinner, and the food was delicious.  Now it is nearly one
 o'clock in the morning, and I am going to bed.</p>
 <p><img style="width: 200px;" src="hindi.png" /></p>
-</div></div></content></entry><entry><title>Channels</title><link href="https://www.davidgoffredo.com/channels.md" /><id>https://www.davidgoffredo.com/channels.md</id><updated>2019-07-28</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Channels</h1>
+</div></div></content></entry><entry><title>Channels</title><link href="https://www.davidgoffredo.com/channels.html" /><id>https://www.davidgoffredo.com/channels.html</id><updated>2019-07-28</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Channels</h1>
 <p><img src="chan.png" alt="" /></p>
 <p>I implemented <a href="https://github.com/dgoffredo/chan">Go-style channels and select</a> in C++. The need doesn't
 arise often, but when it does, it's frustrating not to be able to multiplex
@@ -2334,7 +2334,7 @@ library, I think that it's justified.</p>
 <h2>More</h2>
 <p>That's enough of that.  If your curiosity is piqued, then you can
 <a href="https://github.com/dgoffredo/chan#more">get started</a> playing with C++ channels and see how you like it.</p>
-</div></div></content></entry><entry><title>Phone Server</title><link href="https://www.davidgoffredo.com/phone-server.md" /><id>https://www.davidgoffredo.com/phone-server.md</id><updated>2019-06-12</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Phone Server</h1>
+</div></div></content></entry><entry><title>Phone Server</title><link href="https://www.davidgoffredo.com/phone-server.html" /><id>https://www.davidgoffredo.com/phone-server.html</id><updated>2019-06-12</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Phone Server</h1>
 <p>I turned my old Android phone into a web server.  Here's how.</p>
 <h2>Verizon is Evil</h2>
 <p>I got tired of paying nearly $80 per month for my one phone line and the
@@ -2555,7 +2555,7 @@ for it that does exactly what I described.  It's now installed on my old phone
 server, chewing up CPU cycles looking for possible signals in
 <a href="https://www.ligo.caltech.edu/">LIGO's gravitational wave detection data</a>.</p>
 <p>So, hack around with your phone! It's fun, and you might learn something.</p>
-</div></div></content></entry><entry><title>Code Generation and the Minimum Feedback Arc Set</title><link href="https://www.davidgoffredo.com/break-cycles/break-cycles.md" /><id>https://www.davidgoffredo.com/break-cycles/break-cycles.md</id><updated>2019-01-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Code Generation and the Minimum Feedback Arc Set</h1>
+</div></div></content></entry><entry><title>Code Generation and the Minimum Feedback Arc Set</title><link href="https://www.davidgoffredo.com/break-cycles/break-cycles.html" /><id>https://www.davidgoffredo.com/break-cycles/break-cycles.html</id><updated>2019-01-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Code Generation and the Minimum Feedback Arc Set</h1>
 <p>I ran into a graph problem a while back, and finally decided to write about it.</p>
 <h2>Generating C++ Classes</h2>
 <p>One day I'll write a <a href="https://github.com/bloomberg/bde/blob/master/groups/bdl/bdlat/doc/bdlat.txt">bdlat</a>-compatible C++ class
@@ -2786,7 +2786,7 @@ the result of this algorithm with the result of brute-force checking the power
 set of the graph's edges. I could hope to find a counter-example that way,
 though none very large, since the brute force solution is exponential in the
 number of edges.</p>
-</div></div></content></entry><entry><title>Llama JSON</title><link href="https://www.davidgoffredo.com/llama-json.md" /><id>https://www.davidgoffredo.com/llama-json.md</id><updated>2018-12-28</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Llama JSON</h1>
+</div></div></content></entry><entry><title>Llama JSON</title><link href="https://www.davidgoffredo.com/llama-json.html" /><id>https://www.davidgoffredo.com/llama-json.html</id><updated>2018-12-28</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Llama JSON</h1>
 <p><img src="llama.jpg" alt="" /> <img src="json.gif" alt="" /></p>
 <p>Playing with a <a href="https://github.com/dgoffredo/llama">pet project</a>, I noticed a relationship between
 <a href="https://en.wikipedia.org/wiki/S-expression">s-expressions</a> and <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>.</p>
@@ -3138,7 +3138,7 @@ its work before calling the <a href="https://github.com/dgoffredo/llama/commit/f
 </code></pre>
 <p>You can try it out by cloning <a href="https://github.com/dgoffredo/llama">Llama</a> onto your computer and
 opening the <a href="https://github.com/dgoffredo/llama#using-the-playground">playground</a> in a web browser.</p>
-</div></div></content></entry><entry><title>Callbacks (Part 2)</title><link href="https://www.davidgoffredo.com/callbacks2.md" /><id>https://www.davidgoffredo.com/callbacks2.md</id><updated>2018-03-18</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Callbacks (Part 2)</h1>
+</div></div></content></entry><entry><title>Callbacks (Part 2)</title><link href="https://www.davidgoffredo.com/callbacks2.html" /><id>https://www.davidgoffredo.com/callbacks2.html</id><updated>2018-03-18</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Callbacks (Part 2)</h1>
 <p><a href="callbacks.html">Previously</a> I described an API for submitting a query asynchronously
 in such a way that the caller provides the object into which the query results
 are written, but without having to specify an object factory.  It looked like
@@ -3290,7 +3290,7 @@ void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
 </code></pre>
 <p>A colleague of mine called this "like the opposite of bind," or maybe it's an
 inside-out bind.  Six lines of C++11 is what it is.</p>
-</div></div></content></entry><entry><title>Callbacks (Part 1)</title><link href="https://www.davidgoffredo.com/callbacks.md" /><id>https://www.davidgoffredo.com/callbacks.md</id><updated>2018-03-17</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Callbacks (Part 1)</h1>
+</div></div></content></entry><entry><title>Callbacks (Part 1)</title><link href="https://www.davidgoffredo.com/callbacks.html" /><id>https://www.davidgoffredo.com/callbacks.html</id><updated>2018-03-17</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Callbacks (Part 1)</h1>
 <p>I ran into something cool related to callbacks lately, and I have to tell you
 about it.</p>
 <h2>User-Specified Types</h2>
@@ -3494,7 +3494,7 @@ signature of the callback, rather than by the presence or absence of an
 additional factory argument.</p>
 <h2>Part Two</h2>
 <p>If this sort of thing interests you, then take a look at <a href="callbacks2.html">part 2</a>.</p>
-</div></div></content></entry><entry><title>Pedant Cheat Sheet</title><link href="https://www.davidgoffredo.com/pedant-cheat-sheet.md" /><id>https://www.davidgoffredo.com/pedant-cheat-sheet.md</id><updated>2018-01-07</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Pedant Cheat Sheet</h1>
+</div></div></content></entry><entry><title>Pedant Cheat Sheet</title><link href="https://www.davidgoffredo.com/pedant-cheat-sheet.html" /><id>https://www.davidgoffredo.com/pedant-cheat-sheet.html</id><updated>2018-01-07</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Pedant Cheat Sheet</h1>
 <p>I've been reading a lot of technical documentation, blog posts, StackOverflow
 answers, and Reddit threads.  Some writing stands out, having an apparent
 clarity, honesty, and maturity.  I notice that my writing is not as good as it
@@ -3611,7 +3611,7 @@ Alternatives are "working" or "preparing" ("work," "preparation").</p>
 don't do nearly enough.  Sometimes I end up having to throw away what I've
 written and replace it with something that is simpler and more honest, but then
 it's less likely to be wrong.</p>
-</div></div></content></entry><entry><title>Russia and Czechia, Day 10</title><link href="https://www.davidgoffredo.com/russia/russia10.md" /><id>https://www.davidgoffredo.com/russia/russia10.md</id><updated>2017-05-13</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 10</h1>
+</div></div></content></entry><entry><title>Russia and Czechia, Day 10</title><link href="https://www.davidgoffredo.com/russia/russia10.html" /><id>https://www.davidgoffredo.com/russia/russia10.html</id><updated>2017-05-13</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 10</h1>
 <p>Here I am in the Prague airport. I gave myself a little too much wiggle room
 getting here, since I took an Uber but timed it based on the public
 transportation route. As a result I have a half hour to kill before they'll
@@ -3754,7 +3754,7 @@ hilarious sausage). Next time.</p>
 <p>That's about it for my trip. I'm waiting for the plane to arrive here in
 Prague. Then it's a few hours in Warsaw, and finally the long ass flight
 back to Newark. Ahoy!</p>
-</div></div></content></entry><entry><title>Russia and Czechia, Day 7</title><link href="https://www.davidgoffredo.com/russia/russia7.md" /><id>https://www.davidgoffredo.com/russia/russia7.md</id><updated>2017-05-10</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 7</h1>
+</div></div></content></entry><entry><title>Russia and Czechia, Day 7</title><link href="https://www.davidgoffredo.com/russia/russia7.html" /><id>https://www.davidgoffredo.com/russia/russia7.html</id><updated>2017-05-10</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 7</h1>
 <p>I'm sitting at the gate in the Warsaw airport, again. I can see them fueling
 the plane, and they just finished loading luggage from the cart. Hopefully
 my luggage was included.</p>
@@ -3928,7 +3928,7 @@ on, but I took some pictures. There were rabbits:</p>
 <p><img src="russia7-27_small.webp" alt="" /></p>
 <p>That's enough for now. It's almost 11 PM here, and I think I ought to venture
 out in search of food before bed. Solo in Prague!</p>
-</div></div></content></entry><entry><title>Russia and Czechia, Day 4</title><link href="https://www.davidgoffredo.com/russia/russia2.md" /><id>https://www.davidgoffredo.com/russia/russia2.md</id><updated>2017-05-04</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 4</h1>
+</div></div></content></entry><entry><title>Russia and Czechia, Day 4</title><link href="https://www.davidgoffredo.com/russia/russia2.html" /><id>https://www.davidgoffredo.com/russia/russia2.html</id><updated>2017-05-04</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 4</h1>
 <p>Hi Again,</p>
 <p>Yesterday was more relaxed than the previous days. After lunch here at the
 flat, Pasha and I took the metro further into the city to meet his dad,
@@ -3966,7 +3966,7 @@ understand English). Anyway, everyone politely ignored me as I stumbled into
 nonsense, and then it was back to Russian.</p>
 <p>Today we'll probably go to a park where there are a lot of tanks. Gotta love
 tanks. Cheerio!</p>
-</div></div></content></entry><entry><title>Russia and Czechia, Day 3</title><link href="https://www.davidgoffredo.com/russia/russia1.md" /><id>https://www.davidgoffredo.com/russia/russia1.md</id><updated>2017-05-03</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 3</h1>
+</div></div></content></entry><entry><title>Russia and Czechia, Day 3</title><link href="https://www.davidgoffredo.com/russia/russia1.html" /><id>https://www.davidgoffredo.com/russia/russia1.html</id><updated>2017-05-03</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Russia and Czechia, Day 3</h1>
 <p>Greetings from Motherland,</p>
 <p>Come sit, for I have much to tell you. I arrive three days before, and see
 many things. On first day, I take plane. It was big plane, but slow plane. I
@@ -4103,7 +4103,7 @@ tired and we sleep.</p>
 <p>Pasha and American sleep almost twelve hours! American wake up and start
 writing log of travels. Now it 2 PM and Ella come home from work for lunch. До
 связи!</p>
-</div></div></content></entry><entry><title>Europe, Day 13</title><link href="https://www.davidgoffredo.com/europe/europe13.md" /><id>https://www.davidgoffredo.com/europe/europe13.md</id><updated>2016-09-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 13</h1>
+</div></div></content></entry><entry><title>Europe, Day 13</title><link href="https://www.davidgoffredo.com/europe/europe13.html" /><id>https://www.davidgoffredo.com/europe/europe13.html</id><updated>2016-09-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 13</h1>
 <p>I'm aboard the Arlanda Express, on my way towards a nine hour flight.
 Fortunately, in addition to being an airplane, the vessel will be also a
 time machine, so I'll arrive in New York only two hours after departing.</p>
@@ -4147,7 +4147,7 @@ dusk:</p>
 <p><img src="europe13-17_small.webp" alt="" /></p>
 <p>I have so far resisted the cesspool of disease otherwise known as Vineet,
 but we'll see how I fare waking up for work tomorrow. Ciao.</p>
-</div></div></content></entry><entry><title>Europe, Day 10</title><link href="https://www.davidgoffredo.com/europe/europe10.md" /><id>https://www.davidgoffredo.com/europe/europe10.md</id><updated>2016-09-19</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 10</h1>
+</div></div></content></entry><entry><title>Europe, Day 10</title><link href="https://www.davidgoffredo.com/europe/europe10.html" /><id>https://www.davidgoffredo.com/europe/europe10.html</id><updated>2016-09-19</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 10</h1>
 <p>Greetings from 35,000 feet.</p>
 <p>So much for Barcelona; boy am I tired. Our last day in Madrid we went to a
 cafe; on the fourteenth floor of a hotel "Dear Hotel," (with the comma) to
@@ -4233,7 +4233,7 @@ the Basilica, don't you?</p>
 <p>Now it's a just-under three-hour flight to Stockholm, where presumably we will
 eat meatballs and shop for furniture. The snack guy is coming around I NEED
 COFFEE.</p>
-</div></div></content></entry><entry><title>Europe, Day 8</title><link href="https://www.davidgoffredo.com/europe/europe8.md" /><id>https://www.davidgoffredo.com/europe/europe8.md</id><updated>2016-09-17</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 8</h1>
+</div></div></content></entry><entry><title>Europe, Day 8</title><link href="https://www.davidgoffredo.com/europe/europe8.html" /><id>https://www.davidgoffredo.com/europe/europe8.html</id><updated>2016-09-17</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 8</h1>
 <p><em>[2020 note: the images get more corrupted as the post goes on.]</em></p>
 <p>Slept in a bit today. Vineet’s vibrant nasopharyngeal discharge has
 accordingly ceased.</p>
@@ -4316,7 +4316,7 @@ Witch King of Leon.</p>
 department, but they make a good effort:</p>
 <p><img src="europe8-017_small.webp" alt="" /></p>
 <p>Tomorrow it’s off to Barcelona. Buenas noches.</p>
-</div></div></content></entry><entry><title>Europe, Day 7</title><link href="https://www.davidgoffredo.com/europe/europe7.md" /><id>https://www.davidgoffredo.com/europe/europe7.md</id><updated>2016-09-16</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 7</h1>
+</div></div></content></entry><entry><title>Europe, Day 7</title><link href="https://www.davidgoffredo.com/europe/europe7.html" /><id>https://www.davidgoffredo.com/europe/europe7.html</id><updated>2016-09-16</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 7</h1>
 <p>Greetings from Gatwick,</p>
 <p>The flight into Madrid is a bit late. I'll take this time to catch you up on
 what I did in London. For example, at some point we encountered a monument:</p>
@@ -4357,7 +4357,7 @@ observed the Roman god of wine dancing with his panther, as only the Roman god
 of wine can:</p>
 <p><img src="europe7-11_small.webp" alt="" /></p>
 <p>Vamos a Madrid!</p>
-</div></div></content></entry><entry><title>Europe, Day 2</title><link href="https://www.davidgoffredo.com/europe/europe2.md" /><id>https://www.davidgoffredo.com/europe/europe2.md</id><updated>2016-09-11</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 2</h1>
+</div></div></content></entry><entry><title>Europe, Day 2</title><link href="https://www.davidgoffredo.com/europe/europe2.html" /><id>https://www.davidgoffredo.com/europe/europe2.html</id><updated>2016-09-11</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 2</h1>
 <p>Today's cool thing was a glacier hike. You know, hiking on a glacier. A
 fucking glacier. Strapped crampons onto our feet, helmets on our heads, and
 walked up onto hundreds of meters of solid ice as it was melting. We walked
@@ -4408,7 +4408,7 @@ and then we're LONDON BOUND.</p>
 <em>[2020 note: my God, look at the cock on that one.]</em></p>
 <p>These are the true Icelanders. The humans are kept alive only to act as
 caretakers in their intergalactic communist utopia.</p>
-</div></div></content></entry><entry><title>Europe, Day 1</title><link href="https://www.davidgoffredo.com/europe/europe1.md" /><id>https://www.davidgoffredo.com/europe/europe1.md</id><updated>2016-09-10</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 1</h1>
+</div></div></content></entry><entry><title>Europe, Day 1</title><link href="https://www.davidgoffredo.com/europe/europe1.html" /><id>https://www.davidgoffredo.com/europe/europe1.html</id><updated>2016-09-10</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Europe, Day 1</h1>
 <p><img src="vineet_ice_small.webp" alt="" />
 <em>Vineet copes with the low coefficient of friction in Iceland.</em></p>
 <p>Morning from the North,</p>
