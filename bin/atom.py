@@ -31,7 +31,7 @@ def create_feed(posts_list, page_titles, content: Path) -> ET.Element:
 
 
 def entry_sexpr(markdown: Path, date: datetime.date, title: str, content: Path, site: str) -> list:
-    href = f'{site}/{markdown.relative_to(content)}'
+    href = f'{site}/{markdown.relative_to(content).with_suffix(".html")}'
     raw_xhtml = _markdown_converter(markdown.read_text())
     xhtml = ET.fromstring(f'<div>{raw_xhtml}</div>')
 

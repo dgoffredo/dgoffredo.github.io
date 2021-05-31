@@ -29,8 +29,9 @@ client configured).
 
 RSS/Atom Feed
 -------------
-This site doesn't have one.  If you want one, send Milton an email saying so,
-and he'll consider it.
+This blog has an [Atom][3] feed.  You can subscribe to [/feed](/feed) or,
+equivalently, [/api/atom.xml](/api/atom.xml).
 
 [1]: mailto:milton@davidgoffredo.com?subject=subscribe
 [2]: mailto:milton@davidgoffredo.com?subject=unsubscribe
+[3]: https://en.wikipedia.org/wiki/Atom_(Web_standard)
