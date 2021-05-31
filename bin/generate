@@ -338,7 +338,7 @@ def generate(root):
     (site/'portrait.css').symlink_to('../config/portrait.css')
     (site/'CNAME').symlink_to('../config/CNAME')
     (site/'highlightjs').mkdir()
-    (site/'highlightjs'/'default.min.css').symlink_to('../config/highlightjs/default.min.css')
+    (site/'highlightjs'/'default.min.css').symlink_to('../../config/highlightjs/default.min.css')
 
     page_titles = {}
     pool_job_args = []
