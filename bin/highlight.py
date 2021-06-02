@@ -19,7 +19,7 @@ from typing import Optional
 from xml.etree import ElementTree as ET
 
 
-@functools.cache
+@functools.lru_cache(maxsize=None)
 def highlightd():
     exe = str((Path(__file__)/'..'/'highlightd').resolve())
     return Popen([exe], encoding='utf8', stdin=PIPE, stdout=PIPE, bufsize=0)

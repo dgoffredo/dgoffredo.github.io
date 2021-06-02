@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# This is for use within a `guix environment`.  Mount this file to
+# /usr/bin/env so that scripts have that command available.
+# This implementation forwards to the implementation available
+# in guix.
+
+exec $(command -v env) "$@"

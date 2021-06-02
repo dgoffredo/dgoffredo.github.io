@@ -49,14 +49,19 @@ def resolve_path_to_image(src: str, content_dir: Path, markdown: Path) -> Option
     return markdown.parent/src_path
 
 
-@functools.cache
+@functools.lru_cache(maxsize=None)
 def image_dimensions(image: Path) -> dict:
     command = [
         'identify',
         '-format', r'{"width": %w, "height": %h}\n',
          str(image)
     ]
-    result = subprocess.run(command, encoding='utf8', capture_output=True, check=True)
+    # result = subprocess.run(command, encoding='utf8', capture_output=True, check=True)
+    result = subprocess.run(command, encoding='utf8', capture_output=True)
+    if result.returncode != 0:
+        import sys
+        print('identify stderr: ', result.stderr)
+        raise Exception('"identify" command failed')
 
     # If `image` is an animated GIF, then the script will print the dimensions of
     # each frame.  So, allow for that possibility, and use the dimensions of the

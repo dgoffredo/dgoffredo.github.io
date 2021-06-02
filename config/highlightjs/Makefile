@@ -1,4 +1,5 @@
 .ONESHELL:
+.DELETE_ON_ERROR:
 
 # See <https://github.com/highlightjs/highlight.js/releases>
 HLJS_VERSION = 10.7.2
@@ -43,4 +44,4 @@ clean:
 LICENSE:
 	$(WGET) https://github.com/highlightjs/highlight.js/blob/main/LICENSE >$@
 
--include languages/Makefile
+include languages/Makefile

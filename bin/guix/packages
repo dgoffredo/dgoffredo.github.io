@@ -1,0 +1,12 @@
+coreutils
+findutils
+gawk
+graphviz
+imagemagick
+jq
+libwebp
+make
+node
+python
+sed
+wget

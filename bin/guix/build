@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Run `make` in the respository root, but in an otherwise isolated environment
+# with all necessary dependencies.  Requires `guix` to be installed.
+
+HERE=$(dirname $0)
+GUIX_PACKAGES=$(cat "$HERE"/packages)
+
+cd "$HERE/../../" # the git repo
+
+guix environment \
+    --pure \
+    --ad-hoc \
+    --container \
+    --network \
+    "--expose=$HERE/certs=/etc/ssl/certs" \
+    "--expose=$HERE/env=/usr/bin/env" \
+    "--expose=$HERE/cwebp=/usr/bin/ cwebp" \
+    "--expose=$HERE/dwebp=/usr/bin/ dwebp" \
+    $GUIX_PACKAGES <<'END_SCRIPT'
+export PATH="$PATH:/usr/bin"
+
+cd config/highlightjs
+make -j 64
+
+cd ../../
+make -j 16
+
+END_SCRIPT

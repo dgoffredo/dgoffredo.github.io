@@ -62,6 +62,6 @@ def inline_style(link: ET.Element, styles_dir: Path) -> ET.Element:
     return link
 
 
-@functools.cache
+@functools.lru_cache(maxsize=None)
 def read_style(path: Path) -> str:
     return path.read_text()

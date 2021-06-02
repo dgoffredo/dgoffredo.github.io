@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# This is a workaround for <https://debbugs.gnu.org/cgi/bugreport.cgi?bug=48018>.
+
+# Expose this script as '/usr/bin/ dwebp' (notice the space).
+
+exec $(command -v dwebp) "$@"
