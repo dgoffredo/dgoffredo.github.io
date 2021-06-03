@@ -13,6 +13,7 @@ __pycache__
 /content/**/*_small.webp
 /content/**/*.dot.png
 /content/**/*.imginfo.json
+/content/**/*.md.html
 /config/fonts.css
 
 # `make profile` artifacts

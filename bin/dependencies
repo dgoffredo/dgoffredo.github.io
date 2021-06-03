@@ -3,7 +3,6 @@
 """Print the make dependencies of a specified markdown file."""
 
 
-import mistune
 from pathlib import Path
 import sys
 from urllib.parse import urlparse
@@ -20,7 +19,7 @@ if __name__ == '__main__':
     img_srcs = []
     md_path = Path(sys.argv[1])
 
-    html = mistune.Markdown(use_xhtml=True)(md_path.read_text())
+    html = md_path.with_suffix('.md.html').read_text()
     html = ET.fromstring(f'<html>{html}</html>')
 
     dep_paths = []

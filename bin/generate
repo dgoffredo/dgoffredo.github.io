@@ -50,7 +50,6 @@ The result will be
 
 
 import api
-import mistune
 import highlight
 import imgdimensions
 import linkify
@@ -129,15 +128,6 @@ def get_first_h1(html_markup):
     return html_markup[begin:end]
 
 
-_markdown_converter = mistune.Markdown(use_xhtml=True)
-
-
-def markdown2html(markdown_path):
-    "Return a string containing the HTML output of compiling markdown."
-    
-    return _markdown_converter(markdown_path.read_text())
-      
-
 def pretty_date(date):
     day_of_week_and_month_name = date.strftime('%A, %B ')
     return f'{day_of_week_and_month_name} {date.day}, {date.year}'
@@ -157,7 +147,7 @@ def create_page(from_path, to_path, navigate, series_by_date, root_dir, date=Non
     `date` object.  Return the title of the generated HTML document."""
 
     with to_path.open('w', encoding='utf8') as destination:
-        content = markdown2html(from_path)
+        content = from_path.with_suffix('.md.html').read_text()
         title = get_first_h1(content)
         date_paragraph = '<p>' + pretty_date(date) + '</p>' if date is not None else ''
         title = title if title is not None else ''
@@ -315,7 +305,8 @@ def ignore(file_path: Path) -> bool:
     return file_path.name.startswith('.') \
         or file_path.name.startswith('README') \
         or file_path.suffix == '.d' \
-        or file_path.name.endswith('.imginfo.json')
+        or file_path.name.endswith('.imginfo.json') \
+        or file_path.name.endswith('.md.html')
 
 
 def generate(root):

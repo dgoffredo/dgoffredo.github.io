@@ -2,13 +2,9 @@
 
 
 import datetime
-import mistune
 from pathlib import Path
 from xml.etree import ElementTree as ET
 import sxml
-
-
-_markdown_converter = mistune.Markdown(use_xhtml=True)
 
 
 def create_feed(posts_list, page_titles, content: Path) -> ET.Element:
@@ -32,7 +28,7 @@ def create_feed(posts_list, page_titles, content: Path) -> ET.Element:
 
 def entry_sexpr(markdown: Path, date: datetime.date, title: str, content: Path, site: str) -> list:
     href = f'{site}/{markdown.relative_to(content).with_suffix(".html")}'
-    raw_xhtml = _markdown_converter(markdown.read_text())
+    raw_xhtml = markdown.with_suffix('.md.html').read_text()
     xhtml = ET.fromstring(f'''
     <html>
         <head>
