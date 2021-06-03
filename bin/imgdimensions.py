@@ -1,9 +1,9 @@
 """Add width and height attributes to `<img>` tags that refer to a local image.
 
 For example, if `content/mexico/mexico3.md` includes an image with
-`href="mexico_23_small.webp"`, then this module will fork to an imagemagick
-tool (`identify`) to determine the image's dimensions and then modify the
-relevent `ElementTree.Element` to be
+`href="mexico_23_small.webp"`, then this module will expect a file named
+`mexico_23_small.webp.imginfo.json` to exist, and will read from it the
+image's dimensions and then modify the relevent `ElementTree.Element` to be
 `<img src="mexico_23_small.webp" width="700" height="933" />`.
 """
 
@@ -11,7 +11,6 @@ relevent `ElementTree.Element` to be
 import functools
 import json
 from pathlib import Path
-import subprocess
 from typing import Optional
 from urllib.parse import urlparse
 from xml.etree import ElementTree as ET
@@ -51,24 +50,13 @@ def resolve_path_to_image(src: str, content_dir: Path, markdown: Path) -> Option
 
 @functools.lru_cache(maxsize=None)
 def image_dimensions(image: Path) -> dict:
-    command = [
-        'identify',
-        '-format', r'{"width": %w, "height": %h}\n',
-         str(image)
-    ]
-    # result = subprocess.run(command, encoding='utf8', capture_output=True, check=True)
-    result = subprocess.run(command, encoding='utf8', capture_output=True)
-    if result.returncode != 0:
-        import sys
-        print('identify stderr: ', result.stderr)
-        raise Exception('"identify" command failed')
-
-    # If `image` is an animated GIF, then the script will print the dimensions of
-    # each frame.  So, allow for that possibility, and use the dimensions of the
-    # first frame, which I've found empirically is the "real size" of the GIF.
-    dimensions = [json.loads(chunk) for chunk in result.stdout.split('\n') if chunk]
-    assert len(dimensions) > 0
-    return dimensions[0]
+    with open(str(image) + '.imginfo.json') as file:
+        # If `image` is an animated GIF, then the file will contain the dimensions of
+        # each frame.  So, allow for that possibility, and use the dimensions of the
+        # first frame, which I've found empirically is the "real size" of the GIF.
+        dimensions = [json.loads(line) for line in file if line]
+        assert len(dimensions) > 0
+        return dimensions[0]
 
 
 def add_attributes(img: ET.Element, content_dir: Path, markdown: Path) -> ET.Element:

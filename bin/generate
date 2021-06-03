@@ -309,6 +309,15 @@ def index_lonely_directories(directory: Path):
             index_lonely_directories(child)
 
 
+def ignore(file_path: Path) -> bool:
+    # Ignore "hidden" files (e.g. vim swap files), README files, and `make`
+    # artifacts.
+    return file_path.name.startswith('.') \
+        or file_path.name.startswith('README') \
+        or file_path.suffix == '.d' \
+        or file_path.name.endswith('.imginfo.json')
+
+
 def generate(root):
     # `posts` is a directory of symbolic links to markdown files.
     # The name of each symbolic link is an ISO-8601 date.
@@ -345,9 +354,7 @@ def generate(root):
 
     for file_path in content.rglob('*'):
         file_path = file_path.resolve()
-        name      = file_path.name
-        if name.startswith('.') or name.startswith('README') or file_path.suffix == '.d':
-            # ignore "hidden" files (e.g. vim swap files), README files, and `make` artifacts.
+        if ignore(file_path):
             continue
         
         relative_path = file_path.relative_to(content)
