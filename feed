@@ -230,54 +230,54 @@ day.</p>
 rest.</p>
 <h2>Debian Packages</h2>
 <p>TL;DR: Do the following.</p>
-<pre><code class="lang-console">$ sudo apt install git
-
-$ git clone https://git.sv.gnu.org/git/guile.git
-
-$ cd guile
-
-$ sudo apt install -y \
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install git</span>
+<span class="hljs-meta">
+$</span><span class="bash"> git <span class="hljs-built_in">clone</span> https://git.sv.gnu.org/git/guile.git</span>
+<span class="hljs-meta">
+$</span><span class="bash"> <span class="hljs-built_in">cd</span> guile</span>
+<span class="hljs-meta">
+$</span><span class="bash"> sudo apt install -y \
         autoconf automake libtool gettext flex \
         autopoint libreadline-dev pkg-config libgmp-dev \
-        libunistring-dev libgc-dev make gperf texinfo
-
-$ ./autogen.sh
-
-$ ./configure
-
-$ make -j 16
-
-$ sudo make install
-
-$ sudo ldconfig
-
-$ guile
+        libunistring-dev libgc-dev make gperf texinfo</span>
+<span class="hljs-meta">
+$</span><span class="bash"> ./autogen.sh</span>
+<span class="hljs-meta">
+$</span><span class="bash"> ./configure</span>
+<span class="hljs-meta">
+$</span><span class="bash"> make -j 16</span>
+<span class="hljs-meta">
+$</span><span class="bash"> sudo make install</span>
+<span class="hljs-meta">
+$</span><span class="bash"> sudo ldconfig</span>
+<span class="hljs-meta">
+$</span><span class="bash"> guile</span>
 </code></pre>
 <p>Now in more detail.</p>
 <p>Here are the dependencies mentioned in the <a href="https://git.savannah.gnu.org/cgit/guile.git/tree/HACKING">HACKING</a> file:</p>
-<pre><code class="lang-console">$ sudo apt install autoconf automake libtool gettext flex
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install autoconf automake libtool gettext flex</span>
 </code></pre>
 <p>Then <code>./autogen.sh</code> wants the following, due to the presence of <code>gettext</code>:</p>
-<pre><code class="lang-console">$ sudo apt install autopoint
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install autopoint</span>
 </code></pre>
 <p>I wouldn't want to use a REPL without readline support, so install that, too:</p>
-<pre><code class="lang-console">$ sudo apt install libreadline-dev
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install libreadline-dev</span>
 </code></pre>
 <p><code>./configure</code> will complain unless all of the following are installed:</p>
-<pre><code class="lang-console">$ sudo apt install pkg-config libgmp-dev libunistring-dev libgc-dev
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install pkg-config libgmp-dev libunistring-dev libgc-dev</span>
 </code></pre>
 <p>Then of course you need <code>make</code>, but also <code>gperf</code> (for some reason) and
 <code>texinfo</code> for documentation:</p>
-<pre><code class="lang-console">$ sudo apt install make gperf texinfo
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt install make gperf texinfo</span>
 </code></pre>
 <h2>Installation</h2>
 <p>After <code>sudo make install</code>, guile will be installed under <code>/usr/local/</code>, but
 will fail to run until you first refresh the loader's knowledge of where
 shared objects are:</p>
-<pre><code class="lang-console">$ sudo ldconfig
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo ldconfig</span>
 </code></pre>
 <p>Finally, guile is ready:</p>
-<pre><code class="lang-console">$ guile
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> guile</span>
 GNU Guile 3.0.6.7-3bce5
 Copyright (C) 1995-2021 Free Software Foundation, Inc.
 
@@ -286,7 +286,7 @@ This program is free software, and you are welcome to redistribute it
 under certain conditions; type `,show c' for details.
 
 Enter `,help' for help.
-scheme@(guile-user)&gt; 
+<span class="hljs-meta">scheme@(guile-user)&gt;</span><span class="bash"> </span>
 </code></pre>
 
 
@@ -580,24 +580,24 @@ else would I be?  Hasta luego...</p>
             <base href="https://www.davidgoffredo.com/language-notes.html" />
         </head>
         <body>
-            <pre><code>(define sum
-  (λ (args ...)
-    (+ args ...)))
+            <pre><code class="hljs">(<span class="hljs-name">define</span> sum
+  (λ (<span class="hljs-name">args</span> ...)
+    (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> args ...)))
 
-(define (sum args ...)
-  (+ args ...))
+(<span class="hljs-name">define</span> (<span class="hljs-name"><span class="hljs-builtin-name">sum</span></span> args ...)
+  (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> args ...))
 
-(define-as (list 1 2 third _ ...) (something "foo"))
+(<span class="hljs-name">define-as</span> (<span class="hljs-name">list</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span> third _ ...) (<span class="hljs-name">something</span> <span class="hljs-string">"foo"</span>))
 
 {key value key2 value2}
 
 [value value2 value3]
 
-(let (foo bar
+(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> (<span class="hljs-name">foo</span> bar
       baz buzz)
   whatever)
 
-(match value
+(<span class="hljs-name">match</span> value
   pattern template
   pattern2 template2)
 </code></pre>
@@ -632,13 +632,13 @@ fonts can move mountains.  Digital mountains, of course.</p>
 </ul>
 <h2>Aims</h2>
 <p>The <em>reason</em> for this exercise is to end up at:</p>
-<pre><code>$ mkdir solveproblem
-$ cd solveproblem
-$ vim somefile.language
-[... write a small amount of non-arcane code ...]
-$ sometool
-$ ./solveproblem
-$ xdg-open beer
+<pre><code class="hljs"><span class="hljs-variable">$</span> mkdir solveproblem
+<span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> solveproblem
+<span class="hljs-variable">$</span> vim somefile.language
+[<span class="hljs-type">...</span> <span class="hljs-type">write</span> <span class="hljs-type">a</span> <span class="hljs-type">small</span> <span class="hljs-type">amount</span> <span class="hljs-type">of</span> <span class="hljs-type">non</span>-<span class="hljs-type">arcane</span> <span class="hljs-type">code</span> <span class="hljs-type">...</span>]
+<span class="hljs-variable">$</span> sometool
+<span class="hljs-variable">$</span> ./solveproblem
+<span class="hljs-variable">$</span> xdg<span class="hljs-literal">-open</span> beer
 </code></pre>
 <p>Maybe you're thinking "Perl."  I'm thinking more of something:</p>
 <ul>
@@ -753,7 +753,7 @@ my head (and nobody else's).</li>
         </head>
         <body>
             <h1>The Thrush Combinator</h1>
-<pre><code class="lang-javascript">const thrush = (value, func, ...funcs) =&gt;
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> thrush = <span class="hljs-function">(<span class="hljs-params">value, func, ...funcs</span>) =&gt;</span>
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
 <p>I was looking up how I've <a href="https://github.com/dgoffredo/llama/blob/master/bin/llama.js">previously</a> used <a href="https://requirejs.org/">requirejs</a> and noticed the
@@ -762,11 +762,11 @@ function definition above.</p>
 a thing.  It has nothing to do with <a href="https://en.wikipedia.org/wiki/Linear_gingival_erythema">HIV</a>.</p>
 <p>The idea is that you have an initial value on which you want to perform a
 sequence of transformations.  For example, in a UNIX shell, you might write</p>
-<pre><code class="lang-console">$ echo foobar | tr i x | sed 's/./\0\n/g' | sort | uniq -c | sort -rn | head -1
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">echo</span> foobar | tr i x | sed <span class="hljs-string">'s/./\0\n/g'</span> | sort | uniq -c | sort -rn | head -1</span>
       2 o
 </code></pre>
 <p>In programming languages with function invocation syntax, you might write</p>
-<pre><code class="lang-javascript">const result = finally_this(and_then_this(then_this(do_this(initial_data))))
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result = finally_this(and_then_this(then_this(do_this(initial_data))))
 </code></pre>
 <p>The order in which those functions are applied reads right-to-left:</p>
 <ol>
@@ -778,25 +778,25 @@ sequence of transformations.  For example, in a UNIX shell, you might write</p>
 <li>and then (5) is the answer.</li>
 </ol>
 <p><code>thrush</code> allows you to rewrite that expression in the following way:</p>
-<pre><code class="lang-javascript">const result =
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result =
     thrush(initial_data, do_this, then_this, and_then_this, finally_this);
 </code></pre>
 <p>That looks more like the shell pipeline.  It also looks like a sequence of
 statements in an imperative programming language, where there is an implicit
 <a href="https://en.wikipedia.org/wiki/Sequence_point">sequence point</a> after each function invocation:</p>
-<pre><code>declare initial_data;
-do_this();
-then_this();
-and_then_this();
-finally_this();
+<pre><code class="hljs">declare initial_data<span class="hljs-comment">;</span>
+do_this()<span class="hljs-comment">;</span>
+then_this()<span class="hljs-comment">;</span>
+and_then_this()<span class="hljs-comment">;</span>
+finally_this()<span class="hljs-comment">;</span>
 </code></pre>
 <p>In programming languages with objects and methods, this is sometimes expressed
 as a chain of method invocations and called a <a href="https://en.wikipedia.org/wiki/Fluent_interface">fluent interface</a>:</p>
-<pre><code class="lang-javascript">const result =
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result =
     initial_data.do_this().then_this().and_then_this().finally_this();
 </code></pre>
 <p>That's often formatted vertically to give an imperative feel:</p>
-<pre><code class="lang-javascript">const result =
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> result =
     initialdata
     .do_this()
     .then_this()
@@ -805,46 +805,46 @@ as a chain of method invocations and called a <a href="https://en.wikipedia.org/
 </code></pre>
 <p>Clojure has a macro version of the thrush combinator, spelled <a href="https://en.wikipedia.org/wiki/Fluent_interface">-&gt;</a>, and
 confusingly called the "threading macro":</p>
-<pre><code class="lang-clojure">(def result
-  (-&gt; initial-data do-this then-this and-then-this finally-this))
+<pre><code class="lang-clojure hljs">(<span class="hljs-keyword">def</span> <span class="hljs-title">result</span>
+  (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> initial-data do-this then-this and-then-this finally-this))
 </code></pre>
 <p>Getting back to the Javascript implementation from before:</p>
-<pre><code class="lang-javascript">const thrush = (value, func, ...funcs) =&gt;
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> thrush = <span class="hljs-function">(<span class="hljs-params">value, func, ...funcs</span>) =&gt;</span>
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
 <p>Isn't it cool how that works?  Maybe it's clearer with less syntax, in
 <a href="https://racket-lang.org/">Racket</a>:</p>
-<pre><code class="lang-scheme">(define (thrush value . funcs)
-  (if (empty? funcs)
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> (<span class="hljs-name">thrush</span> value . funcs)
+  (<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> (<span class="hljs-name">empty?</span> funcs)
     value
-    (apply thrush (cons ((first funcs) value) (rest funcs)))))
+    (<span class="hljs-name"><span class="hljs-builtin-name">apply</span></span> thrush (<span class="hljs-name"><span class="hljs-builtin-name">cons</span></span> ((<span class="hljs-name">first</span> funcs) value) (<span class="hljs-name">rest</span> funcs)))))
 </code></pre>
 <p>Yuck, that didn't help at all.  Maybe pattern matching will help.  How about
 this?</p>
-<pre><code class="lang-scheme">(define thrush
-  (match-lambda*
-    [(list value) value]
-    [(list value func funcs ...) (thrush (func value) funcs ...)]))
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> thrush
+  (<span class="hljs-name">match-lambda*</span>
+    [(<span class="hljs-name"><span class="hljs-builtin-name">list</span></span> value) value]
+    [(<span class="hljs-name"><span class="hljs-builtin-name">list</span></span> value func funcs ...) (<span class="hljs-name">thrush</span> (<span class="hljs-name">func</span> value) funcs ...)]))
 </code></pre>
 <p>Getting better?  Maybe it's clearer as a pattern matching <em>macro</em> instead of as
 a function:</p>
-<pre><code class="lang-scheme">(define-syntax thrush
-  (syntax-rules ()
-    [(thrush value) value]
-    [(thrush value func funcs ...) (thrush (func value) funcs ...)]))
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define-syntax</span></span> thrush
+  (<span class="hljs-name"><span class="hljs-builtin-name">syntax-rules</span></span> ()
+    [(<span class="hljs-name">thrush</span> value) value]
+    [(<span class="hljs-name">thrush</span> value func funcs ...) (<span class="hljs-name">thrush</span> (<span class="hljs-name">func</span> value) funcs ...)]))
 </code></pre>
 <p>They're really very similar, aren't they?</p>
 <p>This makes me wonder what a horrid affair this would be in C++.  Let's try it:</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;typename Value&gt;
-Value&amp;&amp; thrush(Value&amp;&amp; value) {
-    return std::forward&lt;Value&gt;(value);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function">Value&amp;&amp; <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> std::forward&lt;Value&gt;(value);
 }
 
-template &lt;typename Value, typename Func, typename ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(std::forward&lt;Value&gt;(value)),
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value, <span class="hljs-keyword">typename</span> Func, <span class="hljs-keyword">typename</span> ... Funcs&gt;
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(std::forward&lt;Value&gt;(value)),
                   std::forward&lt;Funcs&gt;(funcs)...);
 }
 </code></pre>
@@ -853,48 +853,48 @@ type) is a C++14 feature.  You know, if it weren't for the <code>std::forward</c
 noise, this would be nearly as clean as the Racket code.  Maybe we can omit the
 <code>std::forward</code> calls and it will only matter sometimes.  What do I know?  Let's
 see what that looks like:</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;typename Value&gt;
-Value thrush(Value&amp;&amp; value) {
-    return value;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function">Value <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> value;
 }
 
-template &lt;typename Value, typename Func, typename ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(value), funcs...);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value, <span class="hljs-keyword">typename</span> Func, <span class="hljs-keyword">typename</span> ... Funcs&gt;
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(value), funcs...);
 }
 </code></pre>
 <p>Hot damn!  What about using <code>class</code> instead of <code>typename</code>?</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;class Value&gt;
-Value thrush(Value&amp;&amp; value) {
-    return value;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>&gt;</span>
+<span class="hljs-function">Value <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> value;
 }
 
-template &lt;class Value, class Func, class ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(value), funcs...);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Func</span>, <span class="hljs-keyword">class</span> ... <span class="hljs-title">Funcs</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(value), funcs...);
 }
 </code></pre>
 <p>That's pretty good.  The last thing I'd do is make the first overload <code>auto</code>,
 even though it doesn't save us much.  It makes the two overloads more
 consistent:</p>
-<pre><code class="lang-c++">#include &lt;utility&gt;
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;utility&gt;</span></span>
 
-template &lt;class Value&gt;
-auto thrush(Value&amp;&amp; value) {
-    return value;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> value;
 }
 
-template &lt;class Value, class Func, class ... Funcs&gt;
-auto thrush(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs) {
-    return thrush(func(value), funcs...);
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Func</span>, <span class="hljs-keyword">class</span> ... <span class="hljs-title">Funcs</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">thrush</span><span class="hljs-params">(Value&amp;&amp; value, Func&amp;&amp; func, Funcs&amp;&amp;... funcs)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">thrush</span>(<span class="hljs-built_in">func</span>(value), funcs...);
 }
 </code></pre>
 <p>Not too shabby.  Still can't beat Javascript, though.</p>
-<pre><code class="lang-javascript">const thrush = (value, func, ...funcs) =&gt;
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">const</span> thrush = <span class="hljs-function">(<span class="hljs-params">value, func, ...funcs</span>) =&gt;</span>
     func ? thrush(func(value), ...funcs) : value;
 </code></pre>
 <p>What about in <a href="https://golang.org/">Go</a>?  Forget it.</p>
@@ -1806,11 +1806,11 @@ more general notion of <code>select</code> than Go provides.</p>
 <p>Also, as a library writer in C++, I can't change the language itself.  What
 should the C++ analog of Go's select statement look like?  My favorite idea,
 from <a href="https://github.com/tylertreat/chan#select-statements">this project</a>, is to use a <a href="https://en.cppreference.com/w/cpp/language/switch">switch statement</a>:</p>
-<pre><code class="lang-c++">switch (select(file.read(&amp;buffer), chan1.send(thing), chan2.recv(&amp;message))) {
-    case 0:  // successfully read data from `file`
-    case 1:  // successfully sent `thing` to `chan1`
-    case 2:  // successfully received `message` from `chan2`
-    default: // an error occurred
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(file.<span class="hljs-built_in">read</span>(&amp;buffer), chan1.<span class="hljs-built_in">send</span>(thing), chan2.<span class="hljs-built_in">recv</span>(&amp;message))) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:  <span class="hljs-comment">// successfully read data from `file`</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:  <span class="hljs-comment">// successfully sent `thing` to `chan1`</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:  <span class="hljs-comment">// successfully received `message` from `chan2`</span>
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// an error occurred</span>
 }
 </code></pre>
 <p>For the naughty-minded among you: <em>no</em>, you can't use preprocessor macros to
@@ -1849,19 +1849,19 @@ whatever you might have been doing.  Here's the most recent <code>IoEvent</code>
 gave me to wait on.</li>
 </ul>
 <p>That's it!  Then a sketch of how <code>select</code> works is straightforward:</p>
-<pre><code>def select(events):
-    ioEvents = [event.file() for event in events]
-    while True:
+<pre><code class="hljs"><span class="hljs-function">def <span class="hljs-title">select</span>(<span class="hljs-params">events</span>):
+    ioEvents</span> = [<span class="hljs-keyword">event</span>.file() <span class="hljs-keyword">for</span> <span class="hljs-keyword">event</span> <span class="hljs-keyword">in</span> events]
+    <span class="hljs-keyword">while</span> True:
         poll(ioEvents)
-        for i, (ioEvent, event) in enumerate(zip(ioEvents, events)):
-            if ioEvent.ready:
-                ioEvent = ioEvents[i] = event.fulfill(ioEvent)
-                if ioEvent.fulfilled:
-                    for ioEvent, loser in zip(ioEvents, events):
-                        if loser is not event:
-                            loser.cancel(ioEvent)
-                    return event
-</code></pre>
+        <span class="hljs-keyword">for</span> i, (ioEvent, <span class="hljs-keyword">event</span>) <span class="hljs-function"><span class="hljs-keyword">in</span> <span class="hljs-title">enumerate</span>(<span class="hljs-params">zip(ioEvents, events</span>)):
+            <span class="hljs-keyword">if</span> ioEvent.ready:
+                ioEvent</span> = ioEvents[i] = <span class="hljs-keyword">event</span>.fulfill(ioEvent)
+                <span class="hljs-keyword">if</span> ioEvent.fulfilled:
+                    <span class="hljs-keyword">for</span> ioEvent, <span class="hljs-function">loser <span class="hljs-keyword">in</span> <span class="hljs-title">zip</span>(<span class="hljs-params">ioEvents, events</span>):
+                        <span class="hljs-keyword">if</span> loser <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">event</span>:
+                            loser.<span class="hljs-title">cancel</span>(<span class="hljs-params">ioEvent</span>)
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">event</span>
+</span></code></pre>
 <p>The trick, then, is to express sending to or receiving from a channel as one
 such <em>event</em>.</p>
 <h2>The Original Channel Design</h2>
@@ -1933,13 +1933,13 @@ takes the form of a deadlock.</p>
 channels, <em>chan1</em> and <em>chan2</em>.  The following situation can produce a deadlock
 some minority of the time.</p>
 <p>On <em>thread1</em>:</p>
-<pre><code>switch (select(chan1.send(value), chan2.recv(&amp;destination))) {
-    // ...
+<pre><code class="hljs">switch <span class="hljs-comment">(select(chan1.send(value)</span>, cha<span class="hljs-symbol">n2</span>.recv<span class="hljs-comment">(&amp;destination)</span>)) {
+    <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>On <em>thread2</em>:</p>
-<pre><code>switch (select(chan2.send(value), chan1.recv(&amp;destination))) {
-    // ...
+<pre><code class="hljs">switch <span class="hljs-comment">(select(chan2.send(value)</span>, cha<span class="hljs-symbol">n1</span>.recv<span class="hljs-comment">(&amp;destination)</span>)) {
+    <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>That is, <em>thread1</em> is sending to <em>chan1</em> and receiving from <em>chan2</em>, while
@@ -2047,24 +2047,24 @@ pipe.</p>
 <h3><code>EventContext</code></h3>
 <p>Associated with each call to <code>select</code> will be an instance of the following
 <code>struct</code>:</p>
-<pre><code class="lang-c++">// `SelectorFulfillment` is a means by which an event in one `select`
-// invocation can check or set the fulfillment of an event in a different
-// `select` invocation.
-struct SelectorFulfillment {
-    // Note that, by convention, `&amp;mutex` (the address of the `mutex`) will be
-    // used to determine the locking order among two or more
-    // `SelectorFulfillment::mutex`.
+<pre><code class="lang-c++ hljs"><span class="hljs-comment">// `SelectorFulfillment` is a means by which an event in one `select`</span>
+<span class="hljs-comment">// invocation can check or set the fulfillment of an event in a different</span>
+<span class="hljs-comment">// `select` invocation.</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">SelectorFulfillment</span> {</span>
+    <span class="hljs-comment">// Note that, by convention, `&amp;mutex` (the address of the `mutex`) will be</span>
+    <span class="hljs-comment">// used to determine the locking order among two or more</span>
+    <span class="hljs-comment">// `SelectorFulfillment::mutex`.</span>
     Mutex mutex;
 
-    enum State {
-        FULFILLABLE,   // not fulfilled, and fulfillment is allowed
-        FULFILLED,     // has already been fulfilled
-        UNFULFILLABLE  // not fulfilled, but fulfillment is not allowed
+    <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">State</span> {</span>
+        FULFILLABLE,   <span class="hljs-comment">// not fulfilled, and fulfillment is allowed</span>
+        FULFILLED,     <span class="hljs-comment">// has already been fulfilled</span>
+        UNFULFILLABLE  <span class="hljs-comment">// not fulfilled, but fulfillment is not allowed</span>
     };
 
     State state;
 
-    // key of the fulfilled event; valid only if `state == FULFILLED`
+    <span class="hljs-comment">// key of the fulfilled event; valid only if `state == FULFILLED`</span>
     EventKey fulfilledEventKey;
 };
 </code></pre>
@@ -2072,9 +2072,9 @@ struct SelectorFulfillment {
 where the <code>EventContext</code> contains the <code>EventKey</code> of that event, and a smart
 pointer to the <code>select</code>'s <code>SelectorFulfillment</code>.  <code>EventContext</code> looks like
 this:</p>
-<pre><code class="lang-c++">struct EventContext {
+<pre><code class="lang-c++ hljs"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">EventContext</span> {</span>
     SharedPtr&lt;SelectorFulfillment&gt; fulfillment;
-    // key of the event to which this `EventContext` was originally given
+    <span class="hljs-comment">// key of the event to which this `EventContext` was originally given</span>
     EventKey eventKey;
 };
 </code></pre>
@@ -2091,9 +2091,9 @@ this:</p>
 <ol>
 <li><code>select</code> keeps its <code>SelectorFulfillment::mutex</code> locked at all times <em>except</em>
 when it's blocked by <code>::poll</code>.  Effectively, we're implementing a condition
-variable — but one that plays nice with file IO multiplexing.<pre><code class="lang-c++">fulfillment.mutex.unlock();
-const int rc = ::poll(/*...*/);
-fulfillment.mutex.lock();
+variable — but one that plays nice with file IO multiplexing.<pre><code class="lang-c++ hljs">fulfillment.mutex.<span class="hljs-built_in">unlock</span>();
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> rc = ::<span class="hljs-built_in">poll</span>(<span class="hljs-comment">/*...*/</span>);
+fulfillment.mutex.<span class="hljs-built_in">lock</span>();
 </code></pre>
 </li>
 <li><p>When a channel send/receive event wants to "visit" another thread, it does
@@ -2129,37 +2129,37 @@ section went away.</p>
 design that I encountered while working on this project.</p>
 <p>For example, I want a channel's <code>send</code> and <code>recv</code> member functions to return
 an <em>event</em> object suitable for use as an argument to <code>select</code>:</p>
-<pre><code class="lang-c++">switch (select(chan1.send(something), chan2.recv(&amp;somethingElse))) {
-    case 0: // ...
-    case 1: // ...
-    default: // ...
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(something), chan2.<span class="hljs-built_in">recv</span>(&amp;somethingElse))) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>That's fine, but what if I want to perform a channel operation on its own, e.g.</p>
-<pre><code class="lang-c++">chan1.send(something);
+<pre><code class="lang-c++ hljs">chan1.<span class="hljs-built_in">send</span>(something);
 </code></pre>
 <p>or</p>
-<pre><code class="lang-c++">std::string message;
-chan2.recv(&amp;message);
+<pre><code class="lang-c++ hljs">std::string message;
+chan2.<span class="hljs-built_in">recv</span>(&amp;message);
 </code></pre>
 <p>How do I make sure that such calls actually <em>do</em> something?  One option is to
 have separate member functions instead:</p>
-<pre><code class="lang-c++">chan1.doSend(something)
+<pre><code class="lang-c++ hljs">chan1.<span class="hljs-built_in">doSend</span>(something)
 
 std::string message;
-chan2.doRecv(&amp;message);
+chan2.<span class="hljs-built_in">doRecv</span>(&amp;message);
 </code></pre>
 <p>That looks terrible.</p>
 <p>At least with <code>recv</code> we could overload the member function to have a
 no-argument version that just returns the received value:</p>
-<pre><code class="lang-c++">std::string message = chan2.recv();
+<pre><code class="lang-c++ hljs">std::string message = chan2.<span class="hljs-built_in">recv</span>();
 </code></pre>
 <p>This wouldn't work for <code>send</code>, though.</p>
 <p>The equivalent code using the existing <code>send</code> and <code>recv</code> would be:</p>
-<pre><code class="lang-c++">select(chan1.send(something));
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(something));
 
 std::string message;
-select(chan2.recv(&amp;message));
+<span class="hljs-built_in">select</span>(chan2.<span class="hljs-built_in">recv</span>(&amp;message));
 </code></pre>
 <p>That also looks terrible.</p>
 <p>If only send/receive events could somehow <em>know</em> whether they were part of a
@@ -2167,10 +2167,10 @@ select(chan2.recv(&amp;message));
 destructor is being called and I was never copied into a <code>select</code> call, then
 call <code>select</code> with myself as the argument.</p>
 <p>This way, code like this would still work:</p>
-<pre><code class="lang-c++">select(chan1.send(something));  // Used in `select`; don't block in destructor
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(something));  <span class="hljs-comment">// Used in `select`; don't block in destructor</span>
 </code></pre>
 <p>but so would this:</p>
-<pre><code class="lang-c++">chan1.send(something);  // Not used in `select`; call `select` in destructor
+<pre><code class="lang-c++ hljs">chan1.<span class="hljs-built_in">send</span>(something);  <span class="hljs-comment">// Not used in `select`; call `select` in destructor</span>
 </code></pre>
 <p>For those of you currently thinking "that is a <em>terrible</em> idea," I agree with
 you.  Returning an object whose destructor then performs an operation is <em>not</em>
@@ -2198,27 +2198,27 @@ non-<code>select</code> expression?</li>
 <p>So, the "history-aware destructor" solution is viable.  How do we implement it?</p>
 <p>Let's ignore C++11's move semantics for now, and restrict ourselves to copies.
 The signature of the copy constructor looks like this:</p>
-<pre><code class="lang-c++">Object(const Object&amp; other);
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in">Object</span>(<span class="hljs-keyword">const</span> Object&amp; other);
 </code></pre>
 <p><em><code>const</code></em> <code>Object</code>, so we can't modify the other object.  Then how are we
 supposed to mark it as "don't block in your destructor"?  We'll have to use
 <code>mutable</code>:</p>
-<pre><code class="lang-c++">class Object {
-    mutable bool selectOnDestroy = true;
+<pre><code class="lang-c++ hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Object</span> {</span>
+    <span class="hljs-keyword">mutable</span> <span class="hljs-keyword">bool</span> selectOnDestroy = <span class="hljs-literal">true</span>;
 
-  public:
-    Object(const Object&amp; other)
-    : selectOnDestroy(other.selectOnDestroy) {
-        other.selectOnDestroy = false;
+  <span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">Object</span>(<span class="hljs-keyword">const</span> Object&amp; other)
+    : <span class="hljs-built_in">selectOnDestroy</span>(other.selectOnDestroy) {
+        other.selectOnDestroy = <span class="hljs-literal">false</span>;
     }
 
-    ~Object() {
-        if (selectOnDestroy &amp;&amp; !std::uncaught_exceptions()) {
-            select(*this);
+    ~<span class="hljs-built_in">Object</span>() {
+        <span class="hljs-keyword">if</span> (selectOnDestroy &amp;&amp; !std::<span class="hljs-built_in">uncaught_exceptions</span>()) {
+            <span class="hljs-built_in">select</span>(*<span class="hljs-keyword">this</span>);
         }
     }
 
-    // ...
+    <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 <p>This breaks the idea of what it means to copy something.  Better would be to
@@ -2230,28 +2230,28 @@ hack anyway.</p>
 function, but it's possible that <code>file</code> will never get called if another
 event's <code>file</code> causes the <code>select</code> to be fulfilled.  What's needed is an
 additional member function in the <em>event</em> concept:</p>
-<pre><code class="lang-c++">void touch() noexcept;
+<pre><code class="lang-c++ hljs"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">touch</span><span class="hljs-params">()</span> <span class="hljs-keyword">noexcept</span></span>;
 </code></pre>
 <p><code>touch</code> is guaranteed to be called exactly once on each <em>event</em> before <code>file</code>
 is called on anybody.  This way, each <em>event</em> gets an opportunity to mark
 itself <code>selectOnDestroy = false</code>:</p>
-<pre><code class="lang-c++">void Object::touch() noexcept {
-    selectOnDestroy = false;
+<pre><code class="lang-c++ hljs"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Object::touch</span><span class="hljs-params">()</span> <span class="hljs-keyword">noexcept</span> </span>{
+    selectOnDestroy = <span class="hljs-literal">false</span>;
 }
 </code></pre>
 <p>With these changes, we support both usage styles for <code>send</code> and <code>recv</code>:</p>
-<pre><code class="lang-c++">// block until we can send
-chan1.send(something);
+<pre><code class="lang-c++ hljs"><span class="hljs-comment">// block until we can send</span>
+chan1.<span class="hljs-built_in">send</span>(something);
 
 std::string message;
-// block until we can receive
-chan2.recv(&amp;message);
+<span class="hljs-comment">// block until we can receive</span>
+chan2.<span class="hljs-built_in">recv</span>(&amp;message);
 
-// block until we can either send or receive, but not both
-switch (select(chan1.send(somethingElse), chan2.recv(&amp;message))) {
-    case 0: // ...
-    case 1: // ...
-    default: // ...
+<span class="hljs-comment">// block until we can either send or receive, but not both</span>
+<span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(chan1.<span class="hljs-built_in">send</span>(somethingElse), chan2.<span class="hljs-built_in">recv</span>(&amp;message))) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <h2>Error Handling</h2>
@@ -2262,14 +2262,14 @@ How does a client of <code>select</code> know when an error occurs, and which ki
 occurs.  The trouble with this is that then if a client wants to handle the
 error immediately, they have to indent the entire select/switch construct in a
 <code>try</code> block:</p>
-<pre><code class="lang-c++">try {
-    switch (select(...)) {
-        case 0: // ...
-        case 1: // ...
+<pre><code class="lang-c++ hljs"><span class="hljs-keyword">try</span> {
+    <span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(...)) {
+        <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
     }
 }
-catch (...) {
-    // ...
+<span class="hljs-built_in"><span class="hljs-keyword">catch</span></span> (...) {
+    <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>This wouldn't bother me if it weren't for that fact that one of the strengths
@@ -2283,23 +2283,23 @@ too high a price to pay.</p>
 <p>As an alternative, <code>select</code> can return negative values for errors, and
 associated with each error code there can be a descriptive (though
 non-specific) error message.  For example:</p>
-<pre><code class="lang-c++">switch (const int rc = select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        std::cerr &lt;&lt; "error in select(): " &lt;&lt; errorMessage(rc) &lt;&lt; "\n";
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> rc = <span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        std::cerr &lt;&lt; <span class="hljs-string">"error in select(): "</span> &lt;&lt; <span class="hljs-built_in">errorMessage</span>(rc) &lt;&lt; <span class="hljs-string">"\n"</span>;
 }
 </code></pre>
 <p>That looks okay.  But what if the client <em>wants</em> an exception to be thrown?
 For that, we can replace the <code>errorMessage(int)</code> function with a
 <code>SelectError(int)</code> constructor:</p>
-<pre><code class="lang-c++">switch (const int rc = select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        throw SelectError(rc);
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> rc = <span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">SelectError</span>(rc);
 }
 </code></pre>
 <p>This way, the extra code needed to use exceptions is just one statement.</p>
@@ -2320,12 +2320,12 @@ object.  When an error occurs within a call to <code>select</code>, an exception
 thrown, but then rather than letting the exception escape, <code>select</code> instead
 catches it and copies it to thread-local storage.  This way, clients of
 <code>select</code> can do the following:</p>
-<pre><code class="lang-c++">switch (select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        throw lastError();
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (<span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">lastError</span>();
 }
 </code></pre>
 <p>Maybe you don't like the idea of using thread-local storage.  It feels like a
@@ -2334,12 +2334,12 @@ global variable.  It feels like a hack.  It feels dirty.</p>
 <p>There's one more alternative that I considered.  Instead of returning
 an integer, what if <code>select</code> returned some object <em>implicitly convertible</em> to
 an integer, but that also contained error information?</p>
-<pre><code class="lang-c++">switch (Selection rc = select(...)) {
-    case 0: // ...
-    case 1: // ...
-    case 2: // ...
-    default:
-        throw rc.exception();
+<pre><code class="lang-c++ hljs"><span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> (Selection rc = <span class="hljs-built_in">select</span>(...)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> rc.<span class="hljs-built_in">exception</span>();
 }
 </code></pre>
 <p>Now there's no need for thread-local storage, because the exception object that
@@ -2583,20 +2583,20 @@ and <a href="https://linux.die.net/man/1/ssh-agent">ssh-agent</a>.  Also, appare
 <a href="https://en.wikipedia.org/wiki/Dropbear_(software)">dropbear</a> exists and is an alternative to <a href="https://linux.die.net/man/8/sshd">sshd</a>.</p>
 <p>The result is that I can now poke around inside my old phone from my laptop.
 For example:</p>
-<pre><code>david@LAPTOP-DTKG66RE:~
+<pre><code class="hljs">david@LAPTOP-DTKG66RE:~
 $ ssh -Y david@192.168.1.4 -p 2022
 Warning: No xauth data; using fake authentication data for X11 forwarding.
 david@localhost:~$ ps -ef | head
 UID        PID  PPID  C STIME TTY          TIME CMD
-david     6995 10263  0 Jun12 ?        00:00:00 dropbear -E -p 2022
-david     6996  6995  0 Jun12 pts/0    00:00:00 -bash
-10133     7136   424  0 Jun12 ?        00:00:19 com.google.android.inputmethod.latin
-10082     9923   424  0 Jun11 ?        00:00:00 com.vzw.apnservice
-10004     9970   424  0 Jun11 ?        00:00:00 com.android.providers.calendar
-10006     9985   424  0 Jun11 ?        00:00:03 android.process.acore
-10055    10005   424  0 Jun11 ?        00:02:11 com.google.android.gms
-10055    10018   424  0 Jun11 ?        00:00:17 com.google.process.gapps
-10085    10068   424  0 Jun11 ?        00:00:05 com.telecomsys.directedsms.android.SCG
+david    <span class="hljs-number"> 6995 </span>10263 <span class="hljs-number"> 0 </span>Jun12 ?        00:00:00 dropbear -E -p 2022
+david    <span class="hljs-number"> 6996 </span><span class="hljs-number"> 6995 </span><span class="hljs-number"> 0 </span>Jun12 pts/0    00:00:00 -bash
+10133    <span class="hljs-number"> 7136 </span> <span class="hljs-number"> 424 </span><span class="hljs-number"> 0 </span>Jun12 ?        00:00:19 com.google.android.inputmethod.latin
+10082    <span class="hljs-number"> 9923 </span> <span class="hljs-number"> 424 </span><span class="hljs-number"> 0 </span>Jun11 ?        00:00:00 com.vzw.apnservice
+10004    <span class="hljs-number"> 9970 </span> <span class="hljs-number"> 424 </span><span class="hljs-number"> 0 </span>Jun11 ?        00:00:00 com.android.providers.calendar
+10006    <span class="hljs-number"> 9985 </span> <span class="hljs-number"> 424 </span><span class="hljs-number"> 0 </span>Jun11 ?        00:00:03 android.process.acore
+10055   <span class="hljs-number"> 10005 </span> <span class="hljs-number"> 424 </span><span class="hljs-number"> 0 </span>Jun11 ?        00:02:11 com.google.android.gms
+10055   <span class="hljs-number"> 10018 </span> <span class="hljs-number"> 424 </span><span class="hljs-number"> 0 </span>Jun11 ?        00:00:17 com.google.process.gapps
+10085   <span class="hljs-number"> 10068 </span> <span class="hljs-number"> 424 </span><span class="hljs-number"> 0 </span>Jun11 ?        00:00:05 com.telecomsys.directedsms.android.SCG
 david@localhost:~$
 </code></pre>
 <p>Alright!  Now all I needed to do is:</p>
@@ -2709,36 +2709,36 @@ server, chewing up CPU cycles looking for possible signals in
 <h2>Generating C++ Classes</h2>
 <p>One day I'll write a <a href="https://github.com/bloomberg/bde/blob/master/groups/bdl/bdlat/doc/bdlat.txt">bdlat</a>-compatible C++ class
 <a href="https://github.com/dgoffredo/bat-codegen">generator</a>. It will allow you to write things like <code>basic.bdlat</code>:</p>
-<pre><code>(package basic
+<pre><code class="hljs">(<span class="hljs-name">package</span> basic
 
-  (import core)
+  (<span class="hljs-name"><span class="hljs-builtin-name">import</span></span> core)
 
-  (type Value
-    "a generic value in a restricted type system"
-    (choice
-      ("integer"  core/integer)
-      ("decimal"  core/decimal)
-      ("string"   core/string)
-      ("optional" (optional Value))
-      ("array"    (array Value))))
+  (<span class="hljs-name"><span class="hljs-builtin-name">type</span></span> Value
+    <span class="hljs-string">"a generic value in a restricted type system"</span>
+    (<span class="hljs-name">choice</span>
+      (<span class="hljs-string">"integer"</span>  core/integer)
+      (<span class="hljs-string">"decimal"</span>  core/decimal)
+      (<span class="hljs-string">"string"</span>   core/string)
+      (<span class="hljs-string">"optional"</span> (<span class="hljs-name">optional</span> Value))
+      (<span class="hljs-string">"array"</span>    (<span class="hljs-name">array</span> Value))))
 </code></pre>
 <p>and then do something like</p>
-<pre><code>$ bat-codegen --language c++ --toplevel Lakos --component types basic.bdlat
+<pre><code class="hljs"><span class="hljs-comment">$</span> <span class="hljs-comment">bat</span><span class="hljs-literal">-</span><span class="hljs-comment">codegen</span> --<span class="hljs-comment">language</span> <span class="hljs-comment">c</span>++ --<span class="hljs-comment">toplevel</span> <span class="hljs-comment">Lakos</span> --<span class="hljs-comment">component</span> <span class="hljs-comment">types</span> <span class="hljs-comment">basic</span><span class="hljs-string">.</span><span class="hljs-comment">bdlat</span>
 </code></pre>
 <p>to produce the files <code>basic_types.h</code> and <code>basic_types.cpp</code> containing the C++
 class <code>Lakos::basic::Value</code>.</p>
 <p>Here's a first shot at what the definition of <code>Lakos::basic::Value</code> might look
 like:</p>
-<pre><code>class Value {
-    bdlb::Variant&lt;int64_t,
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span> {</span>
+    bdlb::Variant&lt;<span class="hljs-keyword">int64_t</span>,
                   bdldfp::Decimal64,
                   bsl::string,
                   bdlb::NullableValue&lt;Value&gt;,
                   bsl::vector&lt;Value&gt; &gt; 
         d_data;
 
-  public:
-      // ...
+  <span class="hljs-keyword">public</span>:
+      <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 <p>A real implementation would need to account for choice elements having the same
@@ -2750,16 +2750,16 @@ indirection is needed. Suppose the class template <code>Allocated&lt;T&gt;</code
 wrapper around a heap-allocated <code>T</code> referred to by a <code>T*</code>, but with value
 semantics rather than pointer semantics (i.e. copying the <code>Allocated&lt;T&gt;</code>
 copies the referred to <code>T</code> instance). Then <code>Value</code> can be defined as:</p>
-<pre><code>class Value {
-    bdlb::Variant&lt;int64_t,
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Value</span> {</span>
+    bdlb::Variant&lt;<span class="hljs-keyword">int64_t</span>,
                   bdldfp::Decimal64,
                   bsl::string,
                   Allocated&lt;bdlb::NullableValue&lt;Value&gt; &gt;,
                   Allocated&lt;bsl::vector&lt;Value&gt; &gt; &gt;
         d_data;
 
-  public:
-    // ...
+  <span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 <p>That would work, because <code>Allocated&lt;T&gt;</code>'s size is independent of <code>T</code>.</p>
@@ -2948,9 +2948,9 @@ number of edges.</p>
 <p>Playing with a <a href="https://github.com/dgoffredo/llama">pet project</a>, I noticed a relationship between
 <a href="https://en.wikipedia.org/wiki/S-expression">s-expressions</a> and <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>.</p>
 <p>The following JSON is also valid <a href="https://github.com/dgoffredo/llama">Llama</a>:</p>
-<pre><code>{
-    "hello": null, 
-    "isn't": ["it", 2, "conveninent?"]
+<pre><code class="hljs">{
+    <span class="hljs-attr">"hello"</span>: <span class="hljs-literal">null</span>, 
+    <span class="hljs-attr">"isn't"</span>: [<span class="hljs-string">"it"</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"conveninent?"</span>]
 }
 </code></pre>
 <p>Since</p>
@@ -2960,70 +2960,70 @@ number of edges.</p>
 <li>the colon (<code>:</code>) and <code>null</code> are valid symbol names,</li>
 </ul>
 <p>the above is the same as:</p>
-<pre><code>("hello" ': 'null "isn't" ': ("it" 2 "convenient?"))
+<pre><code class="hljs">(<span class="hljs-string">"hello"</span> <span class="hljs-symbol">':</span> <span class="hljs-symbol">'null</span> <span class="hljs-string">"isn't"</span> <span class="hljs-symbol">':</span> (<span class="hljs-string">"it"</span> <span class="hljs-number">2</span> <span class="hljs-string">"convenient?"</span>))
 </code></pre>
 <p>Does that mean we can represent JSON text within Llama without having to escape
 our quotes?</p>
-<pre><code>(Document ((version 1.1) (xmlns "http://mycompany.com"))
-  (Widget ((name Fred))
-    (_.content
-      (json {
-          "columns": ["Foo", "Bar", "Baz"],
-          "rows": [
-              [1, 2, 3],
+<pre><code class="hljs">(<span class="hljs-name">Document</span> ((<span class="hljs-name">version</span> <span class="hljs-number">1.1</span>) (<span class="hljs-name">xmlns</span> <span class="hljs-string">"http://mycompany.com"</span>))
+  (<span class="hljs-name">Widget</span> ((<span class="hljs-name"><span class="hljs-builtin-name">name</span></span> Fred))
+    (<span class="hljs-name">_.content</span>
+      (<span class="hljs-name">json</span> {
+          <span class="hljs-string">"columns"</span>: [<span class="hljs-string">"Foo"</span>, <span class="hljs-string">"Bar"</span>, <span class="hljs-string">"Baz"</span>],
+          <span class="hljs-string">"rows"</span>: [
+              [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
               [null, null, null]
           ]
       }))))
 </code></pre>
 <p>Ideally that would be the same as:</p>
-<pre><code>(Document ((version 1.1) (xmlns "http://mycompany.com"))
+<pre><code class="hljs">(Document ((version <span class="hljs-number">1.1</span>) (xmlns <span class="hljs-string">"http://mycompany.com"</span>))
   (Widget ((name Fred))
     (_.content
-      "{
-          \"columns\": [\"Foo\", \"Bar\", \"Baz\"],
-          \"rows\": [
+      <span class="hljs-string">"{
+          <span class="hljs-subst">\"</span>columns<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>Foo<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Bar<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Baz<span class="hljs-subst">\"</span>],
+          <span class="hljs-subst">\"</span>rows<span class="hljs-subst">\"</span>: [
               [1, 2, 3],
               [null, null, null]
           ]
-      }")))
+      }"</span>)))
 </code></pre>
 <p>Values could even be substituted in:</p>
-<pre><code>(let ([names ["John" "Paul" "George" "Ringo"]])
-  (json {
-      "Beatles": names,
-      "musicians": names,
-      "Brits": names
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([names [<span class="hljs-string">"John"</span> <span class="hljs-string">"Paul"</span> <span class="hljs-string">"George"</span> <span class="hljs-string">"Ringo"</span>]])
+  (<span class="hljs-name">json</span> {
+      <span class="hljs-string">"Beatles"</span>: names,
+      <span class="hljs-string">"musicians"</span>: names,
+      <span class="hljs-string">"Brits"</span>: names
   }))
 </code></pre>
 <p>yielding:</p>
-<pre><code>"{
-     \"Beatles\": [\"John\", \"Paul\", \"George\", \"Ringo\"],
-     \"musicians\": [\"John\", \"Paul\", \"George\", \"Ringo\"],
-     \"Brits\": [\"John\", \"Paul\", \"George\", \"Ringo\"]
-}"
+<pre><code class="hljs"><span class="hljs-string">"{
+     <span class="hljs-subst">\"</span>Beatles<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>John<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Paul<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>George<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Ringo<span class="hljs-subst">\"</span>],
+     <span class="hljs-subst">\"</span>musicians<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>John<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Paul<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>George<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Ringo<span class="hljs-subst">\"</span>],
+     <span class="hljs-subst">\"</span>Brits<span class="hljs-subst">\"</span>: [<span class="hljs-subst">\"</span>John<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Paul<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>George<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>Ringo<span class="hljs-subst">\"</span>]
+}"</span>
 </code></pre>
 <p>Perhaps even <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names">computed property names</a>:</p>
-<pre><code>(let ([key "Willy Wonka"])
-  (json {[key]: "value"}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([key <span class="hljs-string">"Willy Wonka"</span>])
+  (<span class="hljs-name">json</span> {[key]: <span class="hljs-string">"value"</span>}))
 </code></pre>
 <p>It's a happy coincidence that the syntax for computed property names looks like
 a Llama list. The above expands to:</p>
-<pre><code>(json (("Willy Wonka") ': "value"))
+<pre><code class="hljs">(<span class="hljs-name">json</span> ((<span class="hljs-string">"Willy Wonka"</span>) <span class="hljs-symbol">':</span> <span class="hljs-string">"value"</span>))
 </code></pre>
 <p>It's not hard to imagine that the <code>json</code> form might have a special case for
 lists in property name position -- just pretend the (singular) contents of
 the list were there instead.</p>
 <p>The one thing that bothers me is Javascript-style unquoted property names:</p>
-<pre><code>{
-    "quoted": "value",
-    unquoted: "value"
+<pre><code class="hljs">{
+    <span class="hljs-string">"quoted"</span>: <span class="hljs-string">"value"</span>,
+    unquoted: <span class="hljs-string">"value"</span>
 }
 </code></pre>
 <p>In Javascript (but notably <em>not</em> in JSON), that's the same as if the second
 property name were in quotes:</p>
-<pre><code>{
-    "quoted": "value",
-    "unquoted": "value"
+<pre><code class="hljs">{
+    <span class="hljs-attr">"quoted"</span>: <span class="hljs-string">"value"</span>,
+    <span class="hljs-attr">"unquoted"</span>: <span class="hljs-string">"value"</span>
 }
 </code></pre>
 <p>In particular, in Javascript, even if there's a variable named <code>unquoted</code>, that
@@ -3041,8 +3041,8 @@ propose a definition for the <code>json</code> form.</p>
 <h2>It's a Macro</h2>
 <p>Well, there you have it. It has to be a macro, not a regular procedure. Here's
 why:</p>
-<pre><code>(let ([: "colon lol"])
-  (json {"foo": "bar"}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([: <span class="hljs-string">"colon lol"</span>])
+  (<span class="hljs-name">json</span> {<span class="hljs-string">"foo"</span>: <span class="hljs-string">"bar"</span>}))
 </code></pre>
 <p>As perverse as that might seem, it's perfectly valid to bind the symbol named
 <code>:</code> to some value. If <code>json</code> were a normal procedure, its arguments would be
@@ -3057,27 +3057,27 @@ the symbol <code>null</code> might be bound to some value during evaluation. I t
 therefore, it's best to force <code>null</code> always to mean <code>null</code> within a <code>json</code>
 form. However, it's reasonable to accept it as a valid value after
 evaluation as well, so that this:</p>
-<pre><code>(let ([nada null])
-  (json {value: nada}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([nada null])
+  (<span class="hljs-name">json</span> {value: nada}))
 </code></pre>
 <p>yields</p>
-<pre><code>"{\"value\": null}"
+<pre><code class="hljs"><span class="hljs-string">"{<span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>: null}"</span>
 </code></pre>
 <p>As an aside, note that the appearance of <code>null</code> in the <code>let</code> binding, above,
 would need to be <code>'null</code> (quoted) if <code>null</code> were bound to a value above. That
 is, while the expression above is fine, the following:</p>
-<pre><code>(let ([null "oops!"]
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([null <span class="hljs-string">"oops!"</span>]
       [nada null])
-  (json {value: nada}))
+  (<span class="hljs-name">json</span> {value: nada}))
 </code></pre>
 <p>would yield a different answer; namely,</p>
-<pre><code>"{\"value\": \"oops!\"}"
+<pre><code class="hljs"><span class="hljs-string">"{<span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>: <span class="hljs-subst">\"</span>oops!<span class="hljs-subst">\"</span>}"</span>
 </code></pre>
 <p>In order to refer to the literal <code>null</code>, it has to be prefixed by the quoting
 character:</p>
-<pre><code>(let ([null "oops!"]
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([null <span class="hljs-string">"oops!"</span>]
       [nada 'null])
-  (json {value: nada}))
+  (<span class="hljs-name">json</span> {value: nada}))
 </code></pre>
 <p>so that once again the result is <code>"{\"value\": null}"</code>.</p>
 <p>So, <code>null</code> will be treated literally without evaluation when appearing in a
@@ -3086,7 +3086,7 @@ character:</p>
 <p>Trickier even than encountering the colon (<code>:</code>) symbol are the situations we
 get into supporting <code>unquoted:</code> property names. Is the following a JSON
 object, or JSON array having two elements?</p>
-<pre><code>(foo: "bar")
+<pre><code class="hljs">(<span class="hljs-name">foo:</span> <span class="hljs-string">"bar"</span>)
 </code></pre>
 <p>Well, we have to decide. Fortunately, JSON does not have a concept of
 "symbols" <a href="https://github.com/edn-format/edn">like</a> most <a href="https://en.wikipedia.org/wiki/S-expression">s-expressions</a> do, and so we can
@@ -3095,8 +3095,8 @@ forbid them outright in the final output of the <code>json</code> form (except f
 <p>This means that the example above, <code>(foo: "bar")</code> is a JSON object with one
 property named <code>"foo"</code> having the value <code>"bar"</code>.</p>
 <p>Or is it? What if <code>foo:</code> were a name bound to some other value?</p>
-<pre><code>(let ([foo: "gotcha"])
-  (json (foo: "bar")))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([foo: <span class="hljs-string">"gotcha"</span>])
+  (<span class="hljs-name">json</span> (<span class="hljs-name">foo:</span> <span class="hljs-string">"bar"</span>)))
 </code></pre>
 <p>Now we might want this to expand to <code>(json ("gotcha" "bar"))</code>, and that looks
 at lot more like a JSON array having two elements, i.e. <code>["gotcha", "bar"]</code>.</p>
@@ -3111,8 +3111,8 @@ Javascript without also having the unquoted property names.</p>
 <p>One idea that helps is to parse symbols-ending-in-colon as unquoted property
 names, <em>during macro expansion</em>, before any potential value substitution. This
 means that</p>
-<pre><code>(let ([tricky: "look out!"])
-  (json {tricky: "tricks"}))
+<pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([tricky: <span class="hljs-string">"look out!"</span>])
+  (<span class="hljs-name">json</span> {tricky: <span class="hljs-string">"tricks"</span>}))
 </code></pre>
 <p>yields <code>"{\"tricky\": \"tricks\"}"</code> instead of <code>"[\"look out!\" \"tricks\"]"</code>.
 That settles that ambiguity, but still we have a problem if the object or array
@@ -3128,15 +3128,15 @@ must match it up with the corresponding <code>)</code>, <code>}</code>, or <code
 datum is represented in the implementation as a Javascript object whose sole
 property name tells you the type and the value at that propery is the value,
 e.g.</p>
-<pre><code>const listOfNumbers = {list: [{number: "1"}, {number: "2"}, {number: "3"}]},
-      aNumber       = {number: "13"},
-      aString       = {string: "hello"};
+<pre><code class="hljs"><span class="hljs-keyword">const</span> listOfNumbers = {list: [{<span class="hljs-built_in">number</span>: <span class="hljs-string">"1"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"2"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"3"</span>}]},
+      aNumber       = {<span class="hljs-built_in">number</span>: <span class="hljs-string">"13"</span>},
+      aString       = {<span class="hljs-built_in">string</span>: <span class="hljs-string">"hello"</span>}<span class="hljs-comment">;</span>
 </code></pre>
 <p>The datum <code>listOfNumbers</code> could have been parsed from any of <code>(1 2 3)</code>,
 <code>[1 2 3]</code>, or <code>{1 2 3}</code>, but the parser has jettisoned the distinction.</p>
 <p>What if a list datum had an additional property, "suffix"?</p>
-<pre><code>const listOfNumbers = {list: [{number: "1"}, {number: "2"}, {number: "3"}],
-                       suffix: "]"};
+<pre><code class="hljs"><span class="hljs-keyword">const</span> listOfNumbers = {list: [{<span class="hljs-built_in">number</span>: <span class="hljs-string">"1"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"2"</span>}, {<span class="hljs-built_in">number</span>: <span class="hljs-string">"3"</span>}],
+                       suffix: <span class="hljs-string">"]"</span>}<span class="hljs-comment">;</span>
 </code></pre>
 <p>This way, we would know that it was <code>[1 2 3]</code> to begin with.</p>
 <p>Doing this would solve the "empty object or array?" problem, at the cost of
@@ -3190,31 +3190,31 @@ that <code>null</code> means <code>null</code> regardless of whether the symbol 
 </ul>
 <p>So, the job of the helper procedure is to convert, for example, the following
 Llama (note the lack of colons):</p>
-<pre><code>[1, {"foo" "hi" "bar" null}]
+<pre><code class="hljs">[<span class="hljs-number">1</span>, {<span class="hljs-string">"foo"</span> <span class="hljs-string">"hi"</span> <span class="hljs-string">"bar"</span> null}]
 </code></pre>
 <p>whose AST is the following Javascript object:</p>
-<pre><code>{
-    suffix: ']',
-    list: [
-        {number: '1'},
+<pre><code class="hljs">{
+    suffix: <span class="hljs-string">']'</span>,
+    lis<span class="hljs-variable">t:</span> [
+        {<span class="hljs-keyword">number</span>: <span class="hljs-string">'1'</span>},
         {
-            suffix: '}',
-            list: [
-                {string: 'foo'},
-                {string: 'hi'},
-                {string: 'bar'},
-                {symbol: 'null'}
+            suffix: <span class="hljs-string">'}'</span>,
+            lis<span class="hljs-variable">t:</span> [
+                {strin<span class="hljs-variable">g:</span> <span class="hljs-string">'foo'</span>},
+                {strin<span class="hljs-variable">g:</span> <span class="hljs-string">'hi'</span>},
+                {strin<span class="hljs-variable">g:</span> <span class="hljs-string">'bar'</span>},
+                {symbo<span class="hljs-variable">l:</span> <span class="hljs-string">'null'</span>}
             ]
         }
     ]
 }
 </code></pre>
 <p>into the following Javascript object:</p>
-<pre><code>[
-    {[numberProperty]: '1'},
+<pre><code class="hljs">[
+    {[<span class="hljs-name">numberProperty</span>]: <span class="hljs-symbol">'1</span>'},
     {
-        foo: 'hi',
-        'bar': null
+        foo: <span class="hljs-symbol">'hi</span>',
+        <span class="hljs-symbol">'bar</span><span class="hljs-symbol">':</span> null
     }
 ]
 </code></pre>
@@ -3229,10 +3229,10 @@ recursion helped here).</p>
 <p>All that remains to write is the <code>json</code> macro itself, which will prepare its
 argument for the helper procedure and then expand into an invocation of the
 helper procedure with the modified argument, i.e.</p>
-<pre><code>(json argument)
+<pre><code class="hljs">(<span class="hljs-name">json</span> argument)
 </code></pre>
 <p>becomes</p>
-<pre><code>((lambda ...) modified-argument)
+<pre><code class="hljs">((<span class="hljs-name"><span class="hljs-builtin-name">lambda</span></span> <span class="hljs-name"><span class="hljs-builtin-name">...</span></span>) modified-argument)
 </code></pre>
 <p>so that then the evaluator will evaluate <code>modified-argument</code> before applying it
 to the helper procedure.</p>
@@ -3245,52 +3245,52 @@ its work before calling the <a href="https://github.com/dgoffredo/llama/commit/f
 <p>With that, we're done! JSON embedded within a lisp, using macros.</p>
 <h2>Example</h2>
 <p>Input (Llama):</p>
-<pre><code>(pml ((xmlns http://www.proprietary.com/ui)
-      (xmlns:pml http://www.proprietary.com/markup))
-  (Table ((pml:name tickets))
-    (_.dataSource
-      (pml:json (json
-        (let ([(row ticket status owner desc)
+<pre><code class="hljs">(<span class="hljs-name">pml</span> ((<span class="hljs-name">xmlns</span> http://www.proprietary.com/ui)
+      (<span class="hljs-name">xmlns:pml</span> http://www.proprietary.com/markup))
+  (<span class="hljs-name">Table</span> ((<span class="hljs-name">pml:name</span> tickets))
+    (<span class="hljs-name">_.dataSource</span>
+      (<span class="hljs-name">pml:json</span> (<span class="hljs-name">json</span>
+        (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([(<span class="hljs-name">row</span> ticket status owner desc)
                {ticket: ticket, status: status, owner: owner, desc: desc}])
         {
-            columnTitles: ["Ticket", "Status", "Owner", "Description"],
+            columnTitles: [<span class="hljs-string">"Ticket"</span>, <span class="hljs-string">"Status"</span>, <span class="hljs-string">"Owner"</span>, <span class="hljs-string">"Description"</span>],
             rows: [
-                (row 11333 "open"   "Bob"   "The darn thing doesn't work")
-                (row 11334 "closed" "Bob"   "Could you do this for me?")
-                (row 11332 "open"   "Alice" "URGENT: label is wrong color")
+                (<span class="hljs-name">row</span> <span class="hljs-number">11333</span> <span class="hljs-string">"open"</span>   <span class="hljs-string">"Bob"</span>   <span class="hljs-string">"The darn thing doesn't work"</span>)
+                (<span class="hljs-name">row</span> <span class="hljs-number">11334</span> <span class="hljs-string">"closed"</span> <span class="hljs-string">"Bob"</span>   <span class="hljs-string">"Could you do this for me?"</span>)
+                (<span class="hljs-name">row</span> <span class="hljs-number">11332</span> <span class="hljs-string">"open"</span>   <span class="hljs-string">"Alice"</span> <span class="hljs-string">"URGENT: label is wrong color"</span>)
             ]
         }))))))
 </code></pre>
 <p>Output (XML, after additional formatting):</p>
-<pre><code>&lt;pml xmlns="http://www.proprietary.com/ui"
-     xmlns:pml="http://www.proprietary.com/markup"&gt;
-  &lt;Table pml:name="tickets"&gt;
-    &lt;_.dataSource&gt;
-      &lt;pml:json&gt;{
-          "columnTitles": ["Ticket", "Status", "Owner", "Description"],
-          "rows": [
+<pre><code class="hljs">&lt;pml xmlns=<span class="hljs-string">"http://www.proprietary.com/ui"</span>
+     xmlns:pml=<span class="hljs-string">"http://www.proprietary.com/markup"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">pml:name</span>=<span class="hljs-string">"tickets"</span>&gt;</span>
+    </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">_.dataSource</span>&gt;</span>
+      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">pml:json</span>&gt;</span></span><span class="xquery">{
+          <span class="hljs-string">"columnTitles"</span>: [<span class="hljs-string">"Ticket"</span>, <span class="hljs-string">"Status"</span>, <span class="hljs-string">"Owner"</span>, <span class="hljs-string">"Description"</span>],
+          <span class="hljs-string">"rows"</span>: [
               {
-                  "ticket": 11333,
-                  "status": "open",
-                  "owner":  "Bob",
-                  "desc":   "The darn thing doesn't work"
-              },
-              {
-                  "ticket": 11334,
-                  "status": "closed",
-                  "owner":"Bob",
-                  "desc": "Could you do this for me?"
-              },
-              {
-                  "ticket": 11332,
-                  "status": "open",
-                  "owner":"Alice",
-                  "desc": "URGENT: label is wrong color"
-              }
+                  <span class="hljs-string">"ticket"</span>: <span class="hljs-number">11333</span>,
+                  <span class="hljs-string">"status"</span>: <span class="hljs-string">"open"</span>,
+                  <span class="hljs-string">"owner"</span>:  <span class="hljs-string">"Bob"</span>,
+                  <span class="hljs-string">"desc"</span>:   <span class="hljs-string">"The darn thing doesn't work"</span>
+              }</span><span class="xml">,
+              </span><span class="xquery">{
+                  <span class="hljs-string">"ticket"</span>: <span class="hljs-number">11334</span>,
+                  <span class="hljs-string">"status"</span>: <span class="hljs-string">"closed"</span>,
+                  <span class="hljs-string">"owner"</span>:<span class="hljs-string">"Bob"</span>,
+                  <span class="hljs-string">"desc"</span>: <span class="hljs-string">"Could you do this for me?"</span>
+              }</span><span class="xml">,
+              </span><span class="xquery">{
+                  <span class="hljs-string">"ticket"</span>: <span class="hljs-number">11332</span>,
+                  <span class="hljs-string">"status"</span>: <span class="hljs-string">"open"</span>,
+                  <span class="hljs-string">"owner"</span>:<span class="hljs-string">"Alice"</span>,
+                  <span class="hljs-string">"desc"</span>: <span class="hljs-string">"URGENT: label is wrong color"</span>
+              }</span><span class="xml">
           ]
-      }&lt;/pml:json&gt;
-    &lt;/_.dataSource&gt;
-  &lt;/Table&gt;
+      }<span class="hljs-tag">&lt;/<span class="hljs-name">pml:json</span>&gt;</span></span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">_.dataSource</span>&gt;</span></span><span class="xml">
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Table</span>&gt;</span></span>
 &lt;/pml&gt;
 </code></pre>
 <p>You can try it out by cloning <a href="https://github.com/dgoffredo/llama">Llama</a> onto your computer and
@@ -3308,45 +3308,45 @@ opening the <a href="https://github.com/dgoffredo/llama#using-the-playground">pl
 in such a way that the caller provides the object into which the query results
 are written, but without having to specify an object factory.  It looked like
 this:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = 
-        std::function&lt;void(const std::function&lt;void(Results&amp;)&gt;&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = 
+        std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(<span class="hljs-keyword">const</span> std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;&amp;)&gt;;
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback)</span></span>;
 };
 </code></pre>
 <p>For brevity, let's define a couple of macros<a id="macros" />:</p>
-<pre><code>#define FN(...) std::function&lt;void(__VA_ARGS__)&gt;
-#define CB(...) const FN(__VA_ARGS__)&amp;
+<pre><code class="hljs">#define FN(<span class="hljs-params">...</span>) std<span class="hljs-type">::function</span>&lt;<span class="hljs-literal">void</span>(__VA_ARGS__)&gt;
+#define CB(<span class="hljs-params">...</span>) const FN(__VA_ARGS__)&amp;
 </code></pre>
 <p>So we have:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;)          callback);
 };
-</code></pre>
+</span></span></code></pre>
 <p>What if, in addition to producing result sets, this database API also has a
 concept of output parameters?  These are like query parameters, except that
 their values are overwritten by the query rather than used in it.</p>
 <p>We could define an overload of <code>DatabaseAccessor::asyncQuery</code> that takes a
 callback with an amended signature:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;)          callback);
 
-    template &lt;typename Results, typename OutputParameters&gt;
-    void asyncQuery(const std::string_view&amp;            query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> OutputParameters&gt;
+    <span class="hljs-keyword">void</span> asyncQuery(<span class="hljs-keyword">const</span> std::string_view&amp;            query,
                     CB(CB(Results&amp;, OutputParameters&amp;) callback);
 };
-</code></pre>
+</span></span></code></pre>
 <p>If the user wants output parameters, then he provides a callback that fits
 the second signature, while if he doesn't want output parameters, he specifies
 a callback that fits the first signature.</p>
@@ -3372,26 +3372,26 @@ second, "as if" the user had specified an <code>EmptySequence</code> for
 <p>How do you write this?  I find it very tricky to think about.</p>
 <h2>Writing the Forwarding Implementation</h2>
 <p>Let's look at the code again:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;)          callback);
 
-    template &lt;typename Results, typename OutputParameters&gt;
-    void asyncQuery(const std::string_view&amp;            query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> OutputParameters&gt;
+    <span class="hljs-keyword">void</span> asyncQuery(<span class="hljs-keyword">const</span> std::string_view&amp;            query,
                     CB(CB(Results&amp;, OutputParameters&amp;) callback);
 };
-</code></pre>
+</span></span></code></pre>
 <p>We want to implement the first in terms of the second using the <code>EmptySequence</code>
 type for the dummy <code>OutputParameters</code>.</p>
-<pre><code>template &lt;typename Results&gt;
-void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
+<pre><code class="hljs"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DatabaseAccessor::asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp; query,
                                   CB(CB(Results&amp;)         callback)
 {
-    asyncQuery(query, /* ? */);
+    asyncQuery(query, <span class="hljs-comment">/* ? */</span>);
 }
-</code></pre>
+</span></span></code></pre>
 <p>The difference, of course, is in the second argument of each <code>asyncQuery</code>
 overload.  We're given a function that takes a function that takes a
 <code>Results&amp;</code>, and we need to call the overload that takes a function that takes
@@ -3400,16 +3400,16 @@ additionally see to it that the <code>EmptySequence&amp;</code> refers to some (
 instance.</p>
 <p>One way to think about this is that we need a function, <code>injectDummy</code>, that
 maps one type of function into another type of function:</p>
-<pre><code>template &lt;typename Results&gt;
-void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
-                                  CB(CB(Results&amp;)         callback)
+<pre><code class="hljs">template &lt;typename Results&gt;
+void DatabaseAccessor::<span class="hljs-built_in">asyncQuery</span>(const std::string_view&amp; query,
+                                  <span class="hljs-built_in">CB</span>(<span class="hljs-built_in">CB</span>(Results&amp;)         callback)
 {
-    asyncQuery(query, injectDummy(callback));
+    <span class="hljs-built_in">asyncQuery</span>(query, <span class="hljs-built_in">injectDummy</span>(callback));
 }
 </code></pre>
 <p>where <code>injectDummy</code> has the following signature:</p>
-<pre><code>template &lt;typename Results&gt;
-FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)));
+<pre><code class="hljs">template &lt;typename Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">FN</span>(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;, EmptySequence&amp;</span>)</span>) <span class="hljs-title">injectDummy</span>(<span class="hljs-params">CB(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;</span>)</span>)</span>)</span>;
 </code></pre>
 <p>You might want to look again at what the <code>FN</code> and <code>CB</code> <a href="#macros">macros</a> mean.</p>
 <p>You know that thing where when you have a cube drawn in two dimensions, you can
@@ -3419,10 +3419,10 @@ and forth?</p>
 <p>I feel like figuring out an answer to this C++ puzzle gave me a new sort of
 facility along those lines.  Here's the implementation of <code>injectDummy</code> that I
 came up with, written using lambda expressions:</p>
-<pre><code>template &lt;typename Results&gt;
-FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callback)
-{
-    return [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
+<pre><code class="hljs">template &lt;typename Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">FN</span>(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;, EmptySequence&amp;</span>)</span>) <span class="hljs-title">injectDummy</span>(<span class="hljs-params">CB(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;</span>)</span>) callback</span>)
+</span>{
+    <span class="hljs-keyword">return</span> [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
         EmptySequence dummy;
         callback([&amp;](Results&amp; results) {
             innerCallback(results, dummy);
@@ -3435,10 +3435,10 @@ FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callba
 operation, but it does feel a bit mathy, doesn't it?</p>
 <p>So there we have it -- the no-output-parameters overload written in terms of 
 the output-parameters overload:</p>
-<pre><code>template &lt;typename Results&gt;
-FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callback)
-{
-    return [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
+<pre><code class="hljs">template &lt;typename Results&gt;
+<span class="hljs-function"><span class="hljs-keyword">FN</span>(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;, EmptySequence&amp;</span>)</span>) <span class="hljs-title">injectDummy</span>(<span class="hljs-params">CB(<span class="hljs-params">CB(<span class="hljs-params">Results&amp;</span>)</span>) callback</span>)
+</span>{
+    <span class="hljs-keyword">return</span> [=](CB(Results&amp;, EmptySequence&amp;) innerCallback) {
         EmptySequence dummy;
         callback([&amp;](Results&amp; results) {
             innerCallback(results, dummy);
@@ -3447,7 +3447,7 @@ FN(CB(Results&amp;, EmptySequence&amp;)) injectDummy(CB(CB(Results&amp;)) callba
 }
 
 template &lt;typename Results&gt;
-void DatabaseAccessor::asyncQuery(const std::string_view&amp; query,
+<span class="hljs-keyword">void</span> DatabaseAccessor::asyncQuery(<span class="hljs-keyword">const</span> std::string_view&amp; query,
                                   CB(CB(Results&amp;)         callback)
 {
     asyncQuery(query, injectDummy(callback));
@@ -3474,12 +3474,12 @@ maybe you're writing a database accessor.</p>
 that you and your users have agreed upon, so that they can indicate the
 structure of their data in the types of object that they use with your API.</p>
 <p>This means that one way to write your API is using templates.  For example:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results, typename Parameters&gt;
-    void syncQuery(const std::string_view&amp; query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">syncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp; query,
                    Results&amp;                results,
-                   const Parameters&amp;       parameters);
+                   <span class="hljs-keyword">const</span> Parameters&amp;       parameters)</span></span>;
 };
 </code></pre>
 <p>The user specifies a (SQL?) query, a reference to an object into which the
@@ -3498,33 +3498,33 @@ object will behave at runtime, e.g. "pretend to be an array of strings," or
 named 'bar'."</p>
 <p>The reason that it works is that in this synchronous API, the user creates the
 <code>Results</code> object, not the library:</p>
-<pre><code>DynamicValue      results(parseSchema("fpml_exotics.xsd"), "Stellar");
-StellarParameters params = /* ... */;
+<pre><code class="hljs">DynamicValue      results(parse<span class="hljs-constructor">Schema(<span class="hljs-string">"fpml_exotics.xsd"</span>)</span>, <span class="hljs-string">"Stellar"</span>);
+StellarParameters params = <span class="hljs-comment">/* ... */</span>;
 
-database.syncQuery("execute GetContract(@id, @client);", results, params);
+database.sync<span class="hljs-constructor">Query(<span class="hljs-string">"execute GetContract(@id, @client);"</span>, <span class="hljs-params">results</span>, <span class="hljs-params">params</span>)</span>;
 </code></pre>
 <p><em>But what about an asynchronous API?</em>  In that case, it's the library that will
 be creating the <code>Results</code> object.  For example:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = std::function&lt;void(Results&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;;
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback,
-                    const Parameters&amp;        parameters);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback,
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters)</span></span>;
 };
 </code></pre>
 <p>The user provides a function that takes a <code>Results</code>, but where does that
 <code>Results</code> object come from?  It's created by the library:</p>
-<pre><code>void onResponse(DynamicValue&amp; results) {
-   // ...
+<pre><code class="hljs"><span class="hljs-keyword">void</span> <span class="hljs-function"><span class="hljs-title">onResponse</span>(<span class="hljs-params">DynamicValue&amp; results</span>)</span> {
+   <span class="hljs-comment">// ...</span>
 }
 
-database.asyncQuery("execute GetContract(@id, @client);",
-                    std::function&lt;void(DynamicValue&amp;)&gt;(&amp;onResponse), 
-                    params);
+database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client);"</span>,
+                    <span class="hljs-attr">std</span>::<span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">void</span>(<span class="hljs-params">DynamicValue&amp;</span>)&gt;(<span class="hljs-params">&amp;onResponse</span>), 
+                    <span class="hljs-title">params</span>)</span>;
 </code></pre>
 <p>What happened to the stuff about the schema?  This is trouble, because unlike
 with a type whose structure is known at compile-time, the library can't just
@@ -3536,35 +3536,35 @@ the synchronous API, the library can't have the user provide the object.</p>
 API that takes an additional "factory" argument from which objects of the
 <code>Results</code> type can be constructed.  This way, the user can specify any dynamic
 construction logic in the factory.  It might look like this:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = std::function&lt;void(Results&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;;
 
-    template &lt;typename Results&gt;
-    using Factory = std::function&lt;Results()&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Factory = std::function&lt;<span class="hljs-built_in">Results</span>()&gt;;
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback,
-                    const Parameters&amp;        parameters,
-                    const Factory&lt;Results&gt;&amp;  resultsFactory);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback,
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters,
+                    <span class="hljs-keyword">const</span> Factory&lt;Results&gt;&amp;  resultsFactory)</span></span>;
 };
 </code></pre>
 <p>This solves the conundrum.  Now the user can write this:</p>
-<pre><code>DynamicValue makeStellar() {
-    return DynamicValue(parseSchema("fpml_exotics.xsd"), "Stellar");
+<pre><code class="hljs">DynamicValue <span class="hljs-function"><span class="hljs-title">makeStellar</span>(<span class="hljs-params" />)</span> {
+    <span class="hljs-keyword">return</span> DynamicValue(parseSchema(<span class="hljs-string">"fpml_exotics.xsd"</span>), <span class="hljs-string">"Stellar"</span>);
 }
 
-void onResponse(DynamicValue&amp; results) {
-   // ...
+<span class="hljs-keyword">void</span> <span class="hljs-function"><span class="hljs-title">onResponse</span>(<span class="hljs-params">DynamicValue&amp; results</span>)</span> {
+   <span class="hljs-comment">// ...</span>
 }
 
-database.asyncQuery("execute GetContract(@id, @client);",
-                    std::function&lt;void(DynamicValue&amp;)&gt;(&amp;onResponse), 
-                    params,
-                    std::function&lt;DynamicValue()&gt;(&amp;makeStellar)); 
-</code></pre>
+database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client);"</span>,
+                    <span class="hljs-attr">std</span>::<span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">void</span>(<span class="hljs-params">DynamicValue&amp;</span>)&gt;(<span class="hljs-params">&amp;onResponse</span>), 
+                    <span class="hljs-title">params</span>,
+                    <span class="hljs-title">std</span>::<span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">DynamicValue</span>(<span class="hljs-params" />)&gt;(<span class="hljs-params">&amp;makeStellar</span>))</span>; 
+</span></code></pre>
 <h2>A Prettier Way</h2>
 <p>I don't like the factory.  I don't know why, it just makes me feel bad.  You
 can see another way, though, once you observe that <code>resultsFactory</code> is not just
@@ -3589,45 +3589,45 @@ that takes <code>Results</code>.</li>
 <li>I'll create <code>Results</code> object and call your continuation with it (or not).</li>
 </ol>
 <p>In code, this alternative contract looks like this:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results&gt;
-    using Callback = 
-        std::function&lt;void(const std::function&lt;void(Results&amp;)&gt;&amp;)&gt;;
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results&gt;
+    <span class="hljs-keyword">using</span> Callback = 
+        std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(<span class="hljs-keyword">const</span> std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(Results&amp;)&gt;&amp;)&gt;;
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
-                    const Callback&lt;Results&gt;&amp; callback,
-                    const Parameters&amp;        parameters);
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
+                    <span class="hljs-keyword">const</span> Callback&lt;Results&gt;&amp; callback,
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters)</span></span>;
 };
 </code></pre>
 <p>That hurts my head a little at first.  <code>Callback&lt;Results&gt;</code> is a function that
 returns <code>void</code> and takes as its one argument a function that returns <code>void</code>
 and takes as its one argument a <code>Results&amp;</code>.</p>
 <p>Seeing it used helps:</p>
-<pre><code>void onResponse(const std::function&lt;void(DynamicValue&amp;)&gt; fillResults) {
-    DynamicValue results(parseSchema("fpml_exotics.xsd"), "Stellar");
+<pre><code class="hljs"><span class="hljs-keyword">void</span> <span class="hljs-function"><span class="hljs-title">onResponse</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> std::<span class="hljs-keyword">function</span>&lt;<span class="hljs-keyword">void</span>(DynamicValue&amp;)&gt; fillResults</span>)</span> {
+    DynamicValue results(parseSchema(<span class="hljs-string">"fpml_exotics.xsd"</span>), <span class="hljs-string">"Stellar"</span>);
     fillResults(results);
-    // ...
+    <span class="hljs-comment">// ...</span>
 }
 
-database.asyncQuery("execute GetContract(@id, @client);",
-                    DatabaseAccessor::Callback&lt;Results&gt;(&amp;onResponse), 
+database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client);"</span>,
+                    <span class="hljs-attr">DatabaseAccessor</span>::Callback&lt;Results&gt;(&amp;onResponse), 
                     params);
 </code></pre>
 <p>Notice how I use the <code>DatabaseAccessor::Callback</code> alias to keep things short.</p>
 <p>Isn't that cool?</p>
 <p>It rolls off the tongue a bit more easily if you're willing to employ a macro:</p>
-<pre><code>#define FN(...) std::function&lt;void(__VA_ARGS__)&gt;
-#define CB(...) const FN(__VA_ARGS__)&amp;
+<pre><code class="hljs">#define FN(<span class="hljs-params">...</span>) std<span class="hljs-type">::function</span>&lt;<span class="hljs-literal">void</span>(__VA_ARGS__)&gt;
+#define CB(<span class="hljs-params">...</span>) const FN(__VA_ARGS__)&amp;
 </code></pre>
 <p>This way, the signatures are easier to read:</p>
-<pre><code>class DatabaseAccessor {
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 
-    template &lt;typename Results, typename Parameters&gt;
-    void asyncQuery(const std::string_view&amp;  query,
+    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Results, <span class="hljs-keyword">typename</span> Parameters&gt;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">asyncQuery</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string_view&amp;  query,
                     CB(CB(Results&amp;))         callback,
-                    const Parameters&amp;        parameters);
+                    <span class="hljs-keyword">const</span> Parameters&amp;        parameters)</span></span>;
 };
 </code></pre>
 <p>Though your willingness to use macros, especially with such short names, is a
@@ -3655,7 +3655,7 @@ give the user what they need and have them do what they want.</p>
 <p>Of course, in the case where default constructing a <code>Results</code> object is the
 right thing, it's convenient to have a version of the API that does this for
 you, since then the API looks more like a function:</p>
-<pre><code>makeQuery :: Query -&gt; Results
+<pre><code class="hljs">makeQuery :: Query -&gt; Results
 </code></pre>
 <p>But that's not the general case.</p>
 <h3>It's just a different kind of callback</h3>
