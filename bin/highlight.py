@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Use highlightjs to highlight code in an `ET.Element` tree.
 
 This module looks for `<pre><code>... </code></pre>`
@@ -11,6 +13,7 @@ or otherwise the language is deduced from the inline code itself.
 
 
 import functools
+import io
 import json
 from pathlib import Path
 import re
@@ -92,4 +95,45 @@ def highlight_code_blocks(html: ET.Element) -> ET.Element:
         visit(html, child)   
 
     return html
-    
+
+
+def highlight_html(source) -> str:
+    html = ET.fromstring(f'<root>{source.read()}</root>')
+    highlight_code_blocks(html)
+
+    buffer = io.StringIO()
+    # Could specify `method='html'`, but I want to be able to parse the
+    # output again as XML (e.g. to add a <base> tag to index.html).
+    # `short_empty_elements=False` is so far the sweet spot for
+    # HTML-compatible XML output, at least for this site.
+    ET.ElementTree(html).write(buffer, encoding='unicode', short_empty_elements=False) 
+
+    # Strip the <root> tags from the result (we added them above to ensure
+    # that `ET.fromstring` saw a complete tree).
+    return buffer.getvalue()[len('<root>'):-len('</root>')]
+
+
+if __name__ == '__main__':
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(description='''\
+Highlight <pre><code> blocks in HTML.
+Print the highlighted result to standard output.''')
+    parser.add_argument('--in-place', action='store_true',
+        help="modify the input file in-place (can't be standard input)")
+    parser.add_argument('file', nargs='?', default='-',
+        help='path to input HTML, or "-" for standard input')
+
+    options = parser.parse_args()
+    if options.file == '-':
+        output = highlight_html(sys.stdin)
+    else:
+        with open(options.file) as file:
+            output = highlight_html(file)
+
+    if options.in_place:
+        with open(options.file, 'w') as file:
+            file.write(output)
+    else:
+        sys.stdout.write(output)

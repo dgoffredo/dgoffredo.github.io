@@ -50,7 +50,6 @@ The result will be
 
 
 import api
-import highlight
 import imgdimensions
 import linkify
 import multiprocessing
@@ -174,7 +173,8 @@ def create_page(from_path, to_path, navigate, series_by_date, root_dir, date=Non
         linkify.wrap_images(html, r'^(.*)_small\.webp$', r'\1.jpg')
 
         # Use highlightjs to highlight code in <pre><code> blocks.
-        highlight.highlight_code_blocks(html)
+        # Nope, that's already done in the Makefile
+        # highlight.highlight_code_blocks(html)
         
         # Add "width" and "height" attributes to <img>s.
         imgdimensions.add_img_attributes(html, root_dir/'content', from_path.resolve())
