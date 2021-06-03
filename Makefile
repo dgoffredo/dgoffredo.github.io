@@ -10,7 +10,7 @@ site/index.html: $(shell find content/) bin/* config/* posts/ series/* config/fo
 	bin/generate
 
 config/highlightjs/default.min.css config/highlightjs/highlight.js:
-	$(MAKE) --directory=config/highlightjs
+	$(MAKE) --directory=config/highlightjs -j 64
 
 FONT_FACE = 'Akzidenz-Grotesk BQ Light'
 config/fonts.css: config/font.otf config/font-italic.otf

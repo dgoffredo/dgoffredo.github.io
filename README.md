@@ -38,7 +38,7 @@ $ sudo apt install \
 ```
 
 Alternatively, you can build the site using a self-contained environment
-provided by either of [Guix][4] or [Docker][5].
+provided by [Guix][4], [Docker][5], or [Nix][6].
 
 ### Guix
 Run [guix-build](bin/guix-build) to build the website.  It creates an ad-hoc 
@@ -51,6 +51,16 @@ package and various quirks in Guix.
 Run [docker-build](bin/docker-build).  It creates a Debian image called 
 `blog-build-env`, which then has this respository mounted into it before
 running `make`.
+
+### Nix
+Run [nix-build](bin/nix-build).  It uses `nix-shell` to execute `make` in this
+respository in an environment that includes all build dependencies.  Note
+that using `nix-shell` in this way is not as self-contained as the
+container-based methods described above.  The nix shell has access to the
+entire file system, and thus quiet dependencies like the certificates in
+`/etc/ssl/certs` might be available on one machine but not on another.
+Our `nix-build` script doesn't account for this (either it will succeed on your
+machine, or not).
 
 More
 ----
@@ -66,3 +76,4 @@ directory for more information.
 [3]: https://www.davidgoffredo.com
 [4]: https://guix.gnu.org/
 [5]: https://www.docker.com/
+[6]: https://nixos.org/
