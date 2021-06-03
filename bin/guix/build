@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # Run `make` in the respository root, but in an otherwise isolated environment
 # with all necessary dependencies.  Requires `guix` to be installed.
 

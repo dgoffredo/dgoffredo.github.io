@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+# Build a Debian-based container that has all of the website's build
+# dependencies installed, and then mount this respository into the
+# container and run `make`.  Requires `docker` to be installed.
+
+HERE=$(dirname $(realpath $0))
+REPO=$(dirname $(dirname "$HERE"))
+
+docker build --tag blog-build-env "$HERE"
+
+run_in_build_env() {
+    docker run --mount "type=bind,source=$REPO,destination=/repo" blog-build-env "$@"
+}
+
+run_in_build_env make -j 64 --directory=/repo/config/highlightjs
+run_in_build_env make -j 16 --directory=/repo

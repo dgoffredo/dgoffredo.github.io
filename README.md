@@ -21,16 +21,36 @@ each symlink has a name like `YYYY-MM-DD`, e.g. `2018-01-07`, and then run
 The generator requires python3.7+ and the following `apt` packages (or their
 equivalents on other systems):
 ```console
-$ sudo apt install graphviz imagemagick make coreutils jq wget
+$ sudo apt install \
+    ca-certificates \
+    coreutils \
+    findutils \
+    gawk \
+    graphviz \
+    imagemagick \
+    jq \
+    make \
+    nodejs \
+    python3 \
+    sed \
+    webp \
+    wget
 ```
 
-Additionally, the generator requires [Node.js][1], which I use [nvm][2]
-(Node Version Manager) to manage.  The generator was most recently
-tested using
-```console
-$ node --version
-v14.16.1
-```
+Alternatively, you can build the site using a self-contained environment
+provided by either of [Guix][4] or [Docker][5].
+
+### Guix
+Run [guix-build](bin/guix-build) to build the website.  It creates an ad-hoc 
+environment with this repository mounted in it, and then runs `make`.
+
+There are a couple of hacks in there to work around a bug in Guix's imagemagick
+package and various quirks in Guix.
+
+### Docker
+Run [docker-build](bin/docker-build).  It creates a Debian image called 
+`blog-build-env`, which then has this respository mounted into it before
+running `make`.
 
 More
 ----
@@ -44,3 +64,5 @@ directory for more information.
 [1]: https://nodejs.org
 [2]: https://github.com/nvm-sh/nvm
 [3]: https://www.davidgoffredo.com
+[4]: https://guix.gnu.org/
+[5]: https://www.docker.com/
