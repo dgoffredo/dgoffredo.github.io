@@ -34,7 +34,7 @@ config/fonts.css: config/font.otf config/font-italic.otf
 # The make dependencies are included at the bottom of this file.  Those
 # dependencies so added will then be made according to their recipes (e.g.
 # %_small.webp).
-%.md.d: %.md bin/dependencies
+%.md.d: %.md %.md.html bin/dependencies
 	bin/dependencies $< >$@
 
 # Create PNG images from graphviz files (.dot files)
