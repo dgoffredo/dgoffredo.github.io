@@ -1,4 +1,146 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-05-27</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Lemonade</title><link href="https://www.davidgoffredo.com/lemonade/lemonade.html" /><id>https://www.davidgoffredo.com/lemonade/lemonade.html</id><updated>2021-05-27</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-06-03</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Blog</title><link href="https://www.davidgoffredo.com/blog.html" /><id>https://www.davidgoffredo.com/blog.html</id><updated>2021-06-03</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/blog.html" />
+        </head>
+        <body>
+            <h1>Blog</h1>
+<p>The time has come for me to blog about my blog on my blog.  It's bound to
+happen eventually with any hand-coded blog.</p>
+<p>I've enjoyed the exercise, because the goal is tangible and easy to state,</p>
+<blockquote><p>Create a static website generator suitable for programming and travel blogging.</p>
+</blockquote>
+<p>there is no deadline, I am unconstrained by existing code or people, and it's an
+opportunity to learn what really goes on underneath premade offerings.</p>
+<p>What I've learned is that I'm more of a maker than an engineer, and that I
+more value what is created than why it is created.</p>
+<h2>Static</h2>
+<p>This website is completely static.  The server doesn't generate content on
+demand, and there are no client-side scripts.  It's HTML, CSS, and media
+(images and videos).  Nothing else.</p>
+<p>If you disable javascript in your browser, the website is unchanged.  If you
+disable CSS, the website looks a little bland, but still fine.</p>
+<p>There aren't any cookies or modal overlays or scroll-activated banners or
+floating menus or asynchonously loaded assets.  It works on your browser, no
+matter which browser you use.  There aren't any Google Analytics beacons or
+off-screen tracking images.  You won't be asked to sign in with Google, connect
+to Facebook, give a thumbs up, or leave a review, and there's no way to tweet,
+repost, or add a comment.</p>
+<p>It's just HTML, CSS, and media.  My words into the void.</p>
+<h2>Design</h2>
+<p>The configuration language of the site generator is <em>the file system</em>.</p>
+<pre><code class="lang-text hljs">.
+├── bin
+├── config
+├── content
+├── posts
+├── series
+├── site
+└── Makefile
+</code></pre>
+<p>Pages are written in <a href="https://daringfireball.net/projects/markdown/">markdown</a> (<code>.md</code>) and placed in the <code>content/</code>
+directory.  Markdown files will be converted into HTML.  Other types of files
+in <code>content/</code> will be included in the site verbatim.</p>
+<p>The directory structure within <code>content/</code> can be whatever you like (e.g. to 
+organize pages with their images in directories).</p>
+<p>The <code>posts/</code> directory contains symbolic links to <code>.md</code> files under <code>content/</code>.
+Each symbol link is a post, and its name is the ISO 8601 date of the post, e.g.
+<code>2021-06-03</code> for June 3rd, 2021.</p>
+<p>The <code>config/</code> directory contains pieces of the site that don't vary between
+pages, such as the style sheets and the HTML of the navigation bar that appears
+at the top and bottom of every page.</p>
+<p>The <code>series/</code> directory contains one subdirectory per "series."  A series is a
+group of related posts, e.g. a series of posts on restoring a car.  The name of
+each subdirectory under <code>series/</code> is the display name of the series (e.g. 
+"Programming Languages"),  and the contents of each such subdirectory are
+symbolic links to links in <code>posts/</code>, where the name of each symbol link is the
+nickname for that post in the series, e.g. "Day 12" in a series on "Peru Trip."</p>
+<pre><code class="lang-text hljs">.
+├── bin
+├── config
+│   ├── common.css
+│   └── navigate.html
+├── content
+│   ├── cheesecake.md
+│   ├── i-love-scheme.md
+│   ├── in_the_oven.jpg
+│   └── yay-python.md
+├── posts
+│   ├── 2021-06-03 -&gt; ../content/yay-python.md
+│   ├── 2021-06-09 -&gt; ../content/cheesecake.md
+│   └── 2021-07-15 -&gt; ../content/i-love-scheme.md
+├── series
+│   └── Programming Languages
+│       ├── Python -&gt; ../../posts/2021-06-03
+│       └── Scheme -&gt; ../../posts/2021-07-15
+├── site
+└── Makefile
+</code></pre>
+<p>The <code>bin/</code> directory contains scripts used when generating the site.</p>
+<p>The <code>site/</code> directory contains the generated static website, where most of the
+site's assets are symbolic links to files in <code>content/</code> and <code>config/</code>.</p>
+<p>To generate the site, run <code>make</code>.  Then you can run a web server with <code>site/</code>
+as the domain root, e.g.</p>
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> site</span>
+<span class="hljs-meta">$</span><span class="bash"> python3 -m http.server</span>
+</code></pre>
+<p>I deploy the site by deep copying <code>site/</code> to another directory (no more symbolic
+links), and shipping that directory to wherever the blog is hosted.</p>
+<h2>Implementation</h2>
+<p>At first, the code generator was a single python script, <a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/12b499adc0480a55c1bcd34e31ac21f8aa0cd4d0/bin/generate">bin/generate</a>.</p>
+<p>Now it's a <a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/master/Makefile">Makefile</a> supported by a menagerie of <a href="https://github.com/dgoffredo/dgoffredo.github.io/tree/master/bin">scripts</a>, and as the
+final step of the build a <a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/master/bin/generate">descendent of bin/generate</a> is called to
+copy/link files into <code>site/</code>.</p>
+<p>The current Frankenstein's monster state of affairs arose gradually, as with
+all software projects, due to an accumulation of features implemented by an
+inadequately disciplined developer learning things as he went along.</p>
+<p>If I could figure out how to end up with cleaner code, documentation, and tests
+once I get to this point, I'd be a better developer.</p>
+<p>It's a journey!  Now on to the details...</p>
+<h3>Accumulated Features</h3>
+<p>The <a href="https://github.com/dgoffredo/dgoffredo.github.io/commits/master">commit history</a> tells the story of features added.</p>
+<ul>
+<li>link to page that lists all posts</li>
+<li>style HTML generated from markdown</li>
+<li>generate a table of contents in each post</li>
+<li>highlight syntax in code snippets, using a client-side script</li>
+<li>generate thumbnails for large images (<code>*_small.*</code>)</li>
+<li>allow nested directories under <code>content/</code></li>
+<li>support "series" of posts, and generate per-series navigation tables</li>
+<li>link to a page that lists all series</li>
+<li>highlight syntax in code snippets, on the server (no more client-side scripts)</li>
+<li>automatically insert <code>width</code> and <code>height</code> attributes in <code>&lt;img&gt;</code> tags.</li>
+<li>inline CSS (to avoid blocking initial page paint)</li>
+<li>add a mailing list</li>
+<li>add an "API" to facilitate offline scripts related to the mailing list</li>
+<li>add a viewport and tweak styles so that the site looks good on mobile browsers</li>
+<li>use a custom embedded font</li>
+<li>generate an Atom feed (kind of like RSS)</li>
+</ul>
+<p>Those are just "user facing" changes.  There was also substantial toil moving
+things around, optimizing the generator, writing scripts that generate various
+intermediate files, changing how the generated site was structured and
+deployed, and packaging the build process into reproducible isolated
+environments (like Docker, Guix, and Nix).</p>
+<p>Should have just used Wordpress, right?</p>
+<h2>Who Gives a Shit?</h2>
+<p>I'm proud enough to say what I ended up with is better and lighter than other
+generators out there, but I'm wise enough to know that isn't true.</p>
+<p>My static site generator is better than anything else out there for
+<em>generating my site</em>, and nothing more.  If it had to support the myriad use
+cases of even the smallest popular offerings (e.g. <a href="https://github.com/jekyll/jekyll">Jekyll</a>), and if my past
+development process is any indicator of how it'd go in the future, then what
+I'd end up with is a smoldering dumpster fire of bugs, and I'd end up moving
+to <a href="https://www.squarespace.com/">Squarespace</a> or something.</p>
+<p>If I wanted to do the experiment, I'd clean up (read: rewrite) the code and
+market the generator online as "yet another static blog generator," and either
+the project would be duly ignored, or unanticipated difficulties encountered
+while implementing requested features would ignite the dumpster anew.</p>
+<p>In summary: Software is hard. To claim anything else is either arrogance or a
+sales pitch.  Still, it's fun.  Look, I made a website!</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Lemonade</title><link href="https://www.davidgoffredo.com/lemonade/lemonade.html" /><id>https://www.davidgoffredo.com/lemonade/lemonade.html</id><updated>2021-05-27</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/lemonade/lemonade.html" />
         </head>
