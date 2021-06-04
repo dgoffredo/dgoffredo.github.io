@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# This script isn't used in the build, but I did use it for a blog post.
+
+/usr/bin/tree --dirsfirst --noreport
