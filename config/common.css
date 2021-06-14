@@ -68,5 +68,6 @@ div.table-of-contents {
 }
 
 img.preview {
-    width: 100%
+    width: 100%;
+    height: auto
 }
