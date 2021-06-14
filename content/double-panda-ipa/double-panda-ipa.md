@@ -243,7 +243,7 @@ at 9.58% alcohol by volume.
 We haven't labeled them yet — still need to update the ABV on the label,
 print them out, cut them out, and glue them to the bottles.
 
-I primed the beer with the unhopped, unferemented wort that I set aside towards
+I primed the beer with the unhopped, unfermented wort that I set aside towards
 the begininng of the boil on brew day.  According to the internet, it's risky
 to do this, because the fermentability of wort varies from batch to batch (as
 opposed to glucose solution, which is always the same).  I used the [Brewer's 
