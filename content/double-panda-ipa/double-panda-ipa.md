@@ -232,7 +232,62 @@ of empty bottles that I can de-label in preparation for filling.
 The beer is not yet done fermenting, so I'll update this post come bottling
 day.
 
+### Bottling Day (June 13, 2021)
+![hydrometer showing final gravity](fg_small.webp)
+
+Today was bottling day, and we ended up with 48 12 oz. bottles of primed beer
+at 9.58% alcohol by volume.
+
+![capped beer bottle seen from the top](capped_small.webp)
+
+We haven't labeled them yet — still need to update the ABV on the label,
+print them out, cut them out, and glue them to the bottles.
+
+I primed the beer with the unhopped, unferemented wort that I set aside towards
+the begininng of the boil on brew day.  According to the internet, it's risky
+to do this, because the fermentability of wort varies from batch to batch (as
+opposed to glucose solution, which is always the same).  I used the [Brewer's 
+Friend calculator][6] for "gyle."  I hope that the beer doesn't turn out flat.
+
+![measuring out the gyle](gyle_measure_small.webp)
+
+![pouring guile into fermented beer](gyle_addition_small.webp)
+
+I boiled and chilled the wort before measuring out the amount specified by the
+calculator and pouring it into the fermentor using a funnel.  Then I gently
+stirred the wort to mix it in, taking care not to splash.
+
+<video controls="true" width="700">
+  <source src="stirring.mp4" type="video/mp4"/>
+</video>
+*\[It's Spotify's "Yacht Rock," I don't know the song.\]* 
+
+Then my little helper and I siphoned the mixture into 48 sanitized empty beer
+bottles, capping each one.
+
+![Grace on the bottling floor](helper_small.webp)
+
+![siphoning setup — the beer](siphon1_small.webp)
+
+![siphoning setup — the bottling wand](siphon2_small.webp)
+
+I no longer use an auto-siphon.  The theory is that it was introducing tiny air
+bubbles during bottling, causing the beer to go stale almost immediately.  I
+also no longer use a bottling bucket, for the same reason.  Now it's just a
+racking cane into a vinyl tube, all initially filled with sanitizer to start
+the siphon, and off we go.
+
+![bottled and stored](bottled_and_stored_small.webp)
+
+Did I mention that I forgot to dry hop this batch?  I forgot to dry hop this
+batch!  For such a strong, hop-forward beer as this, it's probably a real
+loss.  I'm curious to find out how to tastes when (if) it carbonates.  My
+guess is that it won't taste right until at least a month in the bottle.
+
+In the mean time, I'll work on the labels.
+
 [1]: https://en.wikipedia.org/wiki/India_pale_ale
 [2]: https://victoriacookware.com/
 [4]: https://en.wikipedia.org/wiki/Beer_measurement#Bitterness
 [5]: https://www.amazon.com/s?k=auto+siphon
+[6]: https://www.brewersfriend.com/gyle-and-krausen-priming-calculator/
