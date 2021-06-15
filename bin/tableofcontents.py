@@ -106,8 +106,12 @@ def insert_table_of_contents(html, max_depth=None):
 
     # Go through the children of the body tag.  Build up `table` based on any
     # heading tags encountered.  Also, add an `id` attribute to any heading tag
-    # encountered, so that the heading can be linked to in `table`.
+    # encountered, so that the heading can be linked to in `table`. Finally,
+    # convert the text within each heading line into a link to the header, so
+    # that you can share that section by clicking the heading and copying your
+    # address bar.
     for element in body:
+        # h1, h2, etc.
         match = re.match(r'h(\d+)', element.tag)
         if not match:
             continue  # not a heading
@@ -117,6 +121,18 @@ def insert_table_of_contents(html, max_depth=None):
         text, name = linkify(element)
         name = uniquify(name, names)
         element.set('id', name)
+
+        # <h1>... stuff ...</h1>    →    <h1><a href=...>... stuff ...</a></h1>
+        section_self_link = ET.Element('a', {
+            'href': f'#{name}',
+            'class': 'section-self-link'
+        })
+        section_self_link.text = element.text
+        element.text = None
+        for child in list(element):
+            section_self_link.append(child)
+            element.remove(child)
+        element.append(section_self_link)
 
         def start_sibling():
             table.start('li', {})
