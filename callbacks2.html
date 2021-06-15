@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#callbacks_part_2">Callbacks (Part 2)</a><ul><li><a href="#injecting_a_default">Injecting a Default</a></li><li><a href="#writing_the_forwarding_implementation">Writing the Forwarding Implementation</a></li></ul></li></ul></div>
 
-<h1 id="callbacks_part_2">Callbacks (Part 2)</h1>
+<h1 id="callbacks_part_2"><a href="#callbacks_part_2" class="section-self-link">Callbacks (Part 2)</a></h1>
 <p><a href="callbacks.html">Previously</a> I described an API for submitting a query asynchronously
 in such a way that the caller provides the object into which the query results
 are written, but without having to specify an object factory.  It looked like
@@ -172,7 +178,7 @@ callback with an amended signature:</p>
 <p>If the user wants output parameters, then he provides a callback that fits
 the second signature, while if he doesn't want output parameters, he specifies
 a callback that fits the first signature.</p>
-<h2 id="injecting_a_default">Injecting a Default</h2>
+<h2 id="injecting_a_default"><a href="#injecting_a_default" class="section-self-link">Injecting a Default</a></h2>
 <p>Most users don't want output parameters.  They're a strange concept in
 databases, they can always be replaced by multiple result sets instead, and
 Microsoft SQL Server is the only database I've worked with that has them.  It
@@ -192,7 +198,7 @@ overload of <code>DatabaseAccessor::asyncQuery</code> can be written in terms of
 second, "as if" the user had specified an <code>EmptySequence</code> for
 <code>OutputParameters</code> rather than not specifying that argument at all.</p>
 <p>How do you write this?  I find it very tricky to think about.</p>
-<h2 id="writing_the_forwarding_implementation">Writing the Forwarding Implementation</h2>
+<h2 id="writing_the_forwarding_implementation"><a href="#writing_the_forwarding_implementation" class="section-self-link">Writing the Forwarding Implementation</a></h2>
 <p>Let's look at the code again:</p>
 <pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseAccessor</span> {</span>
 

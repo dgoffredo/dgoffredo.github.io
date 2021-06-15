@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,9 +131,9 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#phone_server">Phone Server</a><ul><li><a href="#verizon_is_evil">Verizon is Evil</a></li><li><a href="#life_in_userland">Life in Userland</a></li><li><a href="#ssh">ssh</a></li><li><a href="#port_forwarding">Port Forwarding</a></li><li><a href="#address_reservation">Address Reservation</a></li><li><a href="#dns">DNS</a></li><li><a href="#now_what">Now What?</a></li></ul></li></ul></div>
 
-<h1 id="phone_server">Phone Server</h1>
+<h1 id="phone_server"><a href="#phone_server" class="section-self-link">Phone Server</a></h1>
 <p>I turned my old Android phone into a web server.  Here's how.</p>
-<h2 id="verizon_is_evil">Verizon is Evil</h2>
+<h2 id="verizon_is_evil"><a href="#verizon_is_evil" class="section-self-link">Verizon is Evil</a></h2>
 <p>I got tired of paying nearly $80 per month for my one phone line and the
 less than one gigabyte of data I was using. Logging into my Verizon Wireless
 account to look for a better deal, I found that the "recommended plan" for
@@ -166,7 +172,7 @@ phone, wipe over that system with some Linux distribution having drivers
 appropriate for the phone, install a web server on it, and expose it to the
 internet!  Wouldn't that be fun?</p>
 <p>No, it would not be fun.  It's not even possible, because Verizon is evil.</p>
-<h3 id="the_ununlockable_phone">The Un-unlockable Phone</h3>
+<h3 id="the_ununlockable_phone"><a href="#the_ununlockable_phone" class="section-self-link">The Un-unlockable Phone</a></h3>
 <p>I'm well out of my depth on this subject, but as far as I understand from
 reading on the internet, when a phone powers up, there's a little system that
 loads a program that starts up another little system that loads a program that
@@ -201,7 +207,7 @@ will tell you that "your phone cannot be unlocked."  Why?  Because Verizon
 insisted on this.  Because Verizon is evil.</p>
 <p>This phone does not belong to you, it belongs to us.  We have no more use for
 it, and so neither shall you.</p>
-<h2 id="life_in_userland">Life in Userland</h2>
+<h2 id="life_in_userland"><a href="#life_in_userland" class="section-self-link">Life in Userland</a></h2>
 <p>Ok, so it's disappointing that I can't completely control the system on the old
 phone, but not all is lost.  After all, Android is designed to make writing
 apps easy.  I could just code up my hobby as an application, rather than having
@@ -224,7 +230,7 @@ tools, including, conveniently enough, a simple <a href="https://git.busybox.net
 <p>Once you have UserLAnd installed on your phone, you can instruct it to install
 a Linux distribution in the proot jail, then start a "session" on that system
 as a specified user with a specified password, and you're ready to go.</p>
-<h2 id="ssh">ssh</h2>
+<h2 id="ssh"><a href="#ssh" class="section-self-link">ssh</a></h2>
 <p>Working on the Linux command line using a phone is awful.  The first thing I
 did is find out which ssh server was running on my new system and connected to
 it from my laptop.  This involved me learning properly for the first time how
@@ -259,7 +265,7 @@ david@localhost:~$
 </ul>
 <p>Now my phone is serving my blog at port 8080, but how do we access it from the
 internet?</p>
-<h2 id="port_forwarding">Port Forwarding</h2>
+<h2 id="port_forwarding"><a href="#port_forwarding" class="section-self-link">Port Forwarding</a></h2>
 <p>When you type an <a href="https://en.wikipedia.org/wiki/IP_address">IP address</a> into
 your web browser, the browser attempts to establish one or more <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>
 connections to that address on port 80.  But I'm not listening on port 80,
@@ -284,7 +290,7 @@ just a proot jail running inside of an Android app having no special
 permissions.  I suppose you could erase my SD card, which would be a dick move,
 but since I just reset the phone there isn't anything on it to lose.  Go ahead
 and add my phone to your botnet, see what I care!</p>
-<h2 id="address_reservation">Address Reservation</h2>
+<h2 id="address_reservation"><a href="#address_reservation" class="section-self-link">Address Reservation</a></h2>
 <p>In addition to telling my router to forward HTTP requests to my phone, I also
 need to tell it always to assign the local IP address <code>192.168.1.4</code> to the
 phone.  Otherwise, the next time I restart the phone or the router, the phone
@@ -295,7 +301,7 @@ has another option for this, called "address reservation."</p>
 (which is just my laptop) will be assigned local address <code>192.168.1.2</code>, and any
 device having my old phone's MAC address will be assigned local address
 <code>192.168.1.4</code>.  So, that settles that.</p>
-<h2 id="dns">DNS</h2>
+<h2 id="dns"><a href="#dns" class="section-self-link">DNS</a></h2>
 <p>At this point, the old Android phone sitting in my apartment and connected to
 my Wi-Fi router is now accessible from the entire internet at <a href="http://74.68.159.94">74.68.159.94</a>,
 my router's <em>public</em> IP address.</p>
@@ -326,7 +332,7 @@ my website remained available anywhere my old phone happened to be connected to
 the internet.  Besides being a useless idea, it wouldn't even really work,
 though, because I wouldn't be able to set up port forwarding on every network
 that I enter.</p>
-<h2 id="now_what">Now What?</h2>
+<h2 id="now_what"><a href="#now_what" class="section-self-link">Now What?</a></h2>
 <p>I have no answer.</p>
 <p>After all, I don't <em>need</em> to host my blog from an old phone sitting in my
 apartment.  It's already hosted "in the cloud" at <a href="https://dgoffredo.github.io/">dgoffredo.github.io</a>.

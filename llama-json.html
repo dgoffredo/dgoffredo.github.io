@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#llama_json">Llama JSON</a><ul><li><a href="#its_a_macro">It's a Macro</a></li><li><a href="#dealing_with_null">Dealing with null</a></li><li><a href="#distinguishing_arrays_from_objects">Distinguishing Arrays from Objects</a></li><li><a href="#empty_objects_and_arrays">Empty Objects and Arrays</a></li><li><a href="#numbers_and_jsonstringify">Numbers and JSON.stringify</a></li><li><a href="#helper_procedure">Helper Procedure</a></li><li><a href="#the_json_macro">The json Macro</a></li><li><a href="#example">Example</a></li></ul></li></ul></div>
 
-<h1 id="llama_json">Llama JSON</h1>
+<h1 id="llama_json"><a href="#llama_json" class="section-self-link">Llama JSON</a></h1>
 <p><img src="llama.jpg" alt="" width="400" height="400"></img> <img src="json.gif" alt="" width="160" height="160"></img></p>
 <p>Playing with a <a href="https://github.com/dgoffredo/llama">pet project</a>, I noticed a relationship between
 <a href="https://en.wikipedia.org/wiki/S-expression">s-expressions</a> and <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>.</p>
@@ -220,7 +226,7 @@ spot between brevity and readability.</p>
 special intrinsic?</p>
 <p>I work through these and other questions in the following sections, and then
 propose a definition for the <code>json</code> form.</p>
-<h2 id="its_a_macro">It's a Macro</h2>
+<h2 id="its_a_macro"><a href="#its_a_macro" class="section-self-link">It's a Macro</a></h2>
 <p>Well, there you have it. It has to be a macro, not a regular procedure. Here's
 why:</p>
 <pre><code class="hljs">(<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> ([: <span class="hljs-string">"colon lol"</span>])
@@ -233,7 +239,7 @@ being <code>("foo" "colon lol" "bar")</code>, and we just can't have that. With 
 though, whatever literally appears as the argument is what is passed in, e.g.
 the symbol <code>:</code>.</p>
 <p>We're not out of the woods yet, though.</p>
-<h2 id="dealing_with_null">Dealing with <code>null</code></h2>
+<h2 id="dealing_with_null"><a href="#dealing_with_null" class="section-self-link">Dealing with <code>null</code></a></h2>
 <p><code>null</code> is a special symbol that has to be dealt with. The trouble is that
 the symbol <code>null</code> might be bound to some value during evaluation. I think,
 therefore, it's best to force <code>null</code> always to mean <code>null</code> within a <code>json</code>
@@ -264,7 +270,7 @@ character:</p>
 <p>so that once again the result is <code>"{\"value\": null}"</code>.</p>
 <p>So, <code>null</code> will be treated literally without evaluation when appearing in a
 <code>json</code> form, but the value after evaluation will also be accepted.</p>
-<h2 id="distinguishing_arrays_from_objects">Distinguishing Arrays from Objects</h2>
+<h2 id="distinguishing_arrays_from_objects"><a href="#distinguishing_arrays_from_objects" class="section-self-link">Distinguishing Arrays from Objects</a></h2>
 <p>Trickier even than encountering the colon (<code>:</code>) symbol are the situations we
 get into supporting <code>unquoted:</code> property names. Is the following a JSON
 object, or JSON array having two elements?</p>
@@ -299,7 +305,7 @@ means that</p>
 <p>yields <code>"{\"tricky\": \"tricks\"}"</code> instead of <code>"[\"look out!\" \"tricks\"]"</code>.
 That settles that ambiguity, but still we have a problem if the object or array
 is <em>empty</em>.</p>
-<h2 id="empty_objects_and_arrays">Empty Objects and Arrays</h2>
+<h2 id="empty_objects_and_arrays"><a href="#empty_objects_and_arrays" class="section-self-link">Empty Objects and Arrays</a></h2>
 <p>What does <code>(json ())</code> yield? Is it <code>"[]"</code> or is it <code>"{}"</code>? Remember that the
 different types of grouping characters are indistinguishable in Llama.</p>
 <p>This presents a serious problem -- it reveals that in order to <em>truly</em> represent
@@ -335,7 +341,7 @@ in contexts where the distinction is explicitly relevant, like in the <code>json
 macro.</p>
 <p>That work was done in <a href="https://github.com/dgoffredo/llama/commit/66197fa9774b1f3cbf17a5e76c6a81df44cce5d1">this commit</a>. In doing so, I accidentally
 introduced a bug, which I fixed in <a href="https://github.com/dgoffredo/llama/commit/6ccf8a1b1c10909f8295ea906c1acc96e421031f">the following commit</a>.</p>
-<h2 id="numbers_and_jsonstringify">Numbers and <code>JSON.stringify</code></h2>
+<h2 id="numbers_and_jsonstringify"><a href="#numbers_and_jsonstringify" class="section-self-link">Numbers and <code>JSON.stringify</code></a></h2>
 <p>There's one more sticky point, before we get into the implementation. When
 first thinking about the implementation, I thought it would be convenient to
 have the <code>json</code> form produce a <em>javascript</em> value suitable for JSON
@@ -354,7 +360,7 @@ through the JSON serializer, and since <code>JSON.stringify</code> does not supp
 (even with its <code>replacer</code> argument!), we have to do our own JSON serialization.</p>
 <p>Fortunately, JSON is simple, and also we can still use <code>JSON.stringify</code> for
 <code>String</code>s, <code>null</code>, <code>Date</code>s, and any other non-numeric scalars.</p>
-<h2 id="helper_procedure">Helper Procedure</h2>
+<h2 id="helper_procedure"><a href="#helper_procedure" class="section-self-link">Helper Procedure</a></h2>
 <p>Before we get into writing the <code>json</code> macro itself, recognize that the job
 of converting an evaluated list of data (datums) into a string of JSON can
 be done by a procedure, once the colon business has been taken care of, and
@@ -407,7 +413,7 @@ mean the contained string is to be serialized as a number rather than as a
 implementation. The only hairy part was walking through a list <a href="https://github.com/dgoffredo/llama/commit/f8c833f7fdc685385d2ae6b6bfb51cf2f4b61cac?diff=unified#diff-245ec6b1bfcfd67da8e9e5c842ac921bR44">two elements
 at a time</a> (Javascript's "splat" (<code>...</code>) operator and
 recursion helped here).</p>
-<h2 id="the_json_macro">The <code>json</code> Macro</h2>
+<h2 id="the_json_macro"><a href="#the_json_macro" class="section-self-link">The <code>json</code> Macro</a></h2>
 <p>All that remains to write is the <code>json</code> macro itself, which will prepare its
 argument for the helper procedure and then expand into an invocation of the
 helper procedure with the modified argument, i.e.</p>
@@ -425,7 +431,7 @@ to the helper procedure.</p>
 expression</a>, and finally the helper procedure does
 its work before calling the <a href="https://github.com/dgoffredo/llama/commit/f8c833f7fdc685385d2ae6b6bfb51cf2f4b61cac?diff=unified#diff-245ec6b1bfcfd67da8e9e5c842ac921bR127">custom JSON serializer</a>.</p>
 <p>With that, we're done! JSON embedded within a lisp, using macros.</p>
-<h2 id="example">Example</h2>
+<h2 id="example"><a href="#example" class="section-self-link">Example</a></h2>
 <p>Input (Llama):</p>
 <pre><code class="hljs">(<span class="hljs-name">pml</span> ((<span class="hljs-name">xmlns</span> http://www.proprietary.com/ui)
       (<span class="hljs-name">xmlns:pml</span> http://www.proprietary.com/markup))

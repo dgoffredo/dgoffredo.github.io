@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#india_day_10">India, Day 10</a></li></ul></div>
 
-<h1 id="india_day_10">India, Day 10</h1>
+<h1 id="india_day_10"><a href="#india_day_10" class="section-self-link">India, Day 10</a></h1>
 <p><a href="india4_23.jpg"><img src="india4_23_small.webp" alt="" class="preview" width="700" height="525"></img></a></p>
 <p>He didn't get left behind, after all.  It should have occurred to me earlier
 to search for the marble elephant in a marble room.</p>

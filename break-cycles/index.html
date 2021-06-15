@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,9 +131,9 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#code_generation_and_the_minimum_feedback_arc_set">Code Generation and the Minimum Feedback Arc Set</a><ul><li><a href="#generating_c_classes">Generating C++ Classes</a></li><li><a href="#larger_cycles">Larger Cycles</a></li><li><a href="#tradeoffs">Trade-offs</a></li><li><a href="#the_minimum_feedback_arc_set">The Minimum Feedback Arc Set</a></li><li><a href="#a_potential_compromise">A Potential Compromise</a></li></ul></li></ul></div>
 
-<h1 id="code_generation_and_the_minimum_feedback_arc_set">Code Generation and the Minimum Feedback Arc Set</h1>
+<h1 id="code_generation_and_the_minimum_feedback_arc_set"><a href="#code_generation_and_the_minimum_feedback_arc_set" class="section-self-link">Code Generation and the Minimum Feedback Arc Set</a></h1>
 <p>I ran into a graph problem a while back, and finally decided to write about it.</p>
-<h2 id="generating_c_classes">Generating C++ Classes</h2>
+<h2 id="generating_c_classes"><a href="#generating_c_classes" class="section-self-link">Generating C++ Classes</a></h2>
 <p>One day I'll write a <a href="https://github.com/bloomberg/bde/blob/master/groups/bdl/bdlat/doc/bdlat.txt">bdlat</a>-compatible C++ class
 <a href="https://github.com/dgoffredo/bat-codegen">generator</a>. It will allow you to write things like <code>basic.bdlat</code>:</p>
 <pre><code class="hljs">(<span class="hljs-name">package</span> basic
@@ -184,7 +190,7 @@ copies the referred to <code>T</code> instance). Then <code>Value</code> can be 
 };
 </code></pre>
 <p>That would work, because <code>Allocated&lt;T&gt;</code>'s size is independent of <code>T</code>.</p>
-<h2 id="larger_cycles">Larger Cycles</h2>
+<h2 id="larger_cycles"><a href="#larger_cycles" class="section-self-link">Larger Cycles</a></h2>
 <p>When a type depends upon itself, it doesn't necessarily do so by having itself
 as a member (as was nearly the case with <code>Value</code> above). It could be that the
 type contains a type that contains the original type. Or it could be that the
@@ -233,7 +239,7 @@ cycles. Here's the original cyclic graph again:</p>
 <p>Both cycles share an edge, <code>DF</code>, and removing just that one breaks both
 cycles:</p>
 <div><img src="cyclic.remove.3.dot.png" width="336" height="347"></img><img src="cyclic.remove.4.dot.png" width="371" height="347"></img></div><p>Now graphviz wants to put <code>F</code> on top, interesting.</p>
-<h2 id="tradeoffs">Trade-offs</h2>
+<h2 id="tradeoffs"><a href="#tradeoffs" class="section-self-link">Trade-offs</a></h2>
 <p>What's the difference between the two de-cyclings demonstrated above? My first
 thought was that less is more, and so removing the cycles by adding only one
 <code>Allocated&lt;T&gt;</code> is better than adding two. That's not a fully reasoned argument,
@@ -257,7 +263,7 @@ in cache more often.</p>
 <p>Still, we have to at least get the code to compile. Making <em>everything</em> an
 <code>Allocated&lt;T&gt;</code> seems at least unnecessary, if not detrimental. How, then, do
 we decide which edges to remove from our cyclic graphs?</p>
-<h2 id="the_minimum_feedback_arc_set">The Minimum Feedback Arc Set</h2>
+<h2 id="the_minimum_feedback_arc_set"><a href="#the_minimum_feedback_arc_set" class="section-self-link">The Minimum Feedback Arc Set</a></h2>
 <p>Simple but suboptimal would be to say: "Any type that appears in a cycle must
 be referred to only by <code>Allocated&lt;T&gt;</code>." This makes certain that all cycles are
 removed, but potentially introduces many more <code>Allocated&lt;T&gt;</code> than necessary.</p>
@@ -294,7 +300,7 @@ minimum feedback arc set problem</a>, and it's
 but unless I find a tested implementation of one of the approximate or complete
 solutions in an off-the-shelf graph library, I'm not about to implement it
 myself for a code generator.</p>
-<h2 id="a_potential_compromise">A Potential Compromise</h2>
+<h2 id="a_potential_compromise"><a href="#a_potential_compromise" class="section-self-link">A Potential Compromise</a></h2>
 <p>I've come up with an algorithm that spits out a set of edges to remove from a
 directed graph to render it acyclic, and as far as I can reason its worse case
 time complexity is a polynomial in <code>n</code>, the number of vertices, and <code>e</code>, the
@@ -303,7 +309,7 @@ number of edges.</p>
 algorithm is more complex than I think, or it's doesn't always find the
 <em>minimum</em> feedback arc set (or both). Because <var>P ≠ NP</var>. Probably.</p>
 <p>Still seems pretty good to me, though. Here's how it works.</p>
-<h3 id="words">Words</h3>
+<h3 id="words"><a href="#words" class="section-self-link">Words</a></h3>
 <p>The idea is to do a depth-first search for "cyclic edges," trying multiple
 times, once for each vertex. The result is then the smallest of the sets of
 "cyclic edges" found. If there multiple disconnected subgraphs, then the result
@@ -321,7 +327,7 @@ to make it acyclic <strong><em>from <code>A</code>'s point of view</em></strong>
 <p>The hunch of this algorithm is that if you repeat the procedure starting at
 each other vertex as well, then maybe you'll stumble upon the minimum
 feedback arc set.</p>
-<h3 id="pictures">Pictures</h3>
+<h3 id="pictures"><a href="#pictures" class="section-self-link">Pictures</a></h3>
 <p>Here is an animated example using the same graph we've been using.</p>
 <p>Start at vertex <code>A</code> and do a depth-first traversal until you run into trouble:</p>
 <p><img src="graph-animation-1.gif" alt="" width="336" height="347"></img></p>
@@ -349,7 +355,7 @@ complete animation starting from <code>D</code>, and then the resulting edges re
 <p>The punchline is the result starting from <code>F</code>. Here it is:</p>
 <div><img src="graph-animation-5.gif" width="336" height="347"></img><img src="edges-removed-f.png" width="336" height="347"></img></div><p>So we discover that the minimum feedback arc set of this directed graph is
 <code>{DF}</code>.</p>
-<h3 id="correctness">Correctness</h3>
+<h3 id="correctness"><a href="#correctness" class="section-self-link">Correctness</a></h3>
 <p>As I said before, this algorithm can't be right. What might help is a
 <a href="https://github.com/josch/cycle_test">test suite</a> that randomly generates directed graphs, and then compares
 the result of this algorithm with the result of brute-force checking the power

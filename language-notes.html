@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -146,7 +152,7 @@ p, .navigation-bar, table.posts, ul, ol {
   pattern template
   pattern2 template2)
 </code></pre>
-<h1 id="the_language_that_i_think_i_want">The Language That I Think I Want</h1>
+<h1 id="the_language_that_i_think_i_want"><a href="#the_language_that_i_think_i_want" class="section-self-link">The Language That I Think I Want</a></h1>
 <ul>
 <li>but probably don't</li>
 <li>and certainly don't need</li>
@@ -155,7 +161,7 @@ p, .navigation-bar, table.posts, ul, ol {
 <p>From an industry perspective, it's an all-too-common Big Waste of Time, but boy
 is it fun.  It's like having strong opinions about fonts, except that the
 fonts can move mountains.  Digital mountains, of course.</p>
-<h2 id="observations">Observations</h2>
+<h2 id="observations"><a href="#observations" class="section-self-link">Observations</a></h2>
 <ul>
 <li>Scheme is all anybody needs, but it sucks to always start from scratch</li>
 <li>C is all anybody needs, but it sucks to always start from scratch</li>
@@ -175,7 +181,7 @@ fonts can move mountains.  Digital mountains, of course.</p>
 </ul>
 </li>
 </ul>
-<h2 id="aims">Aims</h2>
+<h2 id="aims"><a href="#aims" class="section-self-link">Aims</a></h2>
 <p>The <em>reason</em> for this exercise is to end up at:</p>
 <pre><code class="hljs"><span class="hljs-variable">$</span> mkdir solveproblem
 <span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> solveproblem
@@ -258,7 +264,7 @@ is beneficial enough to be part of the language.</li>
 </ul>
 </li>
 </ul>
-<h2 id="tbd">TBD</h2>
+<h2 id="tbd"><a href="#tbd" class="section-self-link">TBD</a></h2>
 <ul>
 <li>How much like Scheme with regard to control flow?<ul>
 <li>call/cc?</li>
@@ -275,7 +281,7 @@ is beneficial enough to be part of the language.</li>
 <li>foreign function interface?</li>
 <li>"unsafe" library? (for memory access, syscalls, etc. a la Go)</li>
 </ul>
-<h2 id="conclusions">Conclusions</h2>
+<h2 id="conclusions"><a href="#conclusions" class="section-self-link">Conclusions</a></h2>
 <ul>
 <li>There's nothing new here, really.</li>
 <li>This synthesis is probably not going to produce anything substantially

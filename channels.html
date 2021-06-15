@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#channels">Channels</a><ul><li><a href="#motivation">Motivation</a></li><li><a href="#select">select(...)</a></li><li><a href="#concurrent_ml">Concurrent ML</a></li><li><a href="#events">Events</a></li><li><a href="#the_original_channel_design">The Original Channel Design</a></li><li><a href="#the_new_channel_design">The New Channel Design</a></li><li><a href="#selectondestroy">selectOnDestroy</a></li><li><a href="#error_handling">Error Handling</a></li><li><a href="#supporting_c98_sucks_without_boost">Supporting C++98 Sucks Without Boost</a></li><li><a href="#more">More</a></li></ul></li></ul></div>
 
-<h1 id="channels">Channels</h1>
+<h1 id="channels"><a href="#channels" class="section-self-link">Channels</a></h1>
 <p><img src="chan.png" alt="" width="330" height="344"></img></p>
 <p>I implemented <a href="https://github.com/dgoffredo/chan">Go-style channels and select</a> in C++. The need doesn't
 arise often, but when it does, it's frustrating not to be able to multiplex
@@ -140,7 +146,7 @@ channels. You should just do things another way. Why are you reinventing the
 wheel? Don't you know anything?</p>
 <p>Okay, okay.  Your concerns are valid, but things are going to be fine.
 Computers are fun.</p>
-<h2 id="motivation">Motivation</h2>
+<h2 id="motivation"><a href="#motivation" class="section-self-link">Motivation</a></h2>
 <p>Back when I was writing a <a href="https://github.com/dgoffredo/ipc">C++ wrapper library</a> for
 <a href="http://man7.org/linux/man-pages/man7/mq_overview.7.html">POSIX message queues</a>, I was frustrated by how difficult it was to
 portably consume a message queue while also being able to stop on demand.  The
@@ -176,7 +182,7 @@ the pipe, and <code>poll</code> all be implementation details of a mechanism for
 <em>exchanging a value with another thread</em>.  Further, I want to be able to
 perform one out of possibly many exchanges, with only one occurring between any
 two threads at a given time.</p>
-<h2 id="select"><code>select(...)</code></h2>
+<h2 id="select"><a href="#select" class="section-self-link"><code>select(...)</code></a></h2>
 <p>In <a href="https://golang.org/">Go</a>, the facility for doing exactly one send/receive operation from a
 set of possible channels is called <a href="https://gobyexample.com/select">select</a>.  I like that name, so
 let's use it.</p>
@@ -198,7 +204,7 @@ from <a href="https://github.com/tylertreat/chan#select-statements">this project
 <p>For the naughty-minded among you: <em>no</em>, you can't use preprocessor macros to
 make something more like Go's select statement.  Not without lambda
 expressions and additional overhead, anyway.</p>
-<h2 id="concurrent_ml">Concurrent ML</h2>
+<h2 id="concurrent_ml"><a href="#concurrent_ml" class="section-self-link">Concurrent ML</a></h2>
 <p>Go is not the only language with channels.  It is likely the most popular, and
 the reason why so many other languages are now adding similar facilities of
 their own (e.g. <a href="https://clojure.org/news/2013/06/28/clojure-clore-async-channels">Clojure</a>).</p>
@@ -213,7 +219,7 @@ composing events and synchronizing threads of execution with them (see
 What I <em>did</em> take from Concurrent ML, though, is the idea that my
 synchronization primitive, <code>select</code>, will operate on <em>events</em>, not on
 channels.</p>
-<h2 id="events">Events</h2>
+<h2 id="events"><a href="#events" class="section-self-link">Events</a></h2>
 <p>What is an event?  To me, it's a state machine.  Under the hood, a thread will
 be blocking in a call to <code>poll</code>, but the events determine which files will be
 monitored by <code>poll</code>.</p>
@@ -246,7 +252,7 @@ gave me to wait on.</li>
 </span></code></pre>
 <p>The trick, then, is to express sending to or receiving from a channel as one
 such <em>event</em>.</p>
-<h2 id="the_original_channel_design">The Original Channel Design</h2>
+<h2 id="the_original_channel_design"><a href="#the_original_channel_design" class="section-self-link">The Original Channel Design</a></h2>
 <p>I don't know how to implement channel send events and receive events using the
 framework described above.  I <em>thought</em> that I did, but there's an essential
 piece missing that, I think, makes <code>select</code>ing on channel events impossible.</p>
@@ -399,7 +405,7 @@ deadlocking case?</p>
 the "exactly one event is fulfilled" guarantee, a send/receive event must
 perform a blocking read at some point, and doing so could cause a deadlock when
 <code>select</code> involves more than one channel.</p>
-<h2 id="the_new_channel_design">The New Channel Design</h2>
+<h2 id="the_new_channel_design"><a href="#the_new_channel_design" class="section-self-link">The New Channel Design</a></h2>
 <p>Deadlocked and forlorn, I looked to <a href="https://github.com/golang/go/blob/master/src/runtime/select.go">Go's implementation</a> of
 <code>select</code> for inspiration.  This <a href="https://docs.google.com/document/d/1yIAYmbvL3JxOKOjuCyon7JhW4cSv1wy5hC0ApeGMV9s/pub">description</a> of Go channels, by
 Dmitry Vyukov, was especially helpful.  In particular, he notes the following
@@ -426,7 +432,7 @@ above, doing so spoils the simplicity of the original <code>select</code> implem
 (<code>HI</code>, <code>READY</code>, <code>DONE</code>, etc.) since now a mutex will be used for coordinating
 one side of the communication between two threads, rather than an additional
 pipe.</p>
-<h3 id="eventcontext"><code>EventContext</code></h3>
+<h3 id="eventcontext"><a href="#eventcontext" class="section-self-link"><code>EventContext</code></a></h3>
 <p>Associated with each call to <code>select</code> will be an instance of the following
 <code>struct</code>:</p>
 <pre><code class="lang-c++ hljs"><span class="hljs-comment">// `SelectorFulfillment` is a means by which an event in one `select`</span>
@@ -506,7 +512,7 @@ work is done. It can see which event was fulfilled by reading the
 </ol>
 <p>Once I implemented these changes, the deadlock described in the previous
 section went away.</p>
-<h2 id="selectondestroy"><code>selectOnDestroy</code></h2>
+<h2 id="selectondestroy"><a href="#selectondestroy" class="section-self-link"><code>selectOnDestroy</code></a></h2>
 <p>For any of you still reading this (good job!), there were other morsels of C++
 design that I encountered while working on this project.</p>
 <p>For example, I want a channel's <code>send</code> and <code>recv</code> member functions to return
@@ -636,7 +642,7 @@ chan2.<span class="hljs-built_in">recv</span>(&amp;message);
     <span class="hljs-keyword">default</span>: <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<h2 id="error_handling">Error Handling</h2>
+<h2 id="error_handling"><a href="#error_handling" class="section-self-link">Error Handling</a></h2>
 <p>I haven't mentioned how error handling works in this channels library.  Does
 <code>select</code> throw exceptions?  Does it return special values indicating errors?
 How does a client of <code>select</code> know when an error occurs, and which kind?</p>
@@ -728,7 +734,7 @@ an integer, but that also contained error information?</p>
 clients might want to throw can be stored in the <code>Selection</code> object returned
 by <code>select</code>.  To be honest, I still prefer the thread-local version, but I
 might implement this variant as well, for naysayers.</p>
-<h2 id="supporting_c98_sucks_without_boost">Supporting C++98 Sucks Without Boost</h2>
+<h2 id="supporting_c98_sucks_without_boost"><a href="#supporting_c98_sucks_without_boost" class="section-self-link">Supporting C++98 Sucks Without Boost</a></h2>
 <p>I set out with the requirement that this channels library work with C++98 in
 addition to more recent versions of the language.  One reason is simply the joy
 of what I'll call "constraint driven design."  Another reason is that there are
@@ -846,7 +852,7 @@ required C++11 or boost.  All together my implementations amount to an
 additional 1173 lines of source.  That sounds like a lot, but considering that
 it allows the library to support C++98 without depending on a large external
 library, I think that it's justified.</p>
-<h2 id="more">More</h2>
+<h2 id="more"><a href="#more" class="section-self-link">More</a></h2>
 <p>That's enough of that.  If your curiosity is piqued, then you can
 <a href="https://github.com/dgoffredo/chan#more">get started</a> playing with C++ channels and see how you like it.</p>
 

@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#europe_day_1">Europe, Day 1</a></li></ul></div>
 
-<h1 id="europe_day_1">Europe, Day 1</h1>
+<h1 id="europe_day_1"><a href="#europe_day_1" class="section-self-link">Europe, Day 1</a></h1>
 <p><a href="vineet_ice.jpg"><img src="vineet_ice_small.webp" alt="" class="preview" width="700" height="304"></img>
 </a><em>Vineet copes with the low coefficient of friction in Iceland.</em></p>
 <p>Morning from the North,</p>

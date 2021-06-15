@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#mexico_day_29">Mexico, Day 29</a></li></ul></div>
 
-<h1 id="mexico_day_29">Mexico, Day 29</h1>
+<h1 id="mexico_day_29"><a href="#mexico_day_29" class="section-self-link">Mexico, Day 29</a></h1>
 <p><a href="mexico_49.jpg"><img src="mexico_49_small.webp" alt="" class="preview" width="700" height="525"></img> </a></p>
 <p>If you zoom in (click), you can see a horse above the third post from the left,
 in the center of the image.  My first few days in Aguascalientes, this horse

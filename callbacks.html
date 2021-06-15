@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,10 +131,10 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#callbacks_part_1">Callbacks (Part 1)</a><ul><li><a href="#userspecified_types">User-Specified Types</a></li><li><a href="#runtime_object_structure">Runtime Object Structure</a></li><li><a href="#factories">Factories</a></li><li><a href="#a_prettier_way">A Prettier Way</a></li><li><a href="#whats_the_difference">What's the Difference?</a></li><li><a href="#part_two">Part Two</a></li></ul></li></ul></div>
 
-<h1 id="callbacks_part_1">Callbacks (Part 1)</h1>
+<h1 id="callbacks_part_1"><a href="#callbacks_part_1" class="section-self-link">Callbacks (Part 1)</a></h1>
 <p>I ran into something cool related to callbacks lately, and I have to tell you
 about it.</p>
-<h2 id="userspecified_types">User-Specified Types</h2>
+<h2 id="userspecified_types"><a href="#userspecified_types" class="section-self-link">User-Specified Types</a></h2>
 <p>Say you're writing an API for some sort of query or RPC system.  Maybe you're
 writing a client library for a request/response message passing framework, or
 maybe you're writing a database accessor.</p>
@@ -151,7 +157,7 @@ parameters (if any) can be read.</p>
 when results are received, it will deduce how to unpack them into <code>results</code> by
 using the <a href="bdlat">introspection facilities</a> associated with the type <code>Results</code>.
 Pretty cool.</p>
-<h2 id="runtime_object_structure">Runtime Object Structure</h2>
+<h2 id="runtime_object_structure"><a href="#runtime_object_structure" class="section-self-link">Runtime Object Structure</a></h2>
 <p>The above recipe works even if the structure of <code>Results</code> is not certain at
 compile time.  It could be that when a <code>Results</code> object is created, it takes
 as one of its constructor arguments a "schema" object that determines how the
@@ -193,7 +199,7 @@ with a type whose structure is known at compile-time, the library can't just
 default construct an object and fill it up using introspection, and unlike in
 the synchronous API, the library can't have the user provide the object.</p>
 <p>Or can it?</p>
-<h2 id="factories">Factories</h2>
+<h2 id="factories"><a href="#factories" class="section-self-link">Factories</a></h2>
 <p>One way to get around this shortcoming is to have a version of the asynchronous
 API that takes an additional "factory" argument from which objects of the
 <code>Results</code> type can be constructed.  This way, the user can specify any dynamic
@@ -227,7 +233,7 @@ database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client)
                     <span class="hljs-title">params</span>,
                     <span class="hljs-title">std</span>::<span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">DynamicValue</span>(<span class="hljs-params"></span>)&gt;(<span class="hljs-params">&amp;makeStellar</span>))</span>; 
 </span></code></pre>
-<h2 id="a_prettier_way">A Prettier Way</h2>
+<h2 id="a_prettier_way"><a href="#a_prettier_way" class="section-self-link">A Prettier Way</a></h2>
 <p>I don't like the factory.  I don't know why, it just makes me feel bad.  You
 can see another way, though, once you observe that <code>resultsFactory</code> is not just
 a function that returns a <code>Results</code>, it's any code at all that happens to
@@ -294,11 +300,11 @@ database.asyncQuery(<span class="hljs-string">"execute GetContract(@id, @client)
 </code></pre>
 <p>Though your willingness to use macros, especially with such short names, is a
 matter of taste.</p>
-<h2 id="whats_the_difference">What's the Difference?</h2>
+<h2 id="whats_the_difference"><a href="#whats_the_difference" class="section-self-link">What's the Difference?</a></h2>
 <p>Why choose one of the two styles above over the other? Is one better than the
 other?</p>
 <p>Yes, the second version of the asynchronous API is better.  Here's why:</p>
-<h3 id="its_more_procedural">It's more procedural</h3>
+<h3 id="its_more_procedural"><a href="#its_more_procedural" class="section-self-link">It's more procedural</a></h3>
 <p>The callback-in-a-callback solution has the user answer the question: "What
 happens when the query results are available?"  Part of answering that question
 is having a mechanism to fill an object with the results (that's the argument
@@ -320,14 +326,14 @@ you, since then the API looks more like a function:</p>
 <pre><code class="hljs">makeQuery :: Query -&gt; Results
 </code></pre>
 <p>But that's not the general case.</p>
-<h3 id="its_just_a_different_kind_of_callback">It's just a different kind of callback</h3>
+<h3 id="its_just_a_different_kind_of_callback"><a href="#its_just_a_different_kind_of_callback" class="section-self-link">It's just a different kind of callback</a></h3>
 <p>This is an aesthetic argument rather than a technical one, but I like that the
 synchronous flavors of the API take a single output argument, and the
 asynchronous flavors of the API take a single callback argument.  Whether the
 user or the library needs to provide a <code>Results</code> object is decided by the
 signature of the callback, rather than by the presence or absence of an
 additional factory argument.</p>
-<h2 id="part_two">Part Two</h2>
+<h2 id="part_two"><a href="#part_two" class="section-self-link">Part Two</a></h2>
 <p>If this sort of thing interests you, then take a look at <a href="callbacks2.html">part 2</a>.</p>
 
 

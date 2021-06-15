@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,22 +131,22 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#lemonade">Lemonade</a><ul><li><a href="#ingredients">Ingredients</a></li><li><a href="#equipment">Equipment</a></li><li><a href="#procedure">Procedure</a></li></ul></li></ul></div>
 
-<h1 id="lemonade">Lemonade</h1>
+<h1 id="lemonade"><a href="#lemonade" class="section-self-link">Lemonade</a></h1>
 <p>I've been making lemonade.  Here's how.</p>
-<h2 id="ingredients">Ingredients</h2>
+<h2 id="ingredients"><a href="#ingredients" class="section-self-link">Ingredients</a></h2>
 <ul>
 <li>2 pounds of lemons</li>
 <li>1½ cups of sugar</li>
 <li>tap water</li>
 </ul>
-<h2 id="equipment">Equipment</h2>
+<h2 id="equipment"><a href="#equipment" class="section-self-link">Equipment</a></h2>
 <ul>
 <li><a href="https://www.amazon.com/s?k=manual+lemon+squeezer">citrus juicer</a> (or strong hands)</li>
 <li>knife (for cutting lemons)</li>
 <li>colander/strainer (for removing lemons and filtering the liquid)</li>
 <li>two pots</li>
 </ul>
-<h2 id="procedure">Procedure</h2>
+<h2 id="procedure"><a href="#procedure" class="section-self-link">Procedure</a></h2>
 <p>This recipe is based off of (almost exactly) <a href="https://www.reddit.com/r/Old_Recipes/comments/hl2ehg/i_didnt_realize_lemonade_was_so_complicated/">a Reddit post</a>.</p>
 <p>Cut all of the lemons in half and squeeze their juice into a pot.</p>
 <p>Cut each squeezed half lemon into fourths and put into the pot with the juice.</p>

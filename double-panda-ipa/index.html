@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#double_panda_ipa">Double Panda IPA</a><ul><li><a href="#ingredients">Ingredients</a></li><li><a href="#grain_preparation">Grain Preparation</a></li><li><a href="#mashing">Mashing</a></li><li><a href="#sparging">Sparging</a></li><li><a href="#boiling">Boiling</a></li><li><a href="#fermenting">Fermenting</a></li><li><a href="#bottling">Bottling</a></li></ul></li></ul></div>
 
-<h1 id="double_panda_ipa">Double Panda IPA</h1>
+<h1 id="double_panda_ipa"><a href="#double_panda_ipa" class="section-self-link">Double Panda IPA</a></h1>
 <p><a href="label.png"><img src="label.webp" alt="Double Panda IPA beer label" width="384" height="500"></img></a></p>
 <p></p>
 <style>
@@ -135,7 +141,7 @@ td {
 </style><p>I'm making a beer for the first time since the end of 2017, so I thought I'd
 blog about it.  This will be the first post in a "beer" series.</p>
 <p>I brewed this batch on May 8, 2021.  Grace was here and helped out.</p>
-<h2 id="ingredients">Ingredients</h2>
+<h2 id="ingredients"><a href="#ingredients" class="section-self-link">Ingredients</a></h2>
 <p>I made a big <a href="https://en.wikipedia.org/wiki/India_pale_ale">IPA</a> based on the ingredients I had on hand.  They're all <em>old</em>
 ingredients, which might have been problematic, but I think I'll get a solid
 beer out of it anyway.</p>
@@ -155,7 +161,7 @@ beer out of it anyway.</p>
   <tr><th>Yeast</th><th>Quantity</th><th>Notes</th></tr>
   <tr><td>Safale US-05</td><td>1 pack dry</td><td>sprinkled directly into wort</td></tr>
   <tr><td>Saflager W34/70</td><td>2 packs dry</td><td>added after ≈20 hours; rehydrated in diluted/boiled/chilled wort</td></tr>
-</table><h2 id="grain_preparation">Grain Preparation</h2>
+</table><h2 id="grain_preparation"><a href="#grain_preparation" class="section-self-link">Grain Preparation</a></h2>
 <p>I used my bathroom scale to weigh out the bulk grains from the bags that had
 been sitting in my refrigerator for five years.  At one point, my body weight
 (which I was using as a zero for weighing the grains) showed a different value,
@@ -167,7 +173,7 @@ measured.</p>
 <p>Instead of letting the crushed grain collect in a garbage bag, I cut the bag so
 that it acts as a chute, and the grains fall into a plastic bucket below.  Much
 better.  The grain generated a lot of dust, because it was so old and dry.</p>
-<h2 id="mashing">Mashing</h2>
+<h2 id="mashing"><a href="#mashing" class="section-self-link">Mashing</a></h2>
 <p>I mashed thick, using ≈4 gallons of water for ≈16.5 pounds of grain (just less
 than 1 qt./lb.).  I heated the mash water up to 190°F, and dumped it into the
 empty mash/lauter tun to heat the equipment, with a blanket on the lid.</p>
@@ -188,7 +194,7 @@ at 136°F I gave up and started the sparge.</p>
 <p>So, that's a 110 minute mash from somewhere above 154°F down to 136°F, never
 showing complete conversion.  There is a long fly sparge ahead, though, so
 maybe I ended up getting all of the sugar after all.</p>
-<h2 id="sparging">Sparging</h2>
+<h2 id="sparging"><a href="#sparging" class="section-self-link">Sparging</a></h2>
 <p>Here's my fly sparging setup.</p>
 <video controls="true" width="700">
   <source src="sparging.mp4" type="video/mp4"></source>
@@ -213,7 +219,7 @@ gallons, that the resulting wort would be way too strong.  I decided to let it
 boil off for a while, to gague the boil off rate, and then discard some wort so
 that the target 5 gallons of wort at the end of the boil had a reasonable
 gravity.</p>
-<h2 id="boiling">Boiling</h2>
+<h2 id="boiling"><a href="#boiling" class="section-self-link">Boiling</a></h2>
 <p>During the sparge, I collected the wort between two small pots.  When one
 began to fill up, I'd switch over to the other one and then pour the fuller pot's
 contents into the brew pot.  After collecting about three gallons this way, I
@@ -225,7 +231,7 @@ sparging.  What a mess.</p>
 in a tupperware container for priming bottles, and some I discarded.
 The wort that I saved was at 1.068 SG.</p>
 <p><a href="wort.jpg"><img src="wort_small.webp" alt="wort set aside for priming bottles down the road" class="preview" width="700" height="525"></img></a></p>
-<h3 id="hop_additions">Hop Additions</h3>
+<h3 id="hop_additions"><a href="#hop_additions" class="section-self-link">Hop Additions</a></h3>
 <p>The recipe started with one ounce each of the four hop varieties listed in the
 <a href="#ingredients">ingredients</a> section.  I planned to blend them together and do 2
 ounces at 60 minutes, 1 ounce at 15 minutes, and 1 ounce at 2 minutes.  Then I
@@ -238,7 +244,7 @@ of the centennial, citra, and cascade hops to the 15 minute addition.</p>
   <tr><td>½ oz. Citra, ½ oz. Centennial, ½ oz. Cascade, ½ oz. Belma</td><td>60 min.</td></tr>
   <tr><td><sup>7</sup>/<sub>12</sub> oz. Citra, <sup>7</sup>/<sub>12</sub> oz. Centennial, <sup>7</sup>/<sub>12</sub> oz. Cascade, ¼ oz. Belma</td><td>15 min.</td></tr>
   <tr><td>¼ oz. Citra, ¼ oz. Centennial, ¼ oz. Cascade, ¼ oz. Belma</td><td>2 min.</td></tr>
-</table><h3 id="chilling">Chilling</h3>
+</table><h3 id="chilling"><a href="#chilling" class="section-self-link">Chilling</a></h3>
 <p>15 minutes before the end of the boil (around the second hop addition), I added
 the wort chiller to the kettle to sanitize it.</p>
 <p>At flameout, I turned on the cold water faucet and continually swirled the
@@ -253,7 +259,7 @@ to pop off.</p>
 <p>Before chilling the beer, I noted the level of the wort inside the kettle to be
 about 5.5 gallons hot.  Water has an expansion factor of 1.043 at 212°F, so
 chilled I had around 5.3 gallons of wort.</p>
-<h2 id="fermenting">Fermenting</h2>
+<h2 id="fermenting"><a href="#fermenting" class="section-self-link">Fermenting</a></h2>
 <p>Using a sanitized, broken <a href="https://www.amazon.com/s?k=auto+siphon">autosiphon</a>, I transferred the chilled wort to a
 sanitized 5 gallon glass carboy, splashing the stream of wort as it filled the
 carboy.  Then I plugged it and shook the hell out of it for several seconds.</p>
@@ -277,7 +283,7 @@ maybe it's just the ale yeast, after a two day lag as before?  I don't know.</p>
 <p>A few days later I replaced the blowoff tube with an airlock, and as of today
 the batch is still quietly bubbling away.</p>
 <p><a href="fermentor-with-airlock.jpg"><img src="fermentor-with-airlock_small.webp" alt="fermentation with airlock" class="preview" width="700" height="525"></img></a></p>
-<h2 id="bottling">Bottling</h2>
+<h2 id="bottling"><a href="#bottling" class="section-self-link">Bottling</a></h2>
 <p>I plan to bottle condition this beer, priming with the 1.068 OG wort that I set
 aside on brew day.  Maybe I should just use corn sugar instead, I don't know.</p>
 <p>The bottles will get <a href="labels.pdf">these labels</a>, and caps that look something
@@ -292,7 +298,7 @@ of empty bottles that I can de-label in preparation for filling.</p>
 <p><a href="empties.jpg"><img src="empties_small.webp" alt="empty bottles" class="preview" width="700" height="525"></img></a></p>
 <p>The beer is not yet done fermenting, so I'll update this post come bottling
 day.</p>
-<h3 id="bottling_day_june_13_2021">Bottling Day (June 13, 2021)</h3>
+<h3 id="bottling_day_june_13_2021"><a href="#bottling_day_june_13_2021" class="section-self-link">Bottling Day (June 13, 2021)</a></h3>
 <p><a href="fg.jpg"><img src="fg_small.webp" alt="hydrometer showing final gravity" class="preview" width="700" height="525"></img></a></p>
 <p>Today was bottling day, and we ended up with 48 12 oz. bottles of primed beer
 at 9.58% alcohol by volume.</p>

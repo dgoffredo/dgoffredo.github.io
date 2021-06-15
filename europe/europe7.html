@@ -89,7 +89,13 @@ img.preview {
     width: 100%;
     height: auto
 }
-</style><style media="(orientation: landscape)">pre {
+
+/* Headers (&lt;h1&gt;, &lt;h2&gt;, etc.) are links to themselves.  Make sure they don't
+look like links.  The linkiness is a hidden feature.  */
+a.section-self-link {
+    text-decoration: inherit;
+    color: inherit;
+}</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -125,7 +131,7 @@ p, .navigation-bar, table.posts, ul, ol {
 
 <div class="table-of-contents"><ul><li><a href="#europe_day_7">Europe, Day 7</a></li></ul></div>
 
-<h1 id="europe_day_7">Europe, Day 7</h1>
+<h1 id="europe_day_7"><a href="#europe_day_7" class="section-self-link">Europe, Day 7</a></h1>
 <p>Greetings from Gatwick,</p>
 <p>The flight into Madrid is a bit late. I'll take this time to catch you up on
 what I did in London. For example, at some point we encountered a monument:</p>
