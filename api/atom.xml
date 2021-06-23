@@ -1,4 +1,95 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-06-03</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Blog</title><link href="https://www.davidgoffredo.com/blog.html" /><id>https://www.davidgoffredo.com/blog.html</id><updated>2021-06-03</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-06-20</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Boxy Brown Porter</title><link href="https://www.davidgoffredo.com/boxy-brown-porter/boxy-brown-porter.html" /><id>https://www.davidgoffredo.com/boxy-brown-porter/boxy-brown-porter.html</id><updated>2021-06-20</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/boxy-brown-porter/boxy-brown-porter.html" />
+        </head>
+        <body>
+            <h1>Boxy Brown Porter</h1>
+<p>Today I brewed a porter recipe from the <a href="https://www.homebrewtalk.com/threads/1880-whitbread-porter.666707/">internet</a>.  It says:</p>
+<blockquote><p>The recipe is one of Ron Pattinson's historic recreations based on Whitbread brewing logs.</p>
+</blockquote>
+<p>It's supposedly from 1880 and is called "Whitbread Porter."  I'm going to
+call it "Boxy Brown Porter."</p>
+<p><a href="boxy.png"><img src="boxy_small.png" /></a></p>
+<p />
+<style>
+td {
+    padding: 0 15px;
+}
+</style><h2>Ingredients</h2>
+<table>
+  <tr><th>Grain</th><th>Quantity</th><th>Notes</th></tr>
+  <tr><td>Pale 2-Row</td><td>9 lbs.</td><td /></tr>
+  <tr><td>Brown Malt</td><td>1 lb. 12 oz.</td><td /></tr>
+  <tr><td>Black Malt</td><td>12 oz.</td><td /></tr>
+
+  <tr><th>Hop</th><th>Quantity</th><th>Boil Time</th></tr>
+  <tr><td>East Kent Goldings (4.4% <a href="https://en.wikipedia.org/wiki/Alpha_acid">AA</a>)</td><td>3 oz.</td><td>60 min.</td></tr>
+
+  <tr><th>Yeast</th><th>Quantity</th><th>Notes</th></tr>
+  <tr><td>Safale S-04</td><td>1 pack dry</td><td>stirred into some wort and pitched</td></tr>
+</table><h2>Mash</h2>
+<p>Here's what the <a href="http://www.homebrewing.com/calculators/?page=tools&amp;section=strike&amp;action=calculate">strike water temperature calculator</a> had to say:</p>
+<table>
+  <tr><td>Grain Weight</td><td>11.5 pounds</td></tr>
+  <tr><td>Grain Temperature</td><td>82° F</td></tr>
+  <tr><td>Strike Water Amount</td><td>4 gallons</td></tr>
+  <tr><td>Target Mash Temperature</td><td>154° F</td></tr>
+  <tr><td>Equipment Loss</td><td>0° F (preheated)</td></tr>
+  <tr><td>Strike Water Temperature</td><td>164.4° F</td></tr>
+</table><p>In practice, I might have mashed in a little too hot.  It's hard to tell,
+because temperature readings vary widely depending on where in the mash I
+stick the thermometer.   My notes say that the "mash is somewhere between
+151°F and 157°F, depending on where I measure it."</p>
+<p>After mashing for an hour and a half (went out to dinner), the mash was
+"between 149°F and 153°F, depending on where I measure."</p>
+<p>An iodine tincture test showed that there was no starch remaining.</p>
+<h2>Sparge</h2>
+<p>I did a fly sparge, collecting seven gallons of wort in about an hour.</p>
+<p><img src="water-in_small.webp" alt="water goes in" />
+<em>[water goes in]</em></p>
+<p><img src="wort-out_small.webp" alt="wort comes out" />
+<em>[wort comes out]</em></p>
+<p>I didn't write down the gravity of the runnings.</p>
+<h2>Boil</h2>
+<p>Don't brew in my apartment during the Summer.  The windows don't open much, and
+the only windows are in the front, so there's no way to create a cross breeze.
+The window air conditioning unit can't keep up with the stove, especially with
+two burners going full blast.  The result is that the temperature and humidity
+in the apartment continually rise throughout the boil.  It must have been over
+100° F and 100% humidity by the time I turned off the burners.</p>
+<p>I started heating the wort as I was collecting it during the sparge.  My notes
+say that there was a rolling boil at 8:26 PM, though it was probably already
+boiling before then.  I started the first (and only) hop addition at 8:41 PM,
+so that's at least 15 minutes of boiling before the 60 minute addition.</p>
+<p>I added the 3 oz. of East Kent Goldings pellets (4.4% AA) and boiled them for
+60 minutes.  Then I turned off the burners, started the chiller, and turned on
+the air conditioner...</p>
+<p>The result was five gallons of wort with a <strong>starting gravity of 1.052</strong>.  If
+that ferments down to 1.010, which it usually does, then it'll be 5.5% ABV.</p>
+<p>The yeast was a fresh packet of <a href="https://fermentis.com/wp-content/uploads/2018/08/SafAle-S-04.pdf">S-04</a> ale yeast, stirred into some wort and
+then poured into the fermentor.</p>
+<p><img src="gravity_small.webp" alt="starting gravity" /></p>
+<p><img src="gravity-temperature_small.webp" alt="temperature of hydrometer sample" /></p>
+<p><img src="temperature_small.webp" alt="temperature reading" /></p>
+<h2>Fermentation</h2>
+<p>I affixed a blowoff tube to the carboy and put it into the chest freezer set to
+60° F.</p>
+<p>Two days later, this is what I had:</p>
+<p><img src="poop1_small.webp" alt="beer explosion, angle 1" /></p>
+<p><img src="poop2_small.webp" alt="beer explosion, angle 2" /></p>
+<p><img src="poop3_small.webp" alt="beer explosion, angle 3" /></p>
+<p><img src="poop4_small.webp" alt="beer explosion, angle 4" /></p>
+<p>Lessons learned:</p>
+<ol>
+<li>Use a wider blowoff tube.</li>
+<li>Leave some more headroom.</li>
+<li>S-04 is a beast.</li>
+</ol>
+<p>I cleaned up the mess and replaced the tube with an airlock.</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Blog</title><link href="https://www.davidgoffredo.com/blog.html" /><id>https://www.davidgoffredo.com/blog.html</id><updated>2021-06-03</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/blog.html" />
         </head>

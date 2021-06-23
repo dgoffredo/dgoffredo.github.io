@@ -1,6 +1,6 @@
 <html>
 <head>
-  <base href="blog.html"></base><meta charset="UTF-8"></meta>
+  <base href="boxy-brown-porter/boxy-brown-porter.html"></base><meta charset="UTF-8"></meta>
   
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
@@ -113,7 +113,7 @@ p, .navigation-bar, table.posts, ul, ol {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
-</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Blog</title>
+</style><title>Boxy Brown Porter</title>
 </head>
 
 <body>
@@ -127,148 +127,97 @@ p, .navigation-bar, table.posts, ul, ol {
 </div>
 
 
-<p>Thursday, June  3, 2021</p>
+<p>Sunday, June  20, 2021</p>
 
-<div class="table-of-contents"><ul><li><a href="#blog">Blog</a><ul><li><a href="#static">Static</a></li><li><a href="#design">Design</a></li><li><a href="#implementation">Implementation</a></li><li><a href="#who_gives_a_shit">Who Gives a Shit?</a></li></ul></li></ul></div>
+<div class="table-of-contents"><ul><li><a href="#boxy_brown_porter">Boxy Brown Porter</a><ul><li><a href="#ingredients">Ingredients</a></li><li><a href="#mash">Mash</a></li><li><a href="#sparge">Sparge</a></li><li><a href="#boil">Boil</a></li><li><a href="#fermentation">Fermentation</a></li></ul></li></ul></div>
 
-<h1 id="blog"><a href="#blog" class="section-self-link">Blog</a></h1>
-<p>The time has come for me to blog about my blog on my blog.  It's bound to
-happen eventually with any hand-coded blog.</p>
-<p>I've enjoyed the exercise, because the goal is tangible and easy to state,</p>
-<blockquote><p>Create a static website generator suitable for programming and travel blogging.</p>
+<h1 id="boxy_brown_porter"><a href="#boxy_brown_porter" class="section-self-link">Boxy Brown Porter</a></h1>
+<p>Today I brewed a porter recipe from the <a href="https://www.homebrewtalk.com/threads/1880-whitbread-porter.666707/">internet</a>.  It says:</p>
+<blockquote><p>The recipe is one of Ron Pattinson's historic recreations based on Whitbread brewing logs.</p>
 </blockquote>
-<p>there is no deadline, I am unconstrained by existing code or people, and it's an
-opportunity to learn what really goes on underneath premade offerings.</p>
-<p>What I've learned is that I'm more of a maker than an engineer, and that I
-more value what is created than why it is created.</p>
-<h2 id="static"><a href="#static" class="section-self-link">Static</a></h2>
-<p>This website is completely static.  The server doesn't generate content on
-demand, and there are no client-side scripts.  It's HTML, CSS, and media
-(images and videos).  Nothing else.</p>
-<p>If you disable javascript in your browser, the website is unchanged.  If you
-disable CSS, the website looks a little bland, but still fine.</p>
-<p>There aren't any cookies or modal overlays or scroll-activated banners or
-floating menus or asynchonously loaded assets.  It works on your browser, no
-matter which browser you use.  There aren't any Google Analytics beacons or
-off-screen tracking images.  You won't be asked to sign in with Google, connect
-to Facebook, give a thumbs up, or leave a review, and there's no way to tweet,
-repost, or add a comment.</p>
-<p>It's just HTML, CSS, and media.  My words into the void.</p>
-<h2 id="design"><a href="#design" class="section-self-link">Design</a></h2>
-<p>The configuration language of the site generator is <em>the file system</em>.</p>
-<pre><code class="lang-text hljs">.
-├── bin
-├── config
-├── content
-├── posts
-├── series
-├── site
-└── Makefile
-</code></pre>
-<p>Pages are written in <a href="https://daringfireball.net/projects/markdown/">markdown</a> (<code>.md</code>) and placed in the <code>content/</code>
-directory.  Markdown files will be converted into HTML.  Other types of files
-in <code>content/</code> will be included in the site verbatim.</p>
-<p>The directory structure within <code>content/</code> can be whatever you like (e.g. to 
-organize pages with their images in directories).</p>
-<p>The <code>posts/</code> directory contains symbolic links to <code>.md</code> files under <code>content/</code>.
-Each symbol link is a post, and its name is the ISO 8601 date of the post, e.g.
-<code>2021-06-03</code> for June 3rd, 2021.</p>
-<p>The <code>config/</code> directory contains pieces of the site that don't vary between
-pages, such as the style sheets and the HTML of the navigation bar that appears
-at the top and bottom of every page.</p>
-<p>The <code>series/</code> directory contains one subdirectory per "series."  A series is a
-group of related posts, e.g. a series of posts on restoring a car.  The name of
-each subdirectory under <code>series/</code> is the display name of the series (e.g. 
-"Programming Languages"),  and the contents of each such subdirectory are
-symbolic links to links in <code>posts/</code>, where the name of each symbol link is the
-nickname for that post in the series, e.g. "Day 12" in a series on "Peru Trip."</p>
-<pre><code class="lang-text hljs">.
-├── bin
-├── config
-│   ├── common.css
-│   └── navigate.html
-├── content
-│   ├── cheesecake.md
-│   ├── i-love-scheme.md
-│   ├── in_the_oven.jpg
-│   └── yay-python.md
-├── posts
-│   ├── 2021-06-03 -&gt; ../content/yay-python.md
-│   ├── 2021-06-09 -&gt; ../content/cheesecake.md
-│   └── 2021-07-15 -&gt; ../content/i-love-scheme.md
-├── series
-│   └── Programming Languages
-│       ├── Python -&gt; ../../posts/2021-06-03
-│       └── Scheme -&gt; ../../posts/2021-07-15
-├── site
-└── Makefile
-</code></pre>
-<p>The <code>bin/</code> directory contains scripts used when generating the site.</p>
-<p>The <code>site/</code> directory contains the generated static website, where most of the
-site's assets are symbolic links to files in <code>content/</code> and <code>config/</code>.</p>
-<p>To generate the site, run <code>make</code>.  Then you can run a web server with <code>site/</code>
-as the domain root, e.g.</p>
-<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> site</span>
-<span class="hljs-meta">$</span><span class="bash"> python3 -m http.server</span>
-</code></pre>
-<p>I deploy the site by deep copying <code>site/</code> to another directory (no more symbolic
-links), and shipping that directory to wherever the blog is hosted.</p>
-<h2 id="implementation"><a href="#implementation" class="section-self-link">Implementation</a></h2>
-<p>At first, the code generator was a single python script, <a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/12b499adc0480a55c1bcd34e31ac21f8aa0cd4d0/bin/generate">bin/generate</a>.</p>
-<p>Now it's a <a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/master/Makefile">Makefile</a> supported by a menagerie of <a href="https://github.com/dgoffredo/dgoffredo.github.io/tree/master/bin">scripts</a>, and as the
-final step of the build a <a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/master/bin/generate">descendent of bin/generate</a> is called to
-copy/link files into <code>site/</code>.</p>
-<p>The current Frankenstein's monster state of affairs arose gradually, as with
-all software projects, due to an accumulation of features implemented by an
-inadequately disciplined developer learning things as he went along.</p>
-<p>If I could figure out how to end up with cleaner code, documentation, and tests
-once I get to this point, I'd be a better developer.</p>
-<p>It's a journey!  Now on to the details...</p>
-<h3 id="accumulated_features"><a href="#accumulated_features" class="section-self-link">Accumulated Features</a></h3>
-<p>The <a href="https://github.com/dgoffredo/dgoffredo.github.io/commits/master">commit history</a> tells the story of features added.</p>
-<ul>
-<li>link to page that lists all posts</li>
-<li>style HTML generated from markdown</li>
-<li>generate a table of contents in each post</li>
-<li>highlight syntax in code snippets, using a client-side script</li>
-<li>generate thumbnails for large images (<code>*_small.*</code>)</li>
-<li>allow nested directories under <code>content/</code></li>
-<li>support "series" of posts, and generate per-series navigation tables</li>
-<li>link to a page that lists all series</li>
-<li>highlight syntax in code snippets, on the server (no more client-side scripts)</li>
-<li>automatically insert <code>width</code> and <code>height</code> attributes in <code>&lt;img&gt;</code> tags.</li>
-<li>inline CSS (to avoid blocking initial page paint)</li>
-<li>add a mailing list</li>
-<li>add an "API" to facilitate offline scripts related to the mailing list</li>
-<li>add a viewport and tweak styles so that the site looks good on mobile browsers</li>
-<li>use a custom embedded font</li>
-<li>generate an Atom feed (kind of like RSS)</li>
-</ul>
-<p>Those are just "user facing" changes.  There was also substantial toil moving
-things around, optimizing the generator, writing scripts that generate various
-intermediate files, changing how the generated site was structured and
-deployed, and packaging the build process into reproducible isolated
-environments (like Docker, Guix, and Nix).</p>
-<p>Should have just used Wordpress, right?</p>
-<h2 id="who_gives_a_shit"><a href="#who_gives_a_shit" class="section-self-link">Who Gives a Shit?</a></h2>
-<p>I'm proud enough to say what I ended up with is better and lighter than other
-generators out there, but I'm wise enough to know that isn't true.</p>
-<p>My static site generator is better than anything else out there for
-<em>generating my site</em>, and nothing more.  If it had to support the myriad use
-cases of even the smallest popular offerings (e.g. <a href="https://github.com/jekyll/jekyll">Jekyll</a>), and if my past
-development process is any indicator of how it'd go in the future, then what
-I'd end up with is a smoldering dumpster fire of bugs, and I'd end up moving
-to <a href="https://www.squarespace.com/">Squarespace</a> or something.</p>
-<p>If I wanted to do the experiment, I'd clean up (read: rewrite) the code and
-market the generator online as "yet another static blog generator," and either
-the project would be duly ignored, or unanticipated difficulties encountered
-while implementing requested features would ignite the dumpster anew.</p>
-<p>In summary: Software is hard. To claim anything else is either arrogance or a
-sales pitch.  Still, it's fun.  Look, I made a website!</p>
+<p>It's supposedly from 1880 and is called "Whitbread Porter."  I'm going to
+call it "Boxy Brown Porter."</p>
+<p><a href="boxy.png"><img src="boxy_small.png" width="347" height="400"></img></a></p>
+<p></p>
+<style>
+td {
+    padding: 0 15px;
+}
+</style><h2 id="ingredients"><a href="#ingredients" class="section-self-link">Ingredients</a></h2>
+<table>
+  <tr><th>Grain</th><th>Quantity</th><th>Notes</th></tr>
+  <tr><td>Pale 2-Row</td><td>9 lbs.</td><td></td></tr>
+  <tr><td>Brown Malt</td><td>1 lb. 12 oz.</td><td></td></tr>
+  <tr><td>Black Malt</td><td>12 oz.</td><td></td></tr>
+
+  <tr><th>Hop</th><th>Quantity</th><th>Boil Time</th></tr>
+  <tr><td>East Kent Goldings (4.4% <a href="https://en.wikipedia.org/wiki/Alpha_acid">AA</a>)</td><td>3 oz.</td><td>60 min.</td></tr>
+
+  <tr><th>Yeast</th><th>Quantity</th><th>Notes</th></tr>
+  <tr><td>Safale S-04</td><td>1 pack dry</td><td>stirred into some wort and pitched</td></tr>
+</table><h2 id="mash"><a href="#mash" class="section-self-link">Mash</a></h2>
+<p>Here's what the <a href="http://www.homebrewing.com/calculators/?page=tools&amp;section=strike&amp;action=calculate">strike water temperature calculator</a> had to say:</p>
+<table>
+  <tr><td>Grain Weight</td><td>11.5 pounds</td></tr>
+  <tr><td>Grain Temperature</td><td>82° F</td></tr>
+  <tr><td>Strike Water Amount</td><td>4 gallons</td></tr>
+  <tr><td>Target Mash Temperature</td><td>154° F</td></tr>
+  <tr><td>Equipment Loss</td><td>0° F (preheated)</td></tr>
+  <tr><td>Strike Water Temperature</td><td>164.4° F</td></tr>
+</table><p>In practice, I might have mashed in a little too hot.  It's hard to tell,
+because temperature readings vary widely depending on where in the mash I
+stick the thermometer.   My notes say that the "mash is somewhere between
+151°F and 157°F, depending on where I measure it."</p>
+<p>After mashing for an hour and a half (went out to dinner), the mash was
+"between 149°F and 153°F, depending on where I measure."</p>
+<p>An iodine tincture test showed that there was no starch remaining.</p>
+<h2 id="sparge"><a href="#sparge" class="section-self-link">Sparge</a></h2>
+<p>I did a fly sparge, collecting seven gallons of wort in about an hour.</p>
+<p><a href="water-in.jpg"><img src="water-in_small.webp" alt="water goes in" class="preview" width="700" height="525"></img>
+</a><em>[water goes in]</em></p>
+<p><a href="wort-out.jpg"><img src="wort-out_small.webp" alt="wort comes out" class="preview" width="700" height="525"></img>
+</a><em>[wort comes out]</em></p>
+<p>I didn't write down the gravity of the runnings.</p>
+<h2 id="boil"><a href="#boil" class="section-self-link">Boil</a></h2>
+<p>Don't brew in my apartment during the Summer.  The windows don't open much, and
+the only windows are in the front, so there's no way to create a cross breeze.
+The window air conditioning unit can't keep up with the stove, especially with
+two burners going full blast.  The result is that the temperature and humidity
+in the apartment continually rise throughout the boil.  It must have been over
+100° F and 100% humidity by the time I turned off the burners.</p>
+<p>I started heating the wort as I was collecting it during the sparge.  My notes
+say that there was a rolling boil at 8:26 PM, though it was probably already
+boiling before then.  I started the first (and only) hop addition at 8:41 PM,
+so that's at least 15 minutes of boiling before the 60 minute addition.</p>
+<p>I added the 3 oz. of East Kent Goldings pellets (4.4% AA) and boiled them for
+60 minutes.  Then I turned off the burners, started the chiller, and turned on
+the air conditioner...</p>
+<p>The result was five gallons of wort with a <strong>starting gravity of 1.052</strong>.  If
+that ferments down to 1.010, which it usually does, then it'll be 5.5% ABV.</p>
+<p>The yeast was a fresh packet of <a href="https://fermentis.com/wp-content/uploads/2018/08/SafAle-S-04.pdf">S-04</a> ale yeast, stirred into some wort and
+then poured into the fermentor.</p>
+<p><a href="gravity.jpg"><img src="gravity_small.webp" alt="starting gravity" class="preview" width="700" height="933"></img></a></p>
+<p><a href="gravity-temperature.jpg"><img src="gravity-temperature_small.webp" alt="temperature of hydrometer sample" class="preview" width="700" height="933"></img></a></p>
+<p><a href="temperature.jpg"><img src="temperature_small.webp" alt="temperature reading" class="preview" width="700" height="933"></img></a></p>
+<h2 id="fermentation"><a href="#fermentation" class="section-self-link">Fermentation</a></h2>
+<p>I affixed a blowoff tube to the carboy and put it into the chest freezer set to
+60° F.</p>
+<p>Two days later, this is what I had:</p>
+<p><a href="poop1.jpg"><img src="poop1_small.webp" alt="beer explosion, angle 1" class="preview" width="700" height="525"></img></a></p>
+<p><a href="poop2.jpg"><img src="poop2_small.webp" alt="beer explosion, angle 2" class="preview" width="700" height="525"></img></a></p>
+<p><a href="poop3.jpg"><img src="poop3_small.webp" alt="beer explosion, angle 3" class="preview" width="700" height="525"></img></a></p>
+<p><a href="poop4.jpg"><img src="poop4_small.webp" alt="beer explosion, angle 4" class="preview" width="700" height="525"></img></a></p>
+<p>Lessons learned:</p>
+<ol>
+<li>Use a wider blowoff tube.</li>
+<li>Leave some more headroom.</li>
+<li>S-04 is a beast.</li>
+</ol>
+<p>I cleaned up the mess and replaced the tube with an airlock.</p>
 
 
 
-<div class="series-navigation-placeholder"></div>
+<div class="series-navigation-placeholder"><div class="series-navigation"><div class="series-navigation-header">Beer</div><div class="series-navigation-links"><a href="../double-panda-ipa/double-panda-ipa.html">Double Panda IPA</a><span>Boxy Brown Porter</span></div></div></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>
