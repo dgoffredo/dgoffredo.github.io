@@ -3,7 +3,7 @@ Cannabis
 I'm trying my hand at growing weed.  [It's legal in New York now][1], so it's a
 good time to start.
 
-It's a bit late in the season to start, but if one of the plants survive, maybe
+It's a bit late in the season to start, but if one of the plants survives, maybe
 I'll have some weed by the time it gets cold outside.
 
 The plants started as five seeds that I bought online, $10 each.
