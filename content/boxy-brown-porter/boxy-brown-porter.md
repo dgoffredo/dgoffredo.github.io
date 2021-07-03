@@ -119,6 +119,26 @@ Lessons learned:
 
 I cleaned up the mess and replaced the tube with an airlock.
 
+Bottling (July 2, 2021)
+-----------------------
+![filled beer bottles](filled_small.webp)
+
+We got 42 bottles of porter, plus one partially filled.  Not bad, considering
+that the fermentor exploded.
+
+The hydrometer read 1.014 at 64° F, which means the **final gravity was 1.014**,
+which means the beer is **5.0% ABV**.
+
+![hydrometer reading](hydrometer_small.webp)
+
+![thermometer reading](thermometer_small.webp)
+
+I primed the beer with 1¼ cups of pale dried malt extract boiled in about a
+quart of water and cooled.
+
+The beer tastes good flat.  Let's give it a few weeks to carbonate before the
+first tasting.
+
 [1]: http://www.homebrewing.com/calculators/?page=tools&section=strike&action=calculate
 [2]: https://www.homebrewtalk.com/threads/1880-whitbread-porter.666707/
 [3]: https://fermentis.com/wp-content/uploads/2018/08/SafAle-S-04.pdf
