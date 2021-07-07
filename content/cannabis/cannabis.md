@@ -54,4 +54,28 @@ Here's the new couch.
 
 I'll update this post when the plants have grown more.
 
+Costs
+-----
+Here's a table of what I've spent, so far, on this project:
+
+<!-- Put some space between columns in tables on this page. -->
+<style>
+table.costs td:nth-child(2), table.costs td:nth-child(3), table.costs td:nth-child(4), td.total
+{
+  text-align: right;
+}
+table.costs td, table.costs th {
+    padding: 0 15px;
+}
+</style>
+<table class="costs">
+  <tr><th>Item</th><th>Unit Cost</th><th>Quantity</th><th>Subtotal</th></tr>
+  <tr><td>seeds</td><td>$10</td><td>5</td><td>$50</td></tr>
+  <tr><td>buckets</td><td>$6</td><td>5</td><td>$30</td></tr>
+  <tr><td>soil</td><td>$25</td><td>2</td><td>$50</td></tr>
+  <tr><td>jars</td><td>$7</td><td>3</td><td>$21</td></tr>
+  <tr><th colspan="4"></th></tr>
+  <tr><td colspan="3">total</td><td class="total">$151</td></tr>
+</table>
+
 [1]: https://legislation.nysenate.gov/pdf/bills/2021/s854a

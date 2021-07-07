@@ -4,7 +4,7 @@ Double Panda IPA
 
 <!-- Put some space between columns in tables on this page. -->
 <style>
-td {
+table.brewing td, table.brewing th {
     padding: 0 15px;
 }
 </style>
@@ -20,7 +20,7 @@ I made a big [IPA][1] based on the ingredients I had on hand.  They're all _old_
 ingredients, which might have been problematic, but I think I'll get a solid
 beer out of it anyway.
 
-<table>
+<table class="brewing">
   <tr><th>Grain</th><th>Quantity</th><th>Notes</th></tr>
   <tr><td>American 2-Row</td><td>≈14 lbs.</td><td>might have been more</td></tr>
   <tr><td>American Pilsner</td><td>2 lbs.</td><td></td></tr>
@@ -100,7 +100,7 @@ I adjust the flow rate both into and out of the lauter tun based on the level
 of water above the mash as indicated by sharpie markings on the inside of the
 cooler.
 
-<table>
+<table class="brewing">
   <tr><th>Time</th><th>Level</th><th>Notes</th></tr>
   <tr><td>4:06 PM</td><td>16 cm</td><td>runnings at 27<a href="https://en.wikipedia.org/wiki/Brix">°Bx</a> ≈ 1.115 <a href="https://en.wikipedia.org/wiki/Relative_density">SG</a></td></tr>
   <tr><td>4:14 PM</td><td>17 cm</td><td>let's speed up the flow a bit</td></tr>
@@ -144,7 +144,7 @@ of the centennial, citra, and cascade hops to the 15 minute addition.
 
 The actual hop schedule was the following:
 
-<table>
+<table class="brewing">
   <tr><th>Hop/Quantity</th><th>Boil Time</th></tr>
   <tr><td>½ oz. Citra, ½ oz. Centennial, ½ oz. Cascade, ½ oz. Belma</td><td>60 min.</td></tr>
   <tr><td><sup>7</sup>/<sub>12</sub> oz. Citra, <sup>7</sup>/<sub>12</sub> oz. Centennial, <sup>7</sup>/<sub>12</sub> oz. Cascade, ¼ oz. Belma</td><td>15 min.</td></tr>

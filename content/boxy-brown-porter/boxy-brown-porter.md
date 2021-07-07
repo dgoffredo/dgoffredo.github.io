@@ -9,16 +9,15 @@ call it "Boxy Brown Porter."
 
 <a href="boxy.png"><img src="boxy_small.png"/></a>
 
-<!-- Put some space between columns in tables on this page. -->
 <style>
-td {
+table.brewing td, table.brewing th {
     padding: 0 15px;
 }
 </style>
 
 Ingredients
 -----------
-<table>
+<table class="brewing">
   <tr><th>Grain</th><th>Quantity</th><th>Notes</th></tr>
   <tr><td>Pale 2-Row</td><td>9 lbs.</td><td></td></tr>
   <tr><td>Brown Malt</td><td>1 lb. 12 oz.</td><td></td></tr>
@@ -35,7 +34,7 @@ Mash
 ----
 Here's what the [strike water temperature calculator][1] had to say:
 
-<table>
+<table class="brewing">
   <tr><td>Grain Weight</td><td>11.5 pounds</td></tr>
   <tr><td>Grain Temperature</td><td>82° F</td></tr>
   <tr><td>Strike Water Amount</td><td>4 gallons</td></tr>
