@@ -38,7 +38,27 @@ water the plants.</p>
 <p>Here's the new couch.</p>
 <p><img src="couch_small.webp" alt="new couch" /></p>
 <p>I'll update this post when the plants have grown more.</p>
-
+<h2>Costs</h2>
+<p>Here's a table of what I've spent, so far, on this project:</p>
+<p />
+<p><style>
+table.costs td:nth-child(2), table.costs td:nth-child(3), table.costs td:nth-child(4), td.total
+{
+  text-align: right;
+}
+table.costs td, table.costs th {
+    padding: 0 15px;
+}
+</style></p>
+<table class="costs">
+  <tr><th>Item</th><th>Unit Cost</th><th>Quantity</th><th>Subtotal</th></tr>
+  <tr><td>seeds</td><td>$10</td><td>5</td><td>$50</td></tr>
+  <tr><td>buckets</td><td>$6</td><td>5</td><td>$30</td></tr>
+  <tr><td>soil</td><td>$25</td><td>2</td><td>$50</td></tr>
+  <tr><td>jars</td><td>$7</td><td>3</td><td>$21</td></tr>
+  <tr><th colspan="4" /></tr>
+  <tr><td colspan="3">total</td><td class="total">$151</td></tr>
+</table>
 
         </body>
     </html></div></content></entry><entry><title>Boxy Brown Porter</title><link href="https://www.davidgoffredo.com/boxy-brown-porter/boxy-brown-porter.html" /><id>https://www.davidgoffredo.com/boxy-brown-porter/boxy-brown-porter.html</id><updated>2021-06-20</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
@@ -53,13 +73,12 @@ water the plants.</p>
 <p>It's supposedly from 1880 and is called "Whitbread Porter."  I'm going to
 call it "Boxy Brown Porter."</p>
 <p><a href="boxy.png"><img src="boxy_small.png" /></a></p>
-<p />
 <style>
-td {
+table.brewing td, table.brewing th {
     padding: 0 15px;
 }
 </style><h2>Ingredients</h2>
-<table>
+<table class="brewing">
   <tr><th>Grain</th><th>Quantity</th><th>Notes</th></tr>
   <tr><td>Pale 2-Row</td><td>9 lbs.</td><td /></tr>
   <tr><td>Brown Malt</td><td>1 lb. 12 oz.</td><td /></tr>
@@ -72,7 +91,7 @@ td {
   <tr><td>Safale S-04</td><td>1 pack dry</td><td>stirred into some wort and pitched</td></tr>
 </table><h2>Mash</h2>
 <p>Here's what the <a href="http://www.homebrewing.com/calculators/?page=tools&amp;section=strike&amp;action=calculate">strike water temperature calculator</a> had to say:</p>
-<table>
+<table class="brewing">
   <tr><td>Grain Weight</td><td>11.5 pounds</td></tr>
   <tr><td>Grain Temperature</td><td>82° F</td></tr>
   <tr><td>Strike Water Amount</td><td>4 gallons</td></tr>
@@ -342,7 +361,7 @@ is short.</p>
 <p><a href="label.png"><img src="label.webp" alt="Double Panda IPA beer label" /></a></p>
 <p />
 <style>
-td {
+table.brewing td, table.brewing th {
     padding: 0 15px;
 }
 </style><p>I'm making a beer for the first time since the end of 2017, so I thought I'd
@@ -352,7 +371,7 @@ blog about it.  This will be the first post in a "beer" series.</p>
 <p>I made a big <a href="https://en.wikipedia.org/wiki/India_pale_ale">IPA</a> based on the ingredients I had on hand.  They're all <em>old</em>
 ingredients, which might have been problematic, but I think I'll get a solid
 beer out of it anyway.</p>
-<table>
+<table class="brewing">
   <tr><th>Grain</th><th>Quantity</th><th>Notes</th></tr>
   <tr><td>American 2-Row</td><td>≈14 lbs.</td><td>might have been more</td></tr>
   <tr><td>American Pilsner</td><td>2 lbs.</td><td /></tr>
@@ -412,7 +431,7 @@ in a nerdy hobby, it fits.</p>
 <p>I adjust the flow rate both into and out of the lauter tun based on the level
 of water above the mash as indicated by sharpie markings on the inside of the
 cooler.</p>
-<table>
+<table class="brewing">
   <tr><th>Time</th><th>Level</th><th>Notes</th></tr>
   <tr><td>4:06 PM</td><td>16 cm</td><td>runnings at 27<a href="https://en.wikipedia.org/wiki/Brix">°Bx</a> ≈ 1.115 <a href="https://en.wikipedia.org/wiki/Relative_density">SG</a></td></tr>
   <tr><td>4:14 PM</td><td>17 cm</td><td>let's speed up the flow a bit</td></tr>
@@ -446,7 +465,7 @@ wanted to increase the <a href="https://en.wikipedia.org/wiki/Beer_measurement#B
 only had one ounce of Belma total.  So, I added an additional ⅓ ounce of each
 of the centennial, citra, and cascade hops to the 15 minute addition.</p>
 <p>The actual hop schedule was the following:</p>
-<table>
+<table class="brewing">
   <tr><th>Hop/Quantity</th><th>Boil Time</th></tr>
   <tr><td>½ oz. Citra, ½ oz. Centennial, ½ oz. Cascade, ½ oz. Belma</td><td>60 min.</td></tr>
   <tr><td><sup>7</sup>/<sub>12</sub> oz. Citra, <sup>7</sup>/<sub>12</sub> oz. Centennial, <sup>7</sup>/<sub>12</sub> oz. Cascade, ¼ oz. Belma</td><td>15 min.</td></tr>
