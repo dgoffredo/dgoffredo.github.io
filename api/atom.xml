@@ -1,4 +1,96 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-06-30</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis</title><link href="https://www.davidgoffredo.com/cannabis/cannabis.html" /><id>https://www.davidgoffredo.com/cannabis/cannabis.html</id><updated>2021-06-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-07-23</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Documentation Rant</title><link href="https://www.davidgoffredo.com/documentation-rant.html" /><id>https://www.davidgoffredo.com/documentation-rant.html</id><updated>2021-07-23</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/documentation-rant.html" />
+        </head>
+        <body>
+            <h1>Documentation Rant</h1>
+<p>You've been getting away with it for years, and nobody called you out.</p>
+<p>Well, I'm here to call you out.  Your documentation sucks, because you don't
+care, and neither does the person who cuts your paychecks.</p>
+<p>But I care.  I care so much I could kiss you on the lips.  Here's how you can
+improve your documentation.</p>
+<h2>The Rules</h2>
+<p>All you need do is follow these six rules.</p>
+<ol>
+<li><p>Every source repository has a README file at its root
+that explains first <em>why</em> the code exists, then <em>what</em> it is,
+<em>how</em> to use it, and finally where to learn <em>more</em>.</p>
+</li>
+<li><p>Every source repository has a "map" or "tour" that presents an
+overview of the repository's subsystems (e.g. source, utility scripts,
+build systems, continuous integration, documentation generation, etc.).</p>
+</li>
+<li><p>Every subdirectory (every single one) within a source repository
+has a README file that briefly explains what's in that
+directory.  Sometimes it's a file-by-file summary, and sometimes
+it's just a paragraph saying why that directory needs to exist
+(i.e. why the files are there and not elsewhere — what they're for).</p>
+</li>
+<li><p>Every source file has a section at the top that summarizes what the
+file is for, what's in it, and possibly other documentation (e.g.
+example usage).</p>
+</li>
+<li><p>Every subprocedure (function) in a source file has a contract written
+in a human language in a comment.  The contract will also hint at the
+<em>reason</em> for the function's existence, e.g. a note about what other
+code might call the function and why.</p>
+</li>
+<li><p>Every significant "section" of code within a long subprocedure (function)
+is similarly documented.  Better, refactor it into its own subprocedure.</p>
+</li>
+</ol>
+<p>This applies to unit tests as well.  Too often, unit tests are completely
+undocumented, or are missing <em>motivating</em> documentation at the top.  No,
+the unit tests don't document themselves.  Cut the shit.</p>
+<p>This also applies to your steaming piles of YAML, <code>Dockerfile</code>, <code>.gitignore</code>,
+shell scripts, <code>Makefile</code>, <code>CMakeLists.txt</code>, and anywhere else the real truth
+about your system is hiding, undocumented.</p>
+<h2>The Critical Bit</h2>
+<p>All of this must be kept up to date with the code.  That's the hardest part.</p>
+<p>Reading prose and then modifying it to say something slightly different, all
+without making an incoherent mess, is hard.  It takes time and concentration
+and thought and review.  It doesn't affect compilation, testing, releases,
+sales, or promotions.  Do it anyway.  Don't let it get out of date, work
+on it!  Do it for me.</p>
+<h2>Code Modification Checklist</h2>
+<p>Here's a checklist to help cover your corner cutting ass.</p>
+<ul>
+<li>✅ Solving the right problem</li>
+<li>✅ Build succeeds</li>
+<li>✅ Unit tests succeed</li>
+<li>✅ Integration tests (automated or manual) succeed</li>
+<li>✅ Checked whether procedure-level documentation needs alteration/addition</li>
+<li>✅ Checked whether file-level documentation needs alteration</li>
+<li>✅ Checked whether directory-level documentation needs alteration</li>
+<li>✅ Checked whether the repository "tour" needs alteration</li>
+<li>✅ Checked whether the repository README needs alteration</li>
+</ul>
+<p>When you add or modify code, find the nodes closest to your changes,
+and then for each, trace through all ancestors, checking at each level
+whether your changes warrant changes to the documentation at that level.</p>
+<pre><code class="lang-text hljs"> Repo README
+   /        \
+  /          \
+Repo Tour     \
+    \_____  Subdirectory README
+               /       |
+              /        +--- File summary
+             /         |     |
+  Subdirectory README  |     +--- Procedure contract
+          ...          |     |
+                       |     +--- Procedure contract
+                       |     ...
+                       +--- File summary
+                       |     ...
+                      ...
+</code></pre>
+<p>Happy coding!  Remember, your job as a programmer is to <em>explain systems</em>.
+First to yourself, then to the computer and everyone else.  Don't leave us
+hanging.</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Cannabis</title><link href="https://www.davidgoffredo.com/cannabis/cannabis.html" /><id>https://www.davidgoffredo.com/cannabis/cannabis.html</id><updated>2021-06-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/cannabis/cannabis.html" />
         </head>

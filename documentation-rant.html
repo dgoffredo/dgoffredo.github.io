@@ -113,7 +113,7 @@ p, .navigation-bar, table.posts, ul, ol {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
-</style><title>Posts</title>
+</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Documentation Rant</title>
 </head>
 
 <body>
@@ -127,165 +127,98 @@ p, .navigation-bar, table.posts, ul, ol {
 </div>
 
 
+<p>Friday, July  23, 2021</p>
+
+<div class="table-of-contents"><ul><li><a href="#documentation_rant">Documentation Rant</a><ul><li><a href="#the_rules">The Rules</a></li><li><a href="#the_critical_bit">The Critical Bit</a></li><li><a href="#code_modification_checklist">Code Modification Checklist</a></li></ul></li></ul></div>
+
+<h1 id="documentation_rant"><a href="#documentation_rant" class="section-self-link">Documentation Rant</a></h1>
+<p>You've been getting away with it for years, and nobody called you out.</p>
+<p>Well, I'm here to call you out.  Your documentation sucks, because you don't
+care, and neither does the person who cuts your paychecks.</p>
+<p>But I care.  I care so much I could kiss you on the lips.  Here's how you can
+improve your documentation.</p>
+<h2 id="the_rules"><a href="#the_rules" class="section-self-link">The Rules</a></h2>
+<p>All you need do is follow these six rules.</p>
+<ol>
+<li><p>Every source repository has a README file at its root
+that explains first <em>why</em> the code exists, then <em>what</em> it is,
+<em>how</em> to use it, and finally where to learn <em>more</em>.</p>
+</li>
+<li><p>Every source repository has a "map" or "tour" that presents an
+overview of the repository's subsystems (e.g. source, utility scripts,
+build systems, continuous integration, documentation generation, etc.).</p>
+</li>
+<li><p>Every subdirectory (every single one) within a source repository
+has a README file that briefly explains what's in that
+directory.  Sometimes it's a file-by-file summary, and sometimes
+it's just a paragraph saying why that directory needs to exist
+(i.e. why the files are there and not elsewhere — what they're for).</p>
+</li>
+<li><p>Every source file has a section at the top that summarizes what the
+file is for, what's in it, and possibly other documentation (e.g.
+example usage).</p>
+</li>
+<li><p>Every subprocedure (function) in a source file has a contract written
+in a human language in a comment.  The contract will also hint at the
+<em>reason</em> for the function's existence, e.g. a note about what other
+code might call the function and why.</p>
+</li>
+<li><p>Every significant "section" of code within a long subprocedure (function)
+is similarly documented.  Better, refactor it into its own subprocedure.</p>
+</li>
+</ol>
+<p>This applies to unit tests as well.  Too often, unit tests are completely
+undocumented, or are missing <em>motivating</em> documentation at the top.  No,
+the unit tests don't document themselves.  Cut the shit.</p>
+<p>This also applies to your steaming piles of YAML, <code>Dockerfile</code>, <code>.gitignore</code>,
+shell scripts, <code>Makefile</code>, <code>CMakeLists.txt</code>, and anywhere else the real truth
+about your system is hiding, undocumented.</p>
+<h2 id="the_critical_bit"><a href="#the_critical_bit" class="section-self-link">The Critical Bit</a></h2>
+<p>All of this must be kept up to date with the code.  That's the hardest part.</p>
+<p>Reading prose and then modifying it to say something slightly different, all
+without making an incoherent mess, is hard.  It takes time and concentration
+and thought and review.  It doesn't affect compilation, testing, releases,
+sales, or promotions.  Do it anyway.  Don't let it get out of date, work
+on it!  Do it for me.</p>
+<h2 id="code_modification_checklist"><a href="#code_modification_checklist" class="section-self-link">Code Modification Checklist</a></h2>
+<p>Here's a checklist to help cover your corner cutting ass.</p>
+<ul>
+<li>✅ Solving the right problem</li>
+<li>✅ Build succeeds</li>
+<li>✅ Unit tests succeed</li>
+<li>✅ Integration tests (automated or manual) succeed</li>
+<li>✅ Checked whether procedure-level documentation needs alteration/addition</li>
+<li>✅ Checked whether file-level documentation needs alteration</li>
+<li>✅ Checked whether directory-level documentation needs alteration</li>
+<li>✅ Checked whether the repository "tour" needs alteration</li>
+<li>✅ Checked whether the repository README needs alteration</li>
+</ul>
+<p>When you add or modify code, find the nodes closest to your changes,
+and then for each, trace through all ancestors, checking at each level
+whether your changes warrant changes to the documentation at that level.</p>
+<pre><code class="lang-text hljs"> Repo README
+   /        \
+  /          \
+Repo Tour     \
+    \_____  Subdirectory README
+               /       |
+              /        +--- File summary
+             /         |     |
+  Subdirectory README  |     +--- Procedure contract
+          ...          |     |
+                       |     +--- Procedure contract
+                       |     ...
+                       +--- File summary
+                       |     ...
+                      ...
+</code></pre>
+<p>Happy coding!  Remember, your job as a programmer is to <em>explain systems</em>.
+First to yourself, then to the computer and everyone else.  Don't leave us
+hanging.</p>
 
 
 
-
-
-    <table class="posts">
-      <tr><th align="left">Date</th><th align="right">Post</th></tr>
-      
-      <tr><td align="left">2021-07-23</td>
-          <td align="right"><a href="documentation-rant.html">Documentation Rant</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-30</td>
-          <td align="right"><a href="cannabis/cannabis.html">Cannabis</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-20</td>
-          <td align="right"><a href="boxy-brown-porter/boxy-brown-porter.html">Boxy Brown Porter</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-03</td>
-          <td align="right"><a href="blog.html">Blog</a></td></tr>
-    
-
-      <tr><td align="left">2021-05-27</td>
-          <td align="right"><a href="lemonade/lemonade.html">Lemonade</a></td></tr>
-    
-
-      <tr><td align="left">2021-05-19</td>
-          <td align="right"><a href="double-panda-ipa/double-panda-ipa.html">Double Panda IPA</a></td></tr>
-    
-
-      <tr><td align="left">2021-04-30</td>
-          <td align="right"><a href="guile.html">Installing Guile from Source</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-22</td>
-          <td align="right"><a href="mexico/mexico5.html">Mexico, Day 29</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-14</td>
-          <td align="right"><a href="mexico/mexico4.html">Mexico, Day 21</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-06</td>
-          <td align="right"><a href="mexico/mexico3.html">Mexico, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-01</td>
-          <td align="right"><a href="mexico/mexico2.html">Mexico, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2021-02-26</td>
-          <td align="right"><a href="mexico/mexico1.html">Mexico, Day 5</a></td></tr>
-    
-
-      <tr><td align="left">2020-04-15</td>
-          <td align="right"><a href="language-notes.html">The Language That I Think I Want</a></td></tr>
-    
-
-      <tr><td align="left">2020-03-24</td>
-          <td align="right"><a href="thrush.html">The Thrush Combinator</a></td></tr>
-    
-
-      <tr><td align="left">2019-10-04</td>
-          <td align="right"><a href="india/india6.html">India, Day 15</a></td></tr>
-    
-
-      <tr><td align="left">2019-10-02</td>
-          <td align="right"><a href="india/india5.html">India, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-29</td>
-          <td align="right"><a href="india/india4.html">India, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-27</td>
-          <td align="right"><a href="india/india3.html">India, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-25</td>
-          <td align="right"><a href="india/india2.html">India, Day 6</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-22</td>
-          <td align="right"><a href="india/india1.html">India, Day 1</a></td></tr>
-    
-
-      <tr><td align="left">2019-07-28</td>
-          <td align="right"><a href="channels.html">Channels</a></td></tr>
-    
-
-      <tr><td align="left">2019-06-12</td>
-          <td align="right"><a href="phone-server.html">Phone Server</a></td></tr>
-    
-
-      <tr><td align="left">2019-01-02</td>
-          <td align="right"><a href="break-cycles/break-cycles.html">Code Generation and the Minimum Feedback Arc Set</a></td></tr>
-    
-
-      <tr><td align="left">2018-12-28</td>
-          <td align="right"><a href="llama-json.html">Llama JSON</a></td></tr>
-    
-
-      <tr><td align="left">2018-03-18</td>
-          <td align="right"><a href="callbacks2.html">Callbacks (Part 2)</a></td></tr>
-    
-
-      <tr><td align="left">2018-03-17</td>
-          <td align="right"><a href="callbacks.html">Callbacks (Part 1)</a></td></tr>
-    
-
-      <tr><td align="left">2018-01-07</td>
-          <td align="right"><a href="pedant-cheat-sheet.html">Pedant Cheat Sheet</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-13</td>
-          <td align="right"><a href="russia/russia10.html">Russia and Czechia, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-10</td>
-          <td align="right"><a href="russia/russia7.html">Russia and Czechia, Day 7</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-04</td>
-          <td align="right"><a href="russia/russia2.html">Russia and Czechia, Day 4</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-03</td>
-          <td align="right"><a href="russia/russia1.html">Russia and Czechia, Day 3</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-22</td>
-          <td align="right"><a href="europe/europe13.html">Europe, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-19</td>
-          <td align="right"><a href="europe/europe10.html">Europe, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-17</td>
-          <td align="right"><a href="europe/europe8.html">Europe, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-16</td>
-          <td align="right"><a href="europe/europe7.html">Europe, Day 7</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-11</td>
-          <td align="right"><a href="europe/europe2.html">Europe, Day 2</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-10</td>
-          <td align="right"><a href="europe/europe1.html">Europe, Day 1</a></td></tr>
-    
-    </table>
-    
-
-
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>
