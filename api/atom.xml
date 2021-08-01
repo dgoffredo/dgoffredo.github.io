@@ -45,7 +45,7 @@ bar() = "hi"
 the call are evaluated as usual and saved anew but the actual function is not invoked.</p>
 </blockquote>
 <p>The parameters are evaluated when the <em>defer statement</em> executes, not when the
-deferred (call) statement executes.</p>
+deferred function is invoked.</p>
 <p>This is confusing, because one way to defer code is to wrap it in a closure
 (<code>func</code>) and invoke the closure later on.</p>
 <p>Go's <code>defer</code> statement is more general.  After thinking about it, I prefer the
