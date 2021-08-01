@@ -49,7 +49,7 @@ Reading StackOverflow [didn't help][2].  Instead, I had to read the
 > the call are evaluated as usual and saved anew but the actual function is not invoked.
 
 The parameters are evaluated when the _defer statement_ executes, not when the
-deferred (call) statement executes.
+deferred function is invoked.
 
 This is confusing, because one way to defer code is to wrap it in a closure
 (`func`) and invoke the closure later on.
