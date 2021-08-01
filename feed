@@ -1,4 +1,60 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-07-23</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Documentation Rant</title><link href="https://www.davidgoffredo.com/documentation-rant.html" /><id>https://www.davidgoffredo.com/documentation-rant.html</id><updated>2021-07-23</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-08-01</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Go Shoot Yourself in the Foot</title><link href="https://www.davidgoffredo.com/defer/defer.html" /><id>https://www.davidgoffredo.com/defer/defer.html</id><updated>2021-08-01</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/defer/defer.html" />
+        </head>
+        <body>
+            <h1>Go Shoot Yourself in the Foot</h1>
+<p><img src="gopher-gun.webp" alt="gopher with a gun" /></p>
+<p>What's the output of the following program?</p>
+<pre><code class="lang-go hljs"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"fmt"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
+    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">()</span></span> { fmt.Printf(<span class="hljs-string">"foo result = %q\n"</span>, result) }()
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
+    <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">"bar result = %q\n"</span>, result)
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    fmt.Printf(<span class="hljs-string">"foo() = %q\n"</span>, foo())
+    fmt.Printf(<span class="hljs-string">"bar() = %q\n"</span>, bar())
+}
+</code></pre>
+<p>First <code>foo</code> is executed, which will print something, and then the first line of
+<code>main</code> will print something.</p>
+<p>Then <code>bar</code> is executed, which will print something, and then the second line
+of <code>main</code> will print something.</p>
+<p>Here's the output:</p>
+<pre><code class="lang-text hljs">foo result = "hi"
+foo() = "hi"
+bar result = ""
+bar() = "hi"
+</code></pre>
+<p>Does the third line surprise you?  It sure surprised me.  Go ahead, <a href="https://play.golang.org/p/8NyKwSbRS_c">try it</a> yourself.</p>
+<h2>Why</h2>
+<p>Reading StackOverflow <a href="https://stackoverflow.com/a/37249043">didn't help</a>.  Instead, I had to read the
+<a href="https://golang.org/ref/spec#Defer_statements">language specification</a>, which is what I ought always to do.</p>
+<blockquote><p>Each time a "defer" statement executes, the function value and parameters to
+the call are evaluated as usual and saved anew but the actual function is not invoked.</p>
+</blockquote>
+<p>The parameters are evaluated when the <em>defer statement</em> executes, not when the
+deferred (call) statement executes.</p>
+<p>This is confusing, because one way to defer code is to wrap it in a closure
+(<code>func</code>) and invoke the closure later on.</p>
+<p>Go's <code>defer</code> statement is more general.  After thinking about it, I prefer the
+Go way, except that now I have this hole in my foot.</p>
+<p>Be careful out there.</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Documentation Rant</title><link href="https://www.davidgoffredo.com/documentation-rant.html" /><id>https://www.davidgoffredo.com/documentation-rant.html</id><updated>2021-07-23</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/documentation-rant.html" />
         </head>

@@ -1,6 +1,6 @@
 <html>
 <head>
-  <base href="documentation-rant.html"></base><meta charset="UTF-8"></meta>
+  <base href="defer/defer.html"></base><meta charset="UTF-8"></meta>
   
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
@@ -113,7 +113,7 @@ p, .navigation-bar, table.posts, ul, ol {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
-</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Documentation Rant</title>
+</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Go Shoot Yourself in the Foot</title>
 </head>
 
 <body>
@@ -127,94 +127,58 @@ p, .navigation-bar, table.posts, ul, ol {
 </div>
 
 
-<p>Friday, July  23, 2021</p>
+<p>Sunday, August  1, 2021</p>
 
-<div class="table-of-contents"><ul><li><a href="#documentation_rant">Documentation Rant</a><ul><li><a href="#the_rules">The Rules</a></li><li><a href="#the_critical_bit">The Critical Bit</a></li><li><a href="#code_modification_checklist">Code Modification Checklist</a></li></ul></li></ul></div>
+<div class="table-of-contents"><ul><li><a href="#go_shoot_yourself_in_the_foot">Go Shoot Yourself in the Foot</a><ul><li><a href="#why">Why</a></li></ul></li></ul></div>
 
-<h1 id="documentation_rant"><a href="#documentation_rant" class="section-self-link">Documentation Rant</a></h1>
-<p>You've been getting away with it for years, and nobody called you out.</p>
-<p>Well, I'm here to call you out.  Your documentation sucks, because you don't
-care, and neither does the person who cuts your paychecks.</p>
-<p>But I care.  I care so much I could kiss you on the lips.  Here's how you can
-improve your documentation.</p>
-<h2 id="the_rules"><a href="#the_rules" class="section-self-link">The Rules</a></h2>
-<p>All you need do is follow these six rules.</p>
-<ol>
-<li><p>Every source repository has a README file at its root
-that explains first <em>why</em> the code exists, then <em>what</em> it is,
-<em>how</em> to use it, and finally where to learn <em>more</em>.</p>
-</li>
-<li><p>Every source repository has a "map" or "tour" that presents an
-overview of the repository's subsystems (e.g. source, utility scripts,
-build systems, continuous integration, documentation generation, etc.).</p>
-</li>
-<li><p>Every subdirectory (every single one) within a source repository
-has a README file that briefly explains what's in that
-directory.  Sometimes it's a file-by-file summary, and sometimes
-it's just a paragraph saying why that directory needs to exist
-(i.e. why the files are there and not elsewhere — what they're for).</p>
-</li>
-<li><p>Every source file has a section at the top that summarizes what the
-file is for, what's in it, and possibly other documentation (e.g.
-example usage).</p>
-</li>
-<li><p>Every subprocedure (function) in a source file has a contract written
-in a human language in a comment.  The contract will also hint at the
-<em>reason</em> for the function's existence, e.g. a note about what other
-code might call the function and why.</p>
-</li>
-<li><p>Every significant "section" of code within a long subprocedure (function)
-is similarly documented.  Better, refactor it into its own subprocedure.</p>
-</li>
-</ol>
-<p>This applies to unit tests as well.  Too often, unit tests are completely
-undocumented, or are missing <em>motivating</em> documentation at the top.  No,
-the unit tests don't document themselves.  Cut the shit.</p>
-<p>This also applies to your steaming piles of YAML, <code>Dockerfile</code>, <code>.gitignore</code>,
-shell scripts, <code>Makefile</code>, <code>CMakeLists.txt</code>, and anywhere else the real truth
-about your system is hiding, undocumented.</p>
-<h2 id="the_critical_bit"><a href="#the_critical_bit" class="section-self-link">The Critical Bit</a></h2>
-<p>All of this must be kept up to date with the code.  That's the hardest part.</p>
-<p>Reading prose and then modifying it to say something slightly different, all
-without making an incoherent mess, is hard.  It takes time and concentration
-and thought and review.  It doesn't affect compilation, testing, releases,
-sales, or promotions.  Do it anyway.  Don't let it get out of date, work
-on it!  Do it for me.</p>
-<h2 id="code_modification_checklist"><a href="#code_modification_checklist" class="section-self-link">Code Modification Checklist</a></h2>
-<p>Here's a checklist to help cover your corner cutting ass.</p>
-<ul>
-<li>✅ Solving the right problem</li>
-<li>✅ Build succeeds</li>
-<li>✅ Unit tests succeed</li>
-<li>✅ Integration tests (automated or manual) succeed</li>
-<li>✅ Checked whether procedure-level documentation needs alteration/addition</li>
-<li>✅ Checked whether file-level documentation needs alteration</li>
-<li>✅ Checked whether directory-level documentation needs alteration</li>
-<li>✅ Checked whether the repository "tour" needs alteration</li>
-<li>✅ Checked whether the repository README needs alteration</li>
-</ul>
-<p>When you add or modify code, find the nodes closest to your changes,
-and then for each, trace through all ancestors, checking at each level
-whether your changes warrant changes to the documentation at that level.</p>
-<pre><code class="lang-text hljs"> Repo README
-   /        \
-  /          \
-Repo Tour     \
-    \_____  Subdirectory README
-               /       |
-              /        +--- File summary
-             /         |     |
-  Subdirectory README  |     +--- Procedure contract
-          ...          |     |
-                       |     +--- Procedure contract
-                       |     ...
-                       +--- File summary
-                       |     ...
-                      ...
+<h1 id="go_shoot_yourself_in_the_foot"><a href="#go_shoot_yourself_in_the_foot" class="section-self-link">Go Shoot Yourself in the Foot</a></h1>
+<p><img src="gopher-gun.webp" alt="gopher with a gun" width="257" height="257"></img></p>
+<p>What's the output of the following program?</p>
+<pre><code class="lang-go hljs"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"fmt"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
+    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">()</span></span> { fmt.Printf(<span class="hljs-string">"foo result = %q\n"</span>, result) }()
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
+    <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">"bar result = %q\n"</span>, result)
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    fmt.Printf(<span class="hljs-string">"foo() = %q\n"</span>, foo())
+    fmt.Printf(<span class="hljs-string">"bar() = %q\n"</span>, bar())
+}
 </code></pre>
-<p>Happy coding!  Remember, your job as a programmer is to <em>explain systems</em>.
-First to yourself, then to the computer and everyone else.  Don't leave us
-hanging.</p>
+<p>First <code>foo</code> is executed, which will print something, and then the first line of
+<code>main</code> will print something.</p>
+<p>Then <code>bar</code> is executed, which will print something, and then the second line
+of <code>main</code> will print something.</p>
+<p>Here's the output:</p>
+<pre><code class="lang-text hljs">foo result = "hi"
+foo() = "hi"
+bar result = ""
+bar() = "hi"
+</code></pre>
+<p>Does the third line surprise you?  It sure surprised me.  Go ahead, <a href="https://play.golang.org/p/8NyKwSbRS_c">try it</a> yourself.</p>
+<h2 id="why"><a href="#why" class="section-self-link">Why</a></h2>
+<p>Reading StackOverflow <a href="https://stackoverflow.com/a/37249043">didn't help</a>.  Instead, I had to read the
+<a href="https://golang.org/ref/spec#Defer_statements">language specification</a>, which is what I ought always to do.</p>
+<blockquote><p>Each time a "defer" statement executes, the function value and parameters to
+the call are evaluated as usual and saved anew but the actual function is not invoked.</p>
+</blockquote>
+<p>The parameters are evaluated when the <em>defer statement</em> executes, not when the
+deferred (call) statement executes.</p>
+<p>This is confusing, because one way to defer code is to wrap it in a closure
+(<code>func</code>) and invoke the closure later on.</p>
+<p>Go's <code>defer</code> statement is more general.  After thinking about it, I prefer the
+Go way, except that now I have this hole in my foot.</p>
+<p>Be careful out there.</p>
 
 
 

@@ -113,7 +113,7 @@ p, .navigation-bar, table.posts, ul, ol {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
-</style><title>Posts</title>
+</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Go Shoot Yourself in the Foot</title>
 </head>
 
 <body>
@@ -127,169 +127,62 @@ p, .navigation-bar, table.posts, ul, ol {
 </div>
 
 
+<p>Sunday, August  1, 2021</p>
+
+<div class="table-of-contents"><ul><li><a href="#go_shoot_yourself_in_the_foot">Go Shoot Yourself in the Foot</a><ul><li><a href="#why">Why</a></li></ul></li></ul></div>
+
+<h1 id="go_shoot_yourself_in_the_foot"><a href="#go_shoot_yourself_in_the_foot" class="section-self-link">Go Shoot Yourself in the Foot</a></h1>
+<p><img src="gopher-gun.webp" alt="gopher with a gun" width="257" height="257"></img></p>
+<p>What's the output of the following program?</p>
+<pre><code class="lang-go hljs"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"fmt"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
+    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">()</span></span> { fmt.Printf(<span class="hljs-string">"foo result = %q\n"</span>, result) }()
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
+    <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">"bar result = %q\n"</span>, result)
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    fmt.Printf(<span class="hljs-string">"foo() = %q\n"</span>, foo())
+    fmt.Printf(<span class="hljs-string">"bar() = %q\n"</span>, bar())
+}
+</code></pre>
+<p>First <code>foo</code> is executed, which will print something, and then the first line of
+<code>main</code> will print something.</p>
+<p>Then <code>bar</code> is executed, which will print something, and then the second line
+of <code>main</code> will print something.</p>
+<p>Here's the output:</p>
+<pre><code class="lang-text hljs">foo result = "hi"
+foo() = "hi"
+bar result = ""
+bar() = "hi"
+</code></pre>
+<p>Does the third line surprise you?  It sure surprised me.  Go ahead, <a href="https://play.golang.org/p/8NyKwSbRS_c">try it</a> yourself.</p>
+<h2 id="why"><a href="#why" class="section-self-link">Why</a></h2>
+<p>Reading StackOverflow <a href="https://stackoverflow.com/a/37249043">didn't help</a>.  Instead, I had to read the
+<a href="https://golang.org/ref/spec#Defer_statements">language specification</a>, which is what I ought always to do.</p>
+<blockquote><p>Each time a "defer" statement executes, the function value and parameters to
+the call are evaluated as usual and saved anew but the actual function is not invoked.</p>
+</blockquote>
+<p>The parameters are evaluated when the <em>defer statement</em> executes, not when the
+deferred (call) statement executes.</p>
+<p>This is confusing, because one way to defer code is to wrap it in a closure
+(<code>func</code>) and invoke the closure later on.</p>
+<p>Go's <code>defer</code> statement is more general.  After thinking about it, I prefer the
+Go way, except that now I have this hole in my foot.</p>
+<p>Be careful out there.</p>
 
 
 
-
-
-    <table class="posts">
-      <tr><th align="left">Date</th><th align="right">Post</th></tr>
-      
-      <tr><td align="left">2021-08-01</td>
-          <td align="right"><a href="defer/defer.html">Go Shoot Yourself in the Foot</a></td></tr>
-    
-
-      <tr><td align="left">2021-07-23</td>
-          <td align="right"><a href="documentation-rant.html">Documentation Rant</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-30</td>
-          <td align="right"><a href="cannabis/cannabis.html">Cannabis</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-20</td>
-          <td align="right"><a href="boxy-brown-porter/boxy-brown-porter.html">Boxy Brown Porter</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-03</td>
-          <td align="right"><a href="blog.html">Blog</a></td></tr>
-    
-
-      <tr><td align="left">2021-05-27</td>
-          <td align="right"><a href="lemonade/lemonade.html">Lemonade</a></td></tr>
-    
-
-      <tr><td align="left">2021-05-19</td>
-          <td align="right"><a href="double-panda-ipa/double-panda-ipa.html">Double Panda IPA</a></td></tr>
-    
-
-      <tr><td align="left">2021-04-30</td>
-          <td align="right"><a href="guile.html">Installing Guile from Source</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-22</td>
-          <td align="right"><a href="mexico/mexico5.html">Mexico, Day 29</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-14</td>
-          <td align="right"><a href="mexico/mexico4.html">Mexico, Day 21</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-06</td>
-          <td align="right"><a href="mexico/mexico3.html">Mexico, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-01</td>
-          <td align="right"><a href="mexico/mexico2.html">Mexico, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2021-02-26</td>
-          <td align="right"><a href="mexico/mexico1.html">Mexico, Day 5</a></td></tr>
-    
-
-      <tr><td align="left">2020-04-15</td>
-          <td align="right"><a href="language-notes.html">The Language That I Think I Want</a></td></tr>
-    
-
-      <tr><td align="left">2020-03-24</td>
-          <td align="right"><a href="thrush.html">The Thrush Combinator</a></td></tr>
-    
-
-      <tr><td align="left">2019-10-04</td>
-          <td align="right"><a href="india/india6.html">India, Day 15</a></td></tr>
-    
-
-      <tr><td align="left">2019-10-02</td>
-          <td align="right"><a href="india/india5.html">India, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-29</td>
-          <td align="right"><a href="india/india4.html">India, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-27</td>
-          <td align="right"><a href="india/india3.html">India, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-25</td>
-          <td align="right"><a href="india/india2.html">India, Day 6</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-22</td>
-          <td align="right"><a href="india/india1.html">India, Day 1</a></td></tr>
-    
-
-      <tr><td align="left">2019-07-28</td>
-          <td align="right"><a href="channels.html">Channels</a></td></tr>
-    
-
-      <tr><td align="left">2019-06-12</td>
-          <td align="right"><a href="phone-server.html">Phone Server</a></td></tr>
-    
-
-      <tr><td align="left">2019-01-02</td>
-          <td align="right"><a href="break-cycles/break-cycles.html">Code Generation and the Minimum Feedback Arc Set</a></td></tr>
-    
-
-      <tr><td align="left">2018-12-28</td>
-          <td align="right"><a href="llama-json.html">Llama JSON</a></td></tr>
-    
-
-      <tr><td align="left">2018-03-18</td>
-          <td align="right"><a href="callbacks2.html">Callbacks (Part 2)</a></td></tr>
-    
-
-      <tr><td align="left">2018-03-17</td>
-          <td align="right"><a href="callbacks.html">Callbacks (Part 1)</a></td></tr>
-    
-
-      <tr><td align="left">2018-01-07</td>
-          <td align="right"><a href="pedant-cheat-sheet.html">Pedant Cheat Sheet</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-13</td>
-          <td align="right"><a href="russia/russia10.html">Russia and Czechia, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-10</td>
-          <td align="right"><a href="russia/russia7.html">Russia and Czechia, Day 7</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-04</td>
-          <td align="right"><a href="russia/russia2.html">Russia and Czechia, Day 4</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-03</td>
-          <td align="right"><a href="russia/russia1.html">Russia and Czechia, Day 3</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-22</td>
-          <td align="right"><a href="europe/europe13.html">Europe, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-19</td>
-          <td align="right"><a href="europe/europe10.html">Europe, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-17</td>
-          <td align="right"><a href="europe/europe8.html">Europe, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-16</td>
-          <td align="right"><a href="europe/europe7.html">Europe, Day 7</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-11</td>
-          <td align="right"><a href="europe/europe2.html">Europe, Day 2</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-10</td>
-          <td align="right"><a href="europe/europe1.html">Europe, Day 1</a></td></tr>
-    
-    </table>
-    
-
-
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>
