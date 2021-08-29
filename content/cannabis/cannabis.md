@@ -78,4 +78,25 @@ table.costs td, table.costs th {
   <tr><td colspan="3">total</td><td class="total">$151</td></tr>
 </table>
 
+Update: They All Died
+---------------------
+Yep, all three plants are dead.  Here are some pictures that I took shortly
+before the end.
+
+![sad plants](dead_1_small.webp)
+
+![another sad plant](dead_2_small.webp)
+
+![missing plant](dead_3_small.webp)
+
+Where did the third one go?  I found a bird feather in one of the buckets, so
+I have my suspicions.
+
+There was no saving the other two plants.  The issue, I think, is that those
+buckets are too big for such small plants.  When it rains, the soil holds water
+that the plants can't take up, and they "drown."
+
+So, better luck next year?  No, let's try to grow indoors!  Check out
+[part two](/cannabis-2/cannabis-2.html).
+
 [1]: https://legislation.nysenate.gov/pdf/bills/2021/s854a
