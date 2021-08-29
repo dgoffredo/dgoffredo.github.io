@@ -1,6 +1,6 @@
 <html>
 <head>
-  <base href="defer/defer.html"></base><meta charset="UTF-8"></meta>
+  <base href="cannabis-2/cannabis-2.html"></base><meta charset="UTF-8"></meta>
   
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
@@ -113,7 +113,7 @@ p, .navigation-bar, table.posts, ul, ol {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
-</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Go Shoot Yourself in the Foot</title>
+</style><title>Cannabis (Again)</title>
 </head>
 
 <body>
@@ -127,62 +127,127 @@ p, .navigation-bar, table.posts, ul, ol {
 </div>
 
 
-<p>Sunday, August  1, 2021</p>
+<p>Saturday, August  28, 2021</p>
 
-<div class="table-of-contents"><ul><li><a href="#go_shoot_yourself_in_the_foot">Go Shoot Yourself in the Foot</a><ul><li><a href="#why">Why</a></li></ul></li></ul></div>
+<div class="table-of-contents"><ul><li><a href="#cannabis_again">Cannabis (Again)</a></li></ul></div>
 
-<h1 id="go_shoot_yourself_in_the_foot"><a href="#go_shoot_yourself_in_the_foot" class="section-self-link">Go Shoot Yourself in the Foot</a></h1>
-<p><img src="gopher-gun.webp" alt="gopher with a gun" width="257" height="257"></img></p>
-<p>What's the output of the following program?</p>
-<pre><code class="lang-go hljs"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-    <span class="hljs-string">"fmt"</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
-    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">()</span></span> { fmt.Printf(<span class="hljs-string">"foo result = %q\n"</span>, result) }()
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
-}
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span> <span class="hljs-params">(result <span class="hljs-keyword">string</span>)</span></span> {
-    <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">"bar result = %q\n"</span>, result)
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"hi"</span>
-}
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
-    fmt.Printf(<span class="hljs-string">"foo() = %q\n"</span>, foo())
-    fmt.Printf(<span class="hljs-string">"bar() = %q\n"</span>, bar())
-}
-</code></pre>
-<p>First <code>foo</code> is executed, which will print something, and then the first line of
-<code>main</code> will print something.</p>
-<p>Then <code>bar</code> is executed, which will print something, and then the second line
-of <code>main</code> will print something.</p>
-<p>Here's the output:</p>
-<pre><code class="lang-text hljs">foo result = "hi"
-foo() = "hi"
-bar result = ""
-bar() = "hi"
-</code></pre>
-<p>Does the third line surprise you?  It sure surprised me.  Go ahead, <a href="https://play.golang.org/p/8NyKwSbRS_c">try it</a> yourself.</p>
-<h2 id="why"><a href="#why" class="section-self-link">Why</a></h2>
-<p>Reading StackOverflow <a href="https://stackoverflow.com/a/37249043">didn't help</a>.  Instead, I had to read the
-<a href="https://golang.org/ref/spec#Defer_statements">language specification</a>, which is what I ought always to do.</p>
-<blockquote><p>Each time a "defer" statement executes, the function value and parameters to
-the call are evaluated as usual and saved anew but the actual function is not invoked.</p>
+<h1 id="cannabis_again"><a href="#cannabis_again" class="section-self-link">Cannabis (Again)</a></h1>
+<p>My <a href="/cannabis/cannabis.html">first time around</a> I made all of the mistakes, and the plants died as
+seedlings.</p>
+<p>This time, I will make different mistakes.</p>
+<p>Start with the seeds.</p>
+<p><a href="seeds.jpg"><img src="seeds_small.webp" alt="seeds" class="preview" width="700" height="525"></img></a></p>
+<p>Three strains:</p>
+<ol>
+<li><a href="https://www.leafly.com/strains/nyc-diesel">NYC Diesel</a>, the strain that I killed previously.</li>
+<li><a href="https://www.leafly.com/strains/grape-ape">Grape Ape</a>, a popular indica strain.</li>
+<li><a href="https://www.leafly.com/strains/100-og">$100 OG</a>, a potent hybrid strain.</li>
+</ol>
+<p>I dropped the seeds into some tap water and waited for them to sprout.  They
+all sprouted more or less after a couple of days, after which I planted each
+in a plastic cup of potting soil.</p>
+<p>Before long, they all poked out of the soil and started reaching for the
+lights.</p>
+<p><a href="young.jpg"><img src="young_small.webp" alt="young seedlings" class="preview" width="700" height="525"></img></a></p>
+<p>Well, one of them didn't.  I went digging through the soil after a few days,
+and there was no evidence of the previously sprouted seed.  There was, however,
+a very fat looking ant, who seemed relieved to be freed from the soil.  She
+leapt from the side of the cup onto the kitchen counter and scurried towards
+the refrigerator and out of sight.  Did she eat the young plant?  Did I
+accidentally <em>not</em> plant that one?  In any case, 8/9 ain't bad.</p>
+<p>That's my stove.  I bought a dowel, cut it to size with a hacksaw, and jammed
+it into the hood above my stove.  That way I can hang "drop light" sockets from
+it, and screw in one of the million LED bulbs that I bought on Amazon a while
+back.</p>
+<p>When I cook, I just move the plants onto the refrigerator until I'm done.</p>
+<p>At first the plants were doing well; decent foliage and lots of roots.</p>
+<p><a href="stove.jpg"><img src="stove_small.webp" alt="plants growing on stove" class="preview" width="700" height="525"></img></a></p>
+<p><a href="roots.jpg"><img src="roots_small.webp" alt="nice roots" class="preview" width="700" height="525"></img></a></p>
+<p>Not long after, though, I started to notice brown spots on the leaves,
+burnt-looking tips, and general wasting in some plants.  It seemed to get
+worse any time I'd water the plants.  Was I over-watering again?</p>
+<p><a href="sad.jpg"><img src="sad_small.webp" alt="sad" class="preview" width="700" height="525"></img></a></p>
+<p>Google searches only revealed that these symptoms could be caused by
+<em>anything</em>, and that I should <em>do something now</em>, or else the plants <em>will
+die</em>, <em>again</em>.</p>
+<p>So, I asked for help on <a href="https://www.reddit.com/r/MyFirstGrow/comments/p7qwq3/seedling_brown_spots_and_yellowing/">reddit</a>.  Somebody replied with the following
+advice:</p>
+<blockquote><p>Ph your water. You’d want it to be between 6.5-7.</p>
+<p>Also check if your city uses chloramine and chlorine in their water, which
+they most likely do. You’d either filter your water or use store bought.</p>
+<p>Also, change to non-white cups. Light hitting the roots can damage them.</p>
+<p>I’d also change the lighting schedule to 18/6 during veg.</p>
 </blockquote>
-<p>The parameters are evaluated when the <em>defer statement</em> executes, not when the
-deferred function is invoked.</p>
-<p>This is confusing, because one way to defer code is to wrap it in a closure
-(<code>func</code>) and invoke the closure later on.</p>
-<p>Go's <code>defer</code> statement is more general.  After thinking about it, I prefer the
-Go way, except that now I have this hole in my foot.</p>
-<p>Be careful out there.</p>
+<p>Aha, maybe it's not the <em>quantity</em> of water but the <em>quality</em>.</p>
+<p>Another possibility was that the plants had outgrown these cups, and were now
+near exhausting the available nutrients ("root-bound").  For plants this young
+in soil this rich, that is unlikely.  Still, in addition to taking the
+redditor's advice, I also planned to transplant into larger containers.</p>
+<p>Now I prepare the water for my plants in a pasta pot.  Tap water goes in, gets
+boiled for about fifteen minutes, and then sits out overnight, or longer.  Then
+I adjust the pH using pH test strips and tiny additions of either citric acid
+or potassium hydroxide.  The redditor had a point: my tap water (pure though
+NYC tap water is reported to be) has a pH of around 8 and is full of chlorine.
+One pot of water lasts a long time, because <em>don't over-water your plants</em>.</p>
+<p>Things were getting cramped growing everything on the stove.  I have this
+storage space above my bathroom, let's use that instead.</p>
+<p><a href="storage.jpg"><img src="storage_small.webp" alt="unprepared storage space" class="preview" width="700" height="525"></img></a></p>
+<p>I went to the local gardening store looking for cheap plastic pots about a
+gallon in volume.  They don't sell cheap plastic pots (though every one of
+the hundreds of plants they sell is potted in one).  They only sell terra cotta
+pots for $40 each.</p>
+<p>I didn't buy any pots, but as luck would have it, somebody decided to throw
+away these plastic drawers on the curb right next to the gardening store:</p>
+<p><a href="bins.jpg"><img src="bins_small.webp" alt="drawers" class="preview" width="700" height="525"></img></a></p>
+<p>The plants will be pretty cozy, but I think that will work!  Just drill a bunch
+of holes in the bottom.</p>
+<p>About an afternoon later, I had the plants transferred into the bins; one bin
+per strain.</p>
+<p><a href="plants-in-bins.jpg"><img src="plants-in-bins_small.webp" alt="plants in bins" class="preview" width="700" height="933"></img></a></p>
+<p>Now for the lighting.  At first I thought that I'd string the "drop lights" on
+thread like a clothesline, or maybe I'd use longer dowels.  That would be a
+pain in the ass.  Also, whatever I decide, it will need to accommodate future
+additions of more lights as the plants grow.</p>
+<p>Then I found this cardboard box in my storage space:</p>
+<p><a href="light-holes.jpg"><img src="light-holes_small.webp" alt="flattened box with holes for lights" class="preview" width="700" height="525"></img></a></p>
+<p>I traced out socket-sized holes in the box and cut them out.  The idea is that
+the cardboard will be a "roof" over the plants, with the bulbs coming in the 
+top and pointing down onto the plants.</p>
+<p>The weight of the light fixtures might make the cardboard collapse inward,
+though, so first I tied some chopsticks to the underside to resist the tendency
+of the box to bend downward.</p>
+<p><a href="chop-sticks.jpg"><img src="chop-sticks_small.webp" alt="chopsticks as braces" class="preview" width="700" height="525"></img></a></p>
+<p>I have plenty of aluminum foil, so let's add that to the underside, too.</p>
+<p><a href="foil.jpg"><img src="foil_small.webp" alt="cardboard with aluminum foil lining" class="preview" width="700" height="525"></img></a></p>
+<p>Here's the setup with some bulbs in place:</p>
+<p><a href="lights-on.jpg"><img src="lights-on_small.webp" alt="lights mounted in cardboard" class="preview" width="700" height="525"></img></a></p>
+<p>The cardboard is supported on the right by the plastic shelving from which I
+took the drawers, and on the left by a wooden step stool that I also found
+on the curb the same day.</p>
+<p>The power runs over the top of the setup and off to the side, where I have
+a power strip with a timer plugged into an extension cord that runs to the
+kitchen.  Per the redditor's advice, I'm keeping the plants under light
+eighteen hours per day.</p>
+<p><a href="lights-top.jpg"><img src="lights-top_small.webp" alt="top of the lighting fixtures" class="preview" width="700" height="525"></img></a></p>
+<p><a href="power.jpg"><img src="power_small.webp" alt="power strips" class="preview" width="700" height="525"></img></a></p>
+<p>It's all a serious fire hazard.  At least it's surge protected.</p>
+<p>Here the plants are in place the day I set them up:</p>
+<p><a href="with-plants.jpg"><img src="with-plants_small.webp" alt="plants under lights" class="preview" width="700" height="525"></img></a></p>
+<p>The fan on the right keeps a gentle breeze blowing over the plants at all
+times.  The owls keep watch at night.</p>
+<p>It's been a week since the transplant, and I think the plants might be
+recovering.  It's hard to tell, because the nutrient deficiency is probably
+"mobile," meaning that the plant can prioritize healthy growth of new leaves,
+even as the death knell intensifies.</p>
+<p>Here are some blurry pictures from today.</p>
+<p><a href="recovering-1.jpg"><img src="recovering-1_small.webp" alt="recovering?" class="preview" width="700" height="525"></img></a></p>
+<p><a href="recovering-2.jpg"><img src="recovering-2_small.webp" alt="recovering?" class="preview" width="700" height="525"></img></a></p>
+<p><a href="recovering-3.jpg"><img src="recovering-3_small.webp" alt="recovering?" class="preview" width="700" height="525"></img></a></p>
+<p>Hang in there, my little green ones!</p>
 
 
 
-<div class="series-navigation-placeholder"></div>
+<div class="series-navigation-placeholder"><div class="series-navigation"><div class="series-navigation-header">Gardening</div><div class="series-navigation-links"><a href="../cannabis/cannabis.html">Cannabis</a><span>Cannabis (Again)</span></div></div></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>

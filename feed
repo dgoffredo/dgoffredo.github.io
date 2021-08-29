@@ -1,4 +1,125 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-08-01</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Go Shoot Yourself in the Foot</title><link href="https://www.davidgoffredo.com/defer/defer.html" /><id>https://www.davidgoffredo.com/defer/defer.html</id><updated>2021-08-01</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-08-28</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis (Again)</title><link href="https://www.davidgoffredo.com/cannabis-2/cannabis-2.html" /><id>https://www.davidgoffredo.com/cannabis-2/cannabis-2.html</id><updated>2021-08-28</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/cannabis-2/cannabis-2.html" />
+        </head>
+        <body>
+            <h1>Cannabis (Again)</h1>
+<p>My <a href="/cannabis/cannabis.html">first time around</a> I made all of the mistakes, and the plants died as
+seedlings.</p>
+<p>This time, I will make different mistakes.</p>
+<p>Start with the seeds.</p>
+<p><img src="seeds_small.webp" alt="seeds" /></p>
+<p>Three strains:</p>
+<ol>
+<li><a href="https://www.leafly.com/strains/nyc-diesel">NYC Diesel</a>, the strain that I killed previously.</li>
+<li><a href="https://www.leafly.com/strains/grape-ape">Grape Ape</a>, a popular indica strain.</li>
+<li><a href="https://www.leafly.com/strains/100-og">$100 OG</a>, a potent hybrid strain.</li>
+</ol>
+<p>I dropped the seeds into some tap water and waited for them to sprout.  They
+all sprouted more or less after a couple of days, after which I planted each
+in a plastic cup of potting soil.</p>
+<p>Before long, they all poked out of the soil and started reaching for the
+lights.</p>
+<p><img src="young_small.webp" alt="young seedlings" /></p>
+<p>Well, one of them didn't.  I went digging through the soil after a few days,
+and there was no evidence of the previously sprouted seed.  There was, however,
+a very fat looking ant, who seemed relieved to be freed from the soil.  She
+leapt from the side of the cup onto the kitchen counter and scurried towards
+the refrigerator and out of sight.  Did she eat the young plant?  Did I
+accidentally <em>not</em> plant that one?  In any case, 8/9 ain't bad.</p>
+<p>That's my stove.  I bought a dowel, cut it to size with a hacksaw, and jammed
+it into the hood above my stove.  That way I can hang "drop light" sockets from
+it, and screw in one of the million LED bulbs that I bought on Amazon a while
+back.</p>
+<p>When I cook, I just move the plants onto the refrigerator until I'm done.</p>
+<p>At first the plants were doing well; decent foliage and lots of roots.</p>
+<p><img src="stove_small.webp" alt="plants growing on stove" /></p>
+<p><img src="roots_small.webp" alt="nice roots" /></p>
+<p>Not long after, though, I started to notice brown spots on the leaves,
+burnt-looking tips, and general wasting in some plants.  It seemed to get
+worse any time I'd water the plants.  Was I over-watering again?</p>
+<p><img src="sad_small.webp" alt="sad" /></p>
+<p>Google searches only revealed that these symptoms could be caused by
+<em>anything</em>, and that I should <em>do something now</em>, or else the plants <em>will
+die</em>, <em>again</em>.</p>
+<p>So, I asked for help on <a href="https://www.reddit.com/r/MyFirstGrow/comments/p7qwq3/seedling_brown_spots_and_yellowing/">reddit</a>.  Somebody replied with the following
+advice:</p>
+<blockquote><p>Ph your water. You’d want it to be between 6.5-7.</p>
+<p>Also check if your city uses chloramine and chlorine in their water, which
+they most likely do. You’d either filter your water or use store bought.</p>
+<p>Also, change to non-white cups. Light hitting the roots can damage them.</p>
+<p>I’d also change the lighting schedule to 18/6 during veg.</p>
+</blockquote>
+<p>Aha, maybe it's not the <em>quantity</em> of water but the <em>quality</em>.</p>
+<p>Another possibility was that the plants had outgrown these cups, and were now
+near exhausting the available nutrients ("root-bound").  For plants this young
+in soil this rich, that is unlikely.  Still, in addition to taking the
+redditor's advice, I also planned to transplant into larger containers.</p>
+<p>Now I prepare the water for my plants in a pasta pot.  Tap water goes in, gets
+boiled for about fifteen minutes, and then sits out overnight, or longer.  Then
+I adjust the pH using pH test strips and tiny additions of either citric acid
+or potassium hydroxide.  The redditor had a point: my tap water (pure though
+NYC tap water is reported to be) has a pH of around 8 and is full of chlorine.
+One pot of water lasts a long time, because <em>don't over-water your plants</em>.</p>
+<p>Things were getting cramped growing everything on the stove.  I have this
+storage space above my bathroom, let's use that instead.</p>
+<p><img src="storage_small.webp" alt="unprepared storage space" /></p>
+<p>I went to the local gardening store looking for cheap plastic pots about a
+gallon in volume.  They don't sell cheap plastic pots (though every one of
+the hundreds of plants they sell is potted in one).  They only sell terra cotta
+pots for $40 each.</p>
+<p>I didn't buy any pots, but as luck would have it, somebody decided to throw
+away these plastic drawers on the curb right next to the gardening store:</p>
+<p><img src="bins_small.webp" alt="drawers" /></p>
+<p>The plants will be pretty cozy, but I think that will work!  Just drill a bunch
+of holes in the bottom.</p>
+<p>About an afternoon later, I had the plants transferred into the bins; one bin
+per strain.</p>
+<p><img src="plants-in-bins_small.webp" alt="plants in bins" /></p>
+<p>Now for the lighting.  At first I thought that I'd string the "drop lights" on
+thread like a clothesline, or maybe I'd use longer dowels.  That would be a
+pain in the ass.  Also, whatever I decide, it will need to accommodate future
+additions of more lights as the plants grow.</p>
+<p>Then I found this cardboard box in my storage space:</p>
+<p><img src="light-holes_small.webp" alt="flattened box with holes for lights" /></p>
+<p>I traced out socket-sized holes in the box and cut them out.  The idea is that
+the cardboard will be a "roof" over the plants, with the bulbs coming in the 
+top and pointing down onto the plants.</p>
+<p>The weight of the light fixtures might make the cardboard collapse inward,
+though, so first I tied some chopsticks to the underside to resist the tendency
+of the box to bend downward.</p>
+<p><img src="chop-sticks_small.webp" alt="chopsticks as braces" /></p>
+<p>I have plenty of aluminum foil, so let's add that to the underside, too.</p>
+<p><img src="foil_small.webp" alt="cardboard with aluminum foil lining" /></p>
+<p>Here's the setup with some bulbs in place:</p>
+<p><img src="lights-on_small.webp" alt="lights mounted in cardboard" /></p>
+<p>The cardboard is supported on the right by the plastic shelving from which I
+took the drawers, and on the left by a wooden step stool that I also found
+on the curb the same day.</p>
+<p>The power runs over the top of the setup and off to the side, where I have
+a power strip with a timer plugged into an extension cord that runs to the
+kitchen.  Per the redditor's advice, I'm keeping the plants under light
+eighteen hours per day.</p>
+<p><img src="lights-top_small.webp" alt="top of the lighting fixtures" /></p>
+<p><img src="power_small.webp" alt="power strips" /></p>
+<p>It's all a serious fire hazard.  At least it's surge protected.</p>
+<p>Here the plants are in place the day I set them up:</p>
+<p><img src="with-plants_small.webp" alt="plants under lights" /></p>
+<p>The fan on the right keeps a gentle breeze blowing over the plants at all
+times.  The owls keep watch at night.</p>
+<p>It's been a week since the transplant, and I think the plants might be
+recovering.  It's hard to tell, because the nutrient deficiency is probably
+"mobile," meaning that the plant can prioritize healthy growth of new leaves,
+even as the death knell intensifies.</p>
+<p>Here are some blurry pictures from today.</p>
+<p><img src="recovering-1_small.webp" alt="recovering?" /></p>
+<p><img src="recovering-2_small.webp" alt="recovering?" /></p>
+<p><img src="recovering-3_small.webp" alt="recovering?" /></p>
+<p>Hang in there, my little green ones!</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Go Shoot Yourself in the Foot</title><link href="https://www.davidgoffredo.com/defer/defer.html" /><id>https://www.davidgoffredo.com/defer/defer.html</id><updated>2021-08-01</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/defer/defer.html" />
         </head>
@@ -206,7 +327,20 @@ table.costs td, table.costs th {
   <tr><td>jars</td><td>$7</td><td>3</td><td>$21</td></tr>
   <tr><th colspan="4" /></tr>
   <tr><td colspan="3">total</td><td class="total">$151</td></tr>
-</table>
+</table><h2>Update: They All Died</h2>
+<p>Yep, all three plants are dead.  Here are some pictures that I took shortly
+before the end.</p>
+<p><img src="dead_1_small.webp" alt="sad plants" /></p>
+<p><img src="dead_2_small.webp" alt="another sad plant" /></p>
+<p><img src="dead_3_small.webp" alt="missing plant" /></p>
+<p>Where did the third one go?  I found a bird feather in one of the buckets, so
+I have my suspicions.</p>
+<p>There was no saving the other two plants.  The issue, I think, is that those
+buckets are too big for such small plants.  When it rains, the soil holds water
+that the plants can't take up, and they "drown."</p>
+<p>So, better luck next year?  No, let's try to grow indoors!  Check out
+<a href="/cannabis-2/cannabis-2.html">part two</a>.</p>
+
 
         </body>
     </html></div></content></entry><entry><title>Boxy Brown Porter</title><link href="https://www.davidgoffredo.com/boxy-brown-porter/boxy-brown-porter.html" /><id>https://www.davidgoffredo.com/boxy-brown-porter/boxy-brown-porter.html</id><updated>2021-06-20</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
