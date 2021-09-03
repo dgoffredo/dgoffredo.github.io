@@ -1,4 +1,36 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-08-28</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis (Again)</title><link href="https://www.davidgoffredo.com/cannabis-2/cannabis-2.html" /><id>https://www.davidgoffredo.com/cannabis-2/cannabis-2.html</id><updated>2021-08-28</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-09-02</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>How Git Works</title><link href="https://www.davidgoffredo.com/git/git.html" /><id>https://www.davidgoffredo.com/git/git.html</id><updated>2021-09-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/git/git.html" />
+        </head>
+        <body>
+            <h1>How Git Works</h1>
+<p>It's all explained <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">here</a>.</p>
+<p>Go ahead. Click the link, and read all of it.  It's not long.</p>
+<p>No?</p>
+<p>Ok, then.  Here are three of the diagrams from the above link.</p>
+<h2>Git in Three Diagrams</h2>
+<p><img src="https://git-scm.com/book/en/v2/images/data-model-2.png" alt="a tree in git" /></p>
+<hr />
+<p><img src="https://git-scm.com/book/en/v2/images/data-model-3.png" alt="multiple trees with commits" /></p>
+<hr />
+<p><img src="https://git-scm.com/book/en/v2/images/data-model-4.png" alt="branch pointers" /></p>
+<p>Notice how, in the second diagram, different trees can share file objects and
+subdirectory (tree) objects, if those files and subdirectories are exactly the
+same (<code>test.txt</code> and <code>d8329f</code>).</p>
+<p>That, to me, is what is so cool about git.  It's not bag of diffs.  It's an
+immutable directed graph.</p>
+<p>The only thing even resembling diffs in git is the <a href="https://git-scm.com/book/en/v2/Git-Internals-Packfiles">packfile</a> that it will
+create, as an optimization, when the repository becomes very large or needs to
+be sent over the network.  Even then, it doesn't use diffs per se, but a clever
+encoding that describes objects as data <a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">interspersed with excerpts from other
+objects</a>.</p>
+<p>The next time you're thinking of throwing your laptop out the window out of
+frustration with git, just stop to think how pretty it is.</p>
+<p><img src="git.svg" alt="git logo" /></p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Cannabis (Again)</title><link href="https://www.davidgoffredo.com/cannabis-2/cannabis-2.html" /><id>https://www.davidgoffredo.com/cannabis-2/cannabis-2.html</id><updated>2021-08-28</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/cannabis-2/cannabis-2.html" />
         </head>
