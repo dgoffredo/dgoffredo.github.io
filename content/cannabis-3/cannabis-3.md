@@ -27,7 +27,7 @@ drainage?
 
 The answer, as far as I can read, is "both" or "neither."  The first couple of
 pages of google results are all cooking recipe style articles that rephrase,
-sometimes verbatim, the same vacuous claims about perlite, vermiculite,
+sometimes verbatim, the same unhelpful claims about perlite, vermiculite,
 what they are, what they're for, how they're similar, and how they're
 different.  If you instead look at message boards or reddit, you'll see claims
 that perlite and vermiculite are polar opposites — that perlite improves
@@ -102,7 +102,7 @@ I'll have to set it again.  Better to let it focus itself on _something_.
 You can see the whole system [here][7].
 
 As you can see, everything was fine until the sudden cut to brown at the 32
-second mark.  The interim period was a week that I spent at my parent's house,
+second mark.  The interim period was a week that I spent at my parents' house,
 during which the phone decided to stop taking pictures.  There's another used
 camera in the mail that I'll flash [Ubuntu Touch][6] onto in an attempt to wrap
 my own camera intervalometer.  Existing Android solutions work very well until
