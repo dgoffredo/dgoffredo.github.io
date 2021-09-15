@@ -1,4 +1,105 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-09-02</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>How Git Works</title><link href="https://www.davidgoffredo.com/git/git.html" /><id>https://www.davidgoffredo.com/git/git.html</id><updated>2021-09-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-09-14</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis (For Now)</title><link href="https://www.davidgoffredo.com/cannabis-3/cannabis-3.html" /><id>https://www.davidgoffredo.com/cannabis-3/cannabis-3.html</id><updated>2021-09-14</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/cannabis-3/cannabis-3.html" />
+        </head>
+        <body>
+            <h1>Cannabis (For Now)</h1>
+<p>I can't keep these plants alive.  They are very unhappy.</p>
+<p><img src="sick_small.webp" alt="sick plants" /></p>
+<h2>Drowning</h2>
+<p>The soil holds too much water.  I wait for several days between waterings, and
+in that time the top few centimeters of soil are bone dry, while the soil below
+is still moist.</p>
+<p>There is an epidemic of fungus gnats.  "Just let the soil dry out," they say.
+"You're just over-watering," they say.  "The soil isn't draining," they say.
+Are you <em>sure</em>?  Do you mean to tell me that if you put a plant in soil
+and water it once a week, it will die from <em>over-watering</em>?</p>
+<p>"But the gnats proliferate due to the presence of fungus, and the fungus only
+grows when the soil is moist too long!" they exclaim.</p>
+<p>"There's too much soil!  Plants that size potted in that much soil will die
+from root rot!" is the warning.</p>
+<p>Here's a question.  Does <a href="https://en.wikipedia.org/wiki/Vermiculite">vermiculite</a> cause water to pass through the soil
+<em>more</em> easily, or <em>less</em> easily?  Does it <em>improve</em> drainage, or <em>hinder</em>
+drainage?</p>
+<p>The answer, as far as I can read, is "both" or "neither."  The first couple of
+pages of google results are all cooking recipe style articles that rephrase,
+sometimes verbatim, the same vacuous claims about perlite, vermiculite,
+what they are, what they're for, how they're similar, and how they're
+different.  If you instead look at message boards or reddit, you'll see claims
+that perlite and vermiculite are polar opposites — that perlite improves
+drainage, while vermiculite retains moisture.  If you read articles for DIY
+potting soil mixes, you'll see things like "2 parts perlite and/or vermiculite
+in any proportion."</p>
+<p>I've been spraying a dilute <a href="https://en.wikipedia.org/wiki/Neem_oil">neem oil</a> mixture onto the soil of the plants
+in an attempt to terrorize the fungus gnats.  It doesn't seem to be helping,
+but apparently this takes time.</p>
+<p>My mother advised me to take one or two of the plants out of their current
+container and plant each individually into a small pot.  The goal is to
+improve soil drainage.  I took this opportunity to mix up some new soil,
+this time with the following ingredients:</p>
+<ul>
+<li>2 parts Coast of Maine <a href="https://coastofmaine.com/product/barharbor/">Bar Harbor Blend</a> potting soil</li>
+<li>1 part spent brewer's grain based compost mixed with used soil</li>
+<li>1 part vermiculite</li>
+</ul>
+<p>It's vermiculite rather than perlite, because the local gardening store's
+perlite included Miracle Grow fertilizer, and I'm trying to control the
+"drainage" variable only.</p>
+<p>I mixed the soil, roughly, by volume using a quart sized measuring cup as a
+scoop, and worked the mixture with a big metal paddle and a little wooden spoon
+until I had broken up most of the clumps.  The soil has the consistency of wet
+sand, but lighter.</p>
+<p>The unamended potting soil really is very dense and moist.  Probably adding 
+anything (perlite, vermiculite, sand, styrofoam) would improve it.  That's not
+to mention nutrients, which I'm not addressing until I can get the plants to
+<em>stop dying</em>.  Besides, the soil and the compost probably have enough
+nutrients to get the plants further along into the vegetative stage.  I could
+always supplement with liquid fertilizers later if necessary.</p>
+<p>I accidentally destroyed most of the root system of one of the plants that I
+transplanted today, so that one I expect will die.  The other one looked like
+it was going to die anyway, so I wish it the best of luck.</p>
+<h2>Monitoring</h2>
+<p>It seemed like a fun idea to use an old Android phone as a time lapse camera to
+monitor the growth of the plants, but it turns out it fucking sucks and is a
+total pain in the ass.</p>
+<p>Assuming the camera app hasn't spontaneously stopped taking pictures without
+leaving a hint as to why, you can see the most recent picture <a href="https://home.davidgoffredo.com/weedcam/latest.jpg">here</a>.
+There's also a less frequently generated everything-so-far
+<a href="https://home.davidgoffredo.com/weedcam/time-lapse.mp4">time lapse video</a>.</p>
+<p>Here they are inline:</p>
+<div>
+    <a href="https://home.davidgoffredo.com/weedcam/latest.jpg">
+        <img src="https://home.davidgoffredo.com/weedcam/latest.jpg" width="700" />
+    </a>
+</div><div>
+    <video controls="true" width="700">
+        <source src="https://home.davidgoffredo.com/weedcam/time-lapse.mp4" type="video/mp4" />
+    </video>
+</div><p>Yes, it's blurry.  It focuses on whatever it wants to.  I could make the focus
+fixed, but then the next time I nudge the camera or move anything in the shot
+I'll have to set it again.  Better to let it focus itself on <em>something</em>.</p>
+<p>You can see the whole system <a href="https://home.davidgoffredo.com/weedcam">here</a>.</p>
+<p>As you can see, everything was fine until the sudden cut to brown at the 32
+second mark.  The interim period was a week that I spent at my parent's house,
+during which the phone decided to stop taking pictures.  There's another used
+camera in the mail that I'll flash <a href="https://ubuntu-touch.io/">Ubuntu Touch</a> onto in an attempt to wrap
+my own camera intervalometer.  Existing Android solutions work very well until
+they stop working entirely.</p>
+<p>Before leaving my apartment for the airport, I watered the plants with a little
+more water than usual and added in some of the dilute neem oil mixture.  After
+a week of then leaving the plants well alone, you can see that they're all
+dying.</p>
+<h2>Next Steps</h2>
+<p>If the plants recover as is, great.  Nothing to do.</p>
+<p>If the re-potted plants do better, great.  I'll re-pot the rest.</p>
+<p>If everything dies, well then shit.  I'll buy more seeds, this time keeping
+each plant in its own tiny container full of <em>super draining</em> soil mix, and I
+won't water them <em>one fucking drop</em> until they <em>beg for mercy</em>.</p>
+<p><img src="cannabis.svg" alt="cannabis leaf" /></p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>How Git Works</title><link href="https://www.davidgoffredo.com/git/git.html" /><id>https://www.davidgoffredo.com/git/git.html</id><updated>2021-09-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/git/git.html" />
         </head>
