@@ -330,7 +330,7 @@ hash-based container.</p>
 <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">HashMultiset</span> :</span> <span class="hljs-keyword">public</span> std::unordered_multiset&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, HashValue&lt;Value&gt;&gt; {
     <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">front</span>();
+        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">begin</span>();
     }
 
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
