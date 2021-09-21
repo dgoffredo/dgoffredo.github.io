@@ -1,4 +1,230 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-09-14</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis (For Now)</title><link href="https://www.davidgoffredo.com/cannabis-3/cannabis-3.html" /><id>https://www.davidgoffredo.com/cannabis-3/cannabis-3.html</id><updated>2021-09-14</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-09-20</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Tree Search</title><link href="https://www.davidgoffredo.com/tree-search/tree-search.html" /><id>https://www.davidgoffredo.com/tree-search/tree-search.html</id><updated>2021-09-20</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/tree-search/tree-search.html" />
+        </head>
+        <body>
+            <h1>Tree Search</h1>
+<p>How many ways can we search through a tree?  Let us count the ways.</p>
+<h2>Front Matter</h2>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Tree</span> {</span>
+    Value value;
+    std::vector&lt;Tree&gt; children;
+};
+</code></pre>
+<h2>Depth-first</h2>
+<p>Visit all of a node's descendants before visiting any of its siblings.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">if</span> (tree.value == value) {
+        <span class="hljs-keyword">return</span> &amp;tree;
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : tree.children) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> result = <span class="hljs-built_in">depth_first_search</span>(child, value)) {
+            <span class="hljs-keyword">return</span> result;
+        }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+}
+</code></pre>
+<h2>Breadth-first</h2>
+<p>Visit all of a node's siblings before visiting any of its descendants.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">breadth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    std::queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt; to_visit;
+    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">front</span>();
+        to_visit.<span class="hljs-built_in">pop</span>();
+        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
+            <span class="hljs-keyword">return</span> current;
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
+            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
+        }
+
+        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        }
+    }
+}
+</code></pre>
+<p>This required a queue, and did not require recursion.</p>
+<p>We could rewrite the depth-first search without recursion.  After all, the
+call stack is a... stack.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">using</span> Ptr = <span class="hljs-keyword">const</span> Tree&lt;Value&gt;*;
+    std::stack&lt;Ptr, std::vector&lt;Ptr&gt;&gt; to_visit;
+    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">top</span>();
+        to_visit.<span class="hljs-built_in">pop</span>();
+        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
+            <span class="hljs-keyword">return</span> current;
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
+            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
+        }
+
+        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        }
+    }
+}
+</code></pre>
+<p>This is technically less efficient than the first depth-first search, because
+we copy a node's children into <code>to_visit</code> before visiting its first child.</p>
+<p>The benefit of this second version is that it can accommodate trees that are
+as deep as memory will allow, whereas the first version can only go as deep as
+the call stack, which is usually much smaller.  Also, a call stack frame is
+larger than a pointer, so we use less space by storing only the <code>Tree*</code> instead
+of an entire stack frame.</p>
+<h2>Generalize</h2>
+<p>The breadth-first search algorithm and the second depth-first search algorithm
+are very similar.  The only difference is in the definition of <code>to_visit</code>.</p>
+<p>Let's rewrite them as adaptations of the same underlying algorithm.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value, <span class="hljs-keyword">typename</span> Container&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value, Container&amp;&amp; to_visit)</span> </span>{
+    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">next</span>();
+        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
+            <span class="hljs-keyword">return</span> current;
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
+            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
+        }
+
+        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        }
+    }
+}
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Stack</span> :</span> <span class="hljs-keyword">public</span> std::stack&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, std::vector&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt;&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">top</span>();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, Stack&lt;Value&gt;());
+}
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> :</span> <span class="hljs-keyword">public</span> std::queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">front</span>();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">breadth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, Queue&lt;Value&gt;());
+}
+</code></pre>
+<h2>What Else?</h2>
+<p>What other data structures could we use for <code>to_visit</code>, other than a stack or a
+queue?</p>
+<p>If we don't know anything about the structure of <code>tree</code> and the values within
+it, then I see no reason to use any other data structure in an exhaustive
+search.</p>
+<p>Still, it's interesting to consider what happens when we use some other
+data structure.</p>
+<h2>With a Priority Queue</h2>
+<p>What about a heap?  The next element visited is always the <em>smallest</em> (or the
+<em>largest</em>) among those <em>to_visit</em>, according to some comparison
+function.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Greater</span> {</span>
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* left, <span class="hljs-keyword">const</span> Tree&lt;Value&gt;* right)</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> left-&gt;value &gt; right-&gt;value;
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">PriorityQueue</span> :</span> <span class="hljs-keyword">public</span> std::priority_queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, std::vector&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt;, Greater&lt;Value&gt;&gt; {
+    <span class="hljs-comment">// Return the smallest element in this queue.</span>
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">top</span>();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">least_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, PriorityQueue&lt;Value&gt;());
+}
+</code></pre>
+<p>This is more costly than the vanilla depth-first or breadth-first algorithms,
+because operations on the heap (priority queue) are logarithmic in its size
+rather than amortized constant.</p>
+<h2>With a Hash Multiset</h2>
+<p>We could also visit nodes in an expanding pseudorandom order by using a
+hash-based container.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstddef&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;functional&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unordered_set&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">HashValue</span> {</span>
+    <span class="hljs-function">std::<span class="hljs-keyword">size_t</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* node)</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> std::hash&lt;Value&gt;(node-&gt;value)();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">HashMultiset</span> :</span> <span class="hljs-keyword">public</span> std::unordered_multiset&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, HashValue&lt;Value&gt;&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">front</span>();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">erase</span>(<span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">begin</span>());
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* node)</span> </span>{
+        <span class="hljs-built_in">insert</span>(node);
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">bogo_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, HashMultiset&lt;Value&gt;());
+}
+</code></pre>
+<p>The hash is of a node's value, which is strange.  Stranger still would be
+to hash the node's address instead.</p>
+<p>Treeeeeessss.......</p>
+<p><img src="tree.svg" alt="tree" /></p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Cannabis (For Now)</title><link href="https://www.davidgoffredo.com/cannabis-3/cannabis-3.html" /><id>https://www.davidgoffredo.com/cannabis-3/cannabis-3.html</id><updated>2021-09-14</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/cannabis-3/cannabis-3.html" />
         </head>

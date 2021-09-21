@@ -113,7 +113,7 @@ p, .navigation-bar, table.posts, ul, ol {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
-</style><title>Posts</title>
+</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Tree Search</title>
 </head>
 
 <body>
@@ -127,185 +127,232 @@ p, .navigation-bar, table.posts, ul, ol {
 </div>
 
 
+<p>Monday, September  20, 2021</p>
+
+<div class="table-of-contents"><ul><li><a href="#tree_search">Tree Search</a><ul><li><a href="#front_matter">Front Matter</a></li><li><a href="#depthfirst">Depth-first</a></li><li><a href="#breadthfirst">Breadth-first</a></li><li><a href="#generalize">Generalize</a></li><li><a href="#what_else">What Else?</a></li><li><a href="#with_a_priority_queue">With a Priority Queue</a></li><li><a href="#with_a_hash_multiset">With a Hash Multiset</a></li></ul></li></ul></div>
+
+<h1 id="tree_search"><a href="#tree_search" class="section-self-link">Tree Search</a></h1>
+<p>How many ways can we search through a tree?  Let us count the ways.</p>
+<h2 id="front_matter"><a href="#front_matter" class="section-self-link">Front Matter</a></h2>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Tree</span> {</span>
+    Value value;
+    std::vector&lt;Tree&gt; children;
+};
+</code></pre>
+<h2 id="depthfirst"><a href="#depthfirst" class="section-self-link">Depth-first</a></h2>
+<p>Visit all of a node's descendants before visiting any of its siblings.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">if</span> (tree.value == value) {
+        <span class="hljs-keyword">return</span> &amp;tree;
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : tree.children) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> result = <span class="hljs-built_in">depth_first_search</span>(child, value)) {
+            <span class="hljs-keyword">return</span> result;
+        }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+}
+</code></pre>
+<h2 id="breadthfirst"><a href="#breadthfirst" class="section-self-link">Breadth-first</a></h2>
+<p>Visit all of a node's siblings before visiting any of its descendants.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">breadth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    std::queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt; to_visit;
+    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">front</span>();
+        to_visit.<span class="hljs-built_in">pop</span>();
+        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
+            <span class="hljs-keyword">return</span> current;
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
+            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
+        }
+
+        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        }
+    }
+}
+</code></pre>
+<p>This required a queue, and did not require recursion.</p>
+<p>We could rewrite the depth-first search without recursion.  After all, the
+call stack is a... stack.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">using</span> Ptr = <span class="hljs-keyword">const</span> Tree&lt;Value&gt;*;
+    std::stack&lt;Ptr, std::vector&lt;Ptr&gt;&gt; to_visit;
+    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">top</span>();
+        to_visit.<span class="hljs-built_in">pop</span>();
+        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
+            <span class="hljs-keyword">return</span> current;
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
+            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
+        }
+
+        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        }
+    }
+}
+</code></pre>
+<p>This is technically less efficient than the first depth-first search, because
+we copy a node's children into <code>to_visit</code> before visiting its first child.</p>
+<p>The benefit of this second version is that it can accommodate trees that are
+as deep as memory will allow, whereas the first version can only go as deep as
+the call stack, which is usually much smaller.  Also, a call stack frame is
+larger than a pointer, so we use less space by storing only the <code>Tree*</code> instead
+of an entire stack frame.</p>
+<h2 id="generalize"><a href="#generalize" class="section-self-link">Generalize</a></h2>
+<p>The breadth-first search algorithm and the second depth-first search algorithm
+are very similar.  The only difference is in the definition of <code>to_visit</code>.</p>
+<p>Let's rewrite them as adaptations of the same underlying algorithm.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value, <span class="hljs-keyword">typename</span> Container&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value, Container&amp;&amp; to_visit)</span> </span>{
+    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">next</span>();
+        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
+            <span class="hljs-keyword">return</span> current;
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
+            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
+        }
+
+        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        }
+    }
+}
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Stack</span> :</span> <span class="hljs-keyword">public</span> std::stack&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, std::vector&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt;&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">top</span>();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, Stack&lt;Value&gt;());
+}
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> :</span> <span class="hljs-keyword">public</span> std::queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">front</span>();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">breadth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, Queue&lt;Value&gt;());
+}
+</code></pre>
+<h2 id="what_else"><a href="#what_else" class="section-self-link">What Else?</a></h2>
+<p>What other data structures could we use for <code>to_visit</code>, other than a stack or a
+queue?</p>
+<p>If we don't know anything about the structure of <code>tree</code> and the values within
+it, then I see no reason to use any other data structure in an exhaustive
+search.</p>
+<p>Still, it's interesting to consider what happens when we use some other
+data structure.</p>
+<h2 id="with_a_priority_queue"><a href="#with_a_priority_queue" class="section-self-link">With a Priority Queue</a></h2>
+<p>What about a heap?  The next element visited is always the <em>smallest</em> (or the
+<em>largest</em>) among those <em>to_visit</em>, according to some comparison
+function.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Greater</span> {</span>
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* left, <span class="hljs-keyword">const</span> Tree&lt;Value&gt;* right)</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> left-&gt;value &gt; right-&gt;value;
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">PriorityQueue</span> :</span> <span class="hljs-keyword">public</span> std::priority_queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, std::vector&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt;, Greater&lt;Value&gt;&gt; {
+    <span class="hljs-comment">// Return the smallest element in this queue.</span>
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">top</span>();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">least_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, PriorityQueue&lt;Value&gt;());
+}
+</code></pre>
+<p>This is more costly than the vanilla depth-first or breadth-first algorithms,
+because operations on the heap (priority queue) are logarithmic in its size
+rather than amortized constant.</p>
+<h2 id="with_a_hash_multiset"><a href="#with_a_hash_multiset" class="section-self-link">With a Hash Multiset</a></h2>
+<p>We could also visit nodes in an expanding pseudorandom order by using a
+hash-based container.</p>
+<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstddef&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;functional&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unordered_set&gt;</span></span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">HashValue</span> {</span>
+    <span class="hljs-function">std::<span class="hljs-keyword">size_t</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* node)</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> std::hash&lt;Value&gt;(node-&gt;value)();
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">HashMultiset</span> :</span> <span class="hljs-keyword">public</span> std::unordered_multiset&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, HashValue&lt;Value&gt;&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">front</span>();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">erase</span>(<span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">begin</span>());
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* node)</span> </span>{
+        <span class="hljs-built_in">insert</span>(node);
+    }
+};
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
+<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">bogo_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, HashMultiset&lt;Value&gt;());
+}
+</code></pre>
+<p>The hash is of a node's value, which is strange.  Stranger still would be
+to hash the node's address instead.</p>
+<p>Treeeeeessss.......</p>
+<p><img src="tree.svg" alt="tree" width="300" height="300"></img></p>
 
 
 
-
-
-    <table class="posts">
-      <tr><th align="left">Date</th><th align="right">Post</th></tr>
-      
-      <tr><td align="left">2021-09-20</td>
-          <td align="right"><a href="tree-search/tree-search.html">Tree Search</a></td></tr>
-    
-
-      <tr><td align="left">2021-09-14</td>
-          <td align="right"><a href="cannabis-3/cannabis-3.html">Cannabis (For Now)</a></td></tr>
-    
-
-      <tr><td align="left">2021-09-02</td>
-          <td align="right"><a href="git/git.html">How Git Works</a></td></tr>
-    
-
-      <tr><td align="left">2021-08-28</td>
-          <td align="right"><a href="cannabis-2/cannabis-2.html">Cannabis (Again)</a></td></tr>
-    
-
-      <tr><td align="left">2021-08-01</td>
-          <td align="right"><a href="defer/defer.html">Go Shoot Yourself in the Foot</a></td></tr>
-    
-
-      <tr><td align="left">2021-07-23</td>
-          <td align="right"><a href="documentation-rant.html">Documentation Rant</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-30</td>
-          <td align="right"><a href="cannabis/cannabis.html">Cannabis</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-20</td>
-          <td align="right"><a href="boxy-brown-porter/boxy-brown-porter.html">Boxy Brown Porter</a></td></tr>
-    
-
-      <tr><td align="left">2021-06-03</td>
-          <td align="right"><a href="blog.html">Blog</a></td></tr>
-    
-
-      <tr><td align="left">2021-05-27</td>
-          <td align="right"><a href="lemonade/lemonade.html">Lemonade</a></td></tr>
-    
-
-      <tr><td align="left">2021-05-19</td>
-          <td align="right"><a href="double-panda-ipa/double-panda-ipa.html">Double Panda IPA</a></td></tr>
-    
-
-      <tr><td align="left">2021-04-30</td>
-          <td align="right"><a href="guile.html">Installing Guile from Source</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-22</td>
-          <td align="right"><a href="mexico/mexico5.html">Mexico, Day 29</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-14</td>
-          <td align="right"><a href="mexico/mexico4.html">Mexico, Day 21</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-06</td>
-          <td align="right"><a href="mexico/mexico3.html">Mexico, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2021-03-01</td>
-          <td align="right"><a href="mexico/mexico2.html">Mexico, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2021-02-26</td>
-          <td align="right"><a href="mexico/mexico1.html">Mexico, Day 5</a></td></tr>
-    
-
-      <tr><td align="left">2020-04-15</td>
-          <td align="right"><a href="language-notes.html">The Language That I Think I Want</a></td></tr>
-    
-
-      <tr><td align="left">2020-03-24</td>
-          <td align="right"><a href="thrush.html">The Thrush Combinator</a></td></tr>
-    
-
-      <tr><td align="left">2019-10-04</td>
-          <td align="right"><a href="india/india6.html">India, Day 15</a></td></tr>
-    
-
-      <tr><td align="left">2019-10-02</td>
-          <td align="right"><a href="india/india5.html">India, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-29</td>
-          <td align="right"><a href="india/india4.html">India, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-27</td>
-          <td align="right"><a href="india/india3.html">India, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-25</td>
-          <td align="right"><a href="india/india2.html">India, Day 6</a></td></tr>
-    
-
-      <tr><td align="left">2019-09-22</td>
-          <td align="right"><a href="india/india1.html">India, Day 1</a></td></tr>
-    
-
-      <tr><td align="left">2019-07-28</td>
-          <td align="right"><a href="channels.html">Channels</a></td></tr>
-    
-
-      <tr><td align="left">2019-06-12</td>
-          <td align="right"><a href="phone-server.html">Phone Server</a></td></tr>
-    
-
-      <tr><td align="left">2019-01-02</td>
-          <td align="right"><a href="break-cycles/break-cycles.html">Code Generation and the Minimum Feedback Arc Set</a></td></tr>
-    
-
-      <tr><td align="left">2018-12-28</td>
-          <td align="right"><a href="llama-json.html">Llama JSON</a></td></tr>
-    
-
-      <tr><td align="left">2018-03-18</td>
-          <td align="right"><a href="callbacks2.html">Callbacks (Part 2)</a></td></tr>
-    
-
-      <tr><td align="left">2018-03-17</td>
-          <td align="right"><a href="callbacks.html">Callbacks (Part 1)</a></td></tr>
-    
-
-      <tr><td align="left">2018-01-07</td>
-          <td align="right"><a href="pedant-cheat-sheet.html">Pedant Cheat Sheet</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-13</td>
-          <td align="right"><a href="russia/russia10.html">Russia and Czechia, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-10</td>
-          <td align="right"><a href="russia/russia7.html">Russia and Czechia, Day 7</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-04</td>
-          <td align="right"><a href="russia/russia2.html">Russia and Czechia, Day 4</a></td></tr>
-    
-
-      <tr><td align="left">2017-05-03</td>
-          <td align="right"><a href="russia/russia1.html">Russia and Czechia, Day 3</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-22</td>
-          <td align="right"><a href="europe/europe13.html">Europe, Day 13</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-19</td>
-          <td align="right"><a href="europe/europe10.html">Europe, Day 10</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-17</td>
-          <td align="right"><a href="europe/europe8.html">Europe, Day 8</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-16</td>
-          <td align="right"><a href="europe/europe7.html">Europe, Day 7</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-11</td>
-          <td align="right"><a href="europe/europe2.html">Europe, Day 2</a></td></tr>
-    
-
-      <tr><td align="left">2016-09-10</td>
-          <td align="right"><a href="europe/europe1.html">Europe, Day 1</a></td></tr>
-    
-    </table>
-    
-
-
+<div class="series-navigation-placeholder"></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>
