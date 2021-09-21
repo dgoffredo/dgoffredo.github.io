@@ -214,8 +214,10 @@ call stack is a... stack.</p>
     }
 }
 </code></pre>
-<p>This is technically less efficient than the first depth-first search, because
-we copy a node's children into <code>to_visit</code> before visiting its first child.</p>
+<p>This visits a node's children in the opposite order as before, but it's still a
+depth-first search.</p>
+<p>This also is technically less efficient than the first depth-first search, because
+we copy a node's children into <code>to_visit</code> before visiting them.</p>
 <p>The benefit of this second version is that it can accommodate trees that are
 as deep as memory will allow, whereas the first version can only go as deep as
 the call stack, which is usually much smaller.  Also, a call stack frame is
