@@ -225,7 +225,7 @@ struct HashValue {
 template <typename Value>
 struct HashMultiset : public std::unordered_multiset<const Tree<Value>*, HashValue<Value>> {
     const Tree<Value>* next() const {
-        return this->front();
+        return *this->begin();
     }
 
     void pop() {
