@@ -1,6 +1,6 @@
 <html>
 <head>
-  <base href="tree-search/tree-search.html"></base><meta charset="UTF-8"></meta>
+  <base href="laptop-server/laptop-server.html"></base><meta charset="UTF-8"></meta>
   
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
@@ -114,7 +114,7 @@ p, .navigation-bar, table.posts, ul, ol {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
-</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Tree Search</title>
+</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Turn an Old Laptop into a Server</title>
 </head>
 
 <body>
@@ -128,230 +128,155 @@ p, .navigation-bar, table.posts, ul, ol {
 </div>
 
 
-<p>Monday, September  20, 2021</p>
+<p>Wednesday, September  22, 2021</p>
 
-<div class="table-of-contents"><ul><li><a href="#tree_search">Tree Search</a><ul><li><a href="#front_matter">Front Matter</a></li><li><a href="#depthfirst">Depth-first</a></li><li><a href="#breadthfirst">Breadth-first</a></li><li><a href="#generalize">Generalize</a></li><li><a href="#what_else">What Else?</a></li><li><a href="#with_a_priority_queue">With a Priority Queue</a></li><li><a href="#with_a_hash_multiset">With a Hash Multiset</a></li></ul></li></ul></div>
+<div class="table-of-contents"><ul><li><a href="#turn_an_old_laptop_into_a_server">Turn an Old Laptop into a Server</a><ul><li><a href="#linux_usb_installer">Linux USB installer</a></li><li><a href="#configure_bios_on_old_laptop">Configure BIOS on old laptop</a></li><li><a href="#on_the_old_laptop">On the old laptop</a></li><li><a href="#on_your_real_computer">On your real computer</a></li><li><a href="#over_ssh">Over ssh</a></li><li><a href="#profit">Profit</a></li></ul></li></ul></div>
 
-<h1 id="tree_search"><a href="#tree_search" class="section-self-link">Tree Search</a></h1>
-<p>How many ways can we search through a tree?  Let us count the ways.</p>
-<h2 id="front_matter"><a href="#front_matter" class="section-self-link">Front Matter</a></h2>
-<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Tree</span> {</span>
-    Value value;
-    std::vector&lt;Tree&gt; children;
-};
+<h1 id="turn_an_old_laptop_into_a_server"><a href="#turn_an_old_laptop_into_a_server" class="section-self-link">Turn an Old Laptop into a Server</a></h1>
+<p>Over the years I've garnered a collection of somewhat broken old laptops.  One
+has a broken keyboard and no battery.  Another has a faulty SSD and a flaky
+motherboard.  Both are slow when running modern systems.</p>
+<p>For general computing, though, old laptops have some advantages:</p>
+<ul>
+<li>cheap (free, in my case)</li>
+<li>built-in monitor (if it works)</li>
+<li>built-in keyboard (if it works)</li>
+<li>battery power backup (if it works)</li>
+<li>built-in networking, GPU, camera, etc.</li>
+<li>designed for low power consumption</li>
+<li>flat form factor (when the lid is closed)</li>
+</ul>
+<p>If you have an old laptop lying around that you'd like to turn into a home
+Linux server that you control over ssh, here's how I set it up.</p>
+<h2 id="linux_usb_installer"><a href="#linux_usb_installer" class="section-self-link">Linux USB installer</a></h2>
+<p>Download an <code>.iso</code> file of your favorite Debian-based Linux distribution.
+Ubuntu Server is a tempting choice, but if your laptop lacks a wired ethernet
+card (like my most recent one), then the server distribution might not have
+your wireless drivers.  Here be dragons.</p>
+<p>Instead, we'll install a "desktop" flavored distribution and strip it down
+afterward.</p>
+<p>I used <a href="https://ubuntu.com/download/desktop/thank-you?version=20.04.3&amp;architecture=amd64">Ubuntu Desktop 20.04.3</a> and flashed it onto a 32 GB USB flash drive
+using <a href="https://en.wikipedia.org/wiki/Startup_Disk_Creator">Startup Disk Creator</a>.</p>
+<h2 id="configure_bios_on_old_laptop"><a href="#configure_bios_on_old_laptop" class="section-self-link">Configure BIOS on old laptop</a></h2>
+<p>You need to tell the laptop to boot from the USB flash drive.  How to do this
+will depend on the specific laptop, but it will involve one or more of the
+following:</p>
+<ul>
+<li>pressing a special key during boot to enter the BIOS configuration menu</li>
+<li>disabling "Secure Boot"</li>
+<li>prioritizing "legacy" boot over UEFI boot</li>
+<li>making sure that the USB drive is first in the legacy and/or UEFI boot order</li>
+<li>save and exit BIOS configuration menu</li>
+</ul>
+<p>With luck, the next boot will start some GUI/shell for the Linux distribution's
+installer.</p>
+<h2 id="on_the_old_laptop"><a href="#on_the_old_laptop" class="section-self-link">On the old laptop</a></h2>
+<p>Install the Linux distribution.  To keep things simple, I configure the main
+user to have the same name as the main user on my primary computer ("david").
+I like short names for the to-be server (e.g. "lenovo" for my old Yoga 2).</p>
+<p>Once that's done and you've restarted the computer without the USB flash drive
+and verified that it boots the system you installed, you're ready to strip it down.</p>
+<p>Our first order of business is installing an SSH server so that you can
+configure the computer remotely.  For example, I have mine set up with the lid
+closed on a shelf somewhere.  <em>Don't close the lid yet, though</em>.</p>
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> sudo apt update</span>
+<span class="hljs-meta">$</span><span class="bash"> sudo apt install -y openssh-server</span>
+<span class="hljs-meta">$</span><span class="bash"> sudo apt upgrade -y</span>
 </code></pre>
-<h2 id="depthfirst"><a href="#depthfirst" class="section-self-link">Depth-first</a></h2>
-<p>Visit all of a node's descendants before visiting any of its siblings.</p>
-<pre><code class="lang-c++ hljs"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
-    <span class="hljs-keyword">if</span> (tree.value == value) {
-        <span class="hljs-keyword">return</span> &amp;tree;
-    }
+<p>Now you can connect to the laptop remotely over ssh (see below).  Keep the lid
+open, though, so that the laptop doesn't sleep.  We'll change that later.</p>
+<h2 id="on_your_real_computer"><a href="#on_your_real_computer" class="section-self-link">On your real computer</a></h2>
+<p>Switch to your favorite computer for computing and connect to your
+soon-to-be-server laptop.  You can use the laptop's local IP address or
+hostname (if it advertises one).  In my case, my user name is <code>david</code>
+and the laptop's name is <code>lenovo</code>, so:</p>
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> ssh david@lenovo</span>
 
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : tree.children) {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> result = <span class="hljs-built_in">depth_first_search</span>(child, value)) {
-            <span class="hljs-keyword">return</span> result;
-        }
-    }
-
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-}
+david@lenovo $ echo 'we are now remoted into the laptop'
+we are now remoted into the laptop
 </code></pre>
-<h2 id="breadthfirst"><a href="#breadthfirst" class="section-self-link">Breadth-first</a></h2>
-<p>Visit all of a node's siblings before visiting any of its descendants.</p>
-<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">breadth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
-    std::queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt; to_visit;
-    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
-
-    <span class="hljs-keyword">for</span> (;;) {
-        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">front</span>();
-        to_visit.<span class="hljs-built_in">pop</span>();
-        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
-            <span class="hljs-keyword">return</span> current;
-        }
-
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
-            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
-        }
-
-        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-        }
-    }
-}
+<p>It will ask you for a password, and possibly multiple confirmations.  The
+password is whatever you configured for the user (<code>david</code>) on the laptop.</p>
+<p>The remaining commands in this section are to be run on the soon-to-be-server
+laptop, over your ssh connection.  I'll use the shell prompt <code>david@lenovo $</code>
+to remind you.</p>
+<h2 id="over_ssh"><a href="#over_ssh" class="section-self-link">Over ssh</a></h2>
+<h3 id="configure_nongraphical_boot"><a href="#configure_nongraphical_boot" class="section-self-link">Configure non-graphical boot</a></h3>
+<p>If I happen to have the lid open when the laptop boots, I don't want to see
+a splash screen.  I want to see Linux's log, and then <code>systemd</code>'s once <code>init</code>
+starts.  Here's how:</p>
+<pre><code class="lang-console hljs">david@lenovo $ sudo vi /etc/default/grub
 </code></pre>
-<p>This required a queue, and did not require recursion.</p>
-<p>We could rewrite the depth-first search without recursion.  After all, the
-call stack is a... stack.</p>
-<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
-    <span class="hljs-keyword">using</span> Ptr = <span class="hljs-keyword">const</span> Tree&lt;Value&gt;*;
-    std::stack&lt;Ptr, std::vector&lt;Ptr&gt;&gt; to_visit;
-    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
-
-    <span class="hljs-keyword">for</span> (;;) {
-        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">top</span>();
-        to_visit.<span class="hljs-built_in">pop</span>();
-        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
-            <span class="hljs-keyword">return</span> current;
-        }
-
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
-            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
-        }
-
-        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-        }
-    }
-}
+<p>That file might have a variable whose value is set to <code>"quiet splash"</code> or
+similar.  If so, remove "quiet" and "splash," e.g. so that value is <code>""</code>.</p>
+<p>Save and exit.  Then, regenerate the bootloader with the modified configuration:</p>
+<pre><code class="lang-console hljs">david@lenovo $ sudo update-grub
 </code></pre>
-<p>This visits a node's children in the opposite order as before, but it's still a
-depth-first search.</p>
-<p>This also is technically less efficient than the first depth-first search, because
-we copy a node's children into <code>to_visit</code> before visiting them.</p>
-<p>The benefit of this second version is that it can accommodate trees that are
-as deep as memory will allow, whereas the first version can only go as deep as
-the call stack, which is usually much smaller.  Also, a call stack frame is
-larger than a pointer, so we use less space by storing only the <code>Tree*</code> instead
-of an entire stack frame.</p>
-<h2 id="generalize"><a href="#generalize" class="section-self-link">Generalize</a></h2>
-<p>The breadth-first search algorithm and the second depth-first search algorithm
-are very similar.  The only difference is in the definition of <code>to_visit</code>.</p>
-<p>Let's rewrite them as adaptations of the same underlying algorithm.</p>
-<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value, <span class="hljs-keyword">typename</span> Container&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value, Container&amp;&amp; to_visit)</span> </span>{
-    to_visit.<span class="hljs-built_in">push</span>(&amp;tree);
-
-    <span class="hljs-keyword">for</span> (;;) {
-        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> current = to_visit.<span class="hljs-built_in">next</span>();
-        <span class="hljs-keyword">if</span> (current-&gt;value == value) {
-            <span class="hljs-keyword">return</span> current;
-        }
-
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; child : current-&gt;children) {
-            to_visit.<span class="hljs-built_in">push</span>(&amp;child);
-        }
-
-        <span class="hljs-keyword">if</span> (to_visit.<span class="hljs-built_in">empty</span>()) {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-        }
-    }
-}
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Stack</span> :</span> <span class="hljs-keyword">public</span> std::stack&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, std::vector&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt;&gt; {
-    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">top</span>();
-    }
-};
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">depth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, Stack&lt;Value&gt;());
-}
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> :</span> <span class="hljs-keyword">public</span> std::queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt; {
-    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">front</span>();
-    }
-};
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">breadth_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, Queue&lt;Value&gt;());
-}
+<p>Now change the "run level" to the non-graphical one:</p>
+<pre><code class="lang-console hljs">david@lenovo $ sudo systemctl enable multi-user.target
+david@lenovo $ sudo systemctl set-default multi-user.target
 </code></pre>
-<h2 id="what_else"><a href="#what_else" class="section-self-link">What Else?</a></h2>
-<p>What other data structures could we use for <code>to_visit</code>, other than a stack or a
-queue?</p>
-<p>If we don't know anything about the structure of <code>tree</code> and the values within
-it, then I see no reason to use any other data structure in an exhaustive
-search.</p>
-<p>Still, it's interesting to consider what happens when we use some other
-data structure.</p>
-<h2 id="with_a_priority_queue"><a href="#with_a_priority_queue" class="section-self-link">With a Priority Queue</a></h2>
-<p>What about a heap?  The next element visited is always the <em>smallest</em> (or the
-<em>largest</em>) among those <em>to_visit</em>, according to some comparison
-function.</p>
-<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;queue&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Greater</span> {</span>
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* left, <span class="hljs-keyword">const</span> Tree&lt;Value&gt;* right)</span> <span class="hljs-keyword">const</span> </span>{
-        <span class="hljs-keyword">return</span> left-&gt;value &gt; right-&gt;value;
-    }
-};
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">PriorityQueue</span> :</span> <span class="hljs-keyword">public</span> std::priority_queue&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, std::vector&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&gt;, Greater&lt;Value&gt;&gt; {
-    <span class="hljs-comment">// Return the smallest element in this queue.</span>
-    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;*&amp; <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">top</span>();
-    }
-};
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">least_first_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, PriorityQueue&lt;Value&gt;());
-}
+<p>Now your desktop Linux will feel more like a server.</p>
+<h3 id="closing_the_laptop_lid_does_nothing"><a href="#closing_the_laptop_lid_does_nothing" class="section-self-link">Closing the laptop lid does <em>nothing</em></a></h3>
+<p>Lid open/close events from the hardware are handled by the login service.
+Let's configure the handlers to ignore the events, rather than whatever they do
+by default:</p>
+<pre><code class="lang-console hljs">david@lenovo $ sudo vi /etc/systemd/logind.conf
 </code></pre>
-<p>This is more costly than the vanilla depth-first or breadth-first algorithms,
-because operations on the heap (priority queue) are logarithmic in its size
-rather than amortized constant.</p>
-<h2 id="with_a_hash_multiset"><a href="#with_a_hash_multiset" class="section-self-link">With a Hash Multiset</a></h2>
-<p>We could also visit nodes in an expanding pseudorandom order by using a
-hash-based container.</p>
-<pre><code class="lang-c++ hljs"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstddef&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;functional&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unordered_set&gt;</span></span>
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">HashValue</span> {</span>
-    <span class="hljs-function">std::<span class="hljs-keyword">size_t</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* node)</span> <span class="hljs-keyword">const</span> </span>{
-        <span class="hljs-keyword">return</span> std::hash&lt;Value&gt;(node-&gt;value)();
-    }
-};
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">HashMultiset</span> :</span> <span class="hljs-keyword">public</span> std::unordered_multiset&lt;<span class="hljs-keyword">const</span> Tree&lt;Value&gt;*, HashValue&lt;Value&gt;&gt; {
-    <span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">begin</span>();
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
-        <span class="hljs-built_in">erase</span>(<span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">begin</span>());
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;* node)</span> </span>{
-        <span class="hljs-built_in">insert</span>(node);
-    }
-};
-
-<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Value&gt;
-<span class="hljs-function"><span class="hljs-keyword">const</span> Tree&lt;Value&gt;* <span class="hljs-title">bogo_search</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Tree&lt;Value&gt;&amp; tree, <span class="hljs-keyword">const</span> Value&amp; value)</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">search</span>(tree, value, HashMultiset&lt;Value&gt;());
-}
+<p>That file will have commented-out lines beginning with <code>HandleLid</code>, e.g.</p>
+<pre><code class="lang-shell hljs"><span class="hljs-meta">#</span><span class="bash">HandleLidSwitch=<span class="hljs-built_in">suspend</span></span>
+<span class="hljs-meta">#</span><span class="bash">HandleLidSwitchExternalPower=<span class="hljs-built_in">suspend</span></span>
+<span class="hljs-meta">#</span><span class="bash">HandleLidSwitchDocked=ignore</span>
 </code></pre>
-<p>The hash is of a node's value, which is strange.  Stranger still would be
-to hash the node's address instead.</p>
-<p>Treeeeeessss.......</p>
-<p><img src="tree.svg" alt="tree" width="300" height="300"></img></p>
+<p>Uncomment them and change their values to <code>ignore</code>, e.g.</p>
+<pre><code class="lang-shell hljs">HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleLidSwitchDocked=ignore
+</code></pre>
+<p>Save and exit.</p>
+<p>Then restart the service to pick up the changes:</p>
+<pre><code class="lang-console hljs">david@lenovo $ sudo service systemd-logind restart
+</code></pre>
+<p>Now you can close the lid on the laptop, and nothing will happen.</p>
+<h3 id="authorize_your_public_ssh_key_on_the_server"><a href="#authorize_your_public_ssh_key_on_the_server" class="section-self-link">Authorize your public ssh key on the server</a></h3>
+<p>It's a pain to type my password every time I want to connect to the server.
+The ssh server supports a per-user allow list of public keys to permit
+without falling back to password authentication.  That file probably does not
+yet exist on the server, so let's copy the contents of our public key to that
+file on the server.</p>
+<p>My public key is called <code>~/.ssh/id_ed25519.pub</code>.  Yours might have a different
+name.</p>
+<pre><code class="lang-console hljs">david@lenovo $ mkdir ~/.ssh
+</code></pre>
+<p>Run this next command on your real computer, not on the server.</p>
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> scp ~/.ssh/id_ed25519.pub david@lenovo:/home/david/.ssh/authorized_keys</span>
+</code></pre>
+<p>Now you can connect to the server without a password.</p>
+<pre><code class="lang-console hljs"><span class="hljs-meta">$</span><span class="bash"> ssh lenovo</span>
+
+david@lenovo $
+</code></pre>
+<h2 id="profit"><a href="#profit" class="section-self-link">Profit</a></h2>
+<p>Congrats, you now have a server in your house, you budding sysadmin, you.</p>
+<p>My next steps are usually to:</p>
+<ul>
+<li>Install <a href="https://git-scm.com/">git</a> so I can pull various projects.</li>
+<li>Install <a href="https://nginx.org">nginx</a> and configure it to expose various projects.</li>
+<li>Set up a static local IP allocation for the server in my router.</li>
+<li>Set up port forwarding for HTTP, HTTPS, and ssh (on an alternative port).<ul>
+<li>If you expose ssh, be sure to harden the configuration.  No root, no
+password, max retries, etc.</li>
+</ul>
+</li>
+<li>Install <a href="https://certbot.eff.org/">certbot</a> and get HTTPS working with nginx.</li>
+<li>Set up <a href="https://en.wikipedia.org/wiki/Cron">cron</a> jobs to do stuff (<code>crontab -e</code>).<ul>
+<li>For example, dynamic DNS to update the DNS records of your websites when
+your ISP changes your public IP address.</li>
+</ul>
+</li>
+</ul>
+<p>Happy hacking.</p>
+<p><img src="laptop.svg" alt="laptop server" width="256" height="320"></img></p>
 
 
 
