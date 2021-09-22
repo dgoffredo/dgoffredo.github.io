@@ -3,6 +3,6 @@
 # See `./shell.nix` for the list of packages possibly installed by
 # `nix-shell` below.
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 nix-shell --pure --run 'make -j 16 --directory=../../'

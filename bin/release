@@ -28,7 +28,7 @@ fi
 
 # Checkout the release branch and remove the working tree.
 git checkout "$branch" 
-rm --recursive *
+rm --recursive ./*
 
 # Build the website.  It goes in site/
 cd ../

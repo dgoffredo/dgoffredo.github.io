@@ -6,8 +6,8 @@ set -e
 # dependencies installed, and then mount this respository into the
 # container and run `make`.  Requires `docker` to be installed.
 
-HERE=$(dirname $(realpath $0))
-REPO=$(dirname $(dirname "$HERE"))
+HERE=$(dirname "$(realpath "$0")")
+REPO=$(dirname "$(dirname "$HERE")")
 
 docker build --tag blog-build-env "$HERE"
 
