@@ -1,4 +1,128 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-09-22</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Turn an Old Laptop into a Server</title><link href="https://www.davidgoffredo.com/laptop-server/laptop-server.html" /><id>https://www.davidgoffredo.com/laptop-server/laptop-server.html</id><updated>2021-09-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-11-03</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Vermicompost Is Worm Poop</title><link href="https://www.davidgoffredo.com/worms/worms.html" /><id>https://www.davidgoffredo.com/worms/worms.html</id><updated>2021-11-03</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/worms/worms.html" />
+        </head>
+        <body>
+            <h1>Vermicompost Is Worm Poop</h1>
+<p>My dad recently pointed out that we're all basically worms.</p>
+<p>Niches have filled and tissues have specialized, but the overall body plan is
+the same. Food goes in one hole, and comes out the other.  Fatty outer casing.
+Bilateral symmetry.  Fun sexy bits.  Worms.</p>
+<p><img src="wiggler.jpg" alt="worm" /><br />
+<em>This is you.</em></p>
+<p>The body plan wouldn't work in two dimensions.  How could you connect the
+inside parts to the outside parts without blocking either the mouth or the
+anus?  Others have imagined a zipper-like mechanism where the flat animal is
+zipped shut except for in cavities of food that propagate backwards.  I don't
+know whether nature could produce such an organ.  I also don't know whether a
+universe could exist in two dimensions.</p>
+<p>Fortunately, we live in at least three dimensions, and the food that comes out
+is called poop, except that when it comes out of a worm, it's called
+"castings."  This is strange, because the "cast" left by the worm is the void
+in the soil due to the worm's having eaten through it, not the resulting poop.
+My guess is that it sounds better than "poop," and we can't call them
+"droppings," can we?</p>
+<h2>Compost</h2>
+<p>I tried composting, it's harder than it sounds.</p>
+<ol>
+<li>Put organic stuff in a pile.</li>
+<li>Keep the carbon to nitrogen ratio of the contents within certain bounds.</li>
+<li>Keep the pile aerated so that aerobic bacteria proliferate instead of the
+stinky stinky anaerobic bacteria.</li>
+<li>Keep animals away from the pile.</li>
+<li>Wait a long time.  If there's a lot of stuff, it'll heat up and go faster.</li>
+</ol>
+<p>(1) was a five gallon bucket on the roof.  (4) was a loosely fit lid on the
+bucket.  (5) wasn't a problem because I wasn't in a hurry.</p>
+<p>(2) and (3) are the hard parts.  I inoculated some used potting soil with over
+ten pounds of spent malted barley from a batch of beer that I had brewed.
+That's <em>way</em> too much nitrogen.  The bacteria went apeshit, liquefied the
+organic mass, which then became compacted in the bucket, and so went anaerobic,
+i.e. septic.</p>
+<p>I took a peek under the lid about a month later, and there were mushrooms
+sprouting from the surface.  There were also hundreds of flies, wriggling
+maggots, and various crawling insects.</p>
+<p>Yeah, I could have mixed in more shredded cardboard, and I could have stirred
+the pile regularly to keep it aerated, but who could be bothered?  The roof is
+far.</p>
+<p>It's been a good while since then, so that now the compost has mostly
+stabilized.  It smells like ammonia, and the pH is way too high.  Never again.</p>
+<h2>Vermicompost</h2>
+<p>I read an article online that said compost is for suckers.  <a href="https://en.wikipedia.org/wiki/Vermicompost">Vermicompost</a>
+is where it's at.</p>
+<p>The pitch goes like this.  Why wait months for the simplest known organisms to
+microscopically chew away at your food scraps?  Instead, get something with a
+real mouth to chew away at your food scraps, right now.</p>
+<p>Think about it.  It takes your body a couple of days to turn food into brown
+biomass.  Days, not months.  But your brown biomass is nasty.  Primates are
+terrible.  A <a href="https://en.wikipedia.org/wiki/Eisenia_fetida">red wiggler worm</a>, on the other hand, puts out its entire body
+weight in poop <em>every day</em>, and the resulting "castings" have no foul odor.</p>
+<p>It's not just randos on the internet, either.</p>
+<p>Here's one of the bottles of liquid fertilizer that I bought:</p>
+<p><img src="bigbloom_small.webp" alt="Fox Farm Big Bloom fertilizer bottle" /></p>
+<p>It's shouting right there on the bottle:</p>
+<blockquote><p><strong>EARTHWORM CASTINGS</strong> &amp; BAT GUANO</p>
+</blockquote>
+<p>The company whose soil I'm using this season, Cost of Maine, also makes a
+special cannabis-specific potting soil called "Stonington Blend."</p>
+<p><img src="stonington.jpg" alt="Coast of Maine Stonington Blend potting soil" /></p>
+<blockquote><p>This soil incorporates mycorrhizal fungi, kelp, fish bone and alfalfa meal, as well as <strong>worm castings</strong>, peat, coir and lobster compost. When growing in 15 gallon containers,  there is no need for additional nutrients.</p>
+</blockquote>
+<p>Fifteen gallons?  I'm growing in a crawl space, people.</p>
+<p>Finally, there's a company called <a href="https://buildasoil.com/">Build a Soil</a> that's become popular due
+in part to a YouTube channel hosted by the company's CEO, where he proselytizes
+for The Gospel of Organic No-Till Living Soil Cannabis Gardening.  I grow in
+tiny pots of mediocre soil amended with chemical fertilizers, but his insight
+is still helpful.  Here's what he has to say about adding solid organic
+fertilizer to the top of the soil:</p>
+<blockquote><p>There are many ways to approach top dressing a plant but here is a method that I really like.</p>
+<p>For every 5 Gallons the plant is in I would add the following:</p>
+<ol>
+<li>1 Tablespoons Kelp Meal</li>
+<li>2 Tablespoons Fish Bone Meal</li>
+<li>4 Tablespoons Gypsum</li>
+<li>Cover with up to 1/2" - 1" layer of <strong>worm castings</strong> across the whole container.</li>
+<li>Put the mulch back, or cover with fresh mulch etc. </li>
+</ol>
+</blockquote>
+<p>These people love worm poop.  It's all the rage.  Let's make some.</p>
+<h2>Roommates</h2>
+<p>The <a href="https://www.lesecologycenter.org/products/">LES Ecology Center</a> will sell you some worms, just call (212)-477-4022
+to order in advance and then pick up at one of their farmers' market tents in
+Union Square or Tomkins Square Park.</p>
+<p>I called and they told me that the worms are done this year.  Call back next Spring.</p>
+<p>So, I ordered worms online.  <a href="https://unclejimswormfarm.com/">Uncle Jim's Worm Farm</a> will ship you a
+drawstring bag of 500 worms from Pennsylvania for $45.</p>
+<p><img src="bag_small.webp" alt="bag of worms" /></p>
+<p>You can't just keep them in a bag, though.  I bought some more five gallon
+plastic buckets from the local hardware store, and built a worm bin.</p>
+<p><img src="bin-closed_small.webp" alt="worm bin" /></p>
+<p><img src="bin-parts_small.webp" alt="worm bin taken apart" /></p>
+<p>Here's the idea.  One of the buckets has a bunch of holes in the bottom and
+along the rim.  You line the bottom with some newspaper and fill it a few
+inches deep with wetted shredded paper and food scraps.  The worms live in
+there.  The lid goes on, itself with holes, and also I put a cut up t-shirt
+under the lid to discourage fruit flies.  That bucket then stacks inside of a
+bucket without holes, to catch any liquid that gets through the newspaper and
+out the bottom holes.</p>
+<p>Feed the worms at least once a week.</p>
+<p>Here's the cool part.  What about when you want to harvest the poop from the
+worms?  Do you go digging through the poop, picking out worms with your hands
+like a barbarian?</p>
+<p>No, you don't.  Instead, you have another bucket with holes.  You put fresh
+food and bedding into the new bucket and place it on top of the old.  The
+worms, running out of food in their bucket, will wiggle their way up into the
+top bucket.  After a few days, you harvest the castings from the first bucket,
+dump the contents of the new bucket (worms and all) back into the first bucket,
+and you're ready to make another batch of worm poop.  Brilliant!</p>
+<p>The worms arrived just this morning.  Here they are squirming in their new home
+of shredded paper, trimmed cannabis leaves, and spent coffee grounds:</p>
+<p><img src="worms_small.webp" alt="worms in the bin" /></p>
+<p>Let the pooping begin.</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Turn an Old Laptop into a Server</title><link href="https://www.davidgoffredo.com/laptop-server/laptop-server.html" /><id>https://www.davidgoffredo.com/laptop-server/laptop-server.html</id><updated>2021-09-22</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/laptop-server/laptop-server.html" />
         </head>
