@@ -80,7 +80,7 @@ It's shouting right there on the bottle:
 
 > **EARTHWORM CASTINGS** & BAT GUANO
 
-The company whose soil I'm using this season, Cost of Maine, also makes a
+The company whose soil I'm using this season, Coast of Maine, also makes a
 special cannabis-specific potting soil called "Stonington Blend."
 
 ![Coast of Maine Stonington Blend potting soil](stonington.jpg)
