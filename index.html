@@ -96,7 +96,21 @@ look like links.  The linkiness is a hidden feature.  */
 a.section-self-link {
     text-decoration: inherit;
     color: inherit;
-}</style><style media="(orientation: landscape)">pre {
+}
+
+/* Figures are pictures with text beneath.  I can't figure out how to
+   correctly center the text ("text-align: center" centers it with respect
+   to the whole horizontal area, not just the image), but I did figure out
+   how to disable the default left margin, and how to italicize the caption.
+*/
+figure {
+    margin: auto
+}
+
+figcaption {
+    font-style: italic;
+}
+</style><style media="(orientation: landscape)">pre {
     min-width: 700;
 }
 
@@ -137,9 +151,10 @@ p, .navigation-bar, table.posts, ul, ol {
 <p>Niches have filled and tissues have specialized, but the overall body plan is
 the same. Food goes in one hole, and comes out the other.  Fatty outer casing.
 Bilateral symmetry.  Fun sexy bits.  Worms.</p>
-<p><img src="wiggler.jpg" alt="worm" width="325" height="239"></img><br></br>
-<em>This is you.</em></p>
-<p>The body plan wouldn't work in two dimensions.  How could you connect the
+<figure>
+    <img src="wiggler.jpg" alt="worm" width="325" height="239"></img>
+    <figcaption>This is you.</figcaption>
+</figure><p>The body plan wouldn't work in two dimensions.  How could you connect the
 inside parts to the outside parts without blocking either the mouth or the
 anus?  Others have imagined a zipper-like mechanism where the flat animal is
 zipped shut except for in cavities of food that propagate backwards.  I don't
