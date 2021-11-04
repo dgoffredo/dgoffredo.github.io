@@ -6,8 +6,10 @@ Niches have filled and tissues have specialized, but the overall body plan is
 the same. Food goes in one hole, and comes out the other.  Fatty outer casing.
 Bilateral symmetry.  Fun sexy bits.  Worms.
 
-![worm](wiggler.jpg)<br/>
-*This is you.*
+<figure>
+    <img src="wiggler.jpg" alt="worm"/>
+    <figcaption>This is you.</figcaption>
+</figure>
 
 The body plan wouldn't work in two dimensions.  How could you connect the
 inside parts to the outside parts without blocking either the mouth or the

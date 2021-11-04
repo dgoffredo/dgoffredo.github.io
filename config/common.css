@@ -79,3 +79,16 @@ a.section-self-link {
     text-decoration: inherit;
     color: inherit;
 }
+
+/* Figures are pictures with text beneath.  I can't figure out how to
+   correctly center the text ("text-align: center" centers it with respect
+   to the whole horizontal area, not just the image), but I did figure out
+   how to disable the default left margin, and how to italicize the caption.
+*/
+figure {
+    margin: auto
+}
+
+figcaption {
+    font-style: italic;
+}
