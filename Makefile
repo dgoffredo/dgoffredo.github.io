@@ -42,7 +42,7 @@ config/fonts.css: config/font.otf config/font-italic.otf
 	dot -T png -o $@ $< 
 
 # Set width of small images to 700 pixels, scaling the height proportionally.
-%_small.webp: %.jpg bin/shrink
+%_small.webp: %.* bin/shrink
 	bin/shrink $< $@
 	
 # Cache image dimensions in JSON files, so the generator doesn't have to
