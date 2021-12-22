@@ -1,4 +1,100 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-12-18</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis (Someday)</title><link href="https://www.davidgoffredo.com/cannabis-4/cannabis-4.html" /><id>https://www.davidgoffredo.com/cannabis-4/cannabis-4.html</id><updated>2021-12-18</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-12-21</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis Cookies</title><link href="https://www.davidgoffredo.com/cookies/cookies.html" /><id>https://www.davidgoffredo.com/cookies/cookies.html</id><updated>2021-12-21</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/cookies/cookies.html" />
+        </head>
+        <body>
+            <h1>Cannabis Cookies</h1>
+<p><img src="done_small.webp" alt="finished cookies" /></p>
+<p>I made weed cookies.  They're devastating.</p>
+<p><a href="jar.jpg"><img alt="decarboxylated cannabis in jar" src="jar.webp" /></a></p>
+<p>The basic idea is to dissolve weed's active ingredients into butter, and then
+use the butter to bake cookies.</p>
+<p>But first, you have to turn this:</p>
+<p><img src="thca.svg" alt="THCA molecule" /></p>
+<p>into this:</p>
+<p><img src="thc.svg" alt="THC molecule" /></p>
+<p>The first molecule (<a href="https://en.wikipedia.org/wiki/Tetrahydrocannabinolic_acid">tetrahydrocannabinolic acid</a>) won't blow your mind, but
+the second molecule (<a href="https://en.wikipedia.org/wiki/Tetrahydrocannabinol">tetrahydrocannabinol</a>) might.  You can convert the
+first into the second by removing the <code>COOH</code> group attached to the rightmost
+ring.  It's called <a href="https://en.wikipedia.org/wiki/Decarboxylation">decarboxylation</a>, and will happen eventually given some
+heat.</p>
+<p>When you smoke weed, the <em>fire</em> supplies the heat for the reaction, but these
+cookies will not be on fire, so we have to do something else.</p>
+<figure>
+  <img src="decarboxylation_small.webp" alt="graph of decarboxylation process" />
+  <figcaption>THCA (A) and THC (B) concentrations over time with heating (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549281/">source</a>)</figcaption>
+</figure><p>I went digging through my plastic bag of stems and whatever else was left over
+from harvest, picked off what flower material I could, ground it up in an herb
+grinder, and put it into a mason jar.</p>
+<p>You can do this in the oven, but I prefer an odorless, zero-oversight,
+overnight approach.  So, I filled my slow cooker with water.  After sealing the
+jar tight, I placed it on its side in the water.  Then I turned the slow cooker
+on "high" and went about my business.  When later I saw that the water was
+nearly simmering, I turned the setting down to "low" and went to bed.</p>
+<p>The next day, I used some tongs to pick the hot jar out of the slow cooker, and
+set it on the counter to cool.  After a while, I opened it for a sniff.  Smells
+like oregano, or something that'd be in a tomato sauce.  It was surprisingly
+pleasant and un-dank.</p>
+<p><img src="butter_small.webp" alt="butter" /></p>
+<p>Ok, butter.  But first, we need a cookie recipe.</p>
+<p>Google brought me to reddit, and reddit brought me to this <a href="https://www.reddit.com/r/FoodPorn/comments/7k84bc/its_taken_a_ton_of_testing_to_get_here_but_these">2017 recipe</a>,
+which is hailed "reddit's best cookie recipe."</p>
+<p>Here are the ingredients:</p>
+<ul>
+<li>2 cups + 2 tablespoons all purpose flour</li>
+<li>1 teaspoon baking soda</li>
+<li>2 teaspoons cornstarch</li>
+<li>1 teaspoon salt</li>
+<li>1 ½ sticks (6 oz) unsalted butter, melted and cooled</li>
+<li>1 cup dark brown sugar, lightly packed</li>
+<li>½ cup granulated sugar</li>
+<li>2 large eggs</li>
+<li>2 teaspoons vanilla extract</li>
+<li>1 1/2 cups dark chocolate chips, plus more for topping</li>
+</ul>
+<p>I followed the recipe exactly, except that I first modified the butter to make
+it adult-only.</p>
+<p><img src="butter-with-weed_small.webp" alt="butter with cannabis before stirring" /></p>
+<p>Stir the ground cannabis into the melted butter, and let it just barely simmer,
+covered, for like an hour.  I read multiple recipes for "cannabutter" online,
+and their cook times varied from a couple hours to a couple days.  Longer is
+probably better, but on the other hand:</p>
+<ul>
+<li>The weed was already thoroughly decarboxylated (probably).</li>
+<li>THC evaporates at 311°F, which is below the smoke point of butter.</li>
+</ul>
+<figure>
+  <img src="cannabutter-1_small.webp" alt="butter with cannabis after stirring" />
+  <figcaption>butter right after having the cannabis stirred into it</figcaption>
+</figure><figure>
+  <img src="cannabutter-2_small.webp" alt="cannabutter cooking" />
+  <figcaption>cannabutter after a little cooking</figcaption>
+</figure><figure>
+  <img src="cannabutter-3_small.webp" alt="cannabutter cooked" />
+  <figcaption>cannabutter after an hour of cooking</figcaption>
+</figure><p>Once the cannabutter was done cooking, I used a cheesecloth to separate the
+butter from the herb.</p>
+<p><img src="cheesecloth_small.webp" alt="strainer before use" /></p>
+<p><img src="strained_small.webp" alt="strainer after use" /></p>
+<p>Now it's time to make cookies.  I added the sugars to the hot butter and
+stirred until they dissolved as much as they would.  This also cooled the
+butter down to near room temperature.</p>
+<p><img src="sugars_small.webp" alt="sugars" /></p>
+<p>It looked like there wasn't enough moisture, but after mixing in two eggs, the
+salt, and the vanilla extract, the wet side was wet.</p>
+<p><img src="wet_small.webp" alt="wet" /></p>
+<p>Then I gradually stirred in the dry ingredients until I had a dough.  Then I
+folded in the chocolate chips and was ready to start shaping cookies.</p>
+<p><img src="dough_small.webp" alt="dough" /></p>
+<p>Each cookie is a ¼ cup scoop of dough rolled into a ball and then squished
+slightly onto the baking pan.</p>
+<p>I preheated the oven to 350°F and baked the cookies for 12 minutes, et voilà!</p>
+<p><img src="done_small.webp" alt="finished cookies" /></p>
+<p>Suggested serving size: ½ cookie.</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Cannabis (Someday)</title><link href="https://www.davidgoffredo.com/cannabis-4/cannabis-4.html" /><id>https://www.davidgoffredo.com/cannabis-4/cannabis-4.html</id><updated>2021-12-18</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/cannabis-4/cannabis-4.html" />
         </head>

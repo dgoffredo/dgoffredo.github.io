@@ -9,3 +9,7 @@ p, .navigation-bar, table.posts, ul, ol {
 .series-navigation {
     max-width: 700px;
 }
+
+figure {
+    max-width: 700px;
+}
