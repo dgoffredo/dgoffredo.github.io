@@ -71,10 +71,10 @@ it adult-only.
 
 ![butter with cannabis before stirring](butter-with-weed_small.webp)
 
-Stir the ground cannabis into the melted butter, and let it just barely simmer,
-covered, for like an hour.  I read multiple recipes for "cannabutter" online,
-and their cook times varied from a couple hours to a couple days.  Longer is
-probably better, but on the other hand:
+I stirred the ground cannabis into the melted butter, and let it just barely
+simmer, covered, for like an hour.  I read multiple recipes for "cannabutter"
+online, and their cook times varied from a couple hours to a couple days.
+Longer is probably better, but on the other hand:
 
 - The weed was already thoroughly decarboxylated (probably).
 - THC evaporates at 311°F, which is below the smoke point of butter.
