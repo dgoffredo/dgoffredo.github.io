@@ -124,7 +124,7 @@ I preheated the oven to 350°F and baked the cookies for 12 minutes, et voilà!
 
 ![finished cookies](done_small.webp)
 
-Suggested serving size: ½ cookie.
+Suggested serving size: ¼ cookie.
 
 [1]: https://en.wikipedia.org/wiki/Tetrahydrocannabinolic_acid
 [2]: https://en.wikipedia.org/wiki/Tetrahydrocannabinol
