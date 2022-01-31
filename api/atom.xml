@@ -1,4 +1,224 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2021-12-21</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Cannabis Cookies</title><link href="https://www.davidgoffredo.com/cookies/cookies.html" /><id>https://www.davidgoffredo.com/cookies/cookies.html</id><updated>2021-12-21</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2022-01-30</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Anonymous Recursion</title><link href="https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html" /><id>https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html</id><updated>2022-01-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html" />
+        </head>
+        <body>
+            <h1>Anonymous Recursion</h1>
+<p>I've been reading <em><a href="https://lccn.loc.gov/77011962">Denotational Semantics</a></em>, a textbook describing a theory
+of programming languages.  It was recommended to me years ago by a
+colleague.  He said something along the lines of "this book taught me
+everything I know about programming."  He seemed to know a lot about
+programming.</p>
+<p>The first few sections introduce a formula rewriting system known as the
+<a href="https://en.wikipedia.org/wiki/Lambda_calculus">lambda calculus</a>, which was familiar to me due to my previous dabbling with
+<a href="https://en.wikipedia.org/wiki/Scheme_(programming_language)">Scheme</a>, a programming language invented to study the lambda calculus.</p>
+<p>In particular, one of the ideas introduced in the lambda calculus section of
+<em>Denotational Semantics</em> is illustrated differently in another book I read,
+<em><a href="https://lccn.loc.gov/95039853">The Little Schemer</a></em>.  The idea is how an anonymous procedure can
+nonetheless refer to itself by name.</p>
+<p>This post is my attempt to explain that idea.</p>
+<h2>Scheme</h2>
+<p>Instead of using the lambda calculus, I'll use Scheme.  I like Scheme.</p>
+<p>Here's the definition of a procedure:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> collatz-end
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">collatz-end</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">collatz-end</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>Here <code>n</code> is any nonzero <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>, so <code>n</code> could be any of 1, 2, 3, 4, ...,
+44989933, etc., but not -4, and not 0.</p>
+<p>The procedure <code>collatz-end</code> is equivalent to the following procedure, provided
+that the <a href="https://en.wikipedia.org/wiki/Collatz_conjecture">Collatz conjecture</a> is true:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) <span class="hljs-number">1</span>)
+</code></pre>
+<p>The Collatz conjecture is almost certainly true, but it might be impossible to
+prove.</p>
+<p>Anyway, in Scheme, <code>(λ (x) Expr)</code> is a procedure of one parameter, <code>x</code>, that
+evaluates to whatever <code>Expr</code> would be if <code>x</code>s within it were substituted for
+whatever we supplied for <code>x</code>.</p>
+<p>For example, <code>(λ (x) (+ 3 x))</code>, when applied to <code>7</code>, is <code>(+ 3 7)</code>, which is
+<code>10</code>.  The expression that says "apply <code>(λ (x) (+ 3 x))</code> to <code>7</code>" is the
+procedure and its argument next to each other in parentheses.  So,
+<code>((λ (x) (+ 3 x)) 7)</code> is <code>(+ 3 7)</code> is <code>10</code>.</p>
+<p>It's a bit trickier than that, though, because the body of the <code>λ</code> could
+contain other <code>λ</code>s, and those might introduce a parameter called <code>x</code>, too.  In
+that case, the inner <code>x</code> is really a different <code>x</code> from our <code>x</code>, and so we'd
+have to rename one of them to accommodate the other.  Let's not worry about
+that here.</p>
+<p><code>cond</code> is a shorthand for nested <code>if</code> expressions.  An <code>if</code> expression has
+the form</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> Predicate Consequent Alternative)
+</code></pre>
+<p>Each of <code>Predicate</code>, <code>Consequent</code>, and <code>Alternative</code> is an arbitrary expression.
+If the result of evaluating <code>Predicate</code> is <em>not falsy</em> (I won't bother
+describing falsiness in Scheme), then the value of the <code>if</code> expression is the
+result of evaluating <code>Consequent</code>.  In that case, <code>Alternative</code> is not evaluated.
+On the other hand, if the result of evaluating <code>Predicate</code> <em>is falsy</em>, then
+the value of the <code>if</code> expression is the result of evaluating <code>Alternative</code>.  In that
+case, <code>Consequent</code> is not evaluated.</p>
+<p><code>cond</code>, then, is just a macro that nests its <code>[Predicate Consequent]</code> arguments.
+I'll define it here using <a href="http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-13.html#node_sec_12.8">syntax-rules</a>:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define-syntax</span></span> cond
+  (<span class="hljs-name"><span class="hljs-builtin-name">syntax-rules</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">else</span></span>)
+    [(<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>)
+     (<span class="hljs-name">raise-user-error</span> <span class="hljs-string">"Unmatched cond alternative"</span>)]
+
+    [(<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> [<span class="hljs-name"><span class="hljs-builtin-name">else</span></span> expr])
+     expr]
+
+    [(<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> [<span class="hljs-name">predicate</span> expr] rest ...)
+     (<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> predicate expr (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> rest ...))]))
+</code></pre>
+<p>Note that square brackets (<code>[]</code>) and parentheses (<code>()</code>) have the same meaning,
+and are varied as a matter of style.</p>
+<p>Now let's look at the definition of <code>collatz-end</code> again:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> collatz-end
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">collatz-end</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">collatz-end</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>If <code>n</code> is <code>1</code>, then we finish at <code>1</code>.  If instead <code>n</code> is any even number, then
+we divide <code>n</code> in half and see what <code>collatz-end</code> gives for that number.  So,
+<code>collatz-end</code> is defined in terms of itself.  If <code>n</code> is an odd number, then we
+take triple <code>n</code> and add <code>1</code>, and see what <code>collatz-end</code> gives for that number.</p>
+<p>It's not at all obvious that this procedure always evaluates to <code>1</code>, but the
+smart money says it does.</p>
+<h2>Recursion</h2>
+<p>I defined procedure application in terms of parameter rewriting, e.g.
+<code>((λ (x) (+ 3 x)) 9)</code> means "use <code>9</code> instead of <code>x</code> in the body of the <code>λ</code>",
+i.e.  <code>(+ 3 9)</code>, which is <code>12</code>.</p>
+<p>Then what is <code>define</code>?</p>
+<p><code>define</code> introduces a name (<code>collatz-end</code>), and then associates a value with
+that name (<code>(λ (n) (cond ...))</code>), <em>where the name is visible inside the
+definition of the value.</em></p>
+<p><code>define</code> is a facility provided by the execution environment.  We cannot
+get that behavior using <code>λ</code>s only.  Or can we?</p>
+<p>Consider this anonymous cousin of <code>collatz-end</code>:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>This is not the same as <code>collatz-end</code>.  Instead, it's one "step" in the
+execution of <code>collatz-end</code>.  Give me a "next" procedure (<code>f</code>), and I'll give
+you a procedure that takes an <code>n</code>, does one Collatz step on it, and then passes
+the resulting number to <code>f</code>.</p>
+<p>Observe how this entire expression is nearly what we want for <code>f</code>.</p>
+<p>Here's another cousin:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>You are forgiven if your head is starting to hurt.  This is like the previous
+example, except that now the <code>f</code> that we accept is a procedure that takes
+a procedure and returns a procedure that takes a nonzero natural number.
+That is, <code>f</code> is something that looks like the most recent example.</p>
+<p>If we apply this procedure to itself, do we get <code>collatz-end</code>?</p>
+<pre><code class="lang-scheme hljs">((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>] [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))] [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+ (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>] [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))] [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))]))))
+</code></pre>
+<p>This evaluates to a procedure that takes a nonzero natural number, and ...</p>
+<p>does the same thing that <code>collatz-end</code> does.</p>
+<p>Whether an execution environment will demonstrate this fact depends on the
+evaluation order used in the execution.  Thanks to the "short-circuit"
+evaluation property of <code>if</code>, which underlies our <code>cond</code>, this procedure really
+is the same as <code>collatz-end</code>.</p>
+<h2>Combinators</h2>
+<p>The self-applicative monstrosity above is not yet satisfactory, though.  Let's
+look at the original procedure again:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> collatz-end
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">collatz-end</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">collatz-end</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>This entire snippet of code is the same no matter which name we choose for
+<code>collatz-end</code>, as long as our choice is not already taken
+(<code>λ</code>, <code>cond</code>, <code>even?</code>, ...).</p>
+<p>So, <code>collatz-end</code> is reasonably thought of as a parameter.  Let's call it <code>f</code>.</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>We're now back to where we were at the beginning of the previous section.  This
+procedure is <em>not</em> <code>collatz-end</code>, but it's the natural non-recursive analog to
+<code>collatz-end</code>.  Let's call this procedure <code>E</code>.</p>
+<p>Can we define a procedure that, given <code>E</code>, returns <code>collatz-end</code>?</p>
+<p>Earlier, we modified <code>E</code>, replacing appearances of <code>f</code> with <code>(f f)</code>.  This
+allowed us to describe <code>collatz-end</code> as the modified procedure applied to
+itself.</p>
+<p>It would be nicer if such modification weren't necessary.  Maybe there is a
+way to encode that transformation in the operation that takes this anonymous
+procedure and gives us <code>collatz-end</code>.</p>
+<p>Well, we have a procedure that looks like this:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) ...))
+</code></pre>
+<p>where the <code>...</code> uses <code>f</code> as a procedure taking a natural number, i.e. some
+<code>(λ (n) ...)</code>.  We want that inner <code>f</code> to be based on the overall procedure.</p>
+<p>Consider this procedure:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) ((<span class="hljs-name">f</span> f) n)))
+</code></pre>
+<p>That encapsulates the transformation we performed in the previous section;
+namely, take a procedure that returns a Collatz-like procedure, and transform
+it into a Collatz-like procedure whose inner "next" procedure is the original
+procedure applied to itself.</p>
+<p>It's hard to say in English.</p>
+<p>Let's call this procedure <code>Sb</code>, for "antimony."  No, "self-bind."</p>
+<p>Then, we can combine <code>E</code> and <code>Sb</code> to produce an anonymous procedure that is
+equivalent to <code>collatz-end</code>:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">E</span> (<span class="hljs-name">Sb</span> E))
+</code></pre>
+<p>Remember that <code>E</code> is</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>So, we're looking at (expanding <code>E</code> and <code>Sb</code>)</p>
+<pre><code class="lang-scheme hljs">((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>] [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))] [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+ ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) ((<span class="hljs-name">f</span> f) n)))
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>] [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))] [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))))
+</code></pre>
+<p>This, I claim, is <code>collatz-end</code>.</p>
+<p>A nicer way to look at it is to consider this operation as a procedure applied
+to <code>E</code>.  Let's call the procedure <code>R</code> for "recursive."</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> R
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">f</span> ((<span class="hljs-name">λ</span> (<span class="hljs-name">x</span>) ((<span class="hljs-name">f</span> f) x)) f))))
+</code></pre>
+<p>Then <code>collatz-end</code> is the same as</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">R</span>
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+    (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+      (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+        [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+        [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+        [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))]))))
+</code></pre>
+<p>A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is a procedure within which every variable has a matching <code>λ</code>.</p>
+<p><code>R</code> is a combinator.  <code>E</code> and <code>collatz-end</code> are not, because they depend on the
+"free" variables <code>collatz-end</code>, <code>even?</code>, <code>=</code>, etc.</p>
+<h2>Conclusion</h2>
+<p>Fun stuff, right?  Don't forget to floss your teeth, pay your taxes, take off
+your shoes, and be well!</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Cannabis Cookies</title><link href="https://www.davidgoffredo.com/cookies/cookies.html" /><id>https://www.davidgoffredo.com/cookies/cookies.html</id><updated>2021-12-21</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/cookies/cookies.html" />
         </head>
