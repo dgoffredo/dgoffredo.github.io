@@ -92,3 +92,8 @@ figure {
 figcaption {
     font-style: italic;
 }
+
+/* Remove underline from links. */
+a {
+    text-decoration: none;
+}
