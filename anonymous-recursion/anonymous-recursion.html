@@ -378,7 +378,7 @@ that inner <code>(f f)</code> working for us without having it in there.</p>
 <pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">f</span> f))
 </code></pre>
 <p>Well, we want to double up the <code>f</code>s and then pass that to <code>E</code>, so</p>
-<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f))
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">E</span> (<span class="hljs-name">f</span> f)))
 </code></pre>
 <p>Let's expand <code>E</code> in that.  Do we get the same thing as "the thing that works,"
 above?</p>
