@@ -228,7 +228,7 @@ that inner <code>(f f)</code> working for us without having it in there.</p>
 </code></pre>
 <p>Let's expand <code>E</code> in that.  Do we get the same thing as "the thing that works,"
 above?</p>
-<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f))
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">E</span> (<span class="hljs-name">f</span> f)))
 </code></pre>
 <pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
   ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
@@ -247,15 +247,15 @@ above?</p>
       [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
 </code></pre>
 <p>Yes, we do.</p>
-<p>Ok, so the operation <code>(λ (f) E (f f))</code> is the secret sauce.  That gives us
+<p>Ok, so the operation <code>(λ (f) (E (f f)))</code> is the secret sauce.  That gives us
 something that we can apply to itself, giving us <code>collatz-end</code>.</p>
 <p>That is, <code>collatz-end</code> is the same as:</p>
-<pre><code class="lang-scheme hljs">((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)) (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)))
+<pre><code class="lang-scheme hljs">((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">E</span> (<span class="hljs-name">f</span> f))) (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">E</span> (<span class="hljs-name">f</span> f))))
 </code></pre>
 <p>A nicer way to look at it is to consider this operation as a procedure applied
 to <code>E</code>.  Let's call the procedure <code>R</code> for "recursive."</p>
 <pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> R
-  (<span class="hljs-name">λ</span> (<span class="hljs-name">E</span>) ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)) (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)))))
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">E</span>) ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">E</span> (<span class="hljs-name">f</span> f))) (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">E</span> (<span class="hljs-name">f</span> f))))))
 </code></pre>
 <p>Note how now <code>E</code> is a parameter.</p>
 <p>Then <code>collatz-end</code> is the same as</p>
