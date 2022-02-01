@@ -212,17 +212,17 @@ Consider this procedure:
 ```scheme
 (λ (f) (λ (n) ((f f) n)))
 ```
-That encapsulates the transformation we performed in the previous section;
-namely, take a procedure that returns a Collatz-like procedure, and transform
-it into a Collatz-like procedure whose inner "next" procedure is the original
-procedure applied to itself.
+This is an attempt to encapsulate the transformation we performed in the
+previous section; namely, to take a procedure that returns a Collatz-like
+procedure, and transform it into a Collatz-like procedure whose inner "next"
+procedure is the original procedure applied to itself.
 
 It's hard to say in English.
 
 Let's call this procedure `Sb`, for "antimony."  No, "self-bind."
 
-Then, we can combine `E` and `Sb` to produce an anonymous procedure that is
-equivalent to `collatz-end`:
+Then, we can combine `E` and `Sb` to produce an anonymous procedure that might
+get us closer to `collatz-end`:
 ```scheme
 (E (Sb E))
 ```
@@ -241,14 +241,89 @@ So, we're looking at (expanding `E` and `Sb`)
  ((λ (f) (λ (n) ((f f) n)))
   (λ (f) (λ (n) (cond [(= n 1) 1] [(even? n) ((f f) (/ n 2))] [(odd? n) (f (+ 1 (* 3 n)))])))))
 ```
-This, I claim, is `collatz-end`.
+Is this `collatz-end`?
 
+Not quite.  I made a mistake.  Close, but no cigar.  Look at `(E (Sb E))`
+again, expanding only `Sb`:
+```scheme
+(E
+  ((λ (f) (λ (n) ((f f) n))) E))
+```
+That is
+```scheme
+(E (λ (n) (E E) n))
+```
+That `λ (n) ...` is passing `E` as the `f` argument to `E`.  But `E` and `f`
+have incompatible types!
+
+This construction "`(E (Sb E))`" only works "one layer deep," and then becomes
+invalid.
+
+The thing that we pass as the `f` argument to `E` can't be `E` itself, it has
+to be the thing we transformed `E` into.
+
+Mind bender!
+
+Alright, let's go back to the thing that works, but is not ideal:
+```scheme
+(λ (f)
+  (λ (n)
+    (cond
+      [(= n 1) 1]
+      [(even? n) ((f f) (/ n 2))]
+      [(odd? n) ((f f) (+ 1 (* 3 n)))])))
+```
+Remember that this thing applied to itself is `collatz-end`.  We need to get
+that inner `(f f)` working for us without having it in there.
+
+Here's a transformation to consider:
+```scheme
+(λ (f) (f f))
+```
+Well, we want to double up the `f`s and then pass that to `E`, so
+```scheme
+(λ (f) E (f f))
+```
+Let's expand `E` in that.  Do we get the same thing as "the thing that works,"
+above?
+```scheme
+(λ (f) E (f f))
+```
+```scheme
+(λ (f)
+  ((λ (f)
+     (λ (n)
+       (cond
+         [(= n 1) 1]
+         [(even? n) (f (/ n 2))]
+         [(odd? n) (f (+ 1 (* 3 n)))])))
+    (f f)))
+```
+```scheme
+(λ (f)
+  (λ (n)
+    (cond
+      [(= n 1) 1]
+      [(even? n) ((f f) (/ n 2))]
+      [(odd? n) ((f f) (+ 1 (* 3 n)))])))
+```
+Yes, we do.
+
+Ok, so the operation `(λ (f) E (f f))` is the secret sauce.  That gives us
+something that we can apply to itself, giving us `collatz-end`.
+
+That is, `collatz-end` is the same as:
+```scheme
+((λ (f) E (f f)) (λ (f) E (f f)))
+```
 A nicer way to look at it is to consider this operation as a procedure applied
 to `E`.  Let's call the procedure `R` for "recursive."
 ```scheme
 (define R
-  (λ (f) (f ((λ (x) ((f f) x)) f))))
+  (λ (E) ((λ (f) E (f f)) (λ (f) E (f f)))))
 ```
+Note how now `E` is a parameter.
+
 Then `collatz-end` is the same as
 ```scheme
 (R
@@ -264,6 +339,8 @@ A [combinator][8] is a procedure within which every variable has a matching `λ`
 `R` is a combinator.  `E` and `collatz-end` are not, because they depend on the
 "free" variables `collatz-end`, `even?`, `=`, etc.
 
+`R` is a particularly famous procedure known as the [Y combinator][9].
+
 Conclusion
 ----------
 Fun stuff, right?  Don't forget to floss your teeth, pay your taxes, take off
@@ -277,3 +354,4 @@ your shoes, and be well!
 [6]: https://en.wikipedia.org/wiki/Collatz_conjecture
 [7]: http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-13.html#node_sec_12.8
 [8]: https://en.wikipedia.org/wiki/Combinatory_logic
+[9]: https://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator
