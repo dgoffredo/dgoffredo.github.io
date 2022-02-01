@@ -171,14 +171,14 @@ procedure and gives us <code>collatz-end</code>.</p>
 <p>Consider this procedure:</p>
 <pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) ((<span class="hljs-name">f</span> f) n)))
 </code></pre>
-<p>That encapsulates the transformation we performed in the previous section;
-namely, take a procedure that returns a Collatz-like procedure, and transform
-it into a Collatz-like procedure whose inner "next" procedure is the original
-procedure applied to itself.</p>
+<p>This is an attempt to encapsulate the transformation we performed in the
+previous section; namely, to take a procedure that returns a Collatz-like
+procedure, and transform it into a Collatz-like procedure whose inner "next"
+procedure is the original procedure applied to itself.</p>
 <p>It's hard to say in English.</p>
 <p>Let's call this procedure <code>Sb</code>, for "antimony."  No, "self-bind."</p>
-<p>Then, we can combine <code>E</code> and <code>Sb</code> to produce an anonymous procedure that is
-equivalent to <code>collatz-end</code>:</p>
+<p>Then, we can combine <code>E</code> and <code>Sb</code> to produce an anonymous procedure that might
+get us closer to <code>collatz-end</code>:</p>
 <pre><code class="lang-scheme hljs">(<span class="hljs-name">E</span> (<span class="hljs-name">Sb</span> E))
 </code></pre>
 <p>Remember that <code>E</code> is</p>
@@ -194,12 +194,70 @@ equivalent to <code>collatz-end</code>:</p>
  ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) ((<span class="hljs-name">f</span> f) n)))
   (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span> [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>] [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))] [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))))
 </code></pre>
-<p>This, I claim, is <code>collatz-end</code>.</p>
+<p>Is this <code>collatz-end</code>?</p>
+<p>Not quite.  I made a mistake.  Close, but no cigar.  Look at <code>(E (Sb E))</code>
+again, expanding only <code>Sb</code>:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">E</span>
+  ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) ((<span class="hljs-name">f</span> f) n))) E))
+</code></pre>
+<p>That is</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">E</span> (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>) (<span class="hljs-name">E</span> E) n))
+</code></pre>
+<p>That <code>λ (n) ...</code> is passing <code>E</code> as the <code>f</code> argument to <code>E</code>.  But <code>E</code> and <code>f</code>
+have incompatible types!</p>
+<p>This construction "<code>(E (Sb E))</code>" only works "one layer deep," and then becomes
+invalid.</p>
+<p>The thing that we pass as the <code>f</code> argument to <code>E</code> can't be <code>E</code> itself, it has
+to be the thing we transformed <code>E</code> into.</p>
+<p>Mind bender!</p>
+<p>Alright, let's go back to the thing that works, but is not ideal:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>Remember that this thing applied to itself is <code>collatz-end</code>.  We need to get
+that inner <code>(f f)</code> working for us without having it in there.</p>
+<p>Here's a transformation to consider:</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">f</span> f))
+</code></pre>
+<p>Well, we want to double up the <code>f</code>s and then pass that to <code>E</code>, so</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f))
+</code></pre>
+<p>Let's expand <code>E</code> in that.  Do we get the same thing as "the thing that works,"
+above?</p>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f))
+</code></pre>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+  ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+     (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+       (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+         [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+         [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+         [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) (<span class="hljs-name">f</span> (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+    (<span class="hljs-name">f</span> f)))
+</code></pre>
+<pre><code class="lang-scheme hljs">(<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">n</span>)
+    (<span class="hljs-name"><span class="hljs-builtin-name">cond</span></span>
+      [(<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> n <span class="hljs-number">1</span>) <span class="hljs-number">1</span>]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">even?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">/</span></span> n <span class="hljs-number">2</span>))]
+      [(<span class="hljs-name"><span class="hljs-builtin-name">odd?</span></span> n) ((<span class="hljs-name">f</span> f) (<span class="hljs-name"><span class="hljs-builtin-name">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-builtin-name">*</span></span> <span class="hljs-number">3</span> n)))])))
+</code></pre>
+<p>Yes, we do.</p>
+<p>Ok, so the operation <code>(λ (f) E (f f))</code> is the secret sauce.  That gives us
+something that we can apply to itself, giving us <code>collatz-end</code>.</p>
+<p>That is, <code>collatz-end</code> is the same as:</p>
+<pre><code class="lang-scheme hljs">((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)) (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)))
+</code></pre>
 <p>A nicer way to look at it is to consider this operation as a procedure applied
 to <code>E</code>.  Let's call the procedure <code>R</code> for "recursive."</p>
 <pre><code class="lang-scheme hljs">(<span class="hljs-name"><span class="hljs-builtin-name">define</span></span> R
-  (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) (<span class="hljs-name">f</span> ((<span class="hljs-name">λ</span> (<span class="hljs-name">x</span>) ((<span class="hljs-name">f</span> f) x)) f))))
+  (<span class="hljs-name">λ</span> (<span class="hljs-name">E</span>) ((<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)) (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>) E (<span class="hljs-name">f</span> f)))))
 </code></pre>
+<p>Note how now <code>E</code> is a parameter.</p>
 <p>Then <code>collatz-end</code> is the same as</p>
 <pre><code class="lang-scheme hljs">(<span class="hljs-name">R</span>
   (<span class="hljs-name">λ</span> (<span class="hljs-name">f</span>)
@@ -212,6 +270,7 @@ to <code>E</code>.  Let's call the procedure <code>R</code> for "recursive."</p>
 <p>A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is a procedure within which every variable has a matching <code>λ</code>.</p>
 <p><code>R</code> is a combinator.  <code>E</code> and <code>collatz-end</code> are not, because they depend on the
 "free" variables <code>collatz-end</code>, <code>even?</code>, <code>=</code>, etc.</p>
+<p><code>R</code> is a particularly famous procedure known as the <a href="https://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator">Y combinator</a>.</p>
 <h2>Conclusion</h2>
 <p>Fun stuff, right?  Don't forget to floss your teeth, pay your taxes, take off
 your shoes, and be well!</p>
