@@ -282,12 +282,12 @@ Here's a transformation to consider:
 ```
 Well, we want to double up the `f`s and then pass that to `E`, so
 ```scheme
-(λ (f) E (f f))
+(λ (f) (E (f f)))
 ```
 Let's expand `E` in that.  Do we get the same thing as "the thing that works,"
 above?
 ```scheme
-(λ (f) E (f f))
+(λ (f) (E (f f)))
 ```
 ```scheme
 (λ (f)
@@ -309,18 +309,18 @@ above?
 ```
 Yes, we do.
 
-Ok, so the operation `(λ (f) E (f f))` is the secret sauce.  That gives us
+Ok, so the operation `(λ (f) (E (f f)))` is the secret sauce.  That gives us
 something that we can apply to itself, giving us `collatz-end`.
 
 That is, `collatz-end` is the same as:
 ```scheme
-((λ (f) E (f f)) (λ (f) E (f f)))
+((λ (f) (E (f f))) (λ (f) (E (f f))))
 ```
 A nicer way to look at it is to consider this operation as a procedure applied
 to `E`.  Let's call the procedure `R` for "recursive."
 ```scheme
 (define R
-  (λ (E) ((λ (f) E (f f)) (λ (f) E (f f)))))
+  (λ (E) ((λ (f) (E (f f))) (λ (f) (E (f f))))))
 ```
 Note how now `E` is a parameter.
 
