@@ -1,4 +1,59 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2022-01-30</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Anonymous Recursion</title><link href="https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html" /><id>https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html</id><updated>2022-01-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2022-04-30</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Worm Update</title><link href="https://www.davidgoffredo.com/worms-2/worms-2.html" /><id>https://www.davidgoffredo.com/worms-2/worms-2.html</id><updated>2022-04-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/worms-2/worms-2.html" />
+        </head>
+        <body>
+            <h1>Worm Update</h1>
+<p>The <a href="../worms/worms.html">worms</a> are still alive and pooping.  They have pooped a lot.</p>
+<p><img src="hold-castings-with-worms_small.webp" alt="holding castings with worms" /></p>
+<p>It's been tricky to get all of the variables right, but I think I'm getting the
+hang of it:</p>
+<ul>
+<li>Add twice as much bedding as food.</li>
+<li>Don't add food until they've eaten the previous food.</li>
+<li>Saturate the bedding with water when you add it, but don't add water
+directly.</li>
+</ul>
+<p>Mostly I feed them used coffee grounds.  Sometimes I add vegetable scraps.</p>
+<p>Here's the system.</p>
+<p>Three buckets.  The top one has a lid with holes, and holes in the bottom.</p>
+<p><img src="bin_small.webp" alt="worm bin" /></p>
+<p><img src="lidless-bin_small.webp" alt="worm bin without lid" /></p>
+<p><img src="open-bin_small.webp" alt="worm bin uncovered" /></p>
+<p><img src="dig-bin_small.webp" alt="digging into the bin" /></p>
+<p>The worms mostly live in there.  Previously, they lived in the bucket below.
+The idea is that the worms will wiggle up to the top bucket (through the holes
+in the bottom) in search of food.</p>
+<p>That's <em>mostly</em> happened, but I still see a lot of worms in the lower (middle)
+bucket.</p>
+<p><img src="lift-top-bucket_small.webp" alt="lifting the top bucket" /></p>
+<p><img src="middle-bucket_small.webp" alt="middle bucket contents" /></p>
+<p>The middle bucket is now filled with castings, and some worms.  There are holes
+in the bottom of the middle bucket, allowing excess moisture to drain into the
+bottom bucket.  There's also a mesh screen to prevent worms from wandering off.</p>
+<p>The castings resemble crumbly, lumpy topsoil.  There's a shimmer of vermiculite
+left from the potting mix they were originally living in.</p>
+<p><img src="hold-castings-with-worms_small.webp" alt="castings with worms" /></p>
+<p><img src="hold-castings-with-worms-2_small.webp" alt="castings with worms closer" /></p>
+<p><img src="hold-castings_small.webp" alt="castings" /></p>
+<p>I'll use this in place of, or to supplement, compost in my soil mixes.</p>
+<p>It's been about six months since I got the worms, so they haven't pooped
+as much as I expected.  I've probably been underfeeding them.</p>
+<p>Their bedding is paper bags that I've shredded by hand with scissors.  Come
+sit-on-the-couch-and-watch-youtube time, I grab some brown bags and shred
+them into this plastic bag.</p>
+<p><img src="bedding-bag_small.webp" alt="bag of shredded paper" /></p>
+<p><img src="bedding_small.webp" alt="shredded paper" /></p>
+<p>That's about all there is to it.</p>
+<p>Soon I'll be mixing a large batch of soil for my planned rooftop garden.  Most
+of the castings in the middle bucket (worms and all) will go into that soil.
+Then I'll dump the contents of the top bucket into the middle, and place the
+lid on the middle bucket.  Back to square one for another batch.</p>
+<p>Wiggle on.</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>Anonymous Recursion</title><link href="https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html" /><id>https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html</id><updated>2022-01-30</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/anonymous-recursion/anonymous-recursion.html" />
         </head>
