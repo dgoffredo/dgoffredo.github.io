@@ -82,7 +82,7 @@ There was quite a growth response.
 ![July 22](07-22_small.webp)
 
 That week I noticed that [a weed][6] that had been growing alongside each plant
-since the start began to take over.  In an act of noncompetitive crony
+since the start began to take over.  In an act of anticompetitive crony
 favoritism, I pulled the weeds out at the roots.
 
 ![pigweed](pigweed_small.webp)
