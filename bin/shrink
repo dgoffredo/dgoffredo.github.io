@@ -15,7 +15,7 @@ output="$2"
 input_width="$(identify -format "%[fx:w]\n" "$input")"
 
 if [ "$input_width" -gt 700 ]; then
-	convert "$input" -resize 700x -quality 90 "$output"
+	convert -auto-orient "$input" -resize 700x -quality 90 "$output"
 else
     cp "$input" "$output"
 fi
