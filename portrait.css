@@ -5,3 +5,8 @@ pre {
 p, .navigation-bar, table.posts, ul, ol {
     width: 100%;
 }
+
+video {
+    width: 100%;
+    height: auto
+}
