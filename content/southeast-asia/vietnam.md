@@ -1,22 +1,16 @@
 Việt Nam
 ========
-<p>
-  <video controls="true" width="700">
-    <source src="lift.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="lift.mp4" type="video/mp4"/>
+</video>
 
-<p>
-  <video controls="true" width="700">
-    <source src="rain.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="rain.mp4" type="video/mp4"/>
+</video>
 
-<p>
-  <video controls="true" width="700">
-    <source src="rain2.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="rain2.mp4" type="video/mp4"/>
+</video>
 
 ![pigeon reflection](pigeons_small.webp)
 
@@ -75,11 +69,9 @@ boardwalk overlooking the ungulates.
 
 ![ungulates 3/3](ungulates-3_small.webp)
 
-<p>
-  <video controls="true" width="700">
-    <source src="salad.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="salad.mp4" type="video/mp4"/>
+</video>
 
 They have elephants and giraffes, too.
 
@@ -95,11 +87,9 @@ They have elephants and giraffes, too.
 
 ![chimps](chimps_small.webp)
 
-<p>
-  <video controls="true" width="700">
-    <source src="pumba.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="pumba.mp4" type="video/mp4"/>
+</video>
 
 ... and this guy...
 
@@ -109,18 +99,13 @@ They have elephants and giraffes, too.
 
 ![crocodiles](crocs_small.webp)
 
-<p>
-  <video controls="true" width="700">
-    <source src="bro.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="bro.mp4" type="video/mp4"/>
+</video>
 
-
-<p>
-  <video controls="true" width="700">
-    <source src="snake.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="snake.mp4" type="video/mp4"/>
+</video>
 
 ... and many others.
 
@@ -134,11 +119,9 @@ Near closing time, the goats noticed that a caretaker was hosing down the
 adjacent hippopotamus enclosure.  They voiced, in unison, a reminder that it
 was dinner time.
 
-<p>
-  <video controls="true" width="700">
-    <source src="goats.mp4" type="video/mp4"/>
-  </video>
-</p>
+<video controls="true" width="700">
+  <source src="goats.mp4" type="video/mp4"/>
+</video>
 
 The grounds are beautiful.
 
