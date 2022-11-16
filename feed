@@ -4,19 +4,13 @@
         </head>
         <body>
             <h1>Việt Nam</h1>
-<p>
-  <video controls="true" width="700">
-    <source src="lift.mp4" type="video/mp4" />
-  </video>
-</p><p>
-  <video controls="true" width="700">
-    <source src="rain.mp4" type="video/mp4" />
-  </video>
-</p><p>
-  <video controls="true" width="700">
-    <source src="rain2.mp4" type="video/mp4" />
-  </video>
-</p><p><img src="pigeons_small.webp" alt="pigeon reflection" /></p>
+<video controls="true" width="700">
+  <source src="lift.mp4" type="video/mp4" />
+</video><video controls="true" width="700">
+  <source src="rain.mp4" type="video/mp4" />
+</video><video controls="true" width="700">
+  <source src="rain2.mp4" type="video/mp4" />
+</video><p><img src="pigeons_small.webp" alt="pigeon reflection" /></p>
 <p><img src="rain_small.webp" alt="rain" /></p>
 <p><img src="clouds_small.webp" alt="clouds from plane" /></p>
 <p>Twenty hours in the air.  First leg was sixteen hours from JFK to Taipei,
@@ -53,45 +47,35 @@ boardwalk overlooking the ungulates.</p>
 <p><img src="ungulates-1_small.webp" alt="ungulates 1/3" /></p>
 <p><img src="ungulates-2_small.webp" alt="ungulates 2/3" /></p>
 <p><img src="ungulates-3_small.webp" alt="ungulates 3/3" /></p>
-<p>
-  <video controls="true" width="700">
-    <source src="salad.mp4" type="video/mp4" />
-  </video>
-</p><p>They have elephants and giraffes, too.</p>
+<video controls="true" width="700">
+  <source src="salad.mp4" type="video/mp4" />
+</video><p>They have elephants and giraffes, too.</p>
 <p><img src="elephants_small.webp" alt="elephants" /></p>
 <p><img src="giraffes-1_small.webp" alt="giraffes 1/2" /></p>
 <p><img src="giraffes-2_small.webp" alt="giraffes 2/2" /></p>
 <p>... and deer, and chimps, and pigs...</p>
 <p><img src="deer_small.webp" alt="deer" /></p>
 <p><img src="chimps_small.webp" alt="chimps" /></p>
-<p>
-  <video controls="true" width="700">
-    <source src="pumba.mp4" type="video/mp4" />
-  </video>
-</p><p>... and this guy...</p>
+<video controls="true" width="700">
+  <source src="pumba.mp4" type="video/mp4" />
+</video><p>... and this guy...</p>
 <p><img src="this-guy_small.webp" alt="this guy" /></p>
 <p>... and <em>all</em> of the crocodiles, and iguanas, and snakes...</p>
 <p><img src="crocs_small.webp" alt="crocodiles" /></p>
-<p>
-  <video controls="true" width="700">
-    <source src="bro.mp4" type="video/mp4" />
-  </video>
-</p><p>
-  <video controls="true" width="700">
-    <source src="snake.mp4" type="video/mp4" />
-  </video>
-</p><p>... and many others.</p>
+<video controls="true" width="700">
+  <source src="bro.mp4" type="video/mp4" />
+</video><video controls="true" width="700">
+  <source src="snake.mp4" type="video/mp4" />
+</video><p>... and many others.</p>
 <p><img src="waterfowl_small.webp" alt="crane or stork" /></p>
 <p><img src="aviary_small.webp" alt="aviary" /></p>
 <p><img src="hippos_small.webp" alt="hippos" /></p>
 <p>Near closing time, the goats noticed that a caretaker was hosing down the
 adjacent hippopotamus enclosure.  They voiced, in unison, a reminder that it
 was dinner time.</p>
-<p>
-  <video controls="true" width="700">
-    <source src="goats.mp4" type="video/mp4" />
-  </video>
-</p><p>The grounds are beautiful.</p>
+<video controls="true" width="700">
+  <source src="goats.mp4" type="video/mp4" />
+</video><p>The grounds are beautiful.</p>
 <p><img src="trees-1_small.webp" alt="trees" /></p>
 <p><img src="trees-2_small.webp" alt="more trees" /></p>
 <p>Ho Chi Minh City is its own sort of zoo, packed with motorbikes and lined with
