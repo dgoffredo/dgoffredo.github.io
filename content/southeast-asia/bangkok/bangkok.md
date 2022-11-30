@@ -101,10 +101,9 @@ wild stuff.
 
 ![mural 3/3](mural-3_small.webp)
 
-I'm pretty sure Pasha has tuberculosis.  Or maybe it's yellow fever.  I'm
-getting better at aiming the discolored dollops of glue that I expel from my
-nose in the shower every morning.  Straight for the drain, it's a mess to clean
-off the tile.
+I'm getting better at aiming the discolored dollops of glue that I expel from
+my nose in the shower every morning.  Straight for the drain, it's a mess to
+clean off the tile.
 
 In Vietnam I could attempt to pronounce the writing.  In Thailand there's no
 chance.  Here's a sample of the script:
