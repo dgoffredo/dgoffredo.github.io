@@ -183,7 +183,7 @@ weren't you?</p>
 <p>That's not what I'm talking about.  The fact that <code>int x;</code> means</p>
 <blockquote><p>Declare <code>x</code> such that the expression "<code>x</code>" has type <code>int</code>.</p>
 </blockquote>
-<p>and that <code>int (**x)(double, char)[2]</code> means</p>
+<p>and that <code>int (**x)(double, char)[2];</code> means</p>
 <blockquote><p>Declare <code>x</code> such that the expression "<code>(**x)(d, c)[i]</code>" has type <code>int</code> for
 given <code>double d</code>, <code>char c</code>, and <code>int i</code>.</p>
 </blockquote>
@@ -216,7 +216,7 @@ left in a declaration, and not on the right?</p>
 </code></pre>
 <p>Why might this design have been chosen?</p>
 </blockquote>
-<p>ChatGPT responded with:</p>
+<p>ChatGPT generated:</p>
 <blockquote><p>The C language's syntax for declaring variables with a type name on the left
 and the variable name on the right was influenced by earlier languages such
 as B and BCPL. This syntax was chosen for a few reasons:</p>
@@ -240,7 +240,7 @@ based.  Fair enough.</p>
 <p>The "readability" point I'll ignore, since what is readability anyway?</p>
 <p>The "parsing" point is the same one made by the Hacker News commenter, so
 maybe there's something to that.</p>
-<p>The final point, "consistency," is interesting.  The claim is that since
+<p>The final point, "consistency," is interesting.  The idea is that since
 function declarations have their return type on the left, that variable
 declarations should follow suit for consistency.</p>
 <p>I don't buy this point, because function declarations are declarations.  Unless
