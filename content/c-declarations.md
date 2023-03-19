@@ -20,7 +20,7 @@ That's not what I'm talking about.  The fact that `int x;` means
 
 > Declare `x` such that the expression "`x`" has type `int`.
 
-and that `int (**x)(double, char)[2]` means
+and that `int (**x)(double, char)[2];` means
 
 > Declare `x` such that the expression "`(**x)(d, c)[i]`" has type `int` for
 > given `double d`, `char c`, and `int i`.
@@ -62,7 +62,7 @@ When in doubt, ask ChatGPT.  Given the following prompt:
 > 
 > Why might this design have been chosen?
 
-ChatGPT responded with:
+ChatGPT generated:
 
 > The C language's syntax for declaring variables with a type name on the left
 > and the variable name on the right was influenced by earlier languages such
@@ -90,7 +90,7 @@ The "readability" point I'll ignore, since what is readability anyway?
 The "parsing" point is the same one made by the Hacker News commenter, so
 maybe there's something to that.
 
-The final point, "consistency," is interesting.  The claim is that since
+The final point, "consistency," is interesting.  The idea is that since
 function declarations have their return type on the left, that variable
 declarations should follow suit for consistency.
 
