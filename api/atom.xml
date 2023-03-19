@@ -1,4 +1,97 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2022-12-02</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>กรุงเทพมหานคร</title><link href="https://www.davidgoffredo.com/southeast-asia/bangkok/bangkok.html" /><id>https://www.davidgoffredo.com/southeast-asia/bangkok/bangkok.html</id><updated>2022-12-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2023-03-19</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>C Declarations</title><link href="https://www.davidgoffredo.com/c-declarations.html" /><id>https://www.davidgoffredo.com/c-declarations.html</id><updated>2023-03-19</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/c-declarations.html" />
+        </head>
+        <body>
+            <h1>C Declarations</h1>
+<p>In C, C++, and Java, why do variable declarations put the primitive type name
+on the left and not on the right?  Declaring a variable <code>x</code> of type <code>int</code> is
+this:</p>
+<pre><code class="lang-C hljs"><span class="hljs-keyword">int</span> x;
+</code></pre>
+<p>instead of this:</p>
+<pre><code class="lang-C hljs">x <span class="hljs-keyword">int</span>;
+</code></pre>
+<p>Don't get distracted!  You were about to explain how in C, declaration syntax
+is analogous to expression syntax, weren't you?  You were about to tell me
+about <a href="https://cdecl.org/">cdecl</a> and how <a href="https://go.dev/ref/spec#Variable_declarations">Go did it differently</a> after years of programmers
+complaining about the C syntax.  You were going to offer an opinion too,
+weren't you?</p>
+<p>That's not what I'm talking about.  The fact that <code>int x;</code> means</p>
+<blockquote><p>Declare <code>x</code> such that the expression "<code>x</code>" has type <code>int</code>.</p>
+</blockquote>
+<p>and that <code>int (**x)(double, char)[2]</code> means</p>
+<blockquote><p>Declare <code>x</code> such that the expression "<code>(**x)(d, c)[i]</code>" has type <code>int</code> for
+given <code>double d</code>, <code>char c</code>, and <code>int i</code>.</p>
+</blockquote>
+<p>does not explain why the <code>int</code> is there on the left.  It could be on the right.
+Could it?</p>
+<p>I mentioned this in a <a href="https://news.ycombinator.com/item?id=35217860#35222262">Hacker News comment thread</a>, and someone replied:</p>
+<blockquote><p>Because parsers, like humans, read from left to right. Important parsing
+decisions are usually made as early as possible. An example is recursive
+descent parsing, which derives its simplicity from making decisions first,
+allowing a top-down parse. And when humans skim text, I bet it can be shown
+that it's easier if the syntactically significant locations are aligned near
+the beginning of each statement.</p>
+</blockquote>
+<p>The idea is that a C compiler reads input from left to right, and that knowing
+that the ultimate primitive type asserted by the declaration is <code>int</code> is useful
+to know at the beginning of parsing the declaration, as opposed to at the end.</p>
+<p>Maybe this was important in 1972, but I don't think it is today.  On the other
+hand, I've never written a C parser.  Maybe the presence of a type name (<code>int</code>)
+at the beginning of the parse lets us know that we're parsing a type
+declaration, and not some expression. Maybe that's helpful for avoiding
+ambiguity.</p>
+<p>When in doubt, ask ChatGPT.  Given the following prompt:</p>
+<blockquote><p>In the C programming language, why does the primitive type name appear on the
+left in a declaration, and not on the right?</p>
+<p>For example, the following code declares a variable "x" with type "int":</p>
+<pre><code class="hljs">int x<span class="hljs-comment">;</span>
+</code></pre>
+<p>Why is it not instead:</p>
+<pre><code class="hljs">x int<span class="hljs-comment">;</span>
+</code></pre>
+<p>Why might this design have been chosen?</p>
+</blockquote>
+<p>ChatGPT responded with:</p>
+<blockquote><p>The C language's syntax for declaring variables with a type name on the left
+and the variable name on the right was influenced by earlier languages such
+as B and BCPL. This syntax was chosen for a few reasons:</p>
+<ul>
+<li>Readability: Placing the type name first makes it easy to quickly identify
+the type of a variable when scanning code.</li>
+<li>Parsing: The type name first makes it easier for compilers to parse
+declarations. The compiler can look for a specific pattern (type name
+followed by variable name) when parsing declarations, which simplifies the
+process.</li>
+<li>Consistency: Placing the type name first makes declarations more consistent
+with function definitions, where the return type is also placed first.</li>
+</ul>
+<p>In general, the C language was designed to be simple and straightforward, and
+the syntax for variable declarations is no exception. The current syntax has
+become a standard convention and is widely used in many other programming
+languages as well.</p>
+</blockquote>
+<p>It claims we have to look further back than C to the languages on which it's
+based.  Fair enough.</p>
+<p>The "readability" point I'll ignore, since what is readability anyway?</p>
+<p>The "parsing" point is the same one made by the Hacker News commenter, so
+maybe there's something to that.</p>
+<p>The final point, "consistency," is interesting.  The claim is that since
+function declarations have their return type on the left, that variable
+declarations should follow suit for consistency.</p>
+<p>I don't buy this point, because function declarations are declarations.  Unless
+there's some historical explanation where function declaration syntax existed
+before variable declaration syntax (plausible in a world where all variables
+are machine words), then there's still the question of "why is the return type
+on the left?" which is then the same question as "why is the ultimate primitive
+type on the left?"</p>
+<p>After asking one human and one bot, the reason is still a mystery to me.  Maybe
+the answer is just "because that's the syntax they chose."</p>
+
+
+        </body>
+    </html></div></content></entry><entry><title>กรุงเทพมหานคร</title><link href="https://www.davidgoffredo.com/southeast-asia/bangkok/bangkok.html" /><id>https://www.davidgoffredo.com/southeast-asia/bangkok/bangkok.html</id><updated>2022-12-02</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/southeast-asia/bangkok/bangkok.html" />
         </head>
