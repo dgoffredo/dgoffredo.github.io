@@ -1,4 +1,74 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2023-03-19</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>C Declarations</title><link href="https://www.davidgoffredo.com/c-declarations.html" /><id>https://www.davidgoffredo.com/c-declarations.html</id><updated>2023-03-19</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Programming Blog</title><link href="https://www.davidgoffredo.com" /><updated>2024-01-15</updated><author><name>David Goffredo</name></author><id>https://www.davidgoffredo.com/feed</id><entry><title>Don't Use String Templates for Structured Output</title><link href="https://www.davidgoffredo.com/no-string-templates/no-string-templates.html" /><id>https://www.davidgoffredo.com/no-string-templates/no-string-templates.html</id><updated>2024-01-15</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
+        <head>
+            <base href="https://www.davidgoffredo.com/no-string-templates/no-string-templates.html" />
+        </head>
+        <body>
+            <h1>Don't Use String Templates for Structured Output</h1>
+<p><code>&lt;html&gt;{{foo}}&lt;/html&gt;</code> ❌</p>
+<p><code>['html', foo]</code> ✅</p>
+<h2>Temptation</h2>
+<p>You're writing a web server that does server side rendering of HTML for a
+website. Pages are mostly static, but they differ slightly from session to
+session.</p>
+<p>I know, I'll write a <code>page.template.html</code> that looks like HTML but contains
+<code>{{special syntax}}</code> or maybe <code>&lt;%special syntax%&gt;</code>. Then my web server will
+read the file, replace the special syntax sections with markup based on logic
+of my choosing, and then serve the resulting string as HTML.</p>
+<p>You're writing a <a href="https://kubernetes.io/docs/concepts/architecture/controller/">Kubernetes controller</a>, and you know that the resources
+managed by the controller will need their own YAML configurations, but the YAML
+will have to differ based on the configuration of the controller.</p>
+<p>I know, I'll write a <code>deployment.yaml</code> file that isn't actually YAML, but
+instead is a mix of YAML and Go's <a href="https://pkg.go.dev/text/template">text template</a> syntax. I'm using Go
+already, so I can just <code>tmpl.Execute(output, myData)</code>, and voila,
+<code>myData.Thingy</code> is now part of the YAML where there was once <code>{{.Thingy}}</code>.</p>
+<p>You're writing a code generator to automate the more tedious parts of a
+programmatic interface.  Maybe the generated code contains message types for
+use with an RPC framework in a statically typed language.  Maybe the generated
+code marshals the results of known SQL statements into a library's types. Maybe
+the generated code encodes a set of types into some serialization format like
+JSON or Protocol Buffers.</p>
+<p>I know, using string templates naively could get out of hand here since we're
+working with a general purpose programming language. I'll just write escaping
+functions to make sure that <code>"</code> is escaped when inside of a double-quoted
+string, and I'll write validation functions to make sure that the name of a
+variable doesn't include a comment opening sequence (<code>/*</code>).</p>
+<p>I can use string templates to generate everything, so long as I'm careful.</p>
+<h2>Abstinence</h2>
+<p>Stop doing this. If your goal is to end up with a string containing language X,
+then you cannot begin with a string.  Instead, you must begin with a
+representation of language X. Then, perform any desired transformations <em>within
+the representation of language X</em>, and only at the very end render the
+representation into a string.</p>
+<p>It's not overkill. The problem of altering structured data is <em>different</em> from
+the problem of manipulating strings.  Don't use the latter just because it's on
+hand or because the alterations seem trivial.  Find a library that allows you
+to represent the target language in your programming language of choice, or
+otherwise write your own.</p>
+<p>Once your project is a soup of string templates supporting an increasingly
+complex mini-language of syntax oblivious interpolation operations, <em>it's too
+late to replace it with something better.</em>  You must <em>start</em> with a
+representation of the target language.</p>
+<p>You don't necessarily need to have a representation that covers the entire
+language — it need only cover what you will generate.  Add bells and whistles
+later as needed.</p>
+<h2>My Examples</h2>
+<ul>
+<li>Okra, a limited object relational mapper, contains a representation of a
+subset of Go (<a href="https://github.com/dgoffredo/okra/blob/master/crud-languages/go/ast.tisch.js">schema</a>, <a href="https://github.com/dgoffredo/okra/blob/fdf25d1f34c3f761425b6c257578d312fbf7b0ca/crud-languages/go/generate.js#L629-L642">example usage</a>).</li>
+<li>My blog generates an Atom feed by using Python <code>list</code>s and <code>dict</code>s to
+<a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/master/bin/sxml.py">represent XML</a>.</li>
+<li><a href="https://github.com/dgoffredo/namedsql">namedsql</a> is a Go library that extends the SQL dialect supported by the
+Go standard library by first <a href="https://github.com/dgoffredo/namedsql/blob/master/namedsql/lexer.go">lexing</a> SQL into a token representation and
+then <a href="https://github.com/dgoffredo/namedsql/blob/9dae02f56e0fbf724dc53e545a34b8ea30265e6b/namedsql/lexer.go#L165-L174">rendering</a> the result at the end.</li>
+<li><a href="https://github.com/dgoffredo/sqlbindarray">sqlbindarray</a> is a Python module that does a similar thing.</li>
+<li>Llama, a configuration language that compiles to XML, contains its own
+<a href="https://github.com/dgoffredo/llama/blob/master/llama/xml.js">representation of XML</a> that is <a href="https://github.com/dgoffredo/llama/blob/cc92b1618cbe1aa74336671606d7a03e1b2e6099/llama/xml.js#L214-L234">rendered</a> to a string just before
+output.</li>
+</ul>
+
+
+        </body>
+    </html></div></content></entry><entry><title>C Declarations</title><link href="https://www.davidgoffredo.com/c-declarations.html" /><id>https://www.davidgoffredo.com/c-declarations.html</id><updated>2023-03-19</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><html>
         <head>
             <base href="https://www.davidgoffredo.com/c-declarations.html" />
         </head>
