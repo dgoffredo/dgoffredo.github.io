@@ -1,6 +1,6 @@
 <html>
 <head>
-  <base href="no-string-templates/no-string-templates.html"></base><meta charset="UTF-8"></meta>
+  <base href="cannabis-7/cannabis-7.html"></base><meta charset="UTF-8"></meta>
 
   <meta name="generator" content="https://github.com/dgoffredo/dgoffredo.github.io"></meta>
   
@@ -148,7 +148,7 @@ video {
     width: 100%;
     height: auto
 }
-</style><style>.hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#bc6060}.hljs-literal{color:#78a960}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}</style><title>Don't Use String Templates for Structured Output</title>
+</style><title>Cannabis 2023</title>
 </head>
 
 <body>
@@ -162,76 +162,143 @@ video {
 </div>
 
 
-<p>Monday, January  15, 2024</p>
+<p>Wednesday, April  24, 2024</p>
 
-<div class="table-of-contents"><ul><li><a href="#dont_use_string_templates_for_structured_output">Don't Use String Templates for Structured Output</a><ul><li><a href="#temptation">Temptation</a></li><li><a href="#abstinence">Abstinence</a></li><li><a href="#my_examples">My Examples</a></li></ul></li></ul></div>
+<div class="table-of-contents"><ul><li><a href="#cannabis_2023">Cannabis 2023</a><ul><li><a href="#indoors">Indoors</a></li><li><a href="#outdoors">Outdoors</a></li><li><a href="#the_haul">The Haul</a></li></ul></li></ul></div>
 
-<h1 id="dont_use_string_templates_for_structured_output"><a href="#dont_use_string_templates_for_structured_output" class="section-self-link">Don't Use String Templates for Structured Output</a></h1>
-<p><code>&lt;html&gt;{{foo}}&lt;/html&gt;</code> ❌</p>
-<p><code>['html', foo]</code> ✅</p>
-<h2 id="temptation"><a href="#temptation" class="section-self-link">Temptation</a></h2>
-<p>You're writing a web server that does server side rendering of HTML for a
-website. Pages are mostly static, but they differ slightly from session to
-session.</p>
-<p>I know, I'll write a <code>page.template.html</code> that looks like HTML but contains
-<code>{{special syntax}}</code> or maybe <code>&lt;%special syntax%&gt;</code>. Then my web server will
-read the file, replace the special syntax sections with markup based on logic
-of my choosing, and then serve the resulting string as HTML.</p>
-<p>You're writing a <a href="https://kubernetes.io/docs/concepts/architecture/controller/">Kubernetes controller</a>, and you know that the resources
-managed by the controller will need their own YAML configurations, but the YAML
-will have to differ based on the configuration of the controller.</p>
-<p>I know, I'll write a <code>deployment.yaml</code> file that isn't actually YAML, but
-instead is a mix of YAML and Go's <a href="https://pkg.go.dev/text/template">text template</a> syntax. I'm using Go
-already, so I can just <code>tmpl.Execute(output, myData)</code>, and voila,
-<code>myData.Thingy</code> is now part of the YAML where there was once <code>{{.Thingy}}</code>.</p>
-<p>You're writing a code generator to automate the more tedious parts of a
-programmatic interface.  Maybe the generated code contains message types for
-use with an RPC framework in a statically typed language.  Maybe the generated
-code marshals the results of known SQL statements into a library's types. Maybe
-the generated code encodes a set of types into some serialization format like
-JSON or Protocol Buffers.</p>
-<p>I know, using string templates naively could get out of hand here since we're
-working with a general purpose programming language. I'll just write escaping
-functions to make sure that <code>"</code> is escaped when inside of a double-quoted
-string, and I'll write validation functions to make sure that the name of a
-variable doesn't include a comment opening sequence (<code>/*</code>).</p>
-<p>I can use string templates to generate everything, so long as I'm careful.</p>
-<h2 id="abstinence"><a href="#abstinence" class="section-self-link">Abstinence</a></h2>
-<p>Stop doing this. If your goal is to end up with a string containing language X,
-then you cannot begin with a string.  Instead, you must begin with a
-representation of language X. Then, perform any desired transformations <em>within
-the representation of language X</em>, and only at the very end render the
-representation into a string.</p>
-<p>It's not overkill. The problem of altering structured data is <em>different</em> from
-the problem of manipulating strings.  Don't use the latter just because it's on
-hand or because the alterations seem trivial.  Find a library that allows you
-to represent the target language in your programming language of choice, or
-otherwise write your own.</p>
-<p>Once your project is a soup of string templates supporting an increasingly
-complex mini-language of syntax oblivious interpolation operations, <em>it's too
-late to replace it with something better.</em>  You must <em>start</em> with a
-representation of the target language.</p>
-<p>You don't necessarily need to have a representation that covers the entire
-language — it need only cover what you will generate.  Add bells and whistles
-later as needed.</p>
-<h2 id="my_examples"><a href="#my_examples" class="section-self-link">My Examples</a></h2>
-<ul>
-<li>Okra, a limited object relational mapper, contains a representation of a
-subset of Go (<a href="https://github.com/dgoffredo/okra/blob/master/crud-languages/go/ast.tisch.js">schema</a>, <a href="https://github.com/dgoffredo/okra/blob/fdf25d1f34c3f761425b6c257578d312fbf7b0ca/crud-languages/go/generate.js#L629-L642">example usage</a>).</li>
-<li>My blog generates an Atom feed by using Python <code>list</code>s and <code>dict</code>s to
-<a href="https://github.com/dgoffredo/dgoffredo.github.io/blob/master/bin/sxml.py">represent XML</a>.</li>
-<li><a href="https://github.com/dgoffredo/namedsql">namedsql</a> is a Go library that extends the SQL dialect supported by the
-Go standard library by first <a href="https://github.com/dgoffredo/namedsql/blob/master/namedsql/lexer.go">lexing</a> SQL into a token representation and
-then <a href="https://github.com/dgoffredo/namedsql/blob/9dae02f56e0fbf724dc53e545a34b8ea30265e6b/namedsql/lexer.go#L165-L174">rendering</a> the result at the end.</li>
-<li><a href="https://github.com/dgoffredo/sqlbindarray">sqlbindarray</a> is a Python module that does a similar thing.</li>
-<li>Llama, a configuration language that compiles to XML, contains its own
-<a href="https://github.com/dgoffredo/llama/blob/master/llama/xml.js">representation of XML</a> that is <a href="https://github.com/dgoffredo/llama/blob/cc92b1618cbe1aa74336671606d7a03e1b2e6099/llama/xml.js#L214-L234">rendered</a> to a string just before
-output.</li>
-</ul>
+<h1 id="cannabis_2023"><a href="#cannabis_2023" class="section-self-link">Cannabis 2023</a></h1>
+<p>I grew a bunch of weed in 2023.  Most of it was destroyed by mold.  Here's the story.</p>
+<h2 id="indoors"><a href="#indoors" class="section-self-link">Indoors</a></h2>
+<p>The first order of business was consolidating my indoor grow setup.</p>
+<p>I replaced a rat's nest of ad hoc LED bulbs and extension cords with two proper grow lights.  The grow lights are a little underpowered at 60 watts each, but they will do.  They will not start a fire.</p>
+<p><a href="indoor/01-rats-nest.jpg"><img src="indoor/01-rats-nest_small.webp" alt="rat's nest" class="preview" width="700" height="930"></img></a></p>
+<p><a href="indoor/02-new-lights.jpg"><img src="indoor/02-new-lights_small.webp" alt="new lights" class="preview" width="700" height="527"></img></a></p>
+<p>The plan was two plants indoors, and two plants outdoors.  The outdoor season doesn't begin until early May, so I started all of the plants early indoors.</p>
+<p><a href="indoor/03-solo-cups.jpg"><img src="indoor/03-solo-cups_small.webp" alt="solo cups" class="preview" width="700" height="527"></img></a></p>
+<p>That's two Durban Poison, for outdoors, and one each of Blackberry Kush and NYC Diesel for indoors.  That's below the legal limit of three mature plants per person, because four is one modulo three.</p>
+<p>Seedlings are slow to start but take off once the roots are established.</p>
+<p><a href="indoor/04-veg-begins.jpg"><img src="indoor/04-veg-begins_small.webp" alt="growing" class="preview" width="700" height="527"></img></a></p>
+<p>The Durban Poison plants were sisters, I assume, so it's interesting how different they were.  Right from the beginning, one of the sisters showed a temperamental disposition and unusual growth patterns.  Her leaves curled as if she didn't like the light.</p>
+<p><a href="indoor/05-wrinkle.jpg"><img src="indoor/05-wrinkle_small.webp" alt="wrinkle" class="preview" width="700" height="930"></img></a></p>
+<p>Her sister didn't mind.</p>
+<p><a href="indoor/06-no-wrinkle.jpg"><img src="indoor/06-no-wrinkle_small.webp" alt="no wrinkle" class="preview" width="700" height="930"></img></a></p>
+<p>After a while, I potted up the indoor plants into their final containers.</p>
+<p><a href="indoor/07-pot-up.jpg"><img src="indoor/07-pot-up_small.webp" alt="pot up" class="preview" width="700" height="527"></img></a></p>
+<p>Early on, my plants always show signs of stress.  See how the leaves are pale and papery, with highlights of purple?  Those are deficiencies that can be caused by so many things.  Maybe it's too hot and dry in that space, or maybe I don't feed them enough early on.  Or maybe it's too much water, or inadequately draining soil, or too small a container.  Fussy, fussy plants.</p>
+<p><a href="indoor/08-stress.jpg"><img src="indoor/08-stress_small.webp" alt="stress" class="preview" width="700" height="930"></img></a></p>
+<p>They typically grow out of it.  Then the problem becomes lack of vertical space.  At first I tried nylon thread tied between two bamboo rods, with a wooden spatula as a spacer.  It doesn't work.</p>
+<p><a href="indoor/09-spatula.jpg"><img src="indoor/09-spatula_small.webp" alt="spatula" class="preview" width="700" height="930"></img></a></p>
+<p><a href="indoor/10-space.jpg"><img src="indoor/10-space_small.webp" alt="space" class="preview" width="700" height="527"></img></a></p>
+<p><a href="indoor/11-nylon.jpg"><img src="indoor/11-nylon_small.webp" alt="space" class="preview" width="700" height="527"></img></a></p>
+<p>Let's try chicken wire.</p>
+<p><a href="indoor/12-foot.jpg"><img src="indoor/12-foot_small.webp" alt="foot" class="preview" width="700" height="930"></img></a></p>
+<p><a href="indoor/13-bondage.jpg"><img src="indoor/13-bondage_small.webp" alt="bondage" class="preview" width="700" height="527"></img></a></p>
+<p><a href="indoor/14-resistance.jpg"><img src="indoor/14-resistance_small.webp" alt="resistance" class="preview" width="700" height="527"></img></a></p>
+<p><a href="indoor/15-tuck.jpg"><img src="indoor/15-tuck_small.webp" alt="tuck" class="preview" width="700" height="527"></img></a></p>
+<p>And stay down!</p>
+<p>As it turns out, chicken wire is a terrible idea.  The flowers fatten up in the spaces, so that come harvest time you have to surgically separate the sharp rust-prone metal from the delicate plant tissue growing around it.  Reddit warned me, but I don't listen.  Some of those guys are jerks anyway.</p>
+<p>The rest of the season carried on without event, until about halfway into flower, disaster struck.</p>
+<p><a href="indoor/16-trouble.jpg"><img src="indoor/16-trouble_small.webp" alt="trouble" class="preview" width="700" height="527"></img></a></p>
+<p><a href="indoor/17-wire.jpg"><img src="indoor/17-wire_small.webp" alt="wire" class="preview" width="700" height="527"></img></a></p>
+<p>Do you see the problem?  Well, that plant on the left is <em>dead</em>.  I woke up one morning and it was <em>dead</em>.  That's because it was hopelessly infested with mold.  It was everywhere.  Not so easy to spot, it turns out.  It hides deep in the flowers, consuming the plant from the inside out.</p>
+<p>I've never had problems with mold.  What was different this time?  In retrospect, there were four problems:</p>
+<ol>
+<li>To save energy, I set the fan to turn off at night.  This is a bad idea.  Mold loves the dark, and hates the breeze.</li>
+<li>The humidifier was too close to the left plant in the back corner.  If my target humidity for the space was 45%, then the branches closest to the humidifier were likely at 100%.</li>
+<li>The plastic trays that I was using to catch runoff water had crack leaks on them.  Water gradually seeped into the plywood below, creating a massive breeding ground for mold.</li>
+<li>There was too much vegetation in that small space.  Aggressive airflow can counteract this, but it's better to be conservative.</li>
+</ol>
+<p>Fortunately, only some of the branches were contaminated.  I gently removed the bad branches, and harvested the rest, keeping an eye on the flowers as they dried, lest botrytis rear its ugly head in my curing stash.  The grow space will have to be nuked from orbit before I can use it again.</p>
+<p><a href="indoor/18-harvest-1.jpg"><img src="indoor/18-harvest-1_small.webp" alt="harvest 1" class="preview" width="700" height="527"></img></a></p>
+<p><a href="indoor/19-harvest-2.jpg"><img src="indoor/19-harvest-2_small.webp" alt="harvest 2" class="preview" width="700" height="527"></img></a></p>
+<p><a href="indoor/20-harvest-3.jpg"><img src="indoor/20-harvest-3_small.webp" alt="harvest 3" class="preview" width="700" height="527"></img></a></p>
+<p>Due to the early harvest, the finished product is not the best.  Still gets the job done, though.  And no mold.</p>
+<h2 id="outdoors"><a href="#outdoors" class="section-self-link">Outdoors</a></h2>
+<p>The roof planters overwintered with a couple of layers of cardboard over them.  This was my attempt to kill the forest of catnip that had been growing there the year before.</p>
+<p>Catnip doesn't die.  The mint mafia does not forget.</p>
+<p>Pull it out at the roots and use its shredded remains as mulch.</p>
+<p><a href="outdoor/01-catnip-survive.jpg"><img src="outdoor/01-catnip-survive_small.webp" alt="catnip" class="preview" width="700" height="930"></img></a></p>
+<p><a href="outdoor/02-shred.jpg"><img src="outdoor/02-shred_small.webp" alt="shred" class="preview" width="700" height="930"></img></a></p>
+<p>I got some companion plants started.  Different herbs, flowers, and grasses.  They all died.</p>
+<p><a href="outdoor/03-companions.jpg"><img src="outdoor/03-companions_small.webp" alt="companions" class="preview" width="700" height="527"></img></a></p>
+<p>If you start your cannabis early indoors, like I did, then you can't just plant them outside as soon as it warms up.  The sun is much brighter than LEDs.  Plants grown indoors lack the natural sunscreen needed to endure the big fireball in the sky.  So, you bring the plants outdoors for a little bit each day until they're sufficiently bronzed.  It's called "hardening off."</p>
+<p><a href="outdoor/04-harden-off.jpg"><img src="outdoor/04-harden-off_small.webp" alt="hardening off" class="preview" width="700" height="527"></img></a></p>
+<p>A coworker recommended shading the plants from the midday sun.  Here's the first iteration:</p>
+<p><a href="outdoor/05-shade.jpg"><img src="outdoor/05-shade_small.webp" alt="shade" class="preview" width="700" height="527"></img></a></p>
+<p>After a few days of that, I planted them.</p>
+<p><a href="outdoor/06-planted.jpg"><img src="outdoor/06-planted_small.webp" alt="planted" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/07-planted-left.jpg"><img src="outdoor/07-planted-left_small.webp" alt="left" class="preview" width="700" height="930"></img></a></p>
+<p><a href="outdoor/08-planted-right.jpg"><img src="outdoor/08-planted-right_small.webp" alt="right" class="preview" width="700" height="930"></img></a></p>
+<p><a href="outdoor/09-growing.jpg"><img src="outdoor/09-growing_small.webp" alt="growing" class="preview" width="700" height="527"></img></a></p>
+<p>A professional grower advised me to shade the plants more, so I rigged up some privacy for them.  I also paid a little too much for pretty flowers.</p>
+<p><a href="outdoor/10-more-shade.jpg"><img src="outdoor/10-more-shade_small.webp" alt="more shade" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/11-flowers.jpg"><img src="outdoor/11-flowers_small.webp" alt="flowers" class="preview" width="700" height="930"></img></a></p>
+<p><a href="outdoor/12-more-flowers.jpg"><img src="outdoor/12-more-flowers_small.webp" alt="more flowers" class="preview" width="700" height="930"></img></a></p>
+<p>That's all well and good, but what happens when the plants grow taller than those posts that are holding up the shade cloth?  I could get taller posts, but they're already more wobbly than I'd like.</p>
+<p><a href="outdoor/13-triangle.jpg"><img src="outdoor/13-triangle_small.webp" alt="triangle" class="preview" width="700" height="527"></img></a></p>
+<p>Use your imagination.  Maybe this will help:</p>
+<p><a href="outdoor/14-diagram.jpg"><img src="outdoor/14-diagram_small.webp" alt="diagram" class="preview" width="700" height="527"></img></a></p>
+<p>Thus began my foray into improvised shelter design.</p>
+<p><a href="outdoor/17-shade-cloth.jpg"><img src="outdoor/17-shade-cloth_small.webp" alt="shade cloth" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/18-shade-cloth-2.jpg"><img src="outdoor/18-shade-cloth-2_small.webp" alt="different angle" class="preview" width="700" height="930"></img></a></p>
+<p>Of course the wind blew that to shreds in no time.</p>
+<p>Let's try a tarp instead.</p>
+<p><a href="outdoor/20-big-tarp.jpg"><img src="outdoor/20-big-tarp_small.webp" alt="big tarp" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/21-big-tarp-2.jpg"><img src="outdoor/21-big-tarp-2_small.webp" alt="different angle" class="preview" width="700" height="930"></img></a></p>
+<p>Too big!  That ended up being a bucket for rainwater.  When the wind blew, the tarp would flap and thunder.  When it rained, the tarp would sag under the weight of water collecting in the center.</p>
+<p>I got a smaller tarp, which was destroyed by a storm.  The arrangement that ended up working best was a clear reinforced tarp that I bought on Amazon, until that too was destroyed by a storm.</p>
+<blockquote><p>He piled upon the [tarp]'s white hump the sum of all the general rage and
+hate felt by his whole race from Adam down; and then, as if his chest had
+been a mortar, he burst his hot heart's shell upon it.</p>
+</blockquote>
+<p>The outdoor plants went through some hard times.  At first it was my doing:</p>
+<p><a href="outdoor/19-sad.jpg"><img src="outdoor/19-sad_small.webp" alt="sad plant" class="preview" width="700" height="930"></img></a></p>
+<p>That's an under-watered and underfed plant.  The last time I tried to grow outdoors, the plants were <em>over</em>-watered, but this time I overcompensated.</p>
+<p>They perked up after I dialed in the feeding, though, and for much of the season they were some happy looking plants.</p>
+<p><a href="outdoor/23-happier.jpg"><img src="outdoor/23-happier_small.webp" alt="happy plants" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/25-large.jpg"><img src="outdoor/25-large_small.webp" alt="large plant" class="preview" width="700" height="930"></img></a></p>
+<p>They were even visited by a butterfly, and by hordes of the dreaded <a href="https://en.wikipedia.org/wiki/Spotted_lanternfly">spotted lanternfly</a>.</p>
+<p><a href="outdoor/24-butterfly.jpg"><img src="outdoor/24-butterfly_small.webp" alt="butterfly" class="preview" width="700" height="933"></img></a></p>
+<p><a href="outdoor/22-lanternfly.jpg"><img src="outdoor/22-lanternfly_small.webp" alt="lanternfly" class="preview" width="700" height="933"></img></a></p>
+<p>The lanternfly is a sap sucker, but the plants didn't seem bothered.  I made a sport of shaking them off the plants and chasing them down with a sandal.  They can jump very far.</p>
+<p>Does anybody know what kind of bug this is?  They were getting busy under one of the leaves.  At first I left them alone for curiosity's sake, but after they started crawling around on the cannabis flowers I gave them the pinch.</p>
+<p><a href="outdoor/27-couple.jpg"><img src="outdoor/27-couple_small.webp" alt="a couple of bugs" class="preview" width="700" height="933"></img></a></p>
+<p>I ended up overfeeding the plants, I think.  At least one of them eventually showed signs of stress (surprisingly, it was the stronger sister who had trouble).</p>
+<p><a href="outdoor/26-overfertilized.jpg"><img src="outdoor/26-overfertilized_small.webp" alt="overfertilized" class="preview" width="700" height="930"></img></a></p>
+<p><a href="outdoor/26-overfertilized-2.jpg"><img src="outdoor/26-overfertilized-2_small.webp" alt="closer" class="preview" width="700" height="933"></img></a></p>
+<p>Here's my theory.  I was feeding using <a href="https://en.wikipedia.org/wiki/Bruce_Bugbee">Bruce Bugbee</a>'s lab recipe: 20-10-20 fertilizer diluted to 120 ppm nitrogen with every watering.  What I forgot is that Dr. Bugbee practices "drain to waste," meaning that he effectively flushes out the growing medium every time.  This ensures that fertilizer salts don't build up, which could "burn" the plant.  I was <em>not</em> draining to waste, because I was concerned that would lead to waterlogged soil.  For my setup, it would have been better to fertilize every other watering, maybe at a slightly higher concentration.</p>
+<p>Anyway, the plants survived.  Here they are under the clear tarp.</p>
+<p><a href="outdoor/28-clear-tarp.jpg"><img src="outdoor/28-clear-tarp_small.webp" alt="plants under clear tarp" class="preview" width="700" height="527"></img></a></p>
+<p>The second half of September was wet and punishing.  The plants pulled through, a little worse for wear.</p>
+<p><a href="outdoor/30-bad-hair-day.jpg"><img src="outdoor/30-bad-hair-day_small.webp" alt="bad hair day" class="preview" width="700" height="527"></img></a></p>
+<p>Then, there was a nasty storm that took the head clean off one of the plants.</p>
+<p><a href="outdoor/29-storm.jpg"><img src="outdoor/29-storm_small.webp" alt="beheaded" class="preview" width="700" height="930"></img></a></p>
+<p>What with all the rain and the body horror, I started watching the plants very closely.  I found lots of mold.</p>
+<p>Now, with outdoor plants, mold is not the death sentence that is can be indoors.  Outdoors, water falls from the sky.  Especially in September.  It's a matter of vigilance keeping up with mold late in the season.  These plants got to the point where I thought it best to start harvesting some of the larger branches early.</p>
+<p>By the second week of October, I was ready to harvest the rest.</p>
+<p><a href="outdoor/31-flowers.jpg"><img src="outdoor/31-flowers_small.webp" alt="big flowers" class="preview" width="700" height="930"></img></a></p>
+<p><a href="outdoor/32-flowers-2.jpg"><img src="outdoor/32-flowers-2_small.webp" alt="more flowers" class="preview" width="700" height="930"></img></a></p>
+<p>There was so much weed.  These plants were small by outdoor standards, and I still ended up using every clean surface in my apartment to dry the branches.</p>
+<p><a href="outdoor/33-harvest-1.jpg"><img src="outdoor/33-harvest-1_small.webp" alt="harvest 1" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/34-harvest-2.jpg"><img src="outdoor/34-harvest-2_small.webp" alt="harvest 2" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/35-harvest-3.jpg"><img src="outdoor/35-harvest-3_small.webp" alt="harvest 3" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/36-harvest-4.jpg"><img src="outdoor/36-harvest-4_small.webp" alt="harvest 4" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/37-harvest-5.jpg"><img src="outdoor/37-harvest-5_small.webp" alt="harvest 5" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/38-harvest-6.jpg"><img src="outdoor/38-harvest-6_small.webp" alt="harvest 6" class="preview" width="700" height="527"></img></a></p>
+<p><a href="outdoor/39-harvest-7.jpg"><img src="outdoor/39-harvest-7_small.webp" alt="harvest 7" class="preview" width="700" height="930"></img></a></p>
+<p>Despite all this, there was not that much finished flower.  The plants needed maybe another month to bulk up, and most of the product I did get was leafy and "larfy."  I will be making edibles for generations, though.</p>
+<p>The trim job was brutal.</p>
+<p><a href="indoor/21-gloves.jpg"><img src="indoor/21-gloves_small.webp" alt="gloves" class="preview" width="700" height="527"></img></a></p>
+<h2 id="the_haul"><a href="#the_haul" class="section-self-link">The Haul</a></h2>
+<p>I ended up with a few jars of passable flower, and two buckets of schwag.</p>
+<p><a href="indoor/22-jars.jpg"><img src="indoor/22-jars_small.webp" alt="jars" class="preview" width="700" height="527"></img></a></p>
+<p><a href="indoor/23-schwag-1.jpg"><img src="indoor/23-schwag-1_small.webp" alt="schwag" class="preview" width="700" height="930"></img></a></p>
+<p><a href="indoor/24-schwag-2.jpg"><img src="indoor/24-schwag-2_small.webp" alt="schwag lid" class="preview" width="700" height="930"></img></a></p>
+<p>That will suffice until harvest 2024.</p>
 
 
 
-<div class="series-navigation-placeholder"></div>
+<div class="series-navigation-placeholder"><div class="series-navigation"><div class="series-navigation-header">Gardening</div><div class="series-navigation-links"><a href="../cannabis/cannabis.html">Cannabis</a><a href="../cannabis-2/cannabis-2.html">Cannabis (Again)</a><a href="../cannabis-3/cannabis-3.html">Cannabis (For Now)</a><a href="../worms/worms.html">Vermicompost</a><a href="../cannabis-4/cannabis-4.html">Cannabis (Someday)</a><a href="../worms-2/worms-2.html">Vermicompost Update</a><a href="../cannabis-5/cannabis-5.html">Cannabis (Finally)</a><a href="../cannabis-6/cannabis-6.html">Cannabis (Outdoors)</a><span>Cannabis 2023</span></div></div></div>
 
 <div class="navigation-bar">
     <a href="/posts.html">Posts</a>
