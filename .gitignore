@@ -21,3 +21,6 @@ profile.out
 
 # release artifacts
 /release/
+
+# mailing list subscribers (don't want to publish this)
+/subscribers.txt
