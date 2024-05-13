@@ -48,7 +48,7 @@ config/fonts.css: config/font.otf config/font-italic.otf
 # Cache image dimensions in JSON files, so the generator doesn't have to
 # fork imagemagick's "identify" for every image when it runs.
 %.imginfo.json: %
-	identify -format '{"width": %w, "height": %h}\n' $< >$@
+	magick identify -format '{"width": %w, "height": %h}\n' $< >$@
 
 .PHONY: clean
 clean:

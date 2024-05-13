@@ -12,10 +12,10 @@
 input="$1"
 output="$2"
 
-input_width="$(identify -format "%[fx:w]\n" "$input")"
+input_width="$(magick identify -format "%[fx:w]\n" "$input")"
 
 if [ "$input_width" -gt 700 ]; then
-	convert -auto-orient "$input" -resize 700x -quality 90 "$output"
+	magick convert -auto-orient "$input" -resize 700x -quality 90 "$output"
 else
     cp "$input" "$output"
 fi
