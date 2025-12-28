@@ -6,7 +6,7 @@ import string
 from xml.etree import ElementTree as ET
 
 
-no_punctuation_table = str.maketrans('', '', string.punctuation) 
+no_punctuation_table = str.maketrans('', '', string.punctuation)
 
 
 def linkify(element):
@@ -30,7 +30,7 @@ def linkify(element):
     s = text.lower()                      # lower case
     s = s.translate(no_punctuation_table) # remove punctuation
     name = s.replace(' ', '_')            # replace spaces with underscores
-    
+
     return text, name
 
 
@@ -62,6 +62,7 @@ def insert_table_of_contents(html, max_depth=None):
     is `None`, then there is no limit.
     """
     table = ET.TreeBuilder()
+    num_entries = 0 # in the table of contents
 
     body = html.find('body')
     assert body is not None, 'need <body> tag to create table of contents'
@@ -135,7 +136,9 @@ def insert_table_of_contents(html, max_depth=None):
         element.append(section_self_link)
 
         def start_sibling():
+            nonlocal num_entries
             table.start('li', {})
+            num_entries += 1
             insert_link_to_anchor(table, name, text)
 
         level = int(match[1])
@@ -173,7 +176,7 @@ def insert_table_of_contents(html, max_depth=None):
     # If we didn't find any headings in this document, then `table` will be
     # empty and we'll get `None`.  In that case, do nothing.
     table_of_contents = table.close()
-    if table_of_contents is None:
+    if table_of_contents is None or num_entries < 2:
         return
 
     container = body.find("div[@class='table-of-contents']")
@@ -225,13 +228,13 @@ if __name__ == '__main__':
     parser.add_argument('input', nargs='?',
                         help='input HTML file; absent or - for standard input')
     options = parser.parse_args()
-   
+
     use_stdin = options.input is None or options.input == '-'
     if options.in_place and use_stdin:
         print('Must specify an input file if modifying in place.',
               file=sys.stderr)
         sys.exit(1)
- 
+
     in_file = sys.stdin if use_stdin else open(options.input)
 
     if options.in_place:
